@@ -32,7 +32,7 @@
         <a class="page-hero__back" href="/cabinet-x/">← Cabinet X</a>
         <p class="hero__eyebrow">Privacy Policy · 隐私政策</p>
         <h1>Cabinet X</h1>
-        <p class="legal__meta">Effective June 27, 2026 · 生效日期：2026年6月27日</p>
+        <p class="legal__meta">Effective July 2, 2026 · 生效日期：2026年7月2日</p>
         <p class="legal__meta">iOS &amp; Android · AI 厨房设计预览</p>
         <nav class="legal__nav" aria-label="Language">
           <a href="#zh">中文</a>
@@ -55,6 +55,7 @@
             <li><strong>设备本地数据</strong>：设计历史、批量对比记录、风格偏好、水印设置、自定义门型图片、语言设置等，默认保存在本机。</li>
             <li><strong>可选 Google 登录</strong>（Supabase）：用户 ID、电子邮件、显示名称，用于可选云端同步。</li>
             <li><strong>可选云端同步</strong>：若你登录并同步，设计历史摘要、偏好与水印设置等 JSON 数据会存储在 Cloudflare D1 数据库，与你的账号关联。同步数据不包含 Google / Supabase 账号本身，且与 JoshMoney 等其他 JoshLabs 应用数据隔离。</li>
+            <li><strong>可选 Google Drive 备份</strong>：若你在设置中主动授权 Google Drive，App 会将 AI 生成图、厨房参考图、自定义门型图等备份到你 Google 账号下名为「Cabinet X」的文件夹中。我们仅访问 App 自行创建的文件（<code>drive.file</code> 权限），不会读取或修改你 Drive 中的其他文件。你可随时在设置中断开授权；断开或删除 App 后，已备份文件仍保留在你的 Google Drive 中，需自行在 drive.google.com 删除。</li>
           </ul>
 
           <h2>我们不收集的内容</h2>
@@ -73,6 +74,7 @@
             <li><strong>Cloudflare</strong> — API 托管与 D1 数据库（可选同步）。</li>
             <li><strong>Supabase</strong> — Google 登录身份验证。</li>
             <li><strong>OpenAI / Replicate</strong> — AI 图像生成（处理你上传的厨房照片）。</li>
+            <li><strong>Google Drive</strong> — 可选图片备份（仅在你主动授权后）。数据存储在你自己的 Google 账号中，受 Google 隐私政策约束。</li>
           </ul>
           <p>各服务商受其自身隐私政策约束。我们仅传输生成所需的最少图像数据。</p>
 
@@ -82,7 +84,9 @@
           <h2>你的选择</h2>
           <ul>
             <li>不登录即可使用 AI 生成与本地历史。</li>
+            <li>不授权 Google Drive 也可正常使用 AI 生成、本地历史与云端同步（D1）。</li>
             <li>在设置中退出登录并停止云同步。</li>
+            <li>在设置中断开 Google Drive 授权，停止新的备份；已上传文件需你在 Google Drive 中自行管理。</li>
             <li>卸载 App 可清除设备上的本地 Cabinet X 数据。</li>
           </ul>
 
@@ -99,6 +103,9 @@
           <p>
             若无法使用 App 内删除，请发邮件至
             <a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a>，主题为「Cabinet X 删除数据」，并注明登录邮箱。我们会在约 30 天内删除 D1 中与你账号关联的 Cabinet X 同步数据。
+          </p>
+          <p>
+            此操作<strong>不会</strong>自动删除你已备份到 Google Drive 的文件。如需删除 Drive 中的 Cabinet X 文件夹，请在 drive.google.com 手动删除，或联系我们协助说明。
           </p>
 
           <h2>更新与联系</h2>
@@ -119,6 +126,7 @@
             <li><strong>On-device data</strong> — design history, batch comparisons, style preferences, watermark settings, custom door uploads, and language choice, stored locally by default.</li>
             <li><strong>Optional Google sign-in</strong> (Supabase) — user ID, email, and display name for optional cloud sync.</li>
             <li><strong>Optional cloud sync</strong> — when signed in, a JSON blob of design history summaries, preferences, and watermark settings is stored in Cloudflare D1 linked to your account. Cabinet X sync data is separate from other JoshLabs apps such as JoshMoney.</li>
+            <li><strong>Optional Google Drive backup</strong> — if you explicitly authorize Google Drive in Settings, the app backs up AI-generated images, kitchen reference photos, and custom door images to a folder named "Cabinet X" in your Google account. We only access files the app created (<code>drive.file</code> scope). We do not read or modify other files in your Drive. You can revoke authorization anytime in Settings. After revocation or uninstall, backed-up files remain in your Google Drive until you delete them at drive.google.com.</li>
           </ul>
 
           <h2>What we do not collect</h2>
@@ -137,12 +145,15 @@
             <li><strong>Cloudflare</strong> — API hosting and D1 database (optional sync).</li>
             <li><strong>Supabase</strong> — Google sign-in authentication.</li>
             <li><strong>OpenAI / Replicate</strong> — AI image generation (processes photos you submit).</li>
+            <li><strong>Google Drive</strong> — optional image backup (only after you authorize). Data is stored in your own Google account and is subject to Google's Privacy Policy.</li>
           </ul>
 
           <h2>Your choices</h2>
           <ul>
             <li>Use AI generation and local history without an account.</li>
+            <li>Google Drive authorization is optional. AI generation, local history, and cloud sync (D1) work without it.</li>
             <li>Sign out in Settings to stop cloud sync.</li>
+            <li>Revoke Google Drive in Settings to stop new backups. Files already uploaded must be managed in Google Drive.</li>
             <li>Uninstall to remove on-device Cabinet X data.</li>
           </ul>
 
@@ -159,6 +170,9 @@
           <p>
             If in-app deletion is unavailable, email
             <a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a> with subject line &quot;Cabinet X data deletion&quot; and the email on your account. We delete Cabinet X sync data in D1 within about 30 days.
+          </p>
+          <p>
+            This does <strong>not</strong> automatically delete files already backed up to Google Drive. To remove the Cabinet X folder from Drive, delete it manually at drive.google.com or contact us for guidance.
           </p>
 
           <h2>Contact</h2>
