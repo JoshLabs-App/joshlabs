@@ -29,15 +29,20 @@
           <span class="brand__mark" aria-hidden="true">JL</span>
           <span class="brand__name">Josh<span class="wordmark__labs">Labs</span></span>
         </a>
-        <a class="topbar__contact" href="mailto:josh.zeng.ca@gmail.com">Contact</a>
+        <div class="topbar__actions">
+          <button type="button" class="lang-toggle" id="lang-toggle" aria-label="Switch language">
+            <span data-lang-btn></span>
+          </button>
+          <a class="topbar__contact" href="mailto:josh.zeng.ca@gmail.com" data-en="Contact" data-zh="联系">Contact</a>
+        </div>
       </div>
     </header>
 
     <main>
       <section class="lead shell">
-        <p class="lead__eyebrow">Independent App Studio</p>
+        <p class="lead__eyebrow" data-en="Independent App Studio" data-zh="独立应用工作室">Independent App Studio</p>
         <h1 class="lead__title">Josh<span class="wordmark__labs">Labs</span></h1>
-        <p class="lead__tagline">Practical mobile apps. Privacy-first.</p>
+        <p class="lead__tagline" data-en="Practical mobile apps. Privacy-first." data-zh="实用的移动应用，尊重隐私。">Practical mobile apps. Privacy-first.</p>
       </section>
 
       <section class="apps shell" aria-label="Apps by JoshLabs">
@@ -54,7 +59,7 @@
               <img src="assets/icons/askbible.png" alt="AskBible.me" width="120" height="120" />
             </span>
             <span class="app-tile__name">AskBible.me</span>
-            <span class="app-tile__meta"><span class="app-tile__dot"></span>Scripture</span>
+            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Scripture" data-zh="经文">Scripture</span></span>
           </a>
 
           <a class="app-tile" data-app="joshmoney" data-status="live" href="/joshmoney/">
@@ -62,7 +67,7 @@
               <img src="assets/icons/joshmoney.png" alt="JoshMoney" width="120" height="120" />
             </span>
             <span class="app-tile__name">JoshMoney</span>
-            <span class="app-tile__meta"><span class="app-tile__dot"></span>Bookkeeping</span>
+            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Bookkeeping" data-zh="记账">Bookkeeping</span></span>
           </a>
 
           <a class="app-tile" data-app="cabinet-x" data-status="review" href="/cabinet-x/">
@@ -70,7 +75,7 @@
               <img src="assets/icons/cabinet-x.png" alt="Cabinet X" width="120" height="120" />
             </span>
             <span class="app-tile__name">Cabinet X</span>
-            <span class="app-tile__meta"><span class="app-tile__dot"></span>Kitchen Design</span>
+            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Kitchen Design" data-zh="厨房设计">Kitchen Design</span></span>
           </a>
 
           <a class="app-tile" data-app="my-class" data-status="live" href="/my-class/">
@@ -78,8 +83,60 @@
               <img src="assets/icons/my-class.png" alt="My Class" width="120" height="120" />
             </span>
             <span class="app-tile__name">My Class</span>
-            <span class="app-tile__meta"><span class="app-tile__dot"></span>Bible Study</span>
+            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Bible Study" data-zh="圣经学习">Bible Study</span></span>
           </a>
+        </div>
+      </section>
+
+      <section class="notes shell" aria-label="App details">
+        <div class="notes__grid">
+          <article class="note">
+            <h2 class="note__name">AskBible.me</h2>
+            <p class="note__cat" data-en="Scripture · iOS &amp; Android" data-zh="经文 · iOS 与 Android">Scripture · iOS &amp; Android</p>
+            <p
+              class="note__desc"
+              data-en="Daily scripture, nature scenes, and worship music for a calm reading rhythm."
+              data-zh="每日经文、自然场景与敬虔音乐，帮助你在忙碌中安静片刻。"
+            >
+              Daily scripture, nature scenes, and worship music for a calm reading rhythm.
+            </p>
+          </article>
+
+          <article class="note">
+            <h2 class="note__name">JoshMoney</h2>
+            <p class="note__cat" data-en="Bookkeeping · iOS &amp; Android" data-zh="记账 · iOS 与 Android">Bookkeeping · iOS &amp; Android</p>
+            <p
+              class="note__desc"
+              data-en="Offline bookkeeping for Canadian sole proprietors — invoices, receipts, mileage, GST/HST and T2125 exports."
+              data-zh="加拿大个体户离线记账：收支、发票、收据扫描、GST/HST 与 T2125 导出。"
+            >
+              Offline bookkeeping for Canadian sole proprietors — invoices, receipts, mileage, GST/HST and T2125 exports.
+            </p>
+          </article>
+
+          <article class="note">
+            <h2 class="note__name">Cabinet X</h2>
+            <p class="note__cat" data-en="Kitchen Design · iOS &amp; Android" data-zh="厨房设计 · iOS 与 Android">Kitchen Design · iOS &amp; Android</p>
+            <p
+              class="note__desc"
+              data-en="Upload a kitchen photo, choose door styles and materials, and preview an AI before/after redesign."
+              data-zh="上传厨房照片，选择门型与材质，AI 生成改造前后对比图。"
+            >
+              Upload a kitchen photo, choose door styles and materials, and preview an AI before/after redesign.
+            </p>
+          </article>
+
+          <article class="note">
+            <h2 class="note__name">My Class</h2>
+            <p class="note__cat" data-en="Bible Study · Web App" data-zh="圣经学习 · 网页应用">Bible Study · Web App</p>
+            <p
+              class="note__desc"
+              data-en="Sermons and Sunday school audio — browse by book, stream or listen offline."
+              data-zh="讲道集——圣经讲道与主日学音频，按书卷分类，支持离线播放。"
+            >
+              Sermons and Sunday school audio — browse by book, stream or listen offline.
+            </p>
+          </article>
         </div>
       </section>
     </main>
@@ -98,6 +155,37 @@
       };
       toggleTopbar();
       window.addEventListener("scroll", toggleTopbar, { passive: true });
+
+      const LANG_KEY = "joshlabs-lang";
+      const btnLabel = document.querySelector("[data-lang-btn]");
+      const applyLang = (lang) => {
+        const zh = lang === "zh";
+        document.documentElement.lang = zh ? "zh-Hans" : "en";
+        document.querySelectorAll("[data-en]").forEach((el) => {
+          const val = zh ? el.getAttribute("data-zh") : el.getAttribute("data-en");
+          if (val !== null) el.innerHTML = val;
+        });
+        if (btnLabel) btnLabel.textContent = zh ? "EN" : "中文";
+        try {
+          localStorage.setItem(LANG_KEY, lang);
+        } catch (e) {}
+      };
+
+      let current = "en";
+      try {
+        const saved = localStorage.getItem(LANG_KEY);
+        if (saved === "zh" || saved === "en") {
+          current = saved;
+        } else if ((navigator.language || "").toLowerCase().startsWith("zh")) {
+          current = "zh";
+        }
+      } catch (e) {}
+      applyLang(current);
+
+      document.getElementById("lang-toggle").addEventListener("click", () => {
+        current = current === "zh" ? "en" : "zh";
+        applyLang(current);
+      });
     </script>
   </body>
 </html>

@@ -112,6 +112,36 @@ a {
   font-weight: 900;
 }
 
+.topbar__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3rem;
+  min-height: 2.25rem;
+  padding: 0 0.7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--fg-soft);
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.lang-toggle:hover {
+  background: #fff;
+  border-color: rgba(18, 17, 16, 0.22);
+  color: var(--fg);
+}
+
 .topbar__contact {
   display: inline-flex;
   align-items: center;
@@ -959,5 +989,51 @@ a {
   .apps__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     max-width: 22rem;
+  }
+}
+
+/* —— App notes (bilingual descriptions) —— */
+
+.notes {
+  padding-bottom: clamp(4rem, 12vh, 8rem);
+}
+
+.notes__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.75rem, 4vw, 2.75rem) clamp(2.5rem, 6vw, 4.5rem);
+  max-width: 52rem;
+  margin: 0 auto;
+  padding-top: clamp(2.5rem, 6vh, 4rem);
+  border-top: 1px solid var(--line);
+}
+
+.note__name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.note__cat {
+  margin: 0.3rem 0 0;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.note__desc {
+  margin: 0.7rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--fg-soft);
+}
+
+@media (max-width: 640px) {
+  .notes__grid {
+    grid-template-columns: 1fr;
+    max-width: 30rem;
   }
 }
