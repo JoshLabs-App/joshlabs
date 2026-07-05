@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JoshMoney Terms of Service · JoshLabs</title>
+    <meta
+      name="description"
+      content="JoshMoney terms of service — offline bookkeeping for Canadian sole proprietors."
+    />
+    <meta name="theme-color" content="#121110" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/assets/icons/joshlabs.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icons/joshlabs.png" type="image/png" sizes="512x512" />
+    <link rel="apple-touch-icon" href="/assets/icons/joshlabs.png" sizes="512x512" />
+    <link rel="stylesheet" href="../../assets/styles.css" />
+    <link rel="canonical" href="https://joshlabs.app/joshmoney/terms/" />
+  </head>
+  <body>
+    <header class="topbar" id="topbar">
+      <div class="shell topbar__inner">
+        <a class="brand" href="/">
+          <span class="brand__mark" aria-hidden="true">JL</span>
+          <span class="brand__name">Josh<span class="wordmark__labs">Labs</span></span>
+        </a>
+        <a class="topbar__contact" href="mailto:josh.zeng.ca@gmail.com">Contact</a>
+      </div>
+    </header>
+
+    <main class="legal shell">
+      <header class="legal__header">
+        <a class="page-hero__back" href="/joshmoney/">← JoshMoney</a>
+        <p class="hero__eyebrow">Terms of Service · 服务条款</p>
+        <h1>JoshMoney</h1>
+        <p class="legal__meta">Effective July 4, 2026</p>
+        <p class="legal__meta">Offline bookkeeping for Canadian sole proprietors</p>
+        <nav class="legal__nav" aria-label="Navigation">
+          <a href="#en">English</a>
+          <a href="#zh">中文</a>
+          <a href="mailto:josh.zeng.ca@gmail.com">Support</a>
+        </nav>
+      </header>
+
+      <div class="legal__body">
+        <section id="en" lang="en">
+          <h2>Overview</h2>
+          <p>
+            JoshMoney is a bookkeeping app for income, expenses, receipts, invoices, mileage, and
+            optional cloud sync. It is designed for sole proprietors and small businesses that want
+            offline-first record keeping.
+          </p>
+
+          <h2>Use of the app</h2>
+          <p>
+            You may use JoshMoney to record your business data, export summaries, and enable cloud
+            backup if you choose. You are responsible for the accuracy of the data you enter and the
+            decisions you make based on app output.
+          </p>
+
+          <h2>No professional advice</h2>
+          <p>
+            Tax, payroll, and filing outputs are provided for reference only. JoshMoney is not a
+            substitute for an accountant, payroll provider, or legal advisor.
+          </p>
+
+          <h2>Cloud services</h2>
+          <p>
+            Google Drive, iCloud, Supabase, Apple, and Google sign-in are optional external services.
+            Their use is also governed by the respective provider terms and policies.
+          </p>
+
+          <h2>Availability</h2>
+          <p>
+            The service is provided as-is. Features may change as the app evolves. We may update or
+            discontinue functionality when necessary.
+          </p>
+
+          <h2>Contact</h2>
+          <p>
+            Questions about these terms can be sent to
+            <a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a>.
+          </p>
+        </section>
+
+        <hr class="legal__divider" />
+
+        <section id="zh" lang="zh-Hans">
+          <h2>概述</h2>
+          <p>
+            JoshMoney 是一款面向加拿大个体户与小商家的离线记账 App，用于记录收支、收据、发票、里程以及可选云同步。
+          </p>
+
+          <h2>使用说明</h2>
+          <p>
+            你可以使用 JoshMoney 录入营业数据、导出汇总，并按需开启云备份。你需要对自己输入的数据以及依据 App 输出所做的决定负责。
+          </p>
+
+          <h2>非专业建议</h2>
+          <p>
+            税务、工资与申报结果仅供参考，不构成会计、工资服务或法律建议。
+          </p>
+
+          <h2>云服务</h2>
+          <p>
+            Google Drive、iCloud、Supabase、Apple 登录和 Google 登录均为可选外部服务，亦受各自服务条款与隐私政策约束。
+          </p>
+
+          <h2>服务变更</h2>
+          <p>
+            本服务按现状提供。我们可能根据产品需要更新、调整或停止某些功能。
+          </p>
+
+          <h2>联系</h2>
+          <p>
+            如对本条款有疑问，请发送邮件至
+            <a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a>。
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="shell site-footer">
+      <p><a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a></p>
+      <p>© <span id="year"></span> Joshua Zeng · <a href="/">Josh<span class="wordmark__labs">Labs</span></a></p>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+      const topbar = document.getElementById("topbar");
+      const toggleTopbar = () => topbar.classList.toggle("is-scrolled", window.scrollY > 8);
+      toggleTopbar();
+      window.addEventListener("scroll", toggleTopbar, { passive: true });
+    </script>
+  </body>
+</html>
