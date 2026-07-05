@@ -1031,6 +1031,24 @@ a {
   color: var(--fg-soft);
 }
 
+.note__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 0.9rem 0 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.note__links a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.note__links a:hover {
+  color: var(--joshmoney);
+}
+
 @media (max-width: 640px) {
   .notes__grid {
     grid-template-columns: 1fr;
