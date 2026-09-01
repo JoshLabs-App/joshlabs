@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">核心关系图</title>
+  <desc id="desc">妻子和丈夫之间荣誉赞美与顺服的双向关系。</desc>
+  <defs><style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#1f2732}.h{font-size:32px;font-weight:900}.b{font-size:30px;font-weight:850}.line{stroke:#636a76;stroke-width:4;fill:none;stroke-linecap:round}.node{fill:#98bd50;stroke:#d5e7a9;stroke-width:8}</style><marker id="left" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M10 0L0 5L10 10z" fill="#636a76"/></marker><marker id="right" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0L10 5L0 10z" fill="#636a76"/></marker><marker id="rightStart" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#636a76"/></marker></defs>
+  <rect x="24" y="24" width="852" height="382" rx="38" fill="#fff" stroke="#d7e7de" stroke-width="3"/>
+  <path class="line" d="M250 110C340 48 560 48 650 110" marker-start="url(#rightStart)"/><path class="line" d="M250 320C340 382 560 382 650 320" marker-end="url(#right)"/>
+  <circle class="node" cx="250" cy="215" r="80"/><circle class="node" cx="650" cy="215" r="80"/>
+  <text x="250" y="226" text-anchor="middle" class="b">妻子</text><text x="650" y="226" text-anchor="middle" class="b">丈夫</text>
+  <text x="450" y="102" text-anchor="middle" class="h">荣誉和赞美</text><text x="450" y="338" text-anchor="middle" class="h">顺服</text>
+</svg>

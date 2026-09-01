@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 420" role="img" aria-labelledby="title desc">
+  <title id="title">对父亲的记忆数据表</title>
+  <desc id="desc">1960 到 1990 年孩子与亲身父亲同住和分开住的百分比。</desc>
+  <defs><style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#1f2732}.h{font-size:34px;font-weight:900}.b{font-size:27px;font-weight:800}.s{font-size:25px;font-weight:700}.line{stroke:#d6dde2;stroke-width:2}.head{fill:#f4f6fb}.label{fill:#fbfcfe}</style></defs>
+  <rect x="24" y="24" width="992" height="372" rx="30" fill="#fff" stroke="#d7e7de" stroke-width="3"/>
+  <rect x="24" y="24" width="992" height="86" rx="30" class="head"/>
+  <g class="line">
+    <line x1="24" y1="110" x2="1016" y2="110"/><line x1="24" y1="210" x2="1016" y2="210"/><line x1="24" y1="306" x2="1016" y2="306"/>
+    <line x1="404" y1="24" x2="404" y2="396"/><line x1="558" y1="24" x2="558" y2="396"/><line x1="712" y1="24" x2="712" y2="396"/><line x1="866" y1="24" x2="866" y2="396"/>
+  </g>
+  <rect x="24" y="110" width="380" height="286" class="label"/>
+  <g class="h" text-anchor="middle"><text x="481" y="78">1960</text><text x="635" y="78">1970</text><text x="789" y="78">1980</text><text x="943" y="78">1990</text></g>
+  <g class="s"><text x="62" y="172">与亲身父亲住在一起的孩子</text><text x="62" y="204">的百分比</text><text x="62" y="270">与亲身父亲分开住的孩子</text><text x="62" y="302">的百分比</text></g>
+  <g class="b" text-anchor="middle"><text x="481" y="178">82.5%</text><text x="635" y="178">77.6%</text><text x="789" y="178">67.8%</text><text x="943" y="178">61.7%</text><text x="481" y="278">17.5%</text><text x="635" y="278">22.4%</text><text x="789" y="278">32.2%</text><text x="943" y="278">38.3%</text></g>
+</svg>

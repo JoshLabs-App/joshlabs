@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">课程简单介绍表</title>
+  <desc id="desc">MF1、MF2、MF3 三阶段课程总览。</desc>
+  <defs>
+    <style>
+      text{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;fill:#1f2732}
+      .h{font-size:34px;font-weight:900}.b{font-size:24px;font-weight:750}.s{font-size:20px;font-weight:650}.muted{fill:#566273}
+      .head{fill:#f3f6f1}.label{fill:#f9fbf7}.line{stroke:#d6dfd9;stroke-width:2}
+    </style>
+  </defs>
+  <rect x="24" y="24" width="1232" height="712" rx="34" fill="#fff" stroke="#d7e7de" stroke-width="3"/>
+  <rect x="24" y="24" width="1232" height="90" rx="34" class="head"/>
+  <text x="640" y="82" text-anchor="middle" class="h" fill="#116142">课程的简单介绍</text>
+  <g class="line">
+    <line x1="24" y1="114" x2="1256" y2="114"/><line x1="24" y1="214" x2="1256" y2="214"/>
+    <line x1="24" y1="314" x2="1256" y2="314"/><line x1="24" y1="504" x2="1256" y2="504"/>
+    <line x1="24" y1="604" x2="1256" y2="604"/><line x1="250" y1="114" x2="250" y2="736"/>
+    <line x1="594" y1="114" x2="594" y2="736"/><line x1="938" y1="114" x2="938" y2="736"/>
+  </g>
+  <rect x="24" y="114" width="226" height="622" class="label"/>
+  <g class="b" text-anchor="middle">
+    <text x="422" y="174">MF1</text><text x="766" y="174">MF2</text><text x="1110" y="174">MF3</text>
+  </g>
+  <g class="b" text-anchor="middle">
+    <text x="137" y="274">课程名称</text><text x="137" y="374">侧重点</text><text x="137" y="414">主要因素</text><text x="137" y="564">主要挑战</text><text x="137" y="664">目标</text>
+  </g>
+  <g class="b" text-anchor="middle">
+    <text x="422" y="274">真正的男人的探索</text><text x="766" y="274">男人在工作和家庭中</text><text x="1110" y="274">巨大的挑战</text>
+    <text x="422" y="374">男人的核心定义</text><text x="766" y="374">男人的首要责任</text><text x="1110" y="374">男人被赋予的使命</text>
+    <text x="422" y="664">拥有你的男人形象</text><text x="766" y="664">建立你的男人形象</text><text x="1110" y="664">强化你的男人形象</text>
+  </g>
+  <g class="s">
+    <text x="300" y="438">• 男人的伤害</text><text x="300" y="474">• 男人的定义</text><text x="300" y="510">• 男人问题的概览</text>
+    <text x="644" y="438">• 男人怎样享受他的工作</text><text x="644" y="474">• 男人怎样成功处理</text><text x="667" y="510">与妻子间的关系</text>
+    <text x="988" y="438">• 重新发现生活的挑战</text><text x="988" y="474">• 理解他的设计</text><text x="988" y="510">• 发展满意的人生目标</text>
+  </g>
+  <g class="b" text-anchor="middle">
+    <text x="422" y="555">你生命中的男孩气</text><text x="422" y="590">必须死掉</text>
+    <text x="766" y="555">你生命中的男人形象</text><text x="766" y="590">必须向前走</text>
+    <text x="1110" y="555">你生命中的挑战</text><text x="1110" y="590">必须存在</text>
+  </g>
+</svg>

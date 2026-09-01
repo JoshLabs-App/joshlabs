@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>世界观的故事 · 电子版</title>
+  <base href="/my-class/worldview/" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="book-app">
+    <header class="book-header">
+      <a class="back-link" href="../index.html?view=resources">‹ 资源</a>
+      <div class="book-heading">
+        <span class="eyebrow">WORLDVIEW</span>
+        <h1>世界观的故事</h1>
+        <p>How Now Shall We Live?</p>
+      </div>
+      <a class="pdf-link" href="./世界观的故事(1).pdf" download aria-label="下载原始 PDF">PDF</a>
+    </header>
+
+    <section class="reader" aria-label="世界观的故事阅读器">
+      <div class="reader-top">
+        <div>
+          <span id="page-label" class="page-label">第 1 页</span>
+          <h2 id="section-title">正在加载</h2>
+        </div>
+        <span id="progress-text" class="progress-text">1 / 358</span>
+      </div>
+      <div class="progress-rail" aria-hidden="true"><div id="progress-fill"></div></div>
+      <div class="page-stage">
+        <article id="book-text" class="book-text" aria-live="polite">正在载入文字……</article>
+        <details class="original-page">
+          <summary>查看本页原始扫描</summary>
+          <img id="book-page" src="./pages/page-001.jpg" alt="世界观的故事，第 1 页">
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <nav class="reader-dock" aria-label="阅读操作">
+    <button id="prev" type="button" aria-label="上一页">‹</button>
+    <button id="catalog" type="button" aria-label="打开目录">目录</button>
+    <button id="next" type="button" aria-label="下一页">›</button>
+  </nav>
+  <div id="catalog-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <section class="catalog" role="dialog" aria-modal="true" aria-labelledby="catalog-title">
+      <div class="catalog-head"><div><span class="eyebrow">CONTENTS</span><h2 id="catalog-title">目录</h2></div><button type="button" data-close>关闭</button></div>
+      <div id="catalog-list" class="catalog-list"></div>
+    </section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

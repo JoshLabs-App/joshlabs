@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title desc">
+  <title id="title">核心需求关系图</title>
+  <desc id="desc">妻子和丈夫之间的核心需求方向图。</desc>
+  <defs>
+    <linearGradient id="nodeGradient" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#aaca63"/>
+      <stop offset="100%" stop-color="#86ad45"/>
+    </linearGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="12" dy="16" stdDeviation="0" flood-color="#1f2732" flood-opacity="0.16"/>
+    </filter>
+    <filter id="labelShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#1f2732" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrowRight" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#636a76"/>
+    </marker>
+    <marker id="arrowLeft" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#636a76"/>
+    </marker>
+    <marker id="arcArrowLeft" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#78a08c"/>
+    </marker>
+    <marker id="arcArrowRight" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c9a363"/>
+    </marker>
+    <marker id="arcArrowRightStart" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#78a08c"/>
+    </marker>
+  </defs>
+
+  <rect x="24" y="24" width="912" height="592" rx="46" fill="#ffffff"/>
+  <rect x="24" y="24" width="912" height="592" rx="46" fill="none" stroke="#d7e7de" stroke-width="3"/>
+  <circle cx="188" cy="320" r="158" fill="#166b4a" opacity="0.06"/>
+  <circle cx="772" cy="320" r="158" fill="#b8892a" opacity="0.07"/>
+
+  <path d="M 270 88 C 350 40 610 40 690 88" fill="none" stroke="#78a08c" stroke-width="5" stroke-linecap="round" marker-start="url(#arcArrowRightStart)"/>
+  <path d="M 270 574 C 365 612 595 612 690 574" fill="none" stroke="#c9a363" stroke-width="5" stroke-linecap="round" marker-end="url(#arcArrowRight)"/>
+
+  <g stroke="#636a76" stroke-width="5" stroke-linecap="round" fill="none">
+    <line x1="330" y1="142" x2="635" y2="142" marker-end="url(#arrowRight)"/>
+    <line x1="330" y1="198" x2="635" y2="198" marker-end="url(#arrowRight)"/>
+    <line x1="330" y1="254" x2="635" y2="254" marker-end="url(#arrowRight)"/>
+    <line x1="330" y1="310" x2="635" y2="310" marker-end="url(#arrowRight)"/>
+    <line x1="635" y1="366" x2="330" y2="366" marker-end="url(#arrowLeft)"/>
+    <line x1="635" y1="422" x2="330" y2="422" marker-end="url(#arrowLeft)"/>
+    <line x1="635" y1="478" x2="330" y2="478" marker-end="url(#arrowLeft)"/>
+    <line x1="635" y1="534" x2="330" y2="534" marker-end="url(#arrowLeft)"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <circle cx="188" cy="320" r="88" fill="url(#nodeGradient)" stroke="#d5e7a9" stroke-width="8"/>
+    <circle cx="772" cy="320" r="88" fill="url(#nodeGradient)" stroke="#d5e7a9" stroke-width="8"/>
+  </g>
+
+  <g font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif" text-anchor="middle" fill="#2d3850" font-weight="900">
+    <text x="188" y="338" font-size="38">妻子</text>
+    <text x="772" y="338" font-size="38">丈夫</text>
+  </g>
+
+  <g font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif" text-anchor="middle" fill="#1f2732" font-size="32" font-weight="900" filter="url(#labelShadow)">
+    <g>
+      <rect x="423" y="114" width="114" height="48" rx="24" fill="#ffffff" opacity="0.94"/>
+      <text x="480" y="149">陪伴</text>
+    </g>
+    <g>
+      <rect x="423" y="170" width="114" height="48" rx="24" fill="#ffffff" opacity="0.94"/>
+      <text x="480" y="205">欣赏</text>
+    </g>
+    <g>
+      <rect x="423" y="226" width="114" height="48" rx="24" fill="#ffffff" opacity="0.94"/>
+      <text x="480" y="261">支持</text>
+    </g>
+    <g>
+      <rect x="394" y="282" width="172" height="48" rx="24" fill="#ffffff" opacity="0.94"/>
+      <text x="480" y="317">生理需求</text>
+    </g>
+    <g>
+      <rect x="423" y="338" width="114" height="48" rx="24" fill="#ffffff" opacity="0.94"/>
+      <text x="480" y="373">陪伴</text>
+    </g>
+    <g>
+      <rect x="423" y="394" width="114" height="48" rx="24" fill="#ffffff" opacity="0.94"/>
+      <text x="480" y="429">安全</text>
+    </g>
+    <g>
+      <rect x="423" y="450" width="114" height="48" rx="24" fill="#ffffff" opacity="0.94"/>
+      <text x="480" y="485">独特</text>
+    </g>
+    <g>
+      <rect x="394" y="506" width="172" height="48" rx="24" fill="#ffffff" opacity="0.94"/>
+      <text x="480" y="541">情感需求</text>
+    </g>
+  </g>
+</svg>

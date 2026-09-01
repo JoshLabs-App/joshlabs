@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#FFB100" />
+    <style>
+      html {
+        background: #ffb100;
+      }
+    </style>
     <script>
       (function () {
         var key = 'sermon-theme-v1';
@@ -13,15 +18,23 @@
           (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
         document.documentElement.dataset.themeMode = stored === 'light' || stored === 'dark' ? stored : 'system';
+        document.documentElement.style.backgroundColor = '#ffb100';
+        var standalone =
+          window.matchMedia('(display-mode: standalone)').matches ||
+          window.matchMedia('(display-mode: fullscreen)').matches ||
+          window.navigator.standalone === true;
+        if (standalone) {
+          document.documentElement.classList.add('app-launching');
+        }
       })();
     </script>
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="My Class" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="app-base" content="/my-class" />
     <title>讲道集</title>
-    <link rel="manifest" href="/my-class/icons/manifest.webmanifest" />
+    <link rel="manifest" href="/my-class/icons/manifest.webmanifest?v=20260812-02" />
     <link rel="icon" href="/my-class/icons/icon-192.png" type="image/png" />
     <link rel="apple-touch-icon" href="/my-class/icons/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,10 +43,21 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/my-class/styles.css" />
-    <script type="module" src="/my-class/theme.js"></script>
+    <link rel="stylesheet" href="/my-class/styles.css?v=20260812-02" />
+    <script type="module" src="/my-class/theme.js?v=20260812-02"></script>
   </head>
   <body>
+    <div class="launch-screen" aria-hidden="true">
+      <div class="launch-screen-mark">
+        <svg viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+          <path
+            d="M34 24.5v47l41-23.5-41-23.5z"
+            fill="#ffffff"
+          />
+        </svg>
+      </div>
+    </div>
+
     <div id="install-guide" class="install-banner" hidden aria-hidden="true" role="region" aria-labelledby="install-guide-title">
       <div class="install-banner-icon" aria-hidden="true">
         <img src="/my-class/icons/icon-192.png" width="40" height="40" alt="" />
@@ -49,138 +73,192 @@
       </div>
     </div>
 
-    <main class="page app-shell">
+    <main class="page app-shell" id="app-top">
       <section class="app-card" aria-label="讲道集">
         <div class="page-scroll">
-          <div class="catalog-nav" id="catalog-nav">
-            <div class="catalog-nav-speakers">
-              <div class="speaker-tabs" role="tablist" aria-label="讲员">
-                <button
-                  id="tab-speaker-kou"
-                  class="speaker-tab"
-                  type="button"
-                  role="tab"
-                  data-speaker="kou"
-                  aria-controls="category-book-list"
-                >
-                  寇绍涵
-                </button>
-                <button
-                  id="tab-speaker-tang"
-                  class="speaker-tab"
-                  type="button"
-                  role="tab"
-                  data-speaker="tang"
-                  aria-controls="category-book-list"
-                >
-                  唐崇荣
-                </button>
-                <button
-                  id="tab-speaker-jiuren"
-                  class="speaker-tab"
-                  type="button"
-                  role="tab"
-                  data-speaker="jiuren"
-                  aria-controls="category-book-list"
-                >
-                  李洁人
-                </button>
-                <button
-                  id="tab-speaker-gaolu"
-                  class="speaker-tab"
-                  type="button"
-                  role="tab"
-                  data-speaker="gaolu"
-                  aria-controls="category-book-list"
-                >
-                  高路
-                </button>
+          <section id="sermon-view" class="app-view sermon-view" aria-label="讲道页">
+            <header class="topbar app-topbar">
+              <div class="topbar-brand">
+                <span class="topbar-mark" aria-hidden="true">
+                  <img src="/my-class/icons/icon-192.png" width="34" height="34" alt="" />
+                </span>
+                <div class="topbar-copy">
+                  <p class="topbar-kicker">MY CLASS</p>
+                  <h1 id="page-title">讲道集</h1>
+                  <p id="page-subtitle" class="topbar-subtitle">讲道 | 其它</p>
+                </div>
+              </div>
+              <div class="topbar-actions">
+                <span id="page-badge" class="topbar-badge">APP</span>
+              </div>
+            </header>
+            <div class="catalog-nav" id="catalog-nav">
+              <div class="catalog-nav-speakers">
+                <div class="speaker-tabs" role="tablist" aria-label="讲员">
+                  <button
+                    id="tab-speaker-kou"
+                    class="speaker-tab"
+                    type="button"
+                    role="tab"
+                    data-speaker="kou"
+                    aria-controls="category-book-list"
+                  >
+                    寇绍涵
+                  </button>
+                  <button
+                    id="tab-speaker-gaolu"
+                    class="speaker-tab"
+                    type="button"
+                    role="tab"
+                    data-speaker="gaolu"
+                    aria-controls="category-book-list"
+                  >
+                    高路
+                  </button>
+                </div>
+              </div>
+              <div class="catalog-nav-categories">
+                <span class="catalog-nav-label" aria-hidden="true">分类</span>
+                <div class="category-tabs" id="category-tabs" role="tablist" aria-label="分类">
+                  <button
+                    id="tab-sunday"
+                    class="category-tab"
+                    type="button"
+                    role="tab"
+                    data-category="主日"
+                    data-speakers="gaolu"
+                    aria-controls="category-book-list"
+                  >
+                    主日
+                  </button>
+                  <button
+                    id="tab-new"
+                    class="category-tab"
+                    type="button"
+                    role="tab"
+                    data-category="新约"
+                    aria-controls="category-book-list"
+                  >
+                    新约
+                  </button>
+                  <button
+                    id="tab-old"
+                    class="category-tab"
+                    type="button"
+                    role="tab"
+                    data-category="旧约"
+                    aria-controls="category-book-list"
+                  >
+                    旧约
+                  </button>
+                  <button
+                    id="tab-other"
+                    class="category-tab"
+                    type="button"
+                    role="tab"
+                    data-category="系列"
+                    aria-controls="category-book-list"
+                  >
+                    系列
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="catalog-nav-categories">
-              <span class="catalog-nav-label" aria-hidden="true">分类</span>
-              <div class="category-tabs" id="category-tabs" role="tablist" aria-label="分类">
-                <button
-                  id="tab-sunday"
-                  class="category-tab"
-                  type="button"
-                  role="tab"
-                  data-category="主日"
-                  data-speakers="gaolu"
-                  aria-controls="category-book-list"
-                >
-                  主日
-                </button>
-                <button
-                  id="tab-new"
-                  class="category-tab"
-                  type="button"
-                  role="tab"
-                  data-category="新约"
-                  aria-controls="category-book-list"
-                >
-                  新约
-                </button>
-                <button
-                  id="tab-old"
-                  class="category-tab"
-                  type="button"
-                  role="tab"
-                  data-category="旧约"
-                  aria-controls="category-book-list"
-                >
-                  旧约
-                </button>
-                <button
-                  id="tab-other"
-                  class="category-tab"
-                  type="button"
-                  role="tab"
-                  data-category="系列"
-                  aria-controls="category-book-list"
-                >
-                  系列
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="catalog-search" role="search" aria-label="搜索讲道">
-            <label class="catalog-search-field">
-              <svg class="catalog-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15zm8.9 2.1-3.8-3.8"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
+            <div class="catalog-search" role="search" aria-label="搜索讲道">
+              <label class="catalog-search-field">
+                <svg class="catalog-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15zm8.9 2.1-3.8-3.8"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <input
+                  id="catalog-search-input"
+                  class="catalog-search-input"
+                  type="search"
+                  enterkeyhint="search"
+                  placeholder="搜索讲道、系列、讲员"
+                  autocomplete="off"
+                  autocorrect="off"
+                  spellcheck="false"
                 />
-              </svg>
-              <input
-                id="catalog-search-input"
-                class="catalog-search-input"
-                type="search"
-                enterkeyhint="search"
-                placeholder="搜索讲道、系列、讲员"
-                autocomplete="off"
-                autocorrect="off"
-                spellcheck="false"
-              />
-              <button
-                id="catalog-search-clear"
-                class="catalog-search-clear"
-                type="button"
-                hidden
-                aria-label="清除搜索"
-              >
-                ×
-              </button>
-            </label>
-          </div>
-          <div id="sunday-filter-panel" class="sunday-filter-panel" hidden aria-label="主日筛选"></div>
-          <div id="category-book-list" class="category-book-list" role="tabpanel" aria-label="书卷列表"></div>
+                <button
+                  id="catalog-search-clear"
+                  class="catalog-search-clear"
+                  type="button"
+                  hidden
+                  aria-label="清除搜索"
+                >
+                  ×
+                </button>
+              </label>
+            </div>
+            <div id="sunday-filter-panel" class="sunday-filter-panel" hidden aria-label="主日筛选"></div>
+            <div id="category-book-list" class="category-book-list" role="tabpanel" aria-label="书卷列表"></div>
+          </section>
+
+          <section id="resources-view" class="app-view resources-view" aria-label="资源页" hidden>
+            <header class="resources-hero">
+              <div class="resources-hero-top">
+                <p class="resources-kicker">RESOURCE HUB</p>
+                <button
+                  id="resources-share-button"
+                  class="resources-share-btn"
+                  type="button"
+                  aria-label="复制资源页网址"
+                  title="复制资源页网址"
+                >
+                  复制网址
+                </button>
+              </div>
+              <h2>资源</h2>
+              <p class="resources-copy">从这里进入可持续阅读的专题电子书。</p>
+            </header>
+
+            <div class="resource-grid">
+              <a class="resource-card resource-card--family" href="/my-class/strong-home/" data-resource="strong-home">
+                <span class="resource-icon resource-icon--family" aria-hidden="true">
+                  <svg class="resource-home-icon" viewBox="0 0 24 24" focusable="false">
+                    <path
+                      d="M12 3.6 3.8 10.2c-.3.25-.3.7 0 .95l.7.55c.25.2.6.2.85 0L12 6.9l6.65 5.1c.25.2.6.2.85 0l.7-.55c.3-.25.3-.7 0-.95L12 3.6z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M6.4 11.4V19c0 .55.45 1 1 1h3.1v-4.4h3v4.4h3.1c.55 0 1-.45 1-1v-7.6L12 8.2 6.4 11.4z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+                <span class="resource-card-copy">
+                  <strong>建立坚固的家</strong>
+                  <span>家庭关系与信仰生活</span>
+                </span>
+                <span class="resource-card-arrow" aria-hidden="true">→</span>
+              </a>
+              <a class="resource-card resource-card--men" href="/my-class/MEN/" data-resource="men">
+                <span class="resource-icon resource-icon--men" aria-hidden="true">MEN</span>
+                <span class="resource-card-copy">
+                  <strong>MEN</strong>
+                  <span>做一个真正男人的深度思考</span>
+                </span>
+                <span class="resource-card-arrow" aria-hidden="true">→</span>
+              </a>
+              <a class="resource-card resource-card--john" href="/my-class/JOHN/" data-resource="john">
+                <span class="resource-icon resource-icon--john" aria-hidden="true">约</span>
+                <span class="resource-card-copy">
+                  <strong>约翰福音释经</strong>
+                  <span>John MacArthur</span>
+                </span>
+                <span class="resource-card-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </section>
         </div>
 
-        <section class="hero-card player-section" aria-label="正在播放">
+        <section id="player-section" class="hero-card player-section" aria-label="正在播放" style="padding: 6px 14px 4px;">
           <div class="hero-copy">
             <div class="hero-line">
               <button
@@ -234,10 +312,6 @@
             <div class="track-panel" aria-label="当前系列">
               <div id="selected-book-tracks" class="track-pills" aria-label="章节列表"></div>
             </div>
-            <div class="track-meta">
-              <span id="track-book">等待播放</span>
-              <span id="track-date">--</span>
-            </div>
           </div>
 
           <div class="hero-progress">
@@ -281,6 +355,16 @@
 
         </section>
       </section>
+
+      <nav class="app-dock" aria-label="底部导航">
+        <a class="dock-item is-active" href="?v=20260827-01&view=sermon" data-view="sermon" aria-label="讲道集" aria-current="page">
+          <span class="dock-text">讲道集</span>
+        </a>
+        <span class="dock-separator" aria-hidden="true">|</span>
+        <a class="dock-item" href="?v=20260827-01&view=resources" data-view="resources" aria-label="资源">
+          <span class="dock-text">资源</span>
+        </a>
+      </nav>
     </main>
 
     <audio id="audio" class="hidden-audio" preload="metadata" playsinline></audio>
@@ -292,24 +376,27 @@
         <p id="share-sheet-title" class="share-sheet-title"></p>
         <p id="share-sheet-lead" class="share-sheet-lead"></p>
         <div class="share-sheet-actions">
-          <button class="share-sheet-button primary" type="button" data-action="share-mp3">
+          <button class="share-sheet-button primary" type="button" data-action="share-page-link">
+            分享网址
+          </button>
+          <button class="share-sheet-button" type="button" data-action="copy-page-link">
+            复制网址
+          </button>
+          <button class="share-sheet-button" type="button" data-action="share-mp3">
             分享 MP3 文件
           </button>
           <button class="share-sheet-button" type="button" data-action="download-mp3">
             下载 MP3
           </button>
-          <button class="share-sheet-button" type="button" data-action="copy-mp3-link">
+          <button class="share-sheet-button ghost" type="button" data-action="copy-mp3-link">
             复制 MP3 链接
-          </button>
-          <button class="share-sheet-button ghost" type="button" data-action="copy-page-link">
-            复制播放页链接
           </button>
         </div>
         <p id="share-sheet-status" class="share-sheet-status" aria-live="polite"></p>
       </section>
     </div>
 
-    <script type="module" src="/my-class/install.js"></script>
-    <script type="module" src="/my-class/app.js"></script>
+    <script type="module" src="/my-class/install.js?v=20260827-01"></script>
+    <script type="module" src="/my-class/app.js?v=20260827-01"></script>
   </body>
 </html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>做一个真正男人的深度思考 - 移动翻页版</title>
+  <base href="/my-class/MEN/" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-blur blur-one"></div>
+  <div class="bg-blur blur-two"></div>
+  <div class="bg-blur blur-three"></div>
+
+  <main class="app-shell">
+    <header class="top-hero">
+      <div class="pill">Men's Fraternity Classic · 中文网页版</div>
+      <h1 id="site-title">做一个真正男人的深度思考</h1>
+    </header>
+
+    <section class="reader" aria-label="课程阅读器">
+      <div class="reader-top">
+        <div>
+          <div id="page-badge" class="page-badge">第 1 课</div>
+          <h2 id="chapter-title" class="chapter-title">正在加载</h2>
+        </div>
+        <div id="progress-text" class="progress-text">1 / 24</div>
+      </div>
+
+      <div class="progress-rail" aria-hidden="true">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+
+      <article id="card" class="lesson-card">
+        <div id="video-slot" class="video-slot" hidden></div>
+        <p id="chapter-meta" class="chapter-meta"></p>
+        <div id="lesson-body" class="lesson-body"></div>
+        <p class="course-copyright">版权声明：相关内容版权归原作者及原权利方所有。本站仅供内部学习交流，不作商业传播。如需删除或下架，欢迎与我们联系。</p>
+        <p class="back-to-resources"><a href="/my-class/index.html?view=resources">‹ 回到资源页</a></p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="bottom-dock" aria-label="课程操作栏">
+    <div class="controls">
+      <button id="prev-btn" class="control-btn secondary" type="button" aria-label="上一页" title="上一页">
+        <svg class="control-icon page-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M14.5 6.5 9 12l5.5 5.5" />
+          <path d="M9.8 12h8.2" />
+        </svg>
+        <span class="sr-only">上一页</span>
+      </button>
+      <button id="font-dec-btn" class="control-btn font-btn" type="button" aria-label="减小正文" title="减小正文">
+        <svg class="control-icon font-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 17.5 9.3 6.5h1.4L15 17.5" />
+          <path d="M7 13.4h6" />
+          <path d="M17.4 12.2h4" />
+        </svg>
+        <span class="sr-only">减小正文</span>
+      </button>
+      <button id="catalog-btn" class="control-btn tertiary" type="button" aria-label="打开目录" title="目录">
+        <svg class="control-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6.2 4.5h10.4a2 2 0 0 1 2 2v13H7.4a2.4 2.4 0 0 1-2.4-2.4V5.7a1.2 1.2 0 0 1 1.2-1.2Z" />
+          <path d="M8.2 8h7.2M8.2 11.5h6.2M8.2 15h4.8" />
+        </svg>
+        <span class="sr-only">目录</span>
+      </button>
+      <button id="share-btn" class="control-btn tertiary" type="button" aria-label="复制本页网址" title="复制本页网址">
+        <svg class="control-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M13.5 4.5l6 6-6 6M19.5 10.5H9a3 3 0 0 0-3 3v1.5" />
+        </svg>
+        <span class="sr-only">复制网址</span>
+      </button>
+      <button id="font-inc-btn" class="control-btn font-btn" type="button" aria-label="放大正文" title="放大正文">
+        <svg class="control-icon font-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3.8 17.5 8.2 6.5h1.5L14 17.5" />
+          <path d="M5.9 13.4h6" />
+          <path d="M19 10.8v6.4M15.8 14h6.4" />
+        </svg>
+        <span class="sr-only">放大正文</span>
+      </button>
+      <button id="next-btn" class="control-btn primary" type="button" aria-label="下一页" title="下一页">
+        <svg class="control-icon page-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9.5 6.5 15 12l-5.5 5.5" />
+          <path d="M6 12h8.2" />
+        </svg>
+        <span class="sr-only">下一页</span>
+      </button>
+    </div>
+  </footer>
+
+  <div id="catalog-modal" class="catalog-modal hidden" aria-hidden="true">
+    <div class="catalog-backdrop" id="catalog-backdrop"></div>
+    <div class="catalog-sheet" role="dialog" aria-modal="true" aria-labelledby="catalog-title">
+      <div class="catalog-head">
+        <div>
+          <h3 id="catalog-title">课程目录</h3>
+          <p>点一下就直接跳到那一课。</p>
+        </div>
+        <button id="catalog-close" class="close-btn" type="button">关闭</button>
+      </div>
+      <div id="catalog-list" class="catalog-list"></div>
+    </div>
+  </div>
+
+  <script src="course-data.js"></script>
+  <script src="video-config.js"></script>
+  <script src="video-player.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

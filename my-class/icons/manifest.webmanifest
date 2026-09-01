@@ -5,7 +5,7 @@
   "description": "圣经讲道与主日学音频",
   "start_url": "/my-class/index.html",
   "scope": "/my-class/",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#FFB100",
   "theme_color": "#FFB100",
   "orientation": "portrait-primary",

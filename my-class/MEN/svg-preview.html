@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVG 临时预览页</title>
+  <style>
+    :root {
+      --bg: #f5f1e8;
+      --panel: rgba(255, 255, 255, 0.9);
+      --text: #1f2732;
+      --muted: #5d6878;
+      --accent: #166b4a;
+      --line: rgba(31, 39, 50, 0.1);
+      --shadow: 0 16px 40px rgba(34, 44, 55, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(184, 137, 42, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(22, 107, 74, 0.16), transparent 28%),
+        linear-gradient(180deg, #fbf8f1, var(--bg));
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    }
+
+    header {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 28px 20px 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3.2vw, 3rem);
+      line-height: 1.08;
+      font-weight: 900;
+      font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+    }
+
+    .sub {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    .toolbar {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 24px rgba(34, 44, 55, 0.06);
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .chip strong {
+      color: var(--accent);
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px 36px;
+    }
+
+    section {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 26px;
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    section h2 {
+      margin: 0 0 14px;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      border-radius: 22px;
+      background: #fff;
+      border: 1px solid rgba(31, 39, 50, 0.08);
+      box-shadow: 0 12px 28px rgba(34, 44, 55, 0.08);
+      overflow: hidden;
+      display: grid;
+    }
+
+    .card .label {
+      padding: 12px 14px 10px;
+      border-bottom: 1px solid rgba(31, 39, 50, 0.07);
+      display: grid;
+      gap: 4px;
+    }
+
+    .card .label strong {
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .card .label span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .frame {
+      padding: 12px;
+      background: linear-gradient(180deg, #fff, #fafafa);
+    }
+
+    .frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .wide .frame img {
+      aspect-ratio: 16 / 10;
+      object-fit: contain;
+    }
+
+    .tall .frame img {
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+    }
+
+    .note {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 720px) {
+      header, .toolbar, main { padding-left: 14px; padding-right: 14px; }
+      section { padding: 14px; border-radius: 22px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SVG 临时预览页</h1>
+    <div class="sub">把项目里生成的 SVG 一次展开，方便你快速检查哪些是示意图，哪些其实更适合直接用表格/文本。</div>
+  </header>
+
+  <div class="toolbar">
+    <a class="chip" href="#diagram"><strong>示意图</strong> 4 个</a>
+  </div>
+
+  <main>
+    <section id="diagram">
+      <h2>示意图</h2>
+      <div class="grid" id="diagram-grid"></div>
+    </section>
+
+    <div class="note">说明：这里是临时查看页，只用于人工核对版式。</div>
+  </main>
+
+  <script>
+    const items = [
+      { group: "diagram", file: "assets/marriage-core-roles.svg", title: "核心角色图", desc: "上帝赋予丈夫和妻子在婚姻中的角色。" },
+      { group: "diagram", file: "assets/marriage-core-relationship.svg", title: "核心关系图", desc: "妻子和丈夫之间荣誉赞美与顺服的双向关系。" },
+      { group: "diagram", file: "assets/marriage-core-needs.svg", title: "核心需求关系图", desc: "妻子和丈夫之间的核心需求方向图。" },
+      { group: "diagram", file: "assets/marriage-models-diagram.svg", title: "并排圣经模式示意图", desc: "婚姻三种模式里需要保留生成的底部示意图。" },
+    ];
+
+    const diagramGrid = document.getElementById("diagram-grid");
+
+    function cardHTML(item) {
+      return `
+        <article class="card ${item.group === "diagram" ? "wide" : "tall"}">
+          <div class="label">
+            <strong>${item.title}</strong>
+            <span>${item.desc}</span>
+            <span>${item.file}</span>
+          </div>
+          <div class="frame">
+            <img src="${item.file}" alt="${item.title}" />
+          </div>
+        </article>
+      `;
+    }
+
+    items.filter((item) => item.group === "diagram").forEach((item) => {
+      diagramGrid.insertAdjacentHTML("beforeend", cardHTML(item));
+    });
+  </script>
+</body>
+</html>

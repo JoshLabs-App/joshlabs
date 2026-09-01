@@ -1,0 +1,1123 @@
+{
+  "title": "约翰福音释经",
+  "subtitle": "John MacArthur · 机翻讲章",
+  "disclaimer": "机翻版，无须斟酌字句，观其大意即可",
+  "author": "John MacArthur",
+  "scrapedAt": "2026-08-27T16:43:01.792Z",
+  "chapterCount": 21,
+  "lessonCount": 118,
+  "chapters": [
+    {
+      "n": 1,
+      "label": "第一章",
+      "sourceUrl": "https://wp.me/pg6lk7-a7",
+      "file": "chapter-01.json",
+      "lessons": [
+        {
+          "id": "1-1",
+          "chapter": 1,
+          "n": 1,
+          "title": "耶稣基督：道成肉身（约一1-14）",
+          "meta": "第一章 · 第1集 · John MacArthur",
+          "youtubeId": "yUb6vLZcMNo"
+        },
+        {
+          "id": "1-2",
+          "chapter": 1,
+          "n": 2,
+          "title": "耶稣基督：神的道（约一1～5）",
+          "meta": "第一章 · 第2集 · John MacArthur",
+          "youtubeId": "wXzIKQ-OTXc"
+        },
+        {
+          "id": "1-3",
+          "chapter": 1,
+          "n": 3,
+          "title": "耶稣基督：神的光（约一6～13）",
+          "meta": "第一章 · 第3集 · John MacArthur",
+          "youtubeId": "sekGE1EiCvE"
+        },
+        {
+          "id": "1-4",
+          "chapter": 1,
+          "n": 4,
+          "title": "耶稣基督 荣耀、恩典的神 （约一14～18）",
+          "meta": "第一章 · 第4集 · John MacArthur",
+          "youtubeId": "hbJC3JNDvtM"
+        },
+        {
+          "id": "1-5",
+          "chapter": 1,
+          "n": 5,
+          "title": "施洗约翰为耶稣作的见证（一） (约一19～37）",
+          "meta": "第一章 · 第5集 · John MacArthur",
+          "youtubeId": "1L3OYBbf2jA"
+        },
+        {
+          "id": "1-6",
+          "chapter": 1,
+          "n": 6,
+          "title": "施洗约翰为耶稣作的见证（二）(约一19～37）麦克阿瑟",
+          "meta": "第一章 · 第6集 · John MacArthur",
+          "youtubeId": "J8VyT_FVFSQ"
+        },
+        {
+          "id": "1-7",
+          "chapter": 1,
+          "n": 7,
+          "title": "门徒为耶稣作的见证（约一38～51）",
+          "meta": "第一章 · 第7集 · John MacArthur",
+          "youtubeId": "BaX0TvUSKwM"
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "label": "第二章",
+      "sourceUrl": "https://wp.me/pg6lk7-am",
+      "file": "chapter-02.json",
+      "lessons": [
+        {
+          "id": "2-8",
+          "chapter": 2,
+          "n": 8,
+          "title": "头一个神迹（约二1～11）",
+          "meta": "第二章 · 第8集 · John MacArthur",
+          "youtubeId": "n7l48ATWYEk"
+        },
+        {
+          "id": "2-9",
+          "chapter": 2,
+          "n": 9,
+          "title": "为我父的殿发热心（约二12～17）",
+          "meta": "第二章 · 第9集 · John MacArthur",
+          "youtubeId": "uXuxgO6e_bY"
+        },
+        {
+          "id": "2-10",
+          "chapter": 2,
+          "n": 10,
+          "title": "耶稣在圣殿彰显神性（约二18～22）",
+          "meta": "第二章 · 第10集 · John MacArthur",
+          "youtubeId": ""
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "label": "第三章",
+      "sourceUrl": "https://wp.me/pg6lk7-bf",
+      "file": "chapter-03.json",
+      "lessons": [
+        {
+          "id": "3-11",
+          "chapter": 3,
+          "n": 11,
+          "title": "尼哥底母1 耶稣教训教师（约三1～3）",
+          "meta": "第三章 · 第11集 · John MacArthur",
+          "youtubeId": "tutZptMHx8c"
+        },
+        {
+          "id": "3-12",
+          "chapter": 3,
+          "n": 12,
+          "title": "尼哥底母2 重生的蓝图（约三3）",
+          "meta": "第三章 · 第12集 · John MacArthur",
+          "youtubeId": "b8k9Vi-6m9k"
+        },
+        {
+          "id": "3-13",
+          "chapter": 3,
+          "n": 13,
+          "title": "尼哥底母3神的重生之工（约三1～10）",
+          "meta": "第三章 · 第13集 · John MacArthur",
+          "youtubeId": "U-5h22pvOLE"
+        },
+        {
+          "id": "3-14",
+          "chapter": 3,
+          "n": 14,
+          "title": "尼哥底母4 神的召唤（约三1～10）",
+          "meta": "第三章 · 第14集 · John MacArthur",
+          "youtubeId": "VA9TGq7hidw"
+        },
+        {
+          "id": "3-15",
+          "chapter": 3,
+          "n": 15,
+          "title": "尼哥底母5 神的主权与人的责任（约三11-21）",
+          "meta": "第三章 · 第15集 · John MacArthur",
+          "youtubeId": "k1PTvMkEyl4"
+        },
+        {
+          "id": "3-16",
+          "chapter": 3,
+          "n": 16,
+          "title": "尼哥底母6 只要信（约三11-14）",
+          "meta": "第三章 · 第16集 · John MacArthur",
+          "youtubeId": "yaSkuMU6vT4"
+        },
+        {
+          "id": "3-17",
+          "chapter": 3,
+          "n": 17,
+          "title": "尼哥底母7 信、审判、永生（约三15-21)",
+          "meta": "第三章 · 第17集 · John MacArthur",
+          "youtubeId": "NTD2GGNNM6w"
+        },
+        {
+          "id": "3-18",
+          "chapter": 3,
+          "n": 18,
+          "title": "谦卑：事奉的第一法则（约三22-30)",
+          "meta": "第三章 · 第18集 · John MacArthur",
+          "youtubeId": "8LKa8VItRx8"
+        },
+        {
+          "id": "3-19",
+          "chapter": 3,
+          "n": 19,
+          "title": "耶稣大过约翰（约三31 36 )",
+          "meta": "第三章 · 第19集 · John MacArthur",
+          "youtubeId": "SoZuuM3Tr9M"
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "label": "第四章",
+      "sourceUrl": "https://wp.me/pg6lk7-bl",
+      "file": "chapter-04.json",
+      "lessons": [
+        {
+          "id": "4-20",
+          "chapter": 4,
+          "n": 20,
+          "title": "弥赛亚：活水（一）（约四1-15）",
+          "meta": "第四章 · 第20集 · John MacArthur",
+          "youtubeId": "KkjwCgGwXWY"
+        },
+        {
+          "id": "4-21",
+          "chapter": 4,
+          "n": 21,
+          "title": "弥赛亚：活水（二）(约四16-26）",
+          "meta": "第四章 · 第21集 · John MacArthur",
+          "youtubeId": "fnEM86gqK6Y"
+        },
+        {
+          "id": "4-22",
+          "chapter": 4,
+          "n": 22,
+          "title": "弥赛亚：活水（三）",
+          "meta": "第四章 · 第22集 · John MacArthur",
+          "youtubeId": "TvXyG-JV7-0"
+        },
+        {
+          "id": "4-23",
+          "chapter": 4,
+          "n": 23,
+          "title": "蒙悦纳的敬拜（一）（约四20-24）",
+          "meta": "第四章 · 第23集 · John MacArthur",
+          "youtubeId": "Zg_8Zgb8jxQ"
+        },
+        {
+          "id": "4-24",
+          "chapter": 4,
+          "n": 24,
+          "title": "蒙悦纳的敬拜（二）（约四20-24）",
+          "meta": "第四章 · 第24集 · John MacArthur",
+          "youtubeId": "yuaa3WvKA2c"
+        },
+        {
+          "id": "4-25",
+          "chapter": 4,
+          "n": 25,
+          "title": "思想不信（约四43-45）",
+          "meta": "第四章 · 第25集 · John MacArthur",
+          "youtubeId": "AzVWZKO1vkw"
+        },
+        {
+          "id": "4-26",
+          "chapter": 4,
+          "n": 26,
+          "title": "希律党人全家信而得救（约四46-54）",
+          "meta": "第四章 · 第26集 · John MacArthur",
+          "youtubeId": ""
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "label": "第五章",
+      "sourceUrl": "https://wp.me/pg6lk7-bq",
+      "file": "chapter-05.json",
+      "lessons": [
+        {
+          "id": "5-27",
+          "chapter": 5,
+          "n": 27,
+          "title": "假宗教的毁灭力量（约五1-16）",
+          "meta": "第五章 · 第27集 · John MacArthur",
+          "youtubeId": "wpTpc8H0XHw"
+        },
+        {
+          "id": "5-28",
+          "chapter": 5,
+          "n": 28,
+          "title": "有史以来最惊人的宣告（一）（约五17-20）",
+          "meta": "第五章 · 第28集 · John MacArthur",
+          "youtubeId": "OWetX3vv4yM"
+        },
+        {
+          "id": "5-29",
+          "chapter": 5,
+          "n": 29,
+          "title": "有史以来最惊人的宣告（二）（约五21-24)",
+          "meta": "第五章 · 第29集 · John MacArthur",
+          "youtubeId": ""
+        },
+        {
+          "id": "5-30",
+          "chapter": 5,
+          "n": 30,
+          "title": "死人要听见基督的声音（约五25-29）",
+          "meta": "第五章 · 第30集 · John MacArthur",
+          "youtubeId": "iKU3ZcTc38s"
+        },
+        {
+          "id": "5-31",
+          "chapter": 5,
+          "n": 31,
+          "title": "基督神性的见证（一）（约五30-37）",
+          "meta": "第五章 · 第31集 · John MacArthur",
+          "youtubeId": "IjhS5h0dTgw"
+        },
+        {
+          "id": "5-32",
+          "chapter": 5,
+          "n": 32,
+          "title": "基督神性的见证（二）（约五37-40）",
+          "meta": "第五章 · 第32集 · John MacArthur",
+          "youtubeId": "XPfQMP2t53Y"
+        },
+        {
+          "id": "5-33",
+          "chapter": 5,
+          "n": 33,
+          "title": "基督神性的见证（三）（约五41-47）",
+          "meta": "第五章 · 第33集 · John MacArthur",
+          "youtubeId": ""
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "label": "第六章",
+      "sourceUrl": "https://wp.me/pg6lk7-bu",
+      "file": "chapter-06.json",
+      "lessons": [
+        {
+          "id": "6-34",
+          "chapter": 6,
+          "n": 34,
+          "title": "耶稣喂饱众人（约六1-15）",
+          "meta": "第六章 · 第34集 · John MacArthur",
+          "youtubeId": "ZzcZm8eYsy8"
+        },
+        {
+          "id": "6-35",
+          "chapter": 6,
+          "n": 35,
+          "title": "真假门徒（一）（约六16-21）",
+          "meta": "第六章 · 第35集 · John MacArthur",
+          "youtubeId": "MM6eeXog8OI"
+        },
+        {
+          "id": "6-36",
+          "chapter": 6,
+          "n": 36,
+          "title": "真假门徒（二）（约六22-27）",
+          "meta": "第六章 · 第36集 · John MacArthur",
+          "youtubeId": "KWiSQNKJ2D4"
+        },
+        {
+          "id": "6-37",
+          "chapter": 6,
+          "n": 37,
+          "title": "真假门徒（三）（约六28-34）",
+          "meta": "第六章 · 第37集 · John MacArthur",
+          "youtubeId": "RJD1dPsoUtc"
+        },
+        {
+          "id": "6-38",
+          "chapter": 6,
+          "n": 38,
+          "title": "我是生命的粮（约六32-59）",
+          "meta": "第六章 · 第38集 · John MacArthur",
+          "youtubeId": "VdccM8qNIho"
+        },
+        {
+          "id": "6-39",
+          "chapter": 6,
+          "n": 39,
+          "title": "假门徒病理学（一）（约六）",
+          "meta": "第六章 · 第39集 · John MacArthur",
+          "youtubeId": "z3kfv_ObYDE"
+        },
+        {
+          "id": "6-40",
+          "chapter": 6,
+          "n": 40,
+          "title": "假门徒病理学（二）（约六）",
+          "meta": "第六章 · 第40集 · John MacArthur",
+          "youtubeId": "grCY4-7eRr8"
+        },
+        {
+          "id": "6-41",
+          "chapter": 6,
+          "n": 41,
+          "title": "假门徒病理学（三）（约六60-71）",
+          "meta": "第六章 · 第41集 · John MacArthur",
+          "youtubeId": "H4mrTpo8Q50"
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "label": "第七章",
+      "sourceUrl": "https://wp.me/pg6lk7-bz",
+      "file": "chapter-07.json",
+      "lessons": [
+        {
+          "id": "7-42",
+          "chapter": 7,
+          "n": 42,
+          "title": "遵照上帝的时间表（约七1-13）",
+          "meta": "第七章 · 第42集 · John MacArthur",
+          "youtubeId": "7Z3n-FlHqkE"
+        },
+        {
+          "id": "7-43",
+          "chapter": 7,
+          "n": 43,
+          "title": "接受基督的宣告（约七14-24）",
+          "meta": "第七章 · 第43集 · John MacArthur",
+          "youtubeId": "V-hiu2qsVsw"
+        },
+        {
+          "id": "7-44",
+          "chapter": 7,
+          "n": 44,
+          "title": "永不得进天堂（约七25-36）",
+          "meta": "第七章 · 第44集 · John MacArthur",
+          "youtubeId": "bugGV-Mk_cg"
+        },
+        {
+          "id": "7-45",
+          "chapter": 7,
+          "n": 45,
+          "title": "荣耀的福音邀请（约七37-52）",
+          "meta": "第七章 · 第45集 · John MacArthur",
+          "youtubeId": "HWkfoawE5IM"
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "label": "第八章",
+      "sourceUrl": "https://wp.me/pg6lk7-bD",
+      "file": "chapter-08.json",
+      "lessons": [
+        {
+          "id": "8-46",
+          "chapter": 8,
+          "n": 46,
+          "title": "我是世界的光（约八12-21）",
+          "meta": "第八章 · 第46集 · John MacArthur",
+          "youtubeId": "07x8335999I"
+        },
+        {
+          "id": "8-47",
+          "chapter": 8,
+          "n": 47,
+          "title": "死在罪中的方案 (约八21 30)",
+          "meta": "第八章 · 第47集 · John MacArthur",
+          "youtubeId": "WX377Qn44Ao"
+        },
+        {
+          "id": "8-48",
+          "chapter": 8,
+          "n": 48,
+          "title": "真门徒的自由 (约八31-36)",
+          "meta": "第八章 · 第48集 · John MacArthur",
+          "youtubeId": "AM5x0_Bvzzo"
+        },
+        {
+          "id": "8-49",
+          "chapter": 8,
+          "n": 49,
+          "title": "宗教上的假确据 (约八37~47)",
+          "meta": "第八章 · 第49集 · John MacArthur",
+          "youtubeId": "XBLkSJVfg1Q"
+        },
+        {
+          "id": "8-50",
+          "chapter": 8,
+          "n": 50,
+          "title": "耶稣激怒祂的仇敌 (约八48-59)",
+          "meta": "第八章 · 第50集 · John MacArthur",
+          "youtubeId": "xIKlvC5C614"
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "label": "第九章",
+      "sourceUrl": "https://wp.me/pg6lk7-bI",
+      "file": "chapter-09.json",
+      "lessons": [
+        {
+          "id": "9-51",
+          "chapter": 9,
+          "n": 51,
+          "title": "看不见上帝的荣耀 (约九1 12)",
+          "meta": "第九章 · 第51集 · John MacArthur",
+          "youtubeId": "iKSu6n4CrT4"
+        },
+        {
+          "id": "9-52",
+          "chapter": 9,
+          "n": 52,
+          "title": "不信者研究神迹的态度 (约九13 34)",
+          "meta": "第九章 · 第52集 · John MacArthur",
+          "youtubeId": "wDydfVRiCgA"
+        },
+        {
+          "id": "9-53",
+          "chapter": 9,
+          "n": 53,
+          "title": "坚决视而不见者的绝望 (约九35~41)",
+          "meta": "第九章 · 第53集 · John MacArthur",
+          "youtubeId": "BkSWopGbtug"
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "label": "第十章",
+      "sourceUrl": "https://wp.me/pg6lk7-bN",
+      "file": "chapter-10.json",
+      "lessons": [
+        {
+          "id": "10-54",
+          "chapter": 10,
+          "n": 54,
+          "title": "我就是门（约十1-10）",
+          "meta": "第十章 · 第54集 · John MacArthur",
+          "youtubeId": "ANvoTfDSZgc"
+        },
+        {
+          "id": "10-55",
+          "chapter": 10,
+          "n": 55,
+          "title": "我是好牧人（约十11-21）",
+          "meta": "第十章 · 第55集 · John MacArthur",
+          "youtubeId": "iI35XKalK28"
+        },
+        {
+          "id": "10-56",
+          "chapter": 10,
+          "n": 56,
+          "title": "我与父原为一 (一)（约十22-24）",
+          "meta": "第十章 · 第56集 · John MacArthur",
+          "youtubeId": "hr_64TBd-9U"
+        },
+        {
+          "id": "10-57",
+          "chapter": 10,
+          "n": 57,
+          "title": "我与父原为一 (二)（约十22-24）",
+          "meta": "第十章 · 第57集 · John MacArthur",
+          "youtubeId": "VzKN90DhCCc"
+        },
+        {
+          "id": "10-58",
+          "chapter": 10,
+          "n": 58,
+          "title": "我与父原为一 (三)（约十22-24）",
+          "meta": "第十章 · 第58集 · John MacArthur",
+          "youtubeId": "NuTxnix9utg"
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "label": "第十一章",
+      "sourceUrl": "https://wp.me/pg6lk7-bS",
+      "file": "chapter-11.json",
+      "lessons": [
+        {
+          "id": "11-59",
+          "chapter": 11,
+          "n": 59,
+          "title": "为上帝的荣耀而死（约十一1-16)",
+          "meta": "第十一章 · 第59集 · John MacArthur",
+          "youtubeId": "a_Z1_tEQZhI"
+        },
+        {
+          "id": "11-60",
+          "chapter": 11,
+          "n": 60,
+          "title": "我就是复活和生命(一)（约十一17-36)",
+          "meta": "第十一章 · 第60集 · John MacArthur",
+          "youtubeId": "mUn8h8jpcpU"
+        },
+        {
+          "id": "11-61",
+          "chapter": 11,
+          "n": 61,
+          "title": "我就是复活和生命(二)（约十一 37 46)",
+          "meta": "第十一章 · 第61集 · John MacArthur",
+          "youtubeId": "mzLQTaP1dq8"
+        },
+        {
+          "id": "11-62",
+          "chapter": 11,
+          "n": 62,
+          "title": "我就是复活和生命(三)（约十一 45-57)",
+          "meta": "第十一章 · 第62集 · John MacArthur",
+          "youtubeId": "VPV1N6YWZ28"
+        }
+      ]
+    },
+    {
+      "n": 12,
+      "label": "第十二章",
+      "sourceUrl": "https://wp.me/pg6lk7-bX",
+      "file": "chapter-12.json",
+      "lessons": [
+        {
+          "id": "12-63",
+          "chapter": 12,
+          "n": 63,
+          "title": "一位救主、五种反应（约十二1~11）",
+          "meta": "第十二章 · 第63集 · John MacArthur",
+          "youtubeId": "ig2t8MR_uWk"
+        },
+        {
+          "id": "12-64",
+          "chapter": 12,
+          "n": 64,
+          "title": "胜利与眼泪（约十二12~17）",
+          "meta": "第十二章 · 第64集 · John MacArthur",
+          "youtubeId": "vMp-Sshi-oU"
+        },
+        {
+          "id": "12-65",
+          "chapter": 12,
+          "n": 65,
+          "title": "过渡到十字架的时期（约十二17~26）",
+          "meta": "第十二章 · 第65集 · John MacArthur",
+          "youtubeId": "wH-9cWfMTUk"
+        },
+        {
+          "id": "12-66",
+          "chapter": 12,
+          "n": 66,
+          "title": "：十字架的困惑（约十二27~34）",
+          "meta": "第十二章 · 第66集 · John MacArthur",
+          "youtubeId": "5tK1XoT0KHw"
+        },
+        {
+          "id": "12-67",
+          "chapter": 12,
+          "n": 67,
+          "title": "：当上帝的耐心用完时(一)（约十二35~43）",
+          "meta": "第十二章 · 第67集 · John MacArthur",
+          "youtubeId": "AEa2QH0wYQc"
+        },
+        {
+          "id": "12-68",
+          "chapter": 12,
+          "n": 68,
+          "title": "：当上帝的耐心用完时(二)（约十二37~50）",
+          "meta": "第十二章 · 第68集 · John MacArthur",
+          "youtubeId": "HsiNGEDRcyg"
+        }
+      ]
+    },
+    {
+      "n": 13,
+      "label": "第十三章",
+      "sourceUrl": "https://wp.me/pg6lk7-c1",
+      "file": "chapter-13.json",
+      "lessons": [
+        {
+          "id": "13-69",
+          "chapter": 13,
+          "n": 69,
+          "title": "救主对自己人的爱（约十三1）",
+          "meta": "第十三章 · 第69集 · John MacArthur",
+          "youtubeId": "-m_VQzPNiLI"
+        },
+        {
+          "id": "13-71",
+          "chapter": 13,
+          "n": 71,
+          "title": "基督谦卑的爱（约十三1-17）",
+          "meta": "第十三章 · 第71集 · John MacArthur",
+          "youtubeId": "_wopehI6tTk"
+        },
+        {
+          "id": "13-72",
+          "chapter": 13,
+          "n": 72,
+          "title": "撕下叛徒的假面具（约十三18-30）",
+          "meta": "第十三章 · 第72集 · John MacArthur",
+          "youtubeId": "ku-qeoj7Mzg"
+        },
+        {
+          "id": "13-73",
+          "chapter": 13,
+          "n": 73,
+          "title": "真信徒的特点(一)（约十三31-38）",
+          "meta": "第十三章 · 第73集 · John MacArthur",
+          "youtubeId": "_d-G7ePTJCU"
+        },
+        {
+          "id": "13-74",
+          "chapter": 13,
+          "n": 74,
+          "title": "真信徒的特点(二)（约十三31-38）",
+          "meta": "第十三章 · 第74集 · John MacArthur",
+          "youtubeId": "bNB0v0PCOBI"
+        }
+      ]
+    },
+    {
+      "n": 14,
+      "label": "第十四章",
+      "sourceUrl": "https://wp.me/pg6lk7-c5",
+      "file": "chapter-14.json",
+      "lessons": [
+        {
+          "id": "14-75",
+          "chapter": 14,
+          "n": 75,
+          "title": "属天的应许（约十四1-6）",
+          "meta": "第十四章 · 第75集 · John MacArthur",
+          "youtubeId": "EpJhgK1yT5M"
+        },
+        {
+          "id": "14-76",
+          "chapter": 14,
+          "n": 76,
+          "title": "大有能力的应许（约十四7-14）",
+          "meta": "第十四章 · 第76集 · John MacArthur",
+          "youtubeId": "HKmhE-iw7zU"
+        },
+        {
+          "id": "14-78",
+          "chapter": 14,
+          "n": 78,
+          "title": "关于圣灵的应许(二)（约十四15-24）",
+          "meta": "第十四章 · 第78集 · John MacArthur",
+          "youtubeId": "jmQ5_bJZq5k"
+        },
+        {
+          "id": "14-79",
+          "chapter": 14,
+          "n": 79,
+          "title": "圣灵光照的角色（约十四24-26）",
+          "meta": "第十四章 · 第79集 · John MacArthur",
+          "youtubeId": "6UgjiEvvIQQ"
+        },
+        {
+          "id": "14-80",
+          "chapter": 14,
+          "n": 80,
+          "title": "超自然的平安（约十四27）",
+          "meta": "第十四章 · 第80集 · John MacArthur",
+          "youtubeId": "V8NuRq9mW8s"
+        },
+        {
+          "id": "14-81",
+          "chapter": 14,
+          "n": 81,
+          "title": "十字架对基督的意义（约十四28-31）",
+          "meta": "第十四章 · 第81集 · John MacArthur",
+          "youtubeId": "5dJQEVWyF-0"
+        }
+      ]
+    },
+    {
+      "n": 15,
+      "label": "第十五章",
+      "sourceUrl": "https://wp.me/pg6lk7-c9",
+      "file": "chapter-15.json",
+      "lessons": [
+        {
+          "id": "15-82",
+          "chapter": 15,
+          "n": 82,
+          "title": "我是真葡萄树（约翰福音 15:1-6）",
+          "meta": "第十五章 · 第82集 · John MacArthur",
+          "youtubeId": "Itat_iff80g"
+        },
+        {
+          "id": "15-83",
+          "chapter": 15,
+          "n": 83,
+          "title": "住在基督里的好处（一）（约15：4-11）",
+          "meta": "第十五章 · 第83集 · John MacArthur",
+          "youtubeId": "yfu0ZIbBPeg"
+        },
+        {
+          "id": "15-84",
+          "chapter": 15,
+          "n": 84,
+          "title": "住在基督里的好处（二）（约15：4-11）",
+          "meta": "第十五章 · 第84集 · John MacArthur",
+          "youtubeId": "oHH2xLFYyes"
+        },
+        {
+          "id": "15-85",
+          "chapter": 15,
+          "n": 85,
+          "title": "住在基督里的好处（三）（约15：4-11）",
+          "meta": "第十五章 · 第85集 · John MacArthur",
+          "youtubeId": "wZn2NixcfDE"
+        },
+        {
+          "id": "15-86",
+          "chapter": 15,
+          "n": 86,
+          "title": "耶稣的奴隶和朋友（一）（约15: 12-17）",
+          "meta": "第十五章 · 第86集 · John MacArthur",
+          "youtubeId": "FuJiVLIYhfI"
+        },
+        {
+          "id": "15-87",
+          "chapter": 15,
+          "n": 87,
+          "title": "耶稣的奴隶和朋友（二）（约15: 12-17）",
+          "meta": "第十五章 · 第87集 · John MacArthur",
+          "youtubeId": "QV7LxPy6KKg"
+        },
+        {
+          "id": "15-88",
+          "chapter": 15,
+          "n": 88,
+          "title": "世人为何憎恨基督徒（一）（约15:17-25）",
+          "meta": "第十五章 · 第88集 · John MacArthur",
+          "youtubeId": "DSeFIfCDpCI"
+        },
+        {
+          "id": "15-89",
+          "chapter": 15,
+          "n": 89,
+          "title": "世人为何憎恨基督徒（二）（约15:17-25）",
+          "meta": "第十五章 · 第89集 · John MacArthur",
+          "youtubeId": "DTfR_vWVCzA"
+        },
+        {
+          "id": "15-90",
+          "chapter": 15,
+          "n": 90,
+          "title": "基督徒对上帝应许的信心（约15:26-27）",
+          "meta": "第十五章 · 第90集 · John MacArthur",
+          "youtubeId": "_Ip6oSoOhVg"
+        }
+      ]
+    },
+    {
+      "n": 16,
+      "label": "第十六章",
+      "sourceUrl": "https://wp.me/pg6lk7-cd",
+      "file": "chapter-16.json",
+      "lessons": [
+        {
+          "id": "16-91",
+          "chapter": 16,
+          "n": 91,
+          "title": "基督离世的益处（约16:1-11）",
+          "meta": "第十六章 · 第91集 · John MacArthur",
+          "youtubeId": "g9YpR4yWCTU"
+        },
+        {
+          "id": "16-92",
+          "chapter": 16,
+          "n": 92,
+          "title": "圣灵：上帝的检察官（约16：8-11）",
+          "meta": "第十六章 · 第92集 · John MacArthur",
+          "youtubeId": "DWhM8xRFE7Y"
+        },
+        {
+          "id": "16-93",
+          "chapter": 16,
+          "n": 93,
+          "title": "圣经的认证者（约16:12-15）",
+          "meta": "第十六章 · 第93集 · John MacArthur",
+          "youtubeId": "M7Yk2l1auQg"
+        },
+        {
+          "id": "16-94",
+          "chapter": 16,
+          "n": 94,
+          "title": "化悲为喜（约16:16-22）",
+          "meta": "第十六章 · 第94集 · John MacArthur",
+          "youtubeId": "53o665Z3ziE"
+        },
+        {
+          "id": "16-95",
+          "chapter": 16,
+          "n": 95,
+          "title": "胜过世界的盼望（约16:23-33）",
+          "meta": "第十六章 · 第95集 · John MacArthur",
+          "youtubeId": "3hNg87JWWt4"
+        }
+      ]
+    },
+    {
+      "n": 17,
+      "label": "第十七章",
+      "sourceUrl": "https://wp.me/pg6lk7-ci",
+      "file": "chapter-17.json",
+      "lessons": [
+        {
+          "id": "17-96",
+          "chapter": 17,
+          "n": 96,
+          "title": "主耶稣最伟大的祷告-6（约17章）",
+          "meta": "第十七章 · 第96集 · John MacArthur",
+          "youtubeId": "gqg0aUW199s"
+        },
+        {
+          "id": "17-97",
+          "chapter": 17,
+          "n": 97,
+          "title": "主耶稣最伟大的祷告-1（约17:1-5）",
+          "meta": "第十七章 · 第97集 · John MacArthur",
+          "youtubeId": "MpRBueBfJDE"
+        },
+        {
+          "id": "17-98",
+          "chapter": 17,
+          "n": 98,
+          "title": "主耶稣最伟大的祷告-2（约17:1-5）",
+          "meta": "第十七章 · 第98集 · John MacArthur",
+          "youtubeId": "XEC6jI1hJg8"
+        },
+        {
+          "id": "17-99",
+          "chapter": 17,
+          "n": 99,
+          "title": "主耶稣最伟大的祷告-3（约17:6-10）",
+          "meta": "第十七章 · 第99集 · John MacArthur",
+          "youtubeId": "ZgfZc6phUuE"
+        },
+        {
+          "id": "17-100",
+          "chapter": 17,
+          "n": 100,
+          "title": "主耶稣最伟大的祷告-4（约17:11-19）",
+          "meta": "第十七章 · 第100集 · John MacArthur",
+          "youtubeId": "Q98pE-aKWEo"
+        },
+        {
+          "id": "17-101",
+          "chapter": 17,
+          "n": 101,
+          "title": "主耶稣最伟大的祷告-5（约17:11-19）",
+          "meta": "第十七章 · 第101集 · John MacArthur",
+          "youtubeId": "KI0o1J_sf1s"
+        },
+        {
+          "id": "17-102",
+          "chapter": 17,
+          "n": 102,
+          "title": "主耶稣最伟大的祷告-7（约17:20–23）",
+          "meta": "第十七章 · 第102集 · John MacArthur",
+          "youtubeId": "cpGi3c6FyxM"
+        },
+        {
+          "id": "17-103",
+          "chapter": 17,
+          "n": 103,
+          "title": "主耶稣最伟大的祷告-8（约17:24–26）",
+          "meta": "第十七章 · 第103集 · John MacArthur",
+          "youtubeId": "8wP7GKrJ6iQ"
+        }
+      ]
+    },
+    {
+      "n": 18,
+      "label": "第十八章",
+      "sourceUrl": "https://wp.me/pg6lk7-cn",
+      "file": "chapter-18.json",
+      "lessons": [
+        {
+          "id": "18-104",
+          "chapter": 18,
+          "n": 104,
+          "title": "被出卖的基督保护自己的子民（约翰福音18:1-11）",
+          "meta": "第十八章 · 第104集 · John MacArthur",
+          "youtubeId": "2NiFxNB4Soo"
+        },
+        {
+          "id": "18-105",
+          "chapter": 18,
+          "n": 105,
+          "title": "耶稣受不公正审判，彼得羞愧否认（约翰福音18:12-27）",
+          "meta": "第十八章 · 第105集 · John MacArthur",
+          "youtubeId": "XMIyO7IrVT0"
+        },
+        {
+          "id": "18-106",
+          "chapter": 18,
+          "n": 106,
+          "title": "耶稣出现在彼拉多面前-1（约18:28-38）",
+          "meta": "第十八章 · 第106集 · John MacArthur",
+          "youtubeId": "HvnZBScP0f4"
+        },
+        {
+          "id": "18-107",
+          "chapter": 18,
+          "n": 107,
+          "title": "耶稣出现在彼拉多面前-2（约18:28-38）",
+          "meta": "第十八章 · 第107集 · John MacArthur",
+          "youtubeId": "p68n8PfW2zw"
+        },
+        {
+          "id": "18-108",
+          "chapter": 18,
+          "n": 108,
+          "title": "耶稣出现在彼拉多面前-3（约18:25–19:7）",
+          "meta": "第十八章 · 第108集 · John MacArthur",
+          "youtubeId": "JhRnVUU617c"
+        }
+      ]
+    },
+    {
+      "n": 19,
+      "label": "第十九章",
+      "sourceUrl": "https://wp.me/pg6lk7-cs",
+      "file": "chapter-19.json",
+      "lessons": [
+        {
+          "id": "19-109",
+          "chapter": 19,
+          "n": 109,
+          "title": "耶稣出现在彼拉多面前-4（约19:1–15）",
+          "meta": "第十九章 · 第109集 · John MacArthur",
+          "youtubeId": "nm7dy_4LVVA"
+        },
+        {
+          "id": "19-110",
+          "chapter": 19,
+          "n": 110,
+          "title": "髑髅地应验的预言（约19:16-30）",
+          "meta": "第十九章 · 第110集 · John MacArthur",
+          "youtubeId": "ABpJaHFRdvU"
+        },
+        {
+          "id": "19-111",
+          "chapter": 19,
+          "n": 111,
+          "title": "髑髅地的记号（约19:16-30）",
+          "meta": "第十九章 · 第111集 · John MacArthur",
+          "youtubeId": "uonu0LrwT6A"
+        },
+        {
+          "id": "19-112",
+          "chapter": 19,
+          "n": 112,
+          "title": "加略山上的同情恩典与至高无上（约19:16-30）",
+          "meta": "第十九章 · 第112集 · John MacArthur",
+          "youtubeId": "17Uc6sUo680"
+        },
+        {
+          "id": "19-113",
+          "chapter": 19,
+          "n": 113,
+          "title": "耶稣，胜过死亡（约翰福音19:31-20:10）",
+          "meta": "第十九章 · 第113集 · John MacArthur",
+          "youtubeId": "biB10e3VFmE"
+        }
+      ]
+    },
+    {
+      "n": 20,
+      "label": "第二十章",
+      "sourceUrl": "https://wp.me/pg6lk7-cv",
+      "file": "chapter-20.json",
+      "lessons": [
+        {
+          "id": "20-114",
+          "chapter": 20,
+          "n": 114,
+          "title": "基督复活-1（约20:1-10）",
+          "meta": "第二十章 · 第114集 · John MacArthur",
+          "youtubeId": "lxpn1xhIE3g"
+        },
+        {
+          "id": "20-115",
+          "chapter": 20,
+          "n": 115,
+          "title": "基督复活-2（约20:11-29）",
+          "meta": "第二十章 · 第115集 · John MacArthur",
+          "youtubeId": "HyoagM5Uqg0"
+        },
+        {
+          "id": "20-116",
+          "chapter": 20,
+          "n": 116,
+          "title": "基督复活的确凿证据（约20:19-29）",
+          "meta": "第二十章 · 第116集 · John MacArthur",
+          "youtubeId": "bk1LtiEiYsc"
+        },
+        {
+          "id": "20-117",
+          "chapter": 20,
+          "n": 117,
+          "title": "得救的记号（约20:30-31）",
+          "meta": "第二十章 · 第117集 · John MacArthur",
+          "youtubeId": "Nu5-te1A8WE"
+        },
+        {
+          "id": "20-118",
+          "chapter": 20,
+          "n": 118,
+          "title": "不是救主之一——而是那独一救主（约 20:31）",
+          "meta": "第二十章 · 第118集 · John MacArthur",
+          "youtubeId": "C7oDwu_X-HY"
+        }
+      ]
+    },
+    {
+      "n": 21,
+      "label": "第二十一章",
+      "sourceUrl": "https://wp.me/pg6lk7-cy",
+      "file": "chapter-21.json",
+      "lessons": [
+        {
+          "id": "21-119",
+          "chapter": 21,
+          "n": 119,
+          "title": "大胆的不顺服（约21:1-14）",
+          "meta": "第二十一章 · 第119集 · John MacArthur",
+          "youtubeId": "OFHCqq-7SO8"
+        },
+        {
+          "id": "21-120",
+          "chapter": 21,
+          "n": 120,
+          "title": "彼得，你爱我吗？（约21:15-25）",
+          "meta": "第二十一章 · 第120集 · John MacArthur",
+          "youtubeId": "ugJ4kR7kCvk"
+        }
+      ]
+    }
+  ]
+}

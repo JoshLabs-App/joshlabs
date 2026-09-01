@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 640" role="img" aria-labelledby="title desc">
+  <title id="title">婚姻的三种模式</title>
+  <desc id="desc">上-下传统模式、50/50 相同模式、并排圣经模式的对照图。</desc>
+  <defs>
+    <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#1f2732}.title{font-size:31px;font-weight:900}.label{font-size:25px;font-weight:850}.small{font-size:21px;font-weight:700}.card{fill:#fff;stroke:#d7e7de;stroke-width:3}.pill{fill:#f2f6ef}.line{stroke:#636a76;stroke-width:4;fill:none;stroke-linecap:round}</style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#636a76"/></marker>
+  </defs>
+  <rect x="24" y="24" width="1192" height="592" rx="38" fill="#fff" stroke="#d7e7de" stroke-width="3"/>
+  <g transform="translate(54 64)">
+    <rect class="card" x="0" y="0" width="350" height="500" rx="30"/><text class="title" x="175" y="54" text-anchor="middle">A. 上-下传统模式</text><text class="label" x="175" y="116" text-anchor="middle">丈夫：君王</text><text class="small" x="175" y="166" text-anchor="middle">领导：上帝</text><text class="small" x="175" y="210" text-anchor="middle">目标：个人利益</text><text class="small" x="175" y="254" text-anchor="middle">影响：一方胜利</text><text class="small" x="175" y="290" text-anchor="middle">另一方失败</text><path class="line" d="M175 330V410" marker-end="url(#arrow)"/><text class="label" x="175" y="455" text-anchor="middle">上 / 下</text>
+  </g>
+  <g transform="translate(445 64)">
+    <rect class="card" x="0" y="0" width="350" height="500" rx="30"/><text class="title" x="175" y="54" text-anchor="middle">B. 50/50 相同模式</text><text class="label" x="175" y="116" text-anchor="middle">丈夫：伙伴</text><text class="small" x="175" y="166" text-anchor="middle">领导：群龙无首</text><text class="small" x="175" y="210" text-anchor="middle">目标：平等</text><text class="small" x="175" y="254" text-anchor="middle">影响：难以平衡</text><text class="small" x="175" y="290" text-anchor="middle">难以谦卑</text><path class="line" d="M95 380H255" marker-end="url(#arrow)"/><path class="line" d="M255 420H95" marker-end="url(#arrow)"/><text class="label" x="175" y="455" text-anchor="middle">并列但拉扯</text>
+  </g>
+  <g transform="translate(836 64)">
+    <rect class="card" x="0" y="0" width="350" height="500" rx="30"/><text class="title" x="175" y="54" text-anchor="middle">C. 并排圣经模式</text><text class="label" x="175" y="116" text-anchor="middle">丈夫：头</text><text class="small" x="175" y="166" text-anchor="middle">领导：责任和牺牲</text><text class="small" x="175" y="210" text-anchor="middle">目标：合一</text><text class="small" x="175" y="254" text-anchor="middle">影响：健康、幸福、和谐</text><circle cx="115" cy="384" r="45" fill="#98bd50"/><circle cx="235" cy="384" r="45" fill="#98bd50"/><text class="label" x="115" y="394" text-anchor="middle">丈夫</text><text class="label" x="235" y="394" text-anchor="middle">妻子</text><text class="label" x="175" y="470" text-anchor="middle">并排同行</text>
+  </g>
+</svg>

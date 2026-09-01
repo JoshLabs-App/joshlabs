@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 220" role="img" aria-labelledby="title desc">
+  <title id="title">并排圣经模式示意图</title>
+  <desc id="desc">丈夫和妻子并排同行的示意图。</desc>
+  <defs>
+    <style>
+      text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#1f2732}
+      .label{font-size:28px;font-weight:900}
+      .small{font-size:22px;font-weight:800}
+      .node{fill:#98bd50;stroke:#d5e7a9;stroke-width:8}
+      .line{stroke:#636a76;stroke-width:4;fill:none;stroke-linecap:round}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#636a76"/>
+    </marker>
+  </defs>
+  <rect x="12" y="12" width="396" height="196" rx="28" fill="#fff" stroke="#d7e7de" stroke-width="3"/>
+  <circle class="node" cx="138" cy="92" r="34"/>
+  <circle class="node" cx="238" cy="92" r="34"/>
+  <text x="138" y="99" text-anchor="middle" class="label">丈夫</text>
+  <text x="238" y="99" text-anchor="middle" class="label">妻子</text>
+  <path class="line" d="M88 150H318" marker-end="url(#arrow)"/>
+  <text x="203" y="186" text-anchor="middle" class="small">并排同行</text>
+</svg>

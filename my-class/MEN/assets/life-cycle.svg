@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 520" role="img" aria-labelledby="title desc">
+  <title id="title">男人生命循环图</title>
+  <desc id="desc">男人生命的四个季节：春天、夏天、秋天、冬天。</desc>
+  <defs><style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#1f2732}.h{font-size:34px;font-weight:900}.b{font-size:28px;font-weight:850}.s{font-size:22px;font-weight:700}.line{stroke:#166b4a;stroke-width:5;fill:none;stroke-linecap:round}</style><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#166b4a"/></marker></defs>
+  <rect x="24" y="24" width="1032" height="472" rx="38" fill="#fff" stroke="#d7e7de" stroke-width="3"/>
+  <text x="540" y="78" text-anchor="middle" class="h">生命循环图：男人生命的季节</text>
+  <circle cx="540" cy="275" r="150" fill="none" stroke="#d7e7de" stroke-width="22"/><path class="line" d="M540 125A150 150 0 0 1 690 275" marker-end="url(#arrow)"/><path class="line" d="M690 275A150 150 0 0 1 540 425" marker-end="url(#arrow)"/><path class="line" d="M540 425A150 150 0 0 1 390 275" marker-end="url(#arrow)"/><path class="line" d="M390 275A150 150 0 0 1 540 125" marker-end="url(#arrow)"/>
+  <g text-anchor="middle"><text x="540" y="145" class="b">春天</text><text x="540" y="176" class="s">0-22 青少年</text><text x="720" y="284" class="b">夏天</text><text x="720" y="315" class="s">17-45 成人早期</text><text x="540" y="415" class="b">秋天</text><text x="540" y="446" class="s">40-65 成人中期</text><text x="340" y="284" class="b">冬天</text><text x="340" y="315" class="s">60-? 成人晚期</text></g>
+</svg>

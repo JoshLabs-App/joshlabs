@@ -1,38 +1,138 @@
 {
-  "generatedAt": "2026-07-02T04:13:59.719Z",
+  "generatedAt": "2026-08-27T15:49:58.293Z",
   "source": "https://ochopechurch.org",
   "counts": {
-    "books": 41,
-    "lessons": 855,
+    "books": 42,
+    "lessons": 862,
     "downloadedAudio": 0,
     "categories": 3
   },
   "books": [
     {
+      "title": "诗篇 – 橡城华人希望教会",
+      "slug": "/旧约/诗篇/",
+      "url": "https://ochopechurch.org/%e6%97%a7%e7%ba%a6/%e8%af%97%e7%af%87/",
+      "category": "旧约",
+      "lessonCount": 3,
+      "latestDate": "2026-08-23",
+      "latestTeacher": "高路牧师",
+      "latestLesson": "第3课",
+      "hasGaoLuAudio": true,
+      "gaoLuLessonCount": 3,
+      "downloadedAudioCount": 0,
+      "earliestDate": "2026-08-09",
+      "lessons": [
+        {
+          "lesson": "第1课",
+          "date": "2026-08-09",
+          "teacher": "高路牧师",
+          "fileUrl": "https://ochopechurch.org/wp-content/uploads/2026/08/诗篇_第1课_20260809.pdf",
+          "audioUrl": "https://ochopechurch.org/wp-content/uploads/2026/08/诗篇_第1课_20260809.mp3",
+          "videoUrl": "https://www.youtube.com/live/BfbcPT9N20c?si=vsyRXPQO6aMRlMsu",
+          "isGaoLu": true,
+          "pdfFileName": "诗篇_第1课_20260809.pdf",
+          "audioFileName": "诗篇_第1课_20260809.mp3",
+          "displayLabel": "第1课"
+        },
+        {
+          "lesson": "第2课",
+          "date": "2026-08-16",
+          "teacher": "高路牧师",
+          "fileUrl": "https://ochopechurch.org/wp-content/uploads/2026/08/诗篇_第2课_20260816.pdf",
+          "audioUrl": "https://ochopechurch.org/wp-content/uploads/2026/08/诗篇_第2课_20260816.mp3",
+          "videoUrl": "https://www.youtube.com/live/snttilDhCQk?si=25hY5sht8ubP929W",
+          "isGaoLu": true,
+          "pdfFileName": "诗篇_第2课_20260816.pdf",
+          "audioFileName": "诗篇_第2课_20260816.mp3",
+          "displayLabel": "第2课"
+        },
+        {
+          "lesson": "第3课",
+          "date": "2026-08-23",
+          "teacher": "高路牧师",
+          "fileUrl": "https://ochopechurch.org/wp-content/uploads/2026/08/诗篇_第3课_20260823.pdf",
+          "audioUrl": "https://ochopechurch.org/wp-content/uploads/2026/08/诗篇_第3课_20260823.mp3",
+          "videoUrl": "https://www.youtube.com/live/yfSrHswAQrE?si=8mSFfQ1hbdNYgtMd",
+          "isGaoLu": true,
+          "pdfFileName": "诗篇_第3课_20260823.pdf",
+          "audioFileName": "诗篇_第3课_20260823.mp3",
+          "displayLabel": "第3课"
+        }
+      ]
+    },
+    {
       "title": "2026",
       "slug": "/主日/2026/",
       "url": "https://ochopechurch.org/%E5%B4%87%E6%8B%9C%E4%BF%A1%E6%81%AF/2025%E8%AF%81%E9%81%93%E4%BF%A1%E6%81%AF-2/",
       "category": "主日",
-      "lessonCount": 11,
-      "latestDate": "2026-06-28",
+      "lessonCount": 15,
+      "latestDate": "2026-08-16",
       "latestTeacher": "高路 牧師",
-      "latestLesson": "具备蒙神拣选的明证 帖前1:6-10节",
+      "latestLesson": "患难中的力量 帖撒罗尼迦前书3:6-10节",
       "hasGaoLuAudio": true,
-      "gaoLuLessonCount": 11,
+      "gaoLuLessonCount": 15,
       "downloadedAudioCount": 0,
       "earliestDate": "2026-01-04",
       "lessons": [
         {
-          "lesson": "具备蒙神拣选的明证 帖前1:6-10节",
+          "lesson": "患难中的力量 帖撒罗尼迦前书3:6-10节",
+          "date": "2026-08-16",
+          "teacher": "高路 牧師",
+          "fileUrl": "https://ochopechurch.org/wp-content/uploads/2026/08/20260816_Sunday_Bulletin.pdf",
+          "audioUrl": "https://ochopechurch.org/wp-content/uploads/2026/08/20260816_患难中的力量.mp3",
+          "videoUrl": "https://youtu.be/yYda3pbKqNw",
+          "isGaoLu": true,
+          "pdfFileName": "20260816_Sunday_Bulletin.pdf",
+          "audioFileName": "20260816_患难中的力量.mp3",
+          "displayLabel": "患难中的力量 帖撒罗尼迦前书3:6-10节"
+        },
+        {
+          "lesson": "主内的羁绊与盼望 帖撒罗尼迦前书2:17-20节",
+          "date": "2026-08-02",
+          "teacher": "高路 牧師",
+          "fileUrl": "https://ochopechurch.org/wp-content/uploads/2026/08/20260802_Sunday_Bulletin.pdf",
+          "audioUrl": "https://ochopechurch.org/wp-content/uploads/2026/08/20260802_主内的羁绊与盼望.mp3",
+          "videoUrl": "https://youtu.be/Q3WS2Nxsym4",
+          "isGaoLu": true,
+          "pdfFileName": "20260802_Sunday_Bulletin.pdf",
+          "audioFileName": "20260802_主内的羁绊与盼望.mp3",
+          "displayLabel": "主内的羁绊与盼望 帖撒罗尼迦前书2:17-20节"
+        },
+        {
+          "lesson": "侍奉神的生命品质 帖撒罗尼迦前书2:9-12节",
+          "date": "2026-07-19",
+          "teacher": "高路 牧師",
+          "fileUrl": "https://ochopechurch.org/wp-content/uploads/2026/07/20260719_Sunday_Bulletin.pdf",
+          "audioUrl": "https://ochopechurch.org/wp-content/uploads/2026/07/20260719_侍奉神的生命品质.mp3",
+          "videoUrl": "https://youtu.be/hXJaEunjdIs",
+          "isGaoLu": true,
+          "pdfFileName": "20260719_Sunday_Bulletin.pdf",
+          "audioFileName": "20260719_侍奉神的生命品质.mp3",
+          "displayLabel": "侍奉神的生命品质 帖撒罗尼迦前书2:9-12节"
+        },
+        {
+          "lesson": "要认清传讲真道的人 帖撒罗尼迦前书2:1-4节",
+          "date": "2026-07-05",
+          "teacher": "高路 牧師",
+          "fileUrl": "https://ochopechurch.org/wp-content/uploads/2026/07/20260705_Sunday_Bulletin.pdf",
+          "audioUrl": "https://ochopechurch.org/wp-content/uploads/2026/07/20260705_要认清传讲真道的人.mp3",
+          "videoUrl": "",
+          "isGaoLu": true,
+          "pdfFileName": "20260705_Sunday_Bulletin.pdf",
+          "audioFileName": "20260705_要认清传讲真道的人.mp3",
+          "displayLabel": "要认清传讲真道的人 帖撒罗尼迦前书2:1-4节"
+        },
+        {
+          "lesson": "具备蒙神拣选的明证 帖撒罗尼迦前书1:6-10节",
           "date": "2026-06-28",
           "teacher": "高路 牧師",
           "fileUrl": "https://ochopechurch.org/wp-content/uploads/2026/06/20260628_Sunday_Bulletin.pdf",
           "audioUrl": "https://ochopechurch.org/wp-content/uploads/2026/06/20260628_具备蒙神拣选的明证.mp3",
-          "videoUrl": "https://youtu.be/yEPhBcRMs6U",
+          "videoUrl": "https://youtu.be/86SpBDba_O4",
           "isGaoLu": true,
           "pdfFileName": "20260628_Sunday_Bulletin.pdf",
           "audioFileName": "20260628_具备蒙神拣选的明证.mp3",
-          "displayLabel": "具备蒙神拣选的明证 帖前1:6-10节"
+          "displayLabel": "具备蒙神拣选的明证 帖撒罗尼迦前书1:6-10节"
         },
         {
           "lesson": "生命见证与时刻警醒 歌罗西书4:12-18节",

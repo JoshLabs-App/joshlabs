@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">父亲给儿子的两个方面</title>
+  <desc id="desc">让儿子听到的话语和让儿子具有的品质。</desc>
+  <defs><style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#1f2732}.h{font-size:34px;font-weight:900}.b{font-size:30px;font-weight:800}.line{stroke:#d6dde2;stroke-width:2}.head{fill:#f4f6fb}</style></defs>
+  <rect x="24" y="24" width="912" height="372" rx="30" fill="#fff" stroke="#d7e7de" stroke-width="3"/>
+  <rect x="24" y="24" width="912" height="90" rx="30" class="head"/>
+  <g class="line"><line x1="24" y1="114" x2="936" y2="114"/><line x1="24" y1="208" x2="936" y2="208"/><line x1="24" y1="302" x2="936" y2="302"/><line x1="480" y1="24" x2="480" y2="396"/></g>
+  <g class="h" text-anchor="middle"><text x="252" y="82">让他听到</text><text x="708" y="82">让他具有</text></g>
+  <g class="b"><text x="82" y="173">我爱你</text><text x="82" y="267">我因你而自豪</text><text x="82" y="361">你做得真好</text><text x="532" y="173">真正男人的追求</text><text x="532" y="267">行为准则</text><text x="532" y="361">坚定的信念</text></g>
+</svg>

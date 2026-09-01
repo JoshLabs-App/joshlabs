@@ -21,14 +21,13 @@ const SESSION_KEY = 'sermon-session-v1';
 const SUNDAY_BOOK_FILTER_KEY = 'sermon-sunday-book-filter-v1';
 const SUNDAY_OCCASION_FILTER_KEY = 'sermon-sunday-occasion-filter-v1';
 const SEARCH_QUERY_KEY = 'sermon-search-query-v1';
+const VIEW_KEY = 'sermon-view-v1';
 const SHARE_QUERY_KEY = 'p';
 
 const CATEGORY_ORDER = ['主日', '新约', '旧约', '系列'];
 const DEFAULT_CATEGORY = '新约';
 const SPEAKERS = [
   { id: 'kou', label: '寇绍涵' },
-  { id: 'tang', label: '唐崇荣' },
-  { id: 'jiuren', label: '李洁人' },
   { id: 'gaolu', label: '高路' },
 ];
 const DEFAULT_SPEAKER = 'gaolu';
@@ -53,6 +52,7 @@ const state = {
   sundayBookFilter: loadStoredString(SUNDAY_BOOK_FILTER_KEY) || 'all',
   sundayOccasionFilter: loadStoredString(SUNDAY_OCCASION_FILTER_KEY) || 'all',
   playbackRate: loadPlaybackRate(),
+  activeView: 'sermon',
   sleepTimerId: null,
   sleepTimerLabel: '',
   audioAliases: new Map(),
@@ -83,6 +83,19 @@ const $shareSheetTitle = document.querySelector('#share-sheet-title');
 const $shareSheetLead = document.querySelector('#share-sheet-lead');
 const $shareSheetStatus = document.querySelector('#share-sheet-status');
 const $speedButton = document.querySelector('#speed-button');
+const $sermonView = document.querySelector('#sermon-view');
+const $resourcesView = document.querySelector('#resources-view');
+const $resourcesShareButton = document.querySelector('#resources-share-button');
+const $playerSection = document.querySelector('#player-section');
+const $pageTitle = document.querySelector('#page-title');
+const $pageSubtitle = document.querySelector('#page-subtitle');
+const $pageBadge = document.querySelector('#page-badge');
+const $dockItems = document.querySelectorAll('.dock-item');
+const isStandaloneLaunch =
+  window.matchMedia('(display-mode: standalone)').matches ||
+  window.matchMedia('(display-mode: fullscreen)').matches ||
+  window.navigator.standalone === true;
+const launchStartedAt = Date.now();
 
 const AUDIO_SOURCE_HOSTS = new Set(['ochopechurch.org', 'www.ochopechurch.org']);
 
@@ -92,6 +105,41 @@ let pendingScrollTop = 0;
 let shareToastTimer = null;
 let shareIdByKey = new Map();
 let shareKeyById = new Map();
+let launchDismissTimer = null;
+let launchFallbackTimer = null;
+
+function urlLooksLikeShare() {
+  try {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get(SHARE_QUERY_KEY)) return true;
+    const base = getAppBasePath();
+    let rest = url.pathname;
+    if (base && rest.startsWith(base)) rest = rest.slice(base.length) || '/';
+    const parts = rest.split('/').filter(Boolean);
+    const first = parts[0] === 'index.html' ? parts[1] : parts[0];
+    const id = Number(first);
+    return Number.isInteger(id) && id > 0;
+  } catch {
+    return false;
+  }
+}
+
+function loadInitialView() {
+  if (urlLooksLikeShare()) return 'sermon';
+
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get('view');
+    if (view === 'resources' || view === 'sermon') return view;
+  } catch {}
+
+  try {
+    const stored = window.localStorage.getItem(VIEW_KEY);
+    if (stored === 'resources' || stored === 'sermon') return stored;
+  } catch {}
+
+  return 'sermon';
+}
 
 function loadJSON(key, fallback) {
   try {
@@ -142,23 +190,19 @@ function normalizeCategorySelectionsFlat(selections) {
 
 function normalizeCategorySelections(selections) {
   if (!selections || typeof selections !== 'object') {
-    return { gaolu: {}, kou: {}, tang: {}, jiuren: {} };
+    return { gaolu: {}, kou: {} };
   }
 
-  if ('gaolu' in selections || 'kou' in selections || 'tang' in selections || 'jiuren' in selections) {
+  if ('gaolu' in selections || 'kou' in selections) {
     return {
       gaolu: normalizeCategorySelectionsFlat(selections.gaolu),
       kou: normalizeCategorySelectionsFlat(selections.kou),
-      tang: normalizeCategorySelectionsFlat(selections.tang),
-      jiuren: normalizeCategorySelectionsFlat(selections.jiuren),
     };
   }
 
   return {
     gaolu: normalizeCategorySelectionsFlat(selections),
     kou: {},
-    tang: {},
-    jiuren: {},
   };
 }
 
@@ -195,7 +239,7 @@ function setSelectedSpeaker(speaker) {
   try {
     window.localStorage.setItem(SPEAKER_KEY, nextSpeaker);
   } catch {}
-  if ((nextSpeaker === 'kou' || nextSpeaker === 'tang' || nextSpeaker === 'jiuren') && state.selectedCategory === '主日') {
+  if (nextSpeaker === 'kou' && state.selectedCategory === '主日') {
     setSelectedCategory(getDefaultCategoryForSpeaker(nextSpeaker));
   }
   refreshSpeakerCatalog();
@@ -203,7 +247,7 @@ function setSelectedSpeaker(speaker) {
 }
 
 function getDefaultCategoryForSpeaker(speaker = state.selectedSpeaker) {
-  if (speaker === 'kou' || speaker === 'tang' || speaker === 'jiuren') {
+  if (speaker === 'kou') {
     return (
       CATEGORY_ORDER.find(
         (category) => category !== '主日' && state.books.some((book) => book.category === category),
@@ -346,7 +390,7 @@ function normalizeCloudfrontAudioUrl(url) {
   if (!value) return '';
 
   // 修正个别错误的分辨率变体（403），但不要盲目给普通 .mp4 追加 .h.mp4：
-  // 不同 CGNTV CDN 使用不同格式（寇绍涵用普通 .mp4，唐崇荣用 .h.mp4），
+  // 不同 CGNTV CDN 使用不同格式（寇绍涵用普通 .mp4），
   // 数据里已存正确可播的地址，强行改写会导致寇绍涵全部 403。
   value = value.replace(/\.h480x288\.h\.mp4$/i, '.h.mp4');
   value = value.replace(/\.h1280x720\.mp4$/i, '.h.mp4');
@@ -538,46 +582,20 @@ function isKouTeacher(teacher) {
   return value.includes('寇') && (value.includes('绍') || value.includes('紹'));
 }
 
-function isTangTeacher(teacher) {
-  const value = normalize(teacher);
-  return value.includes('唐') && value.includes('崇');
-}
-
-function isJiurenTeacher(teacher) {
-  const value = normalize(teacher);
-  return value.includes('李') && value.includes('洁');
-}
-
 function isKouLesson(lesson) {
   return lesson?.speaker === 'kou' || Boolean(lesson?.isKou) || isKouTeacher(lesson?.teacher);
-}
-
-function isTangLesson(lesson) {
-  return lesson?.speaker === 'tang' || Boolean(lesson?.isTang) || isTangTeacher(lesson?.teacher);
-}
-
-function isJiurenLesson(lesson) {
-  return lesson?.speaker === 'jiuren' || Boolean(lesson?.isJiuren) || isJiurenTeacher(lesson?.teacher);
 }
 
 function isKouBook(book) {
   return getBookSpeaker(book) === 'kou';
 }
 
-function isTangBook(book) {
-  return getBookSpeaker(book) === 'tang';
-}
-
-function isJiurenBook(book) {
-  return getBookSpeaker(book) === 'jiuren';
-}
-
 function isExternalSpeakerBook(book) {
-  return isKouBook(book) || isTangBook(book) || isJiurenBook(book);
+  return isKouBook(book);
 }
 
 function isExternalSpeakerLesson(lesson) {
-  return isKouLesson(lesson) || isTangLesson(lesson) || isJiurenLesson(lesson);
+  return isKouLesson(lesson);
 }
 
 function isExcludedBookTitle(title) {
@@ -989,8 +1007,9 @@ function buildShareUrl(track = state.currentTrack) {
     return getShareBaseUrl();
   }
 
-  const base = getAppBasePath();
-  return `${window.location.origin}${base}/${shareId}`;
+  const url = new URL(getShareBaseUrl());
+  url.searchParams.set(SHARE_QUERY_KEY, String(shareId));
+  return url.href;
 }
 
 function clearShareFromUrl() {
@@ -1213,14 +1232,105 @@ async function copyShareLink() {
       throw new Error('clipboard unavailable');
     }
     await navigator.clipboard.writeText(url);
-    showShareFeedback('已复制播放页链接');
+    showShareFeedback('已复制网址');
   } catch {
     showShareFeedback('复制失败');
   }
 }
 
+async function sharePageLink() {
+  if (!state.currentTrack) {
+    showShareFeedback('请先选择讲道');
+    return;
+  }
+
+  const url = buildShareUrl(state.currentTrack);
+  const title = getTrackShareTitle();
+  const text = getTrackSubtitle(state.currentTrack);
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title, text, url });
+      showShareFeedback('已分享网址');
+      closeShareSheet();
+      return;
+    } catch (error) {
+      if (error?.name === 'AbortError') return;
+    }
+  }
+
+  await copyShareLink();
+}
+
+function buildResourcesShareUrl() {
+  const url = new URL(getShareBaseUrl());
+  url.searchParams.set('view', 'resources');
+  return url.href;
+}
+
+function showResourcesShareFeedback(message) {
+  if (!$resourcesShareButton) return;
+  const original = $resourcesShareButton.dataset.label || $resourcesShareButton.textContent || '复制网址';
+  $resourcesShareButton.dataset.label = original;
+  $resourcesShareButton.textContent = message;
+  $resourcesShareButton.setAttribute('aria-label', message);
+  $resourcesShareButton.title = message;
+  window.setTimeout(() => {
+    $resourcesShareButton.textContent = original;
+    $resourcesShareButton.setAttribute('aria-label', '复制资源页网址');
+    $resourcesShareButton.title = '复制资源页网址';
+  }, 1800);
+}
+
+async function copyResourcesShareLink() {
+  const url = buildResourcesShareUrl();
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error('clipboard unavailable');
+    await navigator.clipboard.writeText(url);
+    showResourcesShareFeedback('已复制');
+  } catch {
+    showResourcesShareFeedback('复制失败');
+  }
+}
+
 function getPageScrollElement() {
   return document.querySelector('.page-scroll');
+}
+
+function dismissLaunchScreen() {
+  if (!isStandaloneLaunch) return;
+  const root = document.documentElement;
+  const launchScreen = document.querySelector('.launch-screen');
+  const elapsed = Date.now() - launchStartedAt;
+  const delay = Math.max(500 - elapsed, 0);
+
+  window.clearTimeout(launchDismissTimer);
+  window.clearTimeout(launchFallbackTimer);
+  launchDismissTimer = window.setTimeout(() => {
+    launchScreen?.classList.add('is-hiding');
+    root.classList.remove('app-launching');
+    window.setTimeout(() => {
+      launchScreen?.remove();
+    }, 320);
+  }, delay);
+}
+
+function scheduleLaunchScreenFallback() {
+  if (!isStandaloneLaunch) return;
+  window.clearTimeout(launchFallbackTimer);
+  launchFallbackTimer = window.setTimeout(() => {
+    dismissLaunchScreen();
+  }, 2200);
+}
+
+function scrollPageTo(selector, behavior = 'smooth') {
+  const element = document.querySelector(selector);
+  const scrollHost = getPageScrollElement();
+  if (!element || !scrollHost) return;
+  const hostRect = scrollHost.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+  const offset = elementRect.top - hostRect.top + scrollHost.scrollTop;
+  scrollHost.scrollTo({ top: Math.max(0, offset), behavior });
 }
 
 function saveSession() {
@@ -1366,12 +1476,7 @@ function applyFirstVisitDefaults() {
 
 function setSelectedCategory(category) {
   let nextCategory = normalizeCategory(category) || DEFAULT_CATEGORY;
-  if (
-    (state.selectedSpeaker === 'kou' ||
-      state.selectedSpeaker === 'tang' ||
-      state.selectedSpeaker === 'jiuren') &&
-    nextCategory === '主日'
-  ) {
+  if (state.selectedSpeaker === 'kou' && nextCategory === '主日') {
     nextCategory = getDefaultCategoryForSpeaker(state.selectedSpeaker);
   }
   state.selectedCategory = nextCategory;
@@ -1573,7 +1678,7 @@ function renderSpeakerTabs() {
 
   $categoryTabs.forEach((tab) => {
     const category = tab.dataset.category || '';
-    const speakerScope = tab.dataset.speakers || 'gaolu,kou,tang,jiuren';
+    const speakerScope = tab.dataset.speakers || 'gaolu,kou';
     const allowedSpeakers = speakerScope.split(',').map((item) => item.trim());
     const hiddenForSpeaker = !allowedSpeakers.includes(state.selectedSpeaker);
     tab.hidden = hiddenForSpeaker;
@@ -1739,22 +1844,32 @@ function renderSummary() {
 
 function updateTrackRefs(track) {
   if (!track) {
-    $trackTitle.textContent = '未选择讲道';
-    $trackBook.textContent = '';
-    $trackBook.hidden = true;
-    $trackDate.textContent = '--';
-    $trackDate.hidden = false;
+    if ($trackTitle) $trackTitle.textContent = '未选择讲道';
+    if ($trackBook) {
+      $trackBook.textContent = '';
+      $trackBook.hidden = true;
+    }
+    if ($trackDate) {
+      $trackDate.textContent = '--';
+      $trackDate.hidden = false;
+    }
     return;
   }
 
-  $trackTitle.textContent =
-    track.bookCategory === '主日' || track.isSundaySeries
-      ? getTrackLabel(track)
-      : `${track.bookTitle} · ${getTrackLabel(track)}`;
-  $trackBook.textContent = track.teacher || '';
-  $trackBook.hidden = !track.teacher;
-  $trackDate.textContent = track.date ? formatDate(track.date) : '--';
-  $trackDate.hidden = !track.date;
+  if ($trackTitle) {
+    $trackTitle.textContent =
+      track.bookCategory === '主日' || track.isSundaySeries
+        ? getTrackLabel(track)
+        : `${track.bookTitle} · ${getTrackLabel(track)}`;
+  }
+  if ($trackBook) {
+    $trackBook.textContent = track.teacher || '';
+    $trackBook.hidden = !track.teacher;
+  }
+  if ($trackDate) {
+    $trackDate.textContent = track.date ? formatDate(track.date) : '--';
+    $trackDate.hidden = !track.date;
+  }
 }
 
 function syncControlLabels() {
@@ -1775,6 +1890,25 @@ function syncControlLabels() {
   if ($shareButton) {
     $shareButton.disabled = !state.currentTrack;
   }
+}
+
+function updateViewUI() {
+  const isResources = state.activeView === 'resources';
+
+  if ($sermonView) $sermonView.hidden = isResources;
+  if ($resourcesView) $resourcesView.hidden = !isResources;
+  if ($playerSection) $playerSection.hidden = isResources;
+
+  if ($pageTitle) $pageTitle.textContent = isResources ? '资源' : '讲道集';
+  if ($pageSubtitle) $pageSubtitle.textContent = isResources ? 'MEN | 资源入口' : '讲道 | 其它';
+  if ($pageBadge) $pageBadge.textContent = isResources ? 'RES' : 'APP';
+
+  $dockItems.forEach((item) => {
+    const active = (item.dataset.view || '') === state.activeView;
+    item.classList.toggle('is-active', active);
+    if (active) item.setAttribute('aria-current', 'page');
+    else item.removeAttribute('aria-current');
+  });
 }
 
 function syncSelectedBookStyles() {
@@ -1830,6 +1964,7 @@ function updatePlaybackUI() {
 }
 
 function renderAll() {
+  updateViewUI();
   syncSearchField();
   renderCategoryTabs();
   renderSelectedBookPanel();
@@ -1858,6 +1993,27 @@ function selectTrack(track, { autoplay = false } = {}) {
   if (autoplay) {
     void $audio.play().catch(() => {});
   }
+}
+
+function setActiveView(view, { updateUrl = true } = {}) {
+  const nextView = view === 'resources' ? 'resources' : 'sermon';
+  if (state.activeView === nextView && updateUrl) {
+    updateViewUI();
+    return;
+  }
+
+  state.activeView = nextView;
+  try {
+    window.localStorage.setItem(VIEW_KEY, nextView);
+  } catch {}
+
+  if (updateUrl) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('view', nextView);
+    window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  updateViewUI();
 }
 
 function selectBook(title, { autoplay = false } = {}) {
@@ -2098,6 +2254,10 @@ function bindControls() {
     openShareSheet();
   });
 
+  $resourcesShareButton?.addEventListener('click', () => {
+    void copyResourcesShareLink();
+  });
+
   $shareSheet?.addEventListener('click', (event) => {
     const button = event.target.closest('[data-action]');
     if (!button) return;
@@ -2119,11 +2279,25 @@ function bindControls() {
       void copyMp3Link();
       return;
     }
+    if (action === 'share-page-link') {
+      void sharePageLink();
+      return;
+    }
     if (action === 'copy-page-link') {
       void copyShareLink();
     }
   });
   $speedButton?.addEventListener('click', () => cyclePlaybackRate());
+
+  $dockItems.forEach((item) => {
+    item.addEventListener('click', (event) => {
+      const target = item.dataset.view || '';
+      if (target === 'sermon' || target === 'resources') {
+        event.preventDefault();
+        setActiveView(target);
+      }
+    });
+  });
 
   if ($progressSlider) {
     $progressSlider.addEventListener('input', () => {
@@ -2204,11 +2378,76 @@ function prepareCatalog() {
 }
 
 async function loadData() {
-  for (const candidate of [appAssetPath('/data/books-final.json'), appAssetPath('/data/books.json')]) {
+  const candidates = [appAssetPath('/data/books-final.json'), appAssetPath('/data/books.json')];
+  for (const candidate of candidates) {
     const response = await fetch(candidate);
-    if (response.ok) return response.json();
+    if (!response.ok) continue;
+
+    const payload = await response.json();
+    if (hasSpeakerBooks(payload, 'kou')) return payload;
+
+    const kouPayload = await fetchOptionalPayload(appAssetPath('/data/books-kou.json'));
+    if (!kouPayload?.books?.length) return payload;
+
+    return mergeCatalogPayloads(payload, kouPayload);
   }
   throw new Error('加载数据失败');
+}
+
+async function fetchOptionalPayload(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) return null;
+    return response.json();
+  } catch {
+    return null;
+  }
+}
+
+function hasSpeakerBooks(payload, speaker) {
+  return (payload?.books || []).some((book) => {
+    if ((book.speaker || 'gaolu') === speaker) return true;
+    return (book.lessons || []).some((lesson) => (lesson.speaker || book.speaker || 'gaolu') === speaker);
+  });
+}
+
+function mergeCatalogPayloads(primaryPayload, kouPayload) {
+  const mergedBooks = [];
+  const seen = new Set();
+
+  for (const book of primaryPayload?.books || []) {
+    const speaker = book.speaker || 'gaolu';
+    const key = `${speaker}::${book.title}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    mergedBooks.push(book);
+  }
+
+  for (const book of kouPayload?.books || []) {
+    const speaker = book.speaker || 'kou';
+    const key = `${speaker}::${book.title}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    mergedBooks.push({
+      ...book,
+      speaker,
+      lessons: (book.lessons || []).map((lesson) => ({
+        ...lesson,
+        speaker: lesson.speaker || speaker,
+      })),
+    });
+  }
+
+  return {
+    ...primaryPayload,
+    books: mergedBooks,
+    counts: {
+      ...primaryPayload?.counts,
+      books: mergedBooks.length,
+      kouBooks: (kouPayload?.books || []).length,
+      kouLessons: (kouPayload?.books || []).reduce((sum, book) => sum + (book.lessonCount || 0), 0),
+    },
+  };
 }
 
 function updateInitialSelection() {
@@ -2216,6 +2455,7 @@ function updateInitialSelection() {
   const sharedTrack = shareKey ? findTrackByReference(shareKey) : null;
 
   if (sharedTrack) {
+    setActiveView('sermon', { updateUrl: false });
     selectTrack(sharedTrack, { autoplay: true });
     clearShareFromUrl();
     return;
@@ -2258,10 +2498,20 @@ function updateInitialSelection() {
 }
 
 function init() {
+  state.activeView = loadInitialView();
+  updateViewUI();
   bindAudio();
   bindControls();
   bindSessionPersistence();
   $audio.playbackRate = state.playbackRate;
+  scheduleLaunchScreenFallback();
+  window.addEventListener(
+    'load',
+    () => {
+      dismissLaunchScreen();
+    },
+    { once: true },
+  );
   void loadData()
     .then((data) => {
       state.data = data;
@@ -2270,6 +2520,7 @@ function init() {
       renderAll();
       restoreScrollPosition();
       saveSession();
+      dismissLaunchScreen();
     })
     .catch((error) => {
       console.error(error);
@@ -2279,6 +2530,7 @@ function init() {
         `;
       }
       renderAll();
+      dismissLaunchScreen();
     });
 }
 

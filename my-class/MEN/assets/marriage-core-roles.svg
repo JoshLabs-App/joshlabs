@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+  <title id="title">核心角色图</title>
+  <desc id="desc">上帝赋予丈夫和妻子在婚姻中的角色。</desc>
+  <defs><style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#1f2732}.h{font-size:34px;font-weight:900}.b{font-size:30px;font-weight:850}.s{font-size:23px;font-weight:700}.line{stroke:#166b4a;stroke-width:5;fill:none;stroke-linecap:round}.node{fill:#98bd50;stroke:#d5e7a9;stroke-width:8}</style><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#166b4a"/></marker></defs>
+  <rect x="24" y="24" width="852" height="312" rx="38" fill="#fff" stroke="#d7e7de" stroke-width="3"/>
+  <text x="450" y="76" text-anchor="middle" class="h">核心角色：上帝赋予丈夫和妻子的角色</text>
+  <circle class="node" cx="245" cy="200" r="78"/><circle class="node" cx="655" cy="200" r="78"/>
+  <text x="245" y="210" text-anchor="middle" class="b">妻子</text><text x="245" y="252" text-anchor="middle" class="s">帮助者</text>
+  <text x="655" y="210" text-anchor="middle" class="b">丈夫</text><text x="655" y="252" text-anchor="middle" class="s">头</text>
+  <path class="line" d="M335 200H565" marker-end="url(#arrow)"/><text x="450" y="184" text-anchor="middle" class="s">彼此配搭</text>
+</svg>
