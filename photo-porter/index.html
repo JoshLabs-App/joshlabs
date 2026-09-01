@@ -6,7 +6,7 @@
     <title>PhotoPorter — LAN album transfer · JoshLabs</title>
     <meta
       name="description"
-      content="PhotoPorter copies photos and videos across phones on your local network. No cloud. Android APK download · 相册传送：局域网拷照片视频到收箱机。"
+      content="PhotoPorter — LAN file transfer between Android phones, iPhone, and Mac. Photos, videos, and files. No cloud. · 安卓、iPhone、Mac 局域网互传照片视频与文件。"
     />
     <meta name="theme-color" content="#121110" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -42,27 +42,88 @@
             <p class="hero__eyebrow">Transfer · 传输 · v1.0.3</p>
             <h1>PhotoPorter</h1>
             <p class="page-hero__tagline">
-              Copy photos and videos from several phones onto one inbox phone over your Wi‑Fi or
-              hotspot. No cloud, no account — just a QR code and a local copy.
+              LAN file transfer between Android phones, iPhone, and Mac — photos, videos, and hand-picked
+              files over Wi‑Fi or hotspot. No cloud, no account.
             </p>
             <p class="page-hero__tagline">
-              相册传送把多台手机上的照片、视频，经 Wi‑Fi 或热点拷到一台收箱机。没有账号、没有公网中继——流量只在你自己的局域网上。
+              安卓手机、iPhone、Mac 之间的局域网传输工具：照片、视频、手选文件，经 Wi‑Fi 或热点互传。没有账号、没有公网中继。
             </p>
             <div class="page-hero__actions">
-              <a class="btn btn--solid" href="/photo-porter/download/PhotoPorter-1.0.3.apk"
-                >Download Android APK · 下载安卓安装包</a
+              <a class="btn btn--solid" href="/photo-porter/download/PhotoPorter-1.0.4.apk"
+                >Android APK · 安卓安装包</a
+              >
+              <a
+                class="btn btn--solid"
+                href="https://apps.apple.com/app/id6805702109"
+                target="_blank"
+                rel="noopener noreferrer"
+                >iPhone · App Store</a
+              >
+              <a
+                class="btn btn--solid"
+                href="https://apps.apple.com/app/id6805962527"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Mac · App Store</a
               >
               <a class="btn btn--outline" href="/photo-porter/privacy/">Privacy · 隐私</a>
               <a class="btn btn--outline" href="mailto:josh.zeng.ca@gmail.com">Support · 支持</a>
             </div>
             <p class="page-hero__tagline" style="margin-top: 0.75rem; font-size: 0.9rem; opacity: 0.75">
-              Android: install the APK above (enable “Install unknown apps” for your browser). iPhone
-              is in App Store preparation — IPA sideload is not offered.
+              <strong>Android</strong> — send &amp; receive: pair with other Android phones, iPhones, or a Mac
+              inbox (<a href="/photo-porter/download/PhotoPorter-1.0.4.apk">APK</a> ·
+              <a href="https://play.google.com/store/apps/details?id=app.joshlabs.phonexfer">Play</a>).
+              <strong>iPhone</strong> — send to an Android or Mac inbox (<a
+                href="https://apps.apple.com/app/id6805702109"
+                >PhotoPorter X</a
+              >).
+              <strong>Mac</strong> — receive inbox from Android &amp; iPhone senders (<a
+                href="https://apps.apple.com/app/id6805962527"
+                >PhotoPorter Mac</a
+              >).
               <br />
-              安卓：点上方按钮下载安装（浏览器需允许「安装未知应用」）。iPhone 正在准备上架，不提供
-              IPA 侧载。
+              <strong>安卓</strong> — 可发可收，与安卓、iPhone、Mac 收箱互传。
+              <strong>iPhone</strong> — 发送到安卓或 Mac 收箱机。
+              <strong>Mac</strong> — 收箱机，接收安卓与 iPhone 发送端。
             </p>
           </div>
+        </div>
+      </section>
+
+      <section class="shell" aria-label="Platforms">
+        <div class="section-head">
+          <h2>Platforms · 各端</h2>
+          <p>One protocol · 同一套协议</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Android · 安卓</h3>
+            <p>
+              Send and receive. Copy from other Android phones or iPhones onto this phone, or send to another
+              Android phone or Mac inbox. 可发可收：从其他安卓或 iPhone 拷到本机，或发到另一台安卓或 Mac 收箱。
+            </p>
+          </article>
+          <article class="feature-card">
+            <h3>iPhone</h3>
+            <p>
+              Send photos, videos, and hand-picked files to an Android phone or Mac inbox on the same Wi‑Fi.
+              Scan the receiver QR once. 发送到同一 Wi‑Fi 上的安卓手机或 Mac 收箱机；扫码配对一次即可。
+            </p>
+          </article>
+          <article class="feature-card">
+            <h3>Mac</h3>
+            <p>
+              Receive inbox for your desk. Android and iPhone senders scan the Mac QR code; files land in
+              Pictures, Movies, or Downloads/PhoneInbox. 桌面收箱机：安卓与 iPhone 发送端扫 Mac 二维码，文件落入对应文件夹。
+            </p>
+          </article>
+          <article class="feature-card">
+            <h3>What transfers · 传什么</h3>
+            <p>
+              Camera rolls (photos &amp; videos together), plus one-shot sends of files or a whole folder.
+              Checksum before ACK — copy, not cloud sync. 相册原样（照片视频一起），也可手选文件或目录发一次；校验通过才确认，是拷贝不是云同步。
+            </p>
+          </article>
         </div>
       </section>
 
@@ -74,7 +135,10 @@
         <div class="feature-grid">
           <article class="feature-card">
             <h3>1. Receive · 接收</h3>
-            <p>Open PhotoPorter on the inbox phone and choose Receive. 收箱机打开 App，选「接收」。</p>
+            <p>
+              Open PhotoPorter on the inbox (Android phone, Mac, or another Android). 收箱机打开
+              App（安卓手机或 Mac），选「接收」。
+            </p>
           </article>
           <article class="feature-card">
             <h3>2. Pair · 配对</h3>
@@ -102,12 +166,15 @@
       <section class="shell" aria-label="PhotoPorter features">
         <div class="section-head">
           <h2>Features · 功能</h2>
-          <p>Android &amp; iPhone</p>
+          <p>Android · iPhone · Mac</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
             <h3>Send or receive · 发送 / 接收</h3>
-            <p>One app, two roles. Pick send on the camera phones and receive on the inbox phone.</p>
+            <p>
+              Phones send; Android phone or Mac receives. One protocol, same QR pairing.
+              手机发送；安卓手机或 Mac 接收。同一协议、同一套二维码配对。
+            </p>
           </article>
           <article class="feature-card">
             <h3>Albums as-is · 相册原样</h3>
@@ -131,7 +198,7 @@
           </article>
           <article class="feature-card">
             <h3>English &amp; 中文</h3>
-            <p>Follows the system language. Interface matches iOS Settings on both phones.</p>
+            <p>Follows the system language on Android, iPhone, and Mac.</p>
           </article>
           <article class="feature-card">
             <h3>Copy, not sync · 拷贝非同步</h3>
@@ -140,13 +207,23 @@
         </div>
       </section>
 
-      <section class="shell principles" aria-label="Notes">
+      <section class="shell principles" aria-label="Notes" id="mac">
         <article class="principle">
-          <h3>Android download · 安卓下载</h3>
+          <h3>Downloads · 下载</h3>
           <p>
-            <a href="/photo-porter/download/PhotoPorter-1.0.3.apk">PhotoPorter-1.0.3.apk</a>
+            <strong>Android</strong>:
+            <a href="/photo-porter/download/PhotoPorter-1.0.4.apk">PhotoPorter-1.0.4.apk</a>
+            (sideload) ·
+            <a href="https://play.google.com/store/apps/details?id=app.joshlabs.phonexfer">Google Play</a>
             · package <code>app.joshlabs.phonexfer</code>
-            · 浏览器打开 APK 即可安装（需允许「安装未知应用」）
+            <br />
+            <strong>iPhone</strong>:
+            <a href="https://apps.apple.com/app/id6805702109">App Store — PhotoPorter X</a>
+            · send to Android/Mac inbox
+            <br />
+            <strong>Mac</strong>:
+            <a href="https://apps.apple.com/app/id6805962527">App Store — PhotoPorter Mac</a>
+            · photos → <code>~/Pictures/PhoneInbox/</code> · videos → <code>~/Movies/PhoneInbox/</code>
           </p>
         </article>
         <article class="principle">
