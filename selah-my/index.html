@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Selah.my — Quiet rest · JoshLabs</title>
+    <meta
+      name="description"
+      content="Selah.my — a quiet rest app with nature scenes, ambient sound, and a rest timer. By JoshLabs."
+    />
+    <meta name="theme-color" content="#121110" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/assets/icons/joshlabs.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icons/joshlabs.png" type="image/png" sizes="512x512" />
+    <link rel="apple-touch-icon" href="/assets/icons/joshlabs.png" sizes="512x512" />
+    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="canonical" href="https://joshlabs.app/selah-my/" />
+  </head>
+  <body>
+    <header class="topbar" id="topbar">
+      <div class="shell topbar__inner">
+        <a class="brand" href="/">
+          <span class="brand__mark" aria-hidden="true">JL</span>
+          <span class="brand__name">Josh<span class="wordmark__labs">Labs</span></span>
+        </a>
+        <a class="topbar__contact" href="mailto:josh.zeng.ca@gmail.com">Contact</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-hero shell">
+        <a class="page-hero__back" href="/">← Josh<span class="wordmark__labs">Labs</span> catalog</a>
+        <div class="page-hero__row">
+          <img
+            class="page-hero__icon"
+            src="../assets/icons/selah.png"
+            alt=""
+            width="88"
+            height="88"
+          />
+          <div>
+            <p class="hero__eyebrow">Quiet rest · 安静歇息 · v1.0.0</p>
+            <h1>Selah.my</h1>
+            <p class="page-hero__tagline">
+              A quiet rest app: nature scenes, ambient sound, and a rest timer. Works offline.
+              Optional sign-in is only for syncing your preferences.
+            </p>
+            <p class="page-hero__tagline">
+              安静歇息：自然场景、环境声与休息计时。默认可离线使用。可选登录仅用于同步偏好。
+            </p>
+            <div class="page-hero__actions">
+              <a class="btn btn--solid" href="/selah-my/privacy/">Privacy policy</a>
+              <a class="btn btn--outline" href="mailto:josh.zeng.ca@gmail.com">Support</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell site-footer">
+      <p><a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a></p>
+      <p>© <span id="year"></span> Joshua Zeng · Josh<span class="wordmark__labs">Labs</span></p>
+    </footer>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
