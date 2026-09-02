@@ -196,12 +196,16 @@ body.hide-zh .zh-inline {
   z-index: 100;
   background: var(--ink);
   color: #fff;
-  padding: 6px 12px;
-  border-radius: 10px;
-  font-size: 0.88rem;
-  white-space: nowrap;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.5;
+  max-width: min(320px, 86vw);
+  white-space: normal;
+  text-align: center;
   pointer-events: none;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
 }
 .word-popup.hidden { display: none; }
 
@@ -350,6 +354,9 @@ body.hide-zh .zh-inline {
 .flashback-label { color: var(--muted); font-size: 0.85rem; margin: 0 0 6px; }
 .flashback-zh { font-size: 1.4rem; font-weight: 700; margin: 0 0 18px; }
 .flashback-feedback { min-height: 1.4em; margin-top: 14px; font-size: 0.9rem; }
+
+.transition-en { font-size: 1.1rem; font-style: italic; margin: 0 0 8px; }
+.transition-zh { color: var(--muted); font-size: 0.95rem; margin: 0 0 22px; }
 
 .flashback-answer {
   min-height: 44px;

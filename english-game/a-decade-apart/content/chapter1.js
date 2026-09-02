@@ -277,6 +277,7 @@ const GAME_CONTENT = {
       startNode: "n1",
       nodes: {
         n1: {
+          avatar: "🧑",
           npcLine: { en: "Excuse me — are you looking for someone?", zh: "打扰了——你是在找人吗？" },
           skill: "greeting",
           grammarTag: "do-question",
@@ -288,6 +289,7 @@ const GAME_CONTENT = {
           next: "n2"
         },
         n2: {
+          avatar: "😊",
           npcLine: { en: "I'm her brother. She asked me to wait for you.", zh: "我是她哥哥。她让我在这儿等你。" },
           skill: "greeting",
           grammarTag: "can-modal",
@@ -299,6 +301,7 @@ const GAME_CONTENT = {
           next: "n3"
         },
         n3: {
+          avatar: "😅",
           npcLine: { en: "She's running late — meet her for dinner instead. Here's the address.", zh: "她要晚一点——改到晚餐见你吧，这是地址。" },
           skill: "greeting",
           grammarTag: "will-future",
@@ -330,7 +333,7 @@ const GAME_CONTENT = {
           next: "n2"
         },
         n2: {
-          avatar: "👩",
+          avatar: "🥹",
           npcLine: { en: "Ten years... you actually came.", zh: "十年了……你真的来了。" },
           skill: "dining",
           grammarTag: "statement",
@@ -342,7 +345,7 @@ const GAME_CONTENT = {
           next: "n3"
         },
         n3: {
-          avatar: "👩",
+          avatar: "😳",
           npcLine: { en: "There's something I never told you. Can I show you tomorrow?", zh: "有件事我一直没告诉你。明天带你去看，好吗？" },
           skill: "dining",
           grammarTag: "will-future",
@@ -357,13 +360,14 @@ const GAME_CONTENT = {
     },
     {
       id: "streetcar-morning",
+      transition: { en: "Night falls. Morning comes.", zh: "夜色降临，又是新的一天。" },
       title: "The Morning After",
       subtitle: "电车前往蒸馏区 · 她要给你看什么？",
       avatar: "🚊",
       startNode: "n1",
       nodes: {
         n1: {
-          avatar: "👩",
+          avatar: "😄",
           npcLine: { en: "Morning! Ready to see my surprise?", zh: "早上好！准备好看我的惊喜了吗？" },
           skill: "direction",
           grammarTag: "present-continuous",
@@ -375,7 +379,7 @@ const GAME_CONTENT = {
           next: "n2"
         },
         n2: {
-          avatar: "👩",
+          avatar: "😊",
           npcLine: { en: "We'll take the streetcar. It's not far.", zh: "我们坐电车去，不远。" },
           skill: "direction",
           grammarTag: "statement",
@@ -387,7 +391,7 @@ const GAME_CONTENT = {
           next: "n3"
         },
         n3: {
-          avatar: "👩",
+          avatar: "🙂",
           npcLine: { en: "Here's our stop!", zh: "到站了！" },
           skill: "direction",
           grammarTag: "lets-suggestion",
@@ -408,7 +412,7 @@ const GAME_CONTENT = {
       startNode: "n1",
       nodes: {
         n1: {
-          avatar: "👩",
+          avatar: "😊",
           npcLine: { en: "This is it. I opened it last spring.", zh: "就是这里。我去年春天开的。" },
           skill: "shopping",
           grammarTag: "do-question",
@@ -420,7 +424,7 @@ const GAME_CONTENT = {
           next: "n2"
         },
         n2: {
-          avatar: "👩",
+          avatar: "🥹",
           npcLine: { en: "I named it after the letters we wrote as kids.", zh: "我用我们小时候写的信给它取的名字。" },
           skill: "shopping",
           grammarTag: "statement",
@@ -432,7 +436,7 @@ const GAME_CONTENT = {
           next: "n3"
         },
         n3: {
-          avatar: "👩",
+          avatar: "😊",
           npcLine: { en: "Come in — the first book is on me.", zh: "进来吧——第一本书我请你。" },
           skill: "shopping",
           grammarTag: "courtesy",
@@ -465,7 +469,7 @@ const GAME_CONTENT = {
           next: "n2"
         },
         n2: {
-          avatar: "👩",
+          avatar: "🤔",
           npcLine: { en: "Another letter? Who could this be from?", zh: "又一封信？会是谁寄来的呢？" },
           skill: "greeting",
           grammarTag: "lets-suggestion",
@@ -477,7 +481,7 @@ const GAME_CONTENT = {
           next: "n3"
         },
         n3: {
-          avatar: "👩",
+          avatar: "😏",
           npcLine: { en: "To be continued...", zh: "故事，未完待续……" },
           skill: "greeting",
           grammarTag: "can-modal",

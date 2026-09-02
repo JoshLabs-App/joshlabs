@@ -4,6 +4,7 @@ const SAVE_KEY = "eng-rpg-london-day1";
 
 const el = {
   scenePanel: document.querySelector(".scene-panel"),
+  dialogueBubble: document.querySelector(".dialogue-bubble"),
   sceneTitle: document.getElementById("scene-title"),
   sceneSubtitle: document.getElementById("scene-subtitle"),
   avatar: document.getElementById("avatar"),
@@ -32,7 +33,11 @@ const el = {
   resetBtn: document.getElementById("reset-btn"),
   restartBtn: document.getElementById("restart-btn"),
   zhToggleBtn: document.getElementById("zh-toggle-btn"),
-  wordPopup: document.getElementById("word-popup")
+  wordPopup: document.getElementById("word-popup"),
+  transitionOverlay: document.getElementById("transition-overlay"),
+  transitionEn: document.getElementById("transition-en"),
+  transitionZh: document.getElementById("transition-zh"),
+  transitionContinueBtn: document.getElementById("transition-continue-btn")
 };
 
 // 每个技能能拿到的经验值上限，从内容里所有场景动态算出——
@@ -147,6 +152,24 @@ let pendingFlashback = []; // queue of items to review before advancing scene
 let flashbackOnComplete = goToNextScene; // 闪回队列清空后要做什么：正常翻页，或断点热身后继续当前场景
 let wrongButtonsThisNode = new Set();
 
+// 一直没选答案的话，隔几秒把台词自动重播一遍，提醒玩家还在等TA选。
+// nodeGen 是"第几次渲染节点"的代号，节点一换、或玩家选了任意选项，就自增失效，
+// 防止旧节点的自动重播定时器在切到新节点之后还继续响。
+const AUTO_REPLAY_GAP_MS = 3000;
+let nodeGen = 0;
+let autoReplayTimer = null;
+
+function scheduleAutoReplay(text, gen) {
+  clearTimeout(autoReplayTimer);
+  autoReplayTimer = setTimeout(() => {
+    if (gen !== nodeGen) return; // 这期间已经切节点或已经选过答案了，这轮作废
+    playAudio(text, el.npcAudioBtn).then(() => {
+      if (gen !== nodeGen) return;
+      scheduleAutoReplay(text, gen);
+    });
+  }, AUTO_REPLAY_GAP_MS);
+}
+
 // 中文翻译显隐：全局开关，存在 localStorage 里跨场景/跨次打开都记得。
 // 只影响台词下方的中文翻译（.npc-zh），不影响回忆闪回的中文提示——那是游戏机制本身要考的。
 const ZH_HIDE_KEY = "eng-rpg-hide-zh";
@@ -162,17 +185,28 @@ function applyZhVisibility() {
   document.title = hideZh ? TITLE_EN : TITLE_ZH;
 }
 
-// 长按查词：把英文台词拆成单词 span，长按 450ms 弹出释义，松手立刻收起。
-const LONG_PRESS_MS = 450;
-let longPressTimer = null;
-let activeWordEl = null;
+// 点词查词：把英文台词拆成单词 span，点一下弹出中文释义，几秒后自动收起。
+// 点过的词会记进 reviewQueue，跟错题走同一套间隔重复机制——查过的词不是查完就算，
+// 之后还会在闪回复习里再考一次。
+const WORD_POPUP_MS = 2500;
+let wordPopupTimer = null;
 
 function wrapWordsHTML(text) {
   return text.replace(/[A-Za-z']+/g, (word) => `<span class="word" data-word="${word.toLowerCase()}">${word}</span>`);
 }
 
+function queueWordForReview(word, meaning) {
+  // 已经在复习队列里的话不重复加、不重置进度——只是又查了一下不代表没学会，
+  // 只有故事里真答错才算"没学会"，重置进度这件事只归 handleChoice 管。
+  const existing = state.reviewQueue.find((r) => r.en === word && r.kind === "word");
+  if (existing) return;
+  state.reviewQueue.push({ en: word, zh: meaning, kind: "word", streak: 0, status: "active", queuedAtScene: state.sceneIndex });
+  saveState();
+}
+
 function showWordPopup(wordEl) {
-  const meaning = typeof WORD_DICT !== "undefined" ? WORD_DICT[wordEl.dataset.word] : null;
+  const word = wordEl.dataset.word;
+  const meaning = typeof WORD_DICT !== "undefined" ? WORD_DICT[word] : null;
   if (!meaning) return;
   el.wordPopup.textContent = `${wordEl.textContent} ${meaning}`;
   el.wordPopup.classList.remove("hidden");
@@ -181,35 +215,34 @@ function showWordPopup(wordEl) {
   const popRect = el.wordPopup.getBoundingClientRect();
   let left = rect.left + rect.width / 2 - popRect.width / 2;
   left = Math.max(8, Math.min(left, window.innerWidth - popRect.width - 8));
-  let top = rect.top - popRect.height - 10;
-  if (top < 8) top = rect.bottom + 10;
+  // 手指点的地方会挡住紧贴单词上方的位置，隔远一点（不是10px那种贴着），
+  // 弹出层才不会被指尖本身盖住。
+  const CLEARANCE = 36;
+  let top = rect.top - popRect.height - CLEARANCE;
+  if (top < 8) top = rect.bottom + CLEARANCE;
   el.wordPopup.style.left = left + "px";
   el.wordPopup.style.top = top + "px";
 
+  document.querySelectorAll(".word.word-active").forEach((w) => w.classList.remove("word-active"));
   wordEl.classList.add("word-active");
-  activeWordEl = wordEl;
+
+  clearTimeout(wordPopupTimer);
+  wordPopupTimer = setTimeout(hideWordPopup, WORD_POPUP_MS);
+
+  queueWordForReview(word, meaning);
 }
 
 function hideWordPopup() {
+  clearTimeout(wordPopupTimer);
   el.wordPopup.classList.add("hidden");
-  if (activeWordEl) activeWordEl.classList.remove("word-active");
-  activeWordEl = null;
+  document.querySelectorAll(".word.word-active").forEach((w) => w.classList.remove("word-active"));
 }
 
-function cancelLongPress() {
-  clearTimeout(longPressTimer);
-  hideWordPopup();
-}
-
-el.npcEn.addEventListener("pointerdown", (e) => {
+el.npcEn.addEventListener("click", (e) => {
   const wordEl = e.target.closest(".word");
   if (!wordEl) return;
-  clearTimeout(longPressTimer);
-  longPressTimer = setTimeout(() => showWordPopup(wordEl), LONG_PRESS_MS);
+  showWordPopup(wordEl);
 });
-el.npcEn.addEventListener("contextmenu", (e) => e.preventDefault());
-window.addEventListener("pointerup", cancelLongPress);
-window.addEventListener("pointercancel", cancelLongPress);
 
 function currentScene() {
   return GAME_CONTENT.scenes[state.sceneIndex];
@@ -325,20 +358,26 @@ function renderSceneContent() {
   const scene = currentScene();
   const node = currentNode();
 
-  cancelLongPress();
+  nodeGen++; // 换节点了，上一个节点排的自动重播定时器自动作废
+  const myGen = nodeGen;
+
+  hideWordPopup();
   renderProgress();
   el.sceneTitle.textContent = scene.title;
   el.sceneSubtitle.textContent = scene.subtitle;
   el.avatar.textContent = node.avatar || scene.avatar;
   el.npcEn.innerHTML = wrapWordsHTML(node.npcLine.en);
   el.npcZh.textContent = node.npcLine.zh;
-  playAudio(node.npcLine.en, el.npcAudioBtn);
+  playAudio(node.npcLine.en, el.npcAudioBtn).then(() => scheduleAutoReplay(node.npcLine.en, myGen));
   el.hint.textContent = "";
   el.hint.classList.remove("visible");
   wrongButtonsThisNode = new Set();
 
   el.choices.innerHTML = "";
-  node.choices.forEach((choice, idx) => {
+  // 内容里为了方便写作，正确选项总是排第一个——渲染时打乱顺序，
+  // 不然正确答案永远在同一个位置，玩家不用看台词也能蒙对。
+  const shuffled = node.choices.map((choice, idx) => ({ choice, idx })).sort(() => Math.random() - 0.5);
+  shuffled.forEach(({ choice, idx }) => {
     const btn = document.createElement("button");
     btn.className = "choice-btn";
     btn.textContent = choice.text;
@@ -350,6 +389,8 @@ function renderSceneContent() {
 }
 
 function handleChoice(idx, btnEl) {
+  nodeGen++; // 已经选了（哪怕选错），停掉这个节点的自动重播，不用再提醒
+  clearTimeout(autoReplayTimer);
   const node = currentNode();
   const choice = node.choices[idx];
   const audioDone = playAudio(choice.text, btnEl);
@@ -384,7 +425,7 @@ function handleChoice(idx, btnEl) {
       existing.status = "active";
       existing.queuedAtScene = state.sceneIndex;
     } else {
-      state.reviewQueue.push({ en: targetEn, zh: targetZh, streak: 0, status: "active", queuedAtScene: state.sceneIndex });
+      state.reviewQueue.push({ en: targetEn, zh: targetZh, kind: "sentence", streak: 0, status: "active", queuedAtScene: state.sceneIndex });
     }
     saveState();
   }
@@ -440,7 +481,20 @@ function goToNextScene() {
   state.sceneIndex = nextIndex;
   state.nodeId = GAME_CONTENT.scenes[nextIndex].startNode;
   saveState();
-  renderScene();
+  // 场景之间如果隔了一段时间/换了地方，先过一下"一天过去了"这种简短的转场，
+  // 不直接硬切——只有明确定义了 transition 的场景才会停一下，大多数场景之间还是直接接着走。
+  const transition = GAME_CONTENT.scenes[nextIndex].transition;
+  if (transition) {
+    showTransition(transition);
+  } else {
+    renderScene();
+  }
+}
+
+function showTransition(transition) {
+  el.transitionEn.textContent = transition.en;
+  el.transitionZh.textContent = transition.zh;
+  el.transitionOverlay.classList.add("visible");
 }
 
 // 检索难度随熟练度升级：还在 active 阶段（第一次见到 / 之前答错过）用选择题，
@@ -452,7 +506,8 @@ function showFlashback() {
   el.flashbackFeedback.textContent = "";
   el.flashbackZh.textContent = item.zh;
 
-  if (item.status === "pendingFinal") {
+  // 单个单词没法拆词拼句，pendingFinal 阶段也一直用选择题，不进拼词模式。
+  if (item.status === "pendingFinal" && item.kind !== "word") {
     renderFlashbackBuild(item);
   } else {
     renderFlashbackChoices(item);
@@ -464,11 +519,16 @@ function renderFlashbackChoices(item) {
   el.flashbackBuild.classList.add("hidden");
   el.flashbackChoices.innerHTML = "";
 
-  const distractors = GAME_CONTENT.vocabBank
-    .filter((v) => v.en !== item.en)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 2)
-    .map((v) => v.en);
+  const distractors = item.kind === "word"
+    ? Object.keys(WORD_DICT)
+        .filter((w) => w !== item.en)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 2)
+    : GAME_CONTENT.vocabBank
+        .filter((v) => v.en !== item.en)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 2)
+        .map((v) => v.en);
 
   const options = [item.en, ...distractors].sort(() => Math.random() - 0.5);
 
@@ -616,6 +676,16 @@ el.resetBtn.addEventListener("click", () => {
 });
 el.restartBtn.addEventListener("click", resetGame);
 el.npcAudioBtn.addEventListener("click", () => playAudio(currentNode().npcLine.en, el.npcAudioBtn));
+// 点对话框里的空白处也能重播，不用非得精准点中那个小喇叭图标——
+// 但点单词（长按查词）或喇叭本身时跳过，避免和它们各自的逻辑重复触发。
+el.dialogueBubble.addEventListener("click", (e) => {
+  if (e.target.closest(".word") || e.target.closest("#npc-audio-btn")) return;
+  playAudio(currentNode().npcLine.en, el.npcAudioBtn);
+});
+el.transitionContinueBtn.addEventListener("click", () => {
+  el.transitionOverlay.classList.remove("visible");
+  renderScene();
+});
 el.zhToggleBtn.addEventListener("click", () => {
   hideZh = !hideZh;
   localStorage.setItem(ZH_HIDE_KEY, hideZh ? "1" : "0");

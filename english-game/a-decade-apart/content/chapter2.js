@@ -28,6 +28,7 @@ GAME_CONTENT.scenes.push(
         next: "n2"
       },
       n2: {
+        avatar: "🤔",
         npcLine: { en: "I don't recognize this address. Do you?", zh: "这个地址我不认识。你呢？" },
         skill: "greeting",
         grammarTag: "do-question",
@@ -39,6 +40,7 @@ GAME_CONTENT.scenes.push(
         next: "n3"
       },
       n3: {
+        avatar: "💡",
         npcLine: { en: "No idea. But I know someone who might.", zh: "不知道。但我认识一个可能知道的人。" },
         skill: "greeting",
         grammarTag: "lets-suggestion",
@@ -53,6 +55,7 @@ GAME_CONTENT.scenes.push(
   },
   {
     id: "bank-account",
+    transition: { en: "The next day, you start settling in.", zh: "第二天，你开始在多伦多安顿下来。" },
     title: "Opening an Account",
     subtitle: "枫叶银行 · 开一个新账户",
     avatar: "🏦",
@@ -347,6 +350,7 @@ GAME_CONTENT.scenes.push(
   },
   {
     id: "hallway-chat",
+    transition: { en: "A few days later...", zh: "几天后……" },
     title: "In the Hallway",
     subtitle: "走廊里 · 遇见邻居",
     avatar: "🍁",
@@ -395,6 +399,7 @@ GAME_CONTENT.scenes.push(
     startNode: "n1",
     nodes: {
       n1: {
+        avatar: "🤔",
         npcLine: { en: "So, what does the address say?", zh: "那，地址上写的是哪儿？" },
         skill: "direction",
         grammarTag: "statement",
@@ -406,6 +411,7 @@ GAME_CONTENT.scenes.push(
         next: "n2"
       },
       n2: {
+        avatar: "🤔",
         npcLine: { en: "Near the lake? Do you know that area?", zh: "湖边？你了解那一带吗？" },
         skill: "direction",
         grammarTag: "do-question",
@@ -417,6 +423,7 @@ GAME_CONTENT.scenes.push(
         next: "n3"
       },
       n3: {
+        avatar: "😊",
         npcLine: { en: "Let's go find out tomorrow.", zh: "我们明天去看看吧。" },
         skill: "direction",
         grammarTag: "will-future",
