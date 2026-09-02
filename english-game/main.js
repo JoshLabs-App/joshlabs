@@ -593,9 +593,8 @@ function showEndScreen() {
   el.endScreen.classList.remove("hidden");
   const totalXp = Object.values(state.skills).reduce((a, b) => a + b, 0);
   el.endSummary.innerHTML = `
-    <p>📖 第一章 · 完</p>
-    <p>你找到了 Emma，也看到了她的新书店——但她说，还有件事没告诉你……</p>
-    <p style="opacity:.7">下一章，敬请期待。</p>
+    <p>你在多伦多安顿了下来——开了账户、租了房、认识了室友——但那张旧照片和地址一直没放下。今晚，你决定明天就去看看。</p>
+    <p style="opacity:.7">故事还在继续，敬请期待下一段。</p>
     <p>总经验值：${totalXp} ・ 学会词汇：${state.learnedVocab.length} 个</p>
     <p>${Object.entries(GAME_CONTENT.skillMeta)
       .map(([k, m]) => `${m.icon} ${m.label} ${state.skills[k] || 0}/${SKILL_MAX[k] || 0}`)

@@ -24,17 +24,17 @@ const GAME_CONTENT = {
     { en: "Thank you so much!", zh: "太谢谢了" },
     { en: "A coffee and a croissant, please.", zh: "请给我一杯咖啡" },
     { en: "You know her? Where is she?", zh: "你认识她？她在哪儿" },
-    { en: "Thank you, I'll go now!", zh: "谢谢，我这就去" },
+    { en: "Thank you, I'm on my way!", zh: "谢谢，我这就出发！" },
     { en: "Excuse me, where is the CN Tower?", zh: "打扰一下，请问CN塔怎么走" },
-    { en: "Turn left, got it.", zh: "左转，明白了" },
+    { en: "Turn left? Do you mean at the light?", zh: "左转？你是说在红绿灯那儿吗？" },
     { en: "Thank you, I'm running!", zh: "谢谢，我这就跑" },
     { en: "Yes! Do you know Emma?", zh: "是的！你认识Emma吗" },
-    { en: "Where is she now?", zh: "她现在在哪儿" },
-    { en: "Sure, sounds great!", zh: "好呀，听起来不错" },
+    { en: "Can you tell me where she is?", zh: "你能告诉我她在哪儿吗？" },
+    { en: "Sure, I'll see you there.", zh: "好，我会去那儿见你。" },
     { en: "Yes, table for two.", zh: "是的，两位" },
     { en: "Of course. A promise is a promise.", zh: "当然啦，说好的事就要做到" },
-    { en: "Sure, I can't wait.", zh: "当然，我等不及了" },
-    { en: "I'm ready, let's go!", zh: "准备好了，走吧" },
+    { en: "Sure, I'll be there.", zh: "好，我会去的。" },
+    { en: "I'm getting ready, let's go!", zh: "我在准备了，走吧！" },
     { en: "Sounds fun, I love streetcars.", zh: "听起来很棒，我喜欢电车" },
     { en: "Perfect, let's get off.", zh: "太好了，我们下车吧" },
     { en: "Wow, you own this place?", zh: "哇，这是你自己的店？" },
@@ -217,12 +217,12 @@ const GAME_CONTENT = {
         n3: {
           npcLine: { en: "She said... watch the sunset from the CN Tower.", zh: "她说过……去 CN 塔看日落。" },
           skill: "dining",
-          grammarTag: "will-future",
+          grammarTag: "statement",
           choices: [
-            { text: "Thank you, I'll go now!", zh: "谢谢，我这就去", correct: true, xp: 10 },
+            { text: "Thank you, I'm on my way!", zh: "谢谢，我这就出发！", correct: true, xp: 10 },
             { text: "Is it free?", correct: false }
           ],
-          hintOnWrong: "道谢并表明行动 → Thank you, I'll go now!",
+          hintOnWrong: "道谢并表明行动（陈述句）→ Thank you, I'm on my way!",
           next: null
         }
       }
@@ -248,12 +248,12 @@ const GAME_CONTENT = {
         n2: {
           npcLine: { en: "Go straight, then turn left.", zh: "直走，然后左转。" },
           skill: "direction",
-          grammarTag: "statement",
+          grammarTag: "do-question",
           choices: [
-            { text: "Turn left, got it.", zh: "左转，明白了", correct: true, xp: 10 },
+            { text: "Turn left? Do you mean at the light?", zh: "左转？你是说在红绿灯那儿吗？", correct: true, xp: 10 },
             { text: "Turn right?", correct: false }
           ],
-          hintOnWrong: "确认方向 → Turn left, got it.",
+          hintOnWrong: "反问确认 → Do you mean at the light?",
           next: "n3"
         },
         n3: {
@@ -290,23 +290,23 @@ const GAME_CONTENT = {
         n2: {
           npcLine: { en: "I'm her brother. She asked me to wait for you.", zh: "我是她哥哥。她让我在这儿等你。" },
           skill: "greeting",
-          grammarTag: "wh-question",
+          grammarTag: "can-modal",
           choices: [
-            { text: "Where is she now?", zh: "她现在在哪儿", correct: true, xp: 10 },
+            { text: "Can you tell me where she is?", zh: "你能告诉我她在哪儿吗？", correct: true, xp: 10 },
             { text: "I don't know.", correct: false }
           ],
-          hintOnWrong: "追问 → Where is she now?",
+          hintOnWrong: "用 can 请求告知 → Can you tell me where she is?",
           next: "n3"
         },
         n3: {
           npcLine: { en: "She's running late — meet her for dinner instead. Here's the address.", zh: "她要晚一点——改到晚餐见你吧，这是地址。" },
           skill: "greeting",
-          grammarTag: "statement",
+          grammarTag: "will-future",
           choices: [
-            { text: "Sure, sounds great!", zh: "好呀，听起来不错", correct: true, xp: 10 },
+            { text: "Sure, I'll see you there.", zh: "好，我会去那儿见你。", correct: true, xp: 10 },
             { text: "No, never.", correct: false }
           ],
-          hintOnWrong: "愉快接受 → Sure, sounds great!",
+          hintOnWrong: "用 will 表示以后会做的事 → Sure, I'll see you there.",
           next: null
         }
       }
@@ -345,12 +345,12 @@ const GAME_CONTENT = {
           avatar: "👩",
           npcLine: { en: "There's something I never told you. Can I show you tomorrow?", zh: "有件事我一直没告诉你。明天带你去看，好吗？" },
           skill: "dining",
-          grammarTag: "can-modal",
+          grammarTag: "will-future",
           choices: [
-            { text: "Sure, I can't wait.", zh: "当然，我等不及了", correct: true, xp: 10 },
+            { text: "Sure, I'll be there.", zh: "好，我会去的。", correct: true, xp: 10 },
             { text: "It's a gift.", correct: false }
           ],
-          hintOnWrong: "愉快答应并期待 → Sure, I can't wait.",
+          hintOnWrong: "用 will 表示以后会做的事 → Sure, I'll be there.",
           next: null
         }
       }
@@ -366,12 +366,12 @@ const GAME_CONTENT = {
           avatar: "👩",
           npcLine: { en: "Morning! Ready to see my surprise?", zh: "早上好！准备好看我的惊喜了吗？" },
           skill: "direction",
-          grammarTag: "lets-suggestion",
+          grammarTag: "present-continuous",
           choices: [
-            { text: "I'm ready, let's go!", zh: "准备好了，走吧", correct: true, xp: 10 },
+            { text: "I'm getting ready, let's go!", zh: "我在准备了，走吧！", correct: true, xp: 10 },
             { text: "Not now.", correct: false }
           ],
-          hintOnWrong: "表示准备好了 → I'm ready, let's go!",
+          hintOnWrong: "描述正在做的事 → I'm getting ready, let's go!",
           next: "n2"
         },
         n2: {
