@@ -383,6 +383,18 @@ body.hide-zh .zh-inline {
 .word-chip:disabled { cursor: default; }
 .word-chip.placed { background: var(--accent-soft); border-color: var(--accent); }
 
+.start-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}
+.start-gate.hidden { display: none; }
+.start-gate .primary-btn { font-size: 1.05rem; padding: 16px 28px; }
+
 .end-screen {
   max-width: 480px;
   margin: 60px auto;

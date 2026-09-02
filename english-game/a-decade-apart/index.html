@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>十年之约 · English Game · JoshLabs</title>
+<meta name="description" content="用英语能力推进剧情的养成 + 视觉小说英语学习小游戏：十年之约，第一章。" />
+<meta name="theme-color" content="#d96b3a" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="English Game" />
+<link rel="canonical" href="https://joshlabs.app/english-game/a-decade-apart/" />
+<link rel="manifest" href="/english-game/a-decade-apart/icons/manifest.webmanifest" />
+<link rel="icon" href="/assets/icons/joshlabs.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/english-game/a-decade-apart/icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>🍁 A Decade Apart <span class="zh-inline">十年之约</span></h1>
+    <p class="tagline">A Decade Apart <span class="zh-inline">· 用英语能力推进剧情的养成 + 视觉小说游戏</span></p>
+    <div class="header-controls">
+      <button id="zh-toggle-btn" class="ghost-btn" type="button" aria-pressed="true">隐藏中文</button>
+      <button id="reset-btn" class="ghost-btn">重新开始</button>
+    </div>
+  </header>
+
+  <main id="game-screen" class="layout">
+    <section class="scene-panel">
+      <div id="scene-progress" class="scene-progress"></div>
+      <div id="level-indicator" class="level-indicator">
+        <div class="level-bar"><div id="level-bar-mask" class="level-bar-mask"></div></div>
+        <p id="level-label" class="level-label"></p>
+      </div>
+      <div class="scene-head">
+        <span id="avatar" class="avatar">👮</span>
+        <div>
+          <h2 id="scene-title">Heathrow Airport</h2>
+          <p id="scene-subtitle" class="scene-subtitle">希思罗机场 · 入境检查</p>
+        </div>
+      </div>
+
+      <div class="dialogue-bubble">
+        <div class="npc-en-row">
+          <p id="npc-en" class="npc-en"></p>
+          <button id="npc-audio-btn" class="audio-btn" type="button" aria-label="播放发音">🔊</button>
+        </div>
+        <p id="npc-zh" class="npc-zh"></p>
+      </div>
+
+      <div id="choices" class="choices"></div>
+      <p id="hint" class="hint"></p>
+    </section>
+
+    <aside class="sidebar">
+      <h3>Character Growth <span class="zh-inline">角色成长</span></h3>
+      <div id="skill-panel" class="skill-panel"></div>
+      <div class="stat-row">
+        <span>Total XP <span class="zh-inline">总经验值</span></span><strong id="xp-total">0</strong>
+      </div>
+      <div class="stat-row">
+        <span>Vocabulary Learned <span class="zh-inline">已学词汇</span></span><strong id="vocab-count">0</strong>
+      </div>
+    </aside>
+  </main>
+
+  <section id="end-screen" class="end-screen hidden">
+    <h2>📖 未完待续</h2>
+    <div id="end-summary"></div>
+    <button id="restart-btn" class="primary-btn">再玩一次</button>
+  </section>
+
+  <div id="flashback-overlay" class="overlay">
+    <div class="flashback-card">
+      <p id="flashback-label" class="flashback-label">🧳 回忆闪回 · 这个词是？</p>
+      <p id="flashback-zh" class="flashback-zh"></p>
+      <div id="flashback-choices" class="choices"></div>
+      <div id="flashback-build" class="flashback-build hidden">
+        <div id="flashback-answer" class="flashback-answer"></div>
+        <div id="flashback-wordbank" class="flashback-wordbank"></div>
+      </div>
+      <p id="flashback-feedback" class="flashback-feedback"></p>
+    </div>
+  </div>
+
+  <div id="word-popup" class="word-popup hidden" aria-hidden="true"></div>
+
+  <div id="start-gate" class="start-gate">
+    <button id="start-gate-btn" class="primary-btn" type="button">▶ 点击开始 · Tap to Start</button>
+  </div>
+
+  <script src="content/chapter1.js"></script>
+  <script src="content/chapter2.js"></script>
+  <script src="content/audio-manifest.js"></script>
+  <script src="content/dictionary.js"></script>
+  <script src="main.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/english-game/a-decade-apart/sw.js").catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

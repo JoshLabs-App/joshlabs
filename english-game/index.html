@@ -2,100 +2,86 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>十年之约 · English Game · JoshLabs</title>
-<meta name="description" content="用英语能力推进剧情的养成 + 视觉小说英语学习小游戏：十年之约，第一章。" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>英语书架 · JoshLabs</title>
+<meta name="description" content="英语书架：每一本都是一部要用英语读下去的小说，读得懂多少，就是你现在的英语水平。" />
 <meta name="theme-color" content="#d96b3a" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="English Game" />
 <link rel="canonical" href="https://joshlabs.app/english-game/" />
-<link rel="manifest" href="/english-game/icons/manifest.webmanifest" />
 <link rel="icon" href="/assets/icons/joshlabs.svg" type="image/svg+xml" />
-<link rel="apple-touch-icon" href="/english-game/icons/apple-touch-icon.png" />
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="library.css" />
 </head>
 <body>
-  <header class="app-header">
-    <h1>🍁 A Decade Apart <span class="zh-inline">十年之约</span></h1>
-    <p class="tagline">A Decade Apart <span class="zh-inline">· 用英语能力推进剧情的养成 + 视觉小说游戏</span></p>
-    <div class="header-controls">
-      <button id="zh-toggle-btn" class="ghost-btn" type="button" aria-pressed="true">隐藏中文</button>
-      <button id="reset-btn" class="ghost-btn">重新开始</button>
-    </div>
+  <header class="lib-header">
+    <h1>📚 英语书架 <span class="zh-inline-en">English Library</span></h1>
+    <p class="lib-tagline">每一本都是一部小说——读得懂多少，就是你现在的英语水平</p>
   </header>
 
-  <main id="game-screen" class="layout">
-    <section class="scene-panel">
-      <div id="scene-progress" class="scene-progress"></div>
-      <div id="level-indicator" class="level-indicator">
-        <div class="level-bar"><div id="level-bar-mask" class="level-bar-mask"></div></div>
-        <p id="level-label" class="level-label"></p>
-      </div>
-      <div class="scene-head">
-        <span id="avatar" class="avatar">👮</span>
-        <div>
-          <h2 id="scene-title">Heathrow Airport</h2>
-          <p id="scene-subtitle" class="scene-subtitle">希思罗机场 · 入境检查</p>
-        </div>
-      </div>
+  <main class="shelf">
+    <a class="book-card" href="a-decade-apart/">
+      <svg class="book-cover" viewBox="0 0 300 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="十年之约 book cover">
+        <defs>
+          <linearGradient id="coverBg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fdf1e4"/>
+            <stop offset="100%" stop-color="#f3d9c8"/>
+          </linearGradient>
+          <linearGradient id="skyFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#d96b3a" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#d96b3a" stop-opacity="0.28"/>
+          </linearGradient>
+        </defs>
+        <rect width="300" height="450" fill="url(#coverBg)"/>
+        <rect width="300" height="450" fill="url(#skyFade)"/>
 
-      <div class="dialogue-bubble">
-        <div class="npc-en-row">
-          <p id="npc-en" class="npc-en"></p>
-          <button id="npc-audio-btn" class="audio-btn" type="button" aria-label="播放发音">🔊</button>
-        </div>
-        <p id="npc-zh" class="npc-zh"></p>
-      </div>
+        <g fill="#2b2420" opacity="0.3">
+          <rect x="34" y="300" width="24" height="70"/>
+          <rect x="64" y="272" width="20" height="98"/>
+          <rect x="206" y="292" width="22" height="78"/>
+          <rect x="234" y="258" width="18" height="112"/>
+        </g>
 
-      <div id="choices" class="choices"></div>
-      <p id="hint" class="hint"></p>
-    </section>
+        <g fill="#2b2420" opacity="0.55">
+          <polygon points="148,118 152,118 155,150 145,150"/>
+          <rect x="145" y="150" width="10" height="22"/>
+          <ellipse cx="150" cy="196" rx="19" ry="11"/>
+          <polygon points="150,150 157,342 143,342"/>
+        </g>
 
-    <aside class="sidebar">
-      <h3>Character Growth <span class="zh-inline">角色成长</span></h3>
-      <div id="skill-panel" class="skill-panel"></div>
-      <div class="stat-row">
-        <span>Total XP <span class="zh-inline">总经验值</span></span><strong id="xp-total">0</strong>
-      </div>
-      <div class="stat-row">
-        <span>Vocabulary Learned <span class="zh-inline">已学词汇</span></span><strong id="vocab-count">0</strong>
-      </div>
-    </aside>
-  </main>
+        <text x="150" y="88" font-size="38" text-anchor="middle">🍁</text>
 
-  <section id="end-screen" class="end-screen hidden">
-    <h2>📖 未完待续</h2>
-    <div id="end-summary"></div>
-    <button id="restart-btn" class="primary-btn">再玩一次</button>
-  </section>
+        <g transform="translate(150,382)">
+          <rect x="-33" y="-19" width="66" height="43" rx="4" fill="#fffdfa" stroke="#2b2420" stroke-width="2"/>
+          <polyline points="-33,-19 0,9 33,-19" fill="none" stroke="#2b2420" stroke-width="2"/>
+        </g>
 
-  <div id="flashback-overlay" class="overlay">
-    <div class="flashback-card">
-      <p id="flashback-label" class="flashback-label">🧳 回忆闪回 · 这个词是？</p>
-      <p id="flashback-zh" class="flashback-zh"></p>
-      <div id="flashback-choices" class="choices"></div>
-      <div id="flashback-build" class="flashback-build hidden">
-        <div id="flashback-answer" class="flashback-answer"></div>
-        <div id="flashback-wordbank" class="flashback-wordbank"></div>
+        <text x="150" y="232" font-size="32" font-weight="700" text-anchor="middle" fill="#2b2420" font-family="'PingFang SC','Segoe UI',sans-serif">十年之约</text>
+        <text x="150" y="256" font-size="12.5" letter-spacing="2.5" text-anchor="middle" fill="#8a7f74" font-family="'Segoe UI',sans-serif">A DECADE APART</text>
+
+        <g transform="translate(150,30)">
+          <rect x="-38" y="-11" width="76" height="22" rx="11" fill="#ffffffcc"/>
+          <text x="0" y="5" font-size="11" text-anchor="middle" fill="#d96b3a" font-weight="600">A1 · 第1-2章</text>
+        </g>
+      </svg>
+      <div class="book-info">
+        <h2>十年之约 <span class="zh-inline-en">A Decade Apart</span></h2>
+        <p class="book-blurb">
+          十年前，一句"我会回来找你"，被写进一封信里，锁进了记忆最深处。多伦多，陌生的城市，熟悉的约定——你要用你的英语，一路问路、点单、开户、租房，找到那个只留下一个地址的人。
+          <br /><br />
+          这不是一堂课，是一本要用英语才能往下读的小说。故事会一直写下去，从入境检查到街角银行，从超市货架到深夜里那张旧照片——每往前一课，你的英语就往前一步。
+        </p>
+        <span class="book-cta">开始阅读 · Start Reading →</span>
       </div>
-      <p id="flashback-feedback" class="flashback-feedback"></p>
+    </a>
+
+    <div class="book-card book-card--placeholder">
+      <div class="book-cover book-cover--placeholder">
+        <span>下一本</span>
+        <span class="zh-inline-en">More Coming</span>
+      </div>
+      <div class="book-info">
+        <h2>更多故事，陆续加入书架</h2>
+        <p class="book-blurb">每一本都是独立的故事，也是独立的一段英语旅程——敬请期待。</p>
+      </div>
     </div>
-  </div>
-
-  <div id="word-popup" class="word-popup hidden" aria-hidden="true"></div>
-
-  <script src="content/chapter1.js"></script>
-  <script src="content/chapter2.js"></script>
-  <script src="content/audio-manifest.js"></script>
-  <script src="content/dictionary.js"></script>
-  <script src="main.js"></script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/english-game/sw.js").catch(() => {});
-      });
-    }
-  </script>
+  </main>
 </body>
 </html>

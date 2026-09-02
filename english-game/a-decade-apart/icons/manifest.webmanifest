@@ -1,29 +1,29 @@
 {
-  "id": "/english-game/",
+  "id": "/english-game/a-decade-apart/",
   "name": "十年之约 — English Game",
   "short_name": "English Game",
   "description": "用英语能力推进剧情的养成 + 视觉小说英语学习小游戏：十年之约，第一章",
-  "start_url": "/english-game/",
-  "scope": "/english-game/",
+  "start_url": "/english-game/a-decade-apart/",
+  "scope": "/english-game/a-decade-apart/",
   "display": "fullscreen",
   "background_color": "#faf6f0",
   "theme_color": "#d96b3a",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/english-game/icons/icon-192.png",
+      "src": "/english-game/a-decade-apart/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/english-game/icons/icon-512.png",
+      "src": "/english-game/a-decade-apart/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/english-game/icons/icon-512-maskable.png",
+      "src": "/english-game/a-decade-apart/icons/icon-512-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

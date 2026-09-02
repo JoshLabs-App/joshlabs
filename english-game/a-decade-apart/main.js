@@ -32,7 +32,9 @@ const el = {
   resetBtn: document.getElementById("reset-btn"),
   restartBtn: document.getElementById("restart-btn"),
   zhToggleBtn: document.getElementById("zh-toggle-btn"),
-  wordPopup: document.getElementById("word-popup")
+  wordPopup: document.getElementById("word-popup"),
+  startGate: document.getElementById("start-gate"),
+  startGateBtn: document.getElementById("start-gate-btn")
 };
 
 // 每个技能能拿到的经验值上限，从内容里所有场景动态算出——
@@ -624,10 +626,15 @@ el.zhToggleBtn.addEventListener("click", () => {
 
 applyZhVisibility();
 
-if (state.finished) {
-  showEndScreen();
-} else if (reconnectGapMs > RECONNECT_GAP_MS) {
-  showReconnectWarmup();
-} else {
-  renderScene();
-}
+// 手机浏览器不允许没有用户手势就自动放声音，第一句台词的自动配音必须挂在
+// 这个点击事件处理函数里同步触发才放得出来——不能异步 setTimeout 之类的。
+el.startGateBtn.addEventListener("click", () => {
+  el.startGate.classList.add("hidden");
+  if (state.finished) {
+    showEndScreen();
+  } else if (reconnectGapMs > RECONNECT_GAP_MS) {
+    showReconnectWarmup();
+  } else {
+    renderScene();
+  }
+});
