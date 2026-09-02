@@ -8,6 +8,7 @@
   --correct: #4c9a6a;
   --wrong: #cf5252;
   --border: #ece2d6;
+  --serif: "Songti SC", "STSong", Georgia, "Times New Roman", serif;
   font-family: -apple-system, "PingFang SC", "Segoe UI", sans-serif;
 }
 
@@ -25,8 +26,8 @@ body {
   text-align: center;
   position: relative;
 }
-.app-header h1 { margin: 0; font-size: 1.6rem; }
-.tagline { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem; }
+.app-header h1 { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1.75rem; }
+.tagline { margin: 6px 0 0; color: var(--muted); font-size: 0.95rem; }
 
 .ghost-btn, .primary-btn {
   border-radius: 999px;
@@ -94,13 +95,13 @@ body {
 .scene-progress {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 16px;
+  border-radius: 999px;
+  overflow: hidden; /* 圆角只上在整条外框上，内部小段之间不留缝，连成一条 */
+  margin-bottom: 18px;
 }
 .scene-progress .dot {
   flex: 1;
-  height: 5px;
-  border-radius: 999px;
+  height: 6px;
   background: var(--border);
   transition: background 0.3s ease;
 }
@@ -153,24 +154,24 @@ body {
   background: var(--accent-soft);
   border-radius: 50%;
 }
-.scene-head h2 { margin: 0; font-size: 1.15rem; }
-.scene-subtitle { margin: 2px 0 0; color: var(--muted); font-size: 0.85rem; }
+.scene-head h2 { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1.4rem; }
+.scene-subtitle { margin: 3px 0 0; color: var(--muted); font-size: 0.9rem; }
 
 .dialogue-bubble {
   background: #fdf8f3;
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 18px;
+  padding: 20px;
   margin-bottom: 20px;
 }
 .npc-en-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
-.npc-en { margin: 0; font-size: 1.15rem; font-weight: 600; }
-.npc-zh { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.npc-en { margin: 0; font-size: 1.32rem; font-weight: 600; line-height: 1.4; }
+.npc-zh { margin: 0; color: var(--muted); font-size: 1rem; }
 body.hide-zh .npc-zh,
 body.hide-zh .scene-subtitle,
 body.hide-zh .zh-inline {
@@ -236,11 +237,11 @@ body.hide-zh .zh-inline {
 
 .choice-btn {
   text-align: left;
-  padding: 13px 16px;
+  padding: 15px 18px;
   border-radius: 12px;
   border: 1.5px solid var(--border);
   background: var(--card);
-  font-size: 1rem;
+  font-size: 1.08rem;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s;
 }
@@ -303,12 +304,12 @@ body.hide-zh .zh-inline {
   border: 1px solid var(--border);
   padding: 22px;
 }
-.sidebar h3 { margin: 0 0 14px; font-size: 1rem; }
+.sidebar h3 { margin: 0 0 16px; font-family: var(--serif); font-weight: 600; font-size: 1.1rem; }
 
 .skill-row {
   margin-bottom: 14px;
 }
-.skill-label { font-size: 0.88rem; margin-bottom: 5px; }
+.skill-label { font-size: 0.94rem; margin-bottom: 6px; }
 .skill-bar {
   background: var(--border);
   border-radius: 999px;
