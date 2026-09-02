@@ -16,8 +16,12 @@ const el = {
   xpTotal: document.getElementById("xp-total"),
   vocabCount: document.getElementById("vocab-count"),
   flashbackOverlay: document.getElementById("flashback-overlay"),
+  flashbackLabel: document.getElementById("flashback-label"),
   flashbackZh: document.getElementById("flashback-zh"),
   flashbackChoices: document.getElementById("flashback-choices"),
+  flashbackBuild: document.getElementById("flashback-build"),
+  flashbackAnswer: document.getElementById("flashback-answer"),
+  flashbackWordbank: document.getElementById("flashback-wordbank"),
   flashbackFeedback: document.getElementById("flashback-feedback"),
   sceneProgress: document.getElementById("scene-progress"),
   endScreen: document.getElementById("end-screen"),
@@ -47,6 +51,13 @@ function computeSkillMax() {
 
 const SKILL_MAX = computeSkillMax();
 
+// 复习间隔规则（见 skills/joshlabs-dev/references/projects/english-game.md）：
+// 答错入队时 status="active"，短期内连对 2 次后不直接移出，改成 status="pendingFinal"，
+// 等场景数间隔 ≥ REVIEW_GAP_SCENES 后再抽考一次做最终确认，通过才真正移出队列。
+const REVIEW_GAP_SCENES = 5;
+// 玩家中断超过这个时长再打开，判定为"回访"而非同一次的场景切换，触发断点热身。
+const RECONNECT_GAP_MS = 20 * 60 * 1000;
+
 function freshState() {
   const skills = {};
   for (const key of Object.keys(GAME_CONTENT.skillMeta)) skills[key] = 0;
@@ -55,8 +66,9 @@ function freshState() {
     nodeId: GAME_CONTENT.scenes[0].startNode,
     skills,
     learnedVocab: [], // [{en, zh, skill}]
-    reviewQueue: [], // [{en, zh, streak}]
-    finished: false
+    reviewQueue: [], // [{en, zh, streak, status: "active"|"pendingFinal", queuedAtScene}]
+    finished: false,
+    lastActiveAt: Date.now()
   };
 }
 
@@ -73,11 +85,16 @@ function loadState() {
 }
 
 function saveState() {
+  state.lastActiveAt = Date.now();
   localStorage.setItem(SAVE_KEY, JSON.stringify(state));
 }
 
 let state = loadState();
+// 上次存档时间到这次打开的间隔——loadState() 读到的是上一次会话留下的旧值，
+// 必须在第一次 saveState() 覆盖掉它之前算出来，才能判断这次是不是"回访"。
+const reconnectGapMs = state.lastActiveAt ? Date.now() - state.lastActiveAt : 0;
 let pendingFlashback = []; // queue of items to review before advancing scene
+let flashbackOnComplete = goToNextScene; // 闪回队列清空后要做什么：正常翻页，或断点热身后继续当前场景
 let wrongButtonsThisNode = new Set();
 
 // 中文翻译显隐：全局开关，存在 localStorage 里跨场景/跨次打开都记得。
@@ -307,9 +324,12 @@ function handleChoice(idx, btnEl) {
     const targetZh = node.choices.find((c) => c.correct).zh || node.npcLine.zh;
     const existing = state.reviewQueue.find((r) => r.en === targetEn);
     if (existing) {
+      // 答错说明还没学会（哪怕之前已经进入"待最终确认"阶段）：退回重新学，间隔重新计时
       existing.streak = 0;
+      existing.status = "active";
+      existing.queuedAtScene = state.sceneIndex;
     } else {
-      state.reviewQueue.push({ en: targetEn, zh: targetZh, streak: 0 });
+      state.reviewQueue.push({ en: targetEn, zh: targetZh, streak: 0, status: "active", queuedAtScene: state.sceneIndex });
     }
     saveState();
   }
@@ -323,12 +343,37 @@ function advance(nextNodeId) {
     return;
   }
   // scene finished -> maybe show flashback review, then move to next scene
-  pendingFlashback = state.reviewQueue.slice(0, 2);
+  el.flashbackLabel.textContent = "🧳 回忆闪回 · 这个词是？";
+  flashbackOnComplete = goToNextScene;
+  pendingFlashback = pickFlashbackItems();
   if (pendingFlashback.length > 0) {
     showFlashback();
   } else {
     goToNextScene();
   }
+}
+
+// 场景切换时最多复习 2 条：优先短期错题（还在 active 阶段），
+// 剩余名额才补"待最终确认"里间隔已经够长、可以抽考的老词条。
+function pickFlashbackItems() {
+  const active = state.reviewQueue.filter((r) => r.status !== "pendingFinal");
+  const eligibleFinal = state.reviewQueue.filter(
+    (r) => r.status === "pendingFinal" && state.sceneIndex - r.queuedAtScene >= REVIEW_GAP_SCENES
+  );
+  return [...active, ...eligibleFinal].slice(0, 2);
+}
+
+// 断点热身：玩家隔了一段时间才回来（不是同一次场景切换），
+// 继续当前场景前先抽一条复习queue里最老的词条考一下。
+function showReconnectWarmup() {
+  if (state.reviewQueue.length === 0) {
+    renderScene();
+    return;
+  }
+  el.flashbackLabel.textContent = "👋 欢迎回来，先复习一下";
+  flashbackOnComplete = renderScene;
+  pendingFlashback = [state.reviewQueue[0]];
+  showFlashback();
 }
 
 function goToNextScene() {
@@ -343,11 +388,26 @@ function goToNextScene() {
   renderScene();
 }
 
+// 检索难度随熟练度升级：还在 active 阶段（第一次见到 / 之前答错过）用选择题，
+// 门槛低；进了 pendingFinal（短期已连对2次，等长间隔做最终确认）就换成拼词，
+// 逼玩家真正拼出整句，而不是靠排除法认出来。
 function showFlashback() {
   const item = pendingFlashback[0];
   el.flashbackOverlay.classList.add("visible");
   el.flashbackFeedback.textContent = "";
   el.flashbackZh.textContent = item.zh;
+
+  if (item.status === "pendingFinal") {
+    renderFlashbackBuild(item);
+  } else {
+    renderFlashbackChoices(item);
+  }
+}
+
+function renderFlashbackChoices(item) {
+  el.flashbackChoices.classList.remove("hidden");
+  el.flashbackBuild.classList.add("hidden");
+  el.flashbackChoices.innerHTML = "";
 
   const distractors = GAME_CONTENT.vocabBank
     .filter((v) => v.en !== item.en)
@@ -357,35 +417,102 @@ function showFlashback() {
 
   const options = [item.en, ...distractors].sort(() => Math.random() - 0.5);
 
-  el.flashbackChoices.innerHTML = "";
   options.forEach((text) => {
     const btn = document.createElement("button");
     btn.className = "choice-btn";
     btn.textContent = text;
     btn.addEventListener("click", () => {
+      Array.from(el.flashbackChoices.children).forEach((b) => (b.disabled = true));
+      const isCorrect = text === item.en;
+      btn.classList.add(isCorrect ? "correct" : "wrong");
       const audioDone = playAudio(text, btn);
-      handleFlashbackAnswer(text === item.en, item, btn, audioDone);
+      resolveFlashback(isCorrect, item, audioDone);
     });
     el.flashbackChoices.appendChild(btn);
   });
 }
 
-function handleFlashbackAnswer(isCorrect, item, btnEl, audioDone) {
-  Array.from(el.flashbackChoices.children).forEach((b) => (b.disabled = true));
+// 拼词模式：把目标句子的单词打乱放进词库，玩家依次点回答题区拼出原句；
+// 点已拼的词可以收回重排。凑齐词数才判定对错。
+function renderFlashbackBuild(item) {
+  el.flashbackChoices.classList.add("hidden");
+  el.flashbackBuild.classList.remove("hidden");
+  el.flashbackAnswer.classList.remove("build-correct", "build-wrong");
+
+  const words = item.en.split(" ");
+  const bankOrder = words.map((w, i) => i).sort(() => Math.random() - 0.5);
+  const placed = [];
+
+  function renderBank() {
+    el.flashbackWordbank.innerHTML = "";
+    bankOrder.forEach((i) => {
+      if (placed.includes(i)) return;
+      const chip = document.createElement("button");
+      chip.className = "word-chip";
+      chip.textContent = words[i];
+      chip.addEventListener("click", () => {
+        placed.push(i);
+        renderAnswer();
+        renderBank();
+        if (placed.length === words.length) checkBuild();
+      });
+      el.flashbackWordbank.appendChild(chip);
+    });
+  }
+
+  function renderAnswer() {
+    el.flashbackAnswer.innerHTML = "";
+    placed.forEach((i) => {
+      const chip = document.createElement("button");
+      chip.className = "word-chip placed";
+      chip.textContent = words[i];
+      chip.addEventListener("click", () => {
+        placed.splice(placed.indexOf(i), 1);
+        renderAnswer();
+        renderBank();
+      });
+      el.flashbackAnswer.appendChild(chip);
+    });
+  }
+
+  function checkBuild() {
+    Array.from(el.flashbackWordbank.children).forEach((c) => (c.disabled = true));
+    Array.from(el.flashbackAnswer.children).forEach((c) => (c.disabled = true));
+    const isCorrect = placed.map((i) => words[i]).join(" ") === item.en;
+    el.flashbackAnswer.classList.add(isCorrect ? "build-correct" : "build-wrong");
+    const audioDone = playAudio(item.en, null);
+    resolveFlashback(isCorrect, item, audioDone);
+  }
+
+  renderAnswer();
+  renderBank();
+}
+
+function resolveFlashback(isCorrect, item, audioDone) {
   const target = state.reviewQueue.find((r) => r.en === item.en);
 
   if (isCorrect) {
-    btnEl.classList.add("correct");
     el.flashbackFeedback.textContent = "✅ 记住了！";
-    if (target) target.streak += 1;
+    if (target) {
+      if (target.status === "pendingFinal") {
+        // 长间隔之后再考一次也答对了：真正学会，移出队列
+        state.reviewQueue = state.reviewQueue.filter((r) => r.en !== item.en);
+      } else {
+        target.streak += 1;
+        if (target.streak >= 2) {
+          // 短期内连对2次，先别急着判定"学会"，等够长的间隔再做最终确认
+          target.status = "pendingFinal";
+          target.queuedAtScene = state.sceneIndex;
+        }
+      }
+    }
   } else {
-    btnEl.classList.add("wrong");
     el.flashbackFeedback.textContent = `❌ 正确答案：${item.en}`;
-    if (target) target.streak = 0;
-  }
-
-  if (target && target.streak >= 2) {
-    state.reviewQueue = state.reviewQueue.filter((r) => r.en !== item.en);
+    if (target) {
+      target.streak = 0;
+      target.status = "active";
+      target.queuedAtScene = state.sceneIndex;
+    }
   }
   saveState();
 
@@ -397,7 +524,7 @@ function handleFlashbackAnswer(isCorrect, item, btnEl, audioDone) {
         showFlashback();
       } else {
         el.flashbackOverlay.classList.remove("visible");
-        goToNextScene();
+        flashbackOnComplete();
       }
     }, 500);
   });
@@ -445,6 +572,8 @@ applyZhVisibility();
 
 if (state.finished) {
   showEndScreen();
+} else if (reconnectGapMs > RECONNECT_GAP_MS) {
+  showReconnectWarmup();
 } else {
   renderScene();
 }

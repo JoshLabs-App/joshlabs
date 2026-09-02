@@ -321,6 +321,38 @@ body.hide-zh .zh-inline {
 .flashback-zh { font-size: 1.4rem; font-weight: 700; margin: 0 0 18px; }
 .flashback-feedback { min-height: 1.4em; margin-top: 14px; font-size: 0.9rem; }
 
+.flashback-answer {
+  min-height: 44px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 6px;
+  padding: 10px;
+  border: 1.5px dashed var(--border);
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+.flashback-answer.build-correct { border-color: var(--correct); border-style: solid; background: #e6f4ea; }
+.flashback-answer.build-wrong { border-color: var(--wrong); border-style: solid; background: #fbe9e9; }
+.flashback-wordbank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+.word-chip {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.word-chip:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+.word-chip:disabled { cursor: default; }
+.word-chip.placed { background: var(--accent-soft); border-color: var(--accent); }
+
 .end-screen {
   max-width: 480px;
   margin: 60px auto;
