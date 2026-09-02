@@ -28,13 +28,13 @@ const GAME_CONTENT = {
     { en: "Where is she now?", zh: "她现在在哪儿" },
     { en: "Sure, sounds great!", zh: "好呀，听起来不错" },
     { en: "Yes, table for two.", zh: "是的，两位" },
-    { en: "Of course I came. I promised.", zh: "我当然会来，我答应过你" },
+    { en: "Of course. A promise is a promise.", zh: "当然啦，说好的事就要做到" },
     { en: "Sure, I can't wait.", zh: "当然，我等不及了" },
     { en: "I'm ready, let's go!", zh: "准备好了，走吧" },
     { en: "Sounds fun, I love streetcars.", zh: "听起来很棒，我喜欢电车" },
     { en: "Perfect, let's get off.", zh: "太好了，我们下车吧" },
     { en: "Wow, you own this place?", zh: "哇，这是你自己的店？" },
-    { en: "That's the sweetest thing I've heard.", zh: "这是我听过最感人的事" },
+    { en: "That's so sweet.", zh: "太贴心了" },
     { en: "Thank you, Emma.", zh: "谢谢你，Emma" },
     { en: "Yes, that's me.", zh: "是的，就是我" },
     { en: "Let's open it together.", zh: "我们一起打开看看吧" },
@@ -311,10 +311,10 @@ const GAME_CONTENT = {
           npcLine: { en: "Ten years... you actually came.", zh: "十年了……你真的来了。" },
           skill: "dining",
           choices: [
-            { text: "Of course I came. I promised.", zh: "我当然会来，我答应过你", correct: true, xp: 10 },
+            { text: "Of course. A promise is a promise.", zh: "当然啦，说好的事就要做到", correct: true, xp: 10 },
             { text: "Nothing, thanks.", correct: false }
           ],
-          hintOnWrong: "兑现承诺 → Of course I came. I promised.",
+          hintOnWrong: "兑现承诺 → Of course. A promise is a promise.",
           next: "n3"
         },
         n3: {
@@ -395,10 +395,10 @@ const GAME_CONTENT = {
           npcLine: { en: "I named it after the letters we wrote as kids.", zh: "我用我们小时候写的信给它取的名字。" },
           skill: "shopping",
           choices: [
-            { text: "That's the sweetest thing I've heard.", zh: "这是我听过最感人的事", correct: true, xp: 10 },
+            { text: "That's so sweet.", zh: "太贴心了", correct: true, xp: 10 },
             { text: "That's strange.", correct: false }
           ],
-          hintOnWrong: "表达感动 → That's the sweetest thing I've heard.",
+          hintOnWrong: "表达感动 → That's so sweet.",
           next: "n3"
         },
         n3: {
