@@ -62,12 +62,14 @@ const SKILL_MAX = computeSkillMax();
 // CEFR 词族数门槛来算，不是"第几章=第几级"的粗映射。累计到当前场景为止玩家实际读到过
 // 的不同词形数量（NPC 台词+两个选项都算，跟 scripts/validate-curriculum.mjs 同一套统计
 // 口径），实时对照门槛换算成"当前在哪个级别、这一级走了多少百分比"。
-// 门槛改了要同步 style.css 里 .level-bar 渐变的百分比断点（22.2% / 48.9%），两边写死对应
-// 500/1100/2250 这三个数字，不是动态算的。
+// 门槛改了要同步 style.css 里 .level-bar 渐变的百分比断点（12.5% / 27.5% / 56.25%），
+// 两边写死对应 500/1100/2250/4000 这四个数字，不是动态算的。B2 门槛(4000)是研究阶段
+// 就定的数字，用来把渐变条延伸出B1，还没有真正写到B2的内容。
 const CEFR_VOCAB_THRESHOLDS = [
   { level: "A1", words: 500 },
   { level: "A2", words: 1100 },
-  { level: "B1", words: 2250 }
+  { level: "B1", words: 2250 },
+  { level: "B2", words: 4000 }
 ];
 
 function tokenizeWords(text) {
