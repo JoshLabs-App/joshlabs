@@ -1,0 +1,450 @@
+// 游戏引擎：状态机 + 渲染 + 回忆闪回复习逻辑
+
+const SAVE_KEY = "eng-rpg-london-day1";
+
+const el = {
+  scenePanel: document.querySelector(".scene-panel"),
+  sceneTitle: document.getElementById("scene-title"),
+  sceneSubtitle: document.getElementById("scene-subtitle"),
+  avatar: document.getElementById("avatar"),
+  npcEn: document.getElementById("npc-en"),
+  npcZh: document.getElementById("npc-zh"),
+  npcAudioBtn: document.getElementById("npc-audio-btn"),
+  choices: document.getElementById("choices"),
+  hint: document.getElementById("hint"),
+  skillPanel: document.getElementById("skill-panel"),
+  xpTotal: document.getElementById("xp-total"),
+  vocabCount: document.getElementById("vocab-count"),
+  flashbackOverlay: document.getElementById("flashback-overlay"),
+  flashbackZh: document.getElementById("flashback-zh"),
+  flashbackChoices: document.getElementById("flashback-choices"),
+  flashbackFeedback: document.getElementById("flashback-feedback"),
+  sceneProgress: document.getElementById("scene-progress"),
+  endScreen: document.getElementById("end-screen"),
+  endSummary: document.getElementById("end-summary"),
+  gameScreen: document.getElementById("game-screen"),
+  resetBtn: document.getElementById("reset-btn"),
+  restartBtn: document.getElementById("restart-btn"),
+  zhToggleBtn: document.getElementById("zh-toggle-btn"),
+  wordPopup: document.getElementById("word-popup")
+};
+
+// 每个技能能拿到的经验值上限，从内容里所有场景动态算出——
+// 加新场景/新技能只需要改 content 文件，这里不用再手动同步数字。
+function computeSkillMax() {
+  const max = {};
+  for (const key of Object.keys(GAME_CONTENT.skillMeta)) max[key] = 0;
+  for (const scene of GAME_CONTENT.scenes) {
+    for (const node of Object.values(scene.nodes)) {
+      const correct = node.choices.find((c) => c.correct);
+      if (correct && correct.xp) {
+        max[node.skill] = (max[node.skill] || 0) + correct.xp;
+      }
+    }
+  }
+  return max;
+}
+
+const SKILL_MAX = computeSkillMax();
+
+function freshState() {
+  const skills = {};
+  for (const key of Object.keys(GAME_CONTENT.skillMeta)) skills[key] = 0;
+  return {
+    sceneIndex: 0,
+    nodeId: GAME_CONTENT.scenes[0].startNode,
+    skills,
+    learnedVocab: [], // [{en, zh, skill}]
+    reviewQueue: [], // [{en, zh, streak}]
+    finished: false
+  };
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return freshState();
+    const parsed = JSON.parse(raw);
+    if (!parsed || !parsed.skills) return freshState();
+    return parsed;
+  } catch (e) {
+    return freshState();
+  }
+}
+
+function saveState() {
+  localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+}
+
+let state = loadState();
+let pendingFlashback = []; // queue of items to review before advancing scene
+let wrongButtonsThisNode = new Set();
+
+// 中文翻译显隐：全局开关，存在 localStorage 里跨场景/跨次打开都记得。
+// 只影响台词下方的中文翻译（.npc-zh），不影响回忆闪回的中文提示——那是游戏机制本身要考的。
+const ZH_HIDE_KEY = "eng-rpg-hide-zh";
+let hideZh = localStorage.getItem(ZH_HIDE_KEY) === "1";
+
+const TITLE_ZH = "十年之约 · English Game · JoshLabs";
+const TITLE_EN = "A Decade Apart · English Game · JoshLabs";
+
+function applyZhVisibility() {
+  document.body.classList.toggle("hide-zh", hideZh);
+  el.zhToggleBtn.textContent = hideZh ? "显示中文" : "隐藏中文";
+  el.zhToggleBtn.setAttribute("aria-pressed", String(!hideZh));
+  document.title = hideZh ? TITLE_EN : TITLE_ZH;
+}
+
+// 长按查词：把英文台词拆成单词 span，长按 450ms 弹出释义，松手立刻收起。
+const LONG_PRESS_MS = 450;
+let longPressTimer = null;
+let activeWordEl = null;
+
+function wrapWordsHTML(text) {
+  return text.replace(/[A-Za-z']+/g, (word) => `<span class="word" data-word="${word.toLowerCase()}">${word}</span>`);
+}
+
+function showWordPopup(wordEl) {
+  const meaning = typeof WORD_DICT !== "undefined" ? WORD_DICT[wordEl.dataset.word] : null;
+  if (!meaning) return;
+  el.wordPopup.textContent = `${wordEl.textContent} ${meaning}`;
+  el.wordPopup.classList.remove("hidden");
+
+  const rect = wordEl.getBoundingClientRect();
+  const popRect = el.wordPopup.getBoundingClientRect();
+  let left = rect.left + rect.width / 2 - popRect.width / 2;
+  left = Math.max(8, Math.min(left, window.innerWidth - popRect.width - 8));
+  let top = rect.top - popRect.height - 10;
+  if (top < 8) top = rect.bottom + 10;
+  el.wordPopup.style.left = left + "px";
+  el.wordPopup.style.top = top + "px";
+
+  wordEl.classList.add("word-active");
+  activeWordEl = wordEl;
+}
+
+function hideWordPopup() {
+  el.wordPopup.classList.add("hidden");
+  if (activeWordEl) activeWordEl.classList.remove("word-active");
+  activeWordEl = null;
+}
+
+function cancelLongPress() {
+  clearTimeout(longPressTimer);
+  hideWordPopup();
+}
+
+el.npcEn.addEventListener("pointerdown", (e) => {
+  const wordEl = e.target.closest(".word");
+  if (!wordEl) return;
+  clearTimeout(longPressTimer);
+  longPressTimer = setTimeout(() => showWordPopup(wordEl), LONG_PRESS_MS);
+});
+el.npcEn.addEventListener("contextmenu", (e) => e.preventDefault());
+window.addEventListener("pointerup", cancelLongPress);
+window.addEventListener("pointercancel", cancelLongPress);
+
+function currentScene() {
+  return GAME_CONTENT.scenes[state.sceneIndex];
+}
+
+function currentNode() {
+  return currentScene().nodes[state.nodeId];
+}
+
+function renderSkillPanel() {
+  el.skillPanel.innerHTML = "";
+  for (const [key, meta] of Object.entries(GAME_CONTENT.skillMeta)) {
+    const xp = state.skills[key] || 0;
+    const max = SKILL_MAX[key] || 1;
+    const pct = Math.min(100, Math.round((xp / max) * 100));
+    const row = document.createElement("div");
+    row.className = "skill-row";
+    row.innerHTML = `
+      <div class="skill-label">${meta.icon} ${meta.label}</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:${pct}%"></div></div>
+      <div class="skill-xp">${xp}/${max}</div>
+    `;
+    el.skillPanel.appendChild(row);
+  }
+  el.xpTotal.textContent = Object.values(state.skills).reduce((a, b) => a + b, 0);
+  el.vocabCount.textContent = state.learnedVocab.length;
+}
+
+function renderProgress() {
+  el.sceneProgress.innerHTML = "";
+  GAME_CONTENT.scenes.forEach((_, idx) => {
+    const dot = document.createElement("div");
+    dot.className = "dot";
+    if (idx < state.sceneIndex) dot.classList.add("done");
+    else if (idx === state.sceneIndex) dot.classList.add("active");
+    el.sceneProgress.appendChild(dot);
+  });
+}
+
+// 配音播放：按台词原文去 AUDIO_MANIFEST 里查对应的音频文件。
+// 找不到就静默跳过（内容没配到音也不影响游戏本身）。
+// 返回一个 Promise，在这段音频真正播完（或没有音频/播放失败）时 resolve——
+// 调用方可以用它来"等配音说完再翻页"，而不是猜一个固定延迟。
+let currentAudio = null;
+function playAudio(text, btnEl) {
+  const src = typeof AUDIO_MANIFEST !== "undefined" ? AUDIO_MANIFEST[text] : null;
+  if (!src) return Promise.resolve();
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+  }
+  const audio = new Audio(src);
+  currentAudio = audio;
+  if (btnEl) btnEl.classList.add("playing");
+
+  return new Promise((resolve) => {
+    const done = () => {
+      if (btnEl) btnEl.classList.remove("playing");
+      resolve();
+    };
+    audio.addEventListener("ended", done, { once: true });
+    audio.addEventListener("error", done, { once: true });
+    audio.play().catch(done);
+  });
+}
+
+function spawnXpFloat(fromEl, amount) {
+  const rect = fromEl.getBoundingClientRect();
+  const float = document.createElement("span");
+  float.className = "xp-float";
+  float.textContent = `+${amount} XP`;
+  float.style.left = rect.right - 60 + "px";
+  float.style.top = rect.top - 6 + "px";
+  document.body.appendChild(float);
+  setTimeout(() => float.remove(), 900);
+}
+
+const SCENE_TRANSITION_MS = 450;
+
+// renderScene() 是外部统一入口：先把当前场景淡出+轻微上移，
+// 等动画放完再真正换内容（renderSceneContent），然后淡入。
+// 放慢、加动画就是这一层做的，实际渲染逻辑还在 renderSceneContent 里没变。
+function renderScene() {
+  const panel = el.scenePanel;
+  if (!panel || panel.dataset.rendered !== "true") {
+    // 第一次渲染（刚打开页面）不用等淡出，直接进淡入
+    renderSceneContent();
+    if (panel) {
+      panel.dataset.rendered = "true";
+      panel.classList.add("scene-fade-in-prep");
+      void panel.offsetWidth;
+      panel.classList.remove("scene-fade-in-prep");
+    }
+    return;
+  }
+
+  panel.classList.add("scene-fade-out");
+  setTimeout(() => {
+    renderSceneContent();
+    panel.classList.remove("scene-fade-out");
+    panel.classList.add("scene-fade-in-prep");
+    void panel.offsetWidth; // 强制重排，让下一步的 class 切换能触发过渡动画
+    panel.classList.remove("scene-fade-in-prep");
+  }, SCENE_TRANSITION_MS);
+}
+
+function renderSceneContent() {
+  const scene = currentScene();
+  const node = currentNode();
+
+  cancelLongPress();
+  renderProgress();
+  el.sceneTitle.textContent = scene.title;
+  el.sceneSubtitle.textContent = scene.subtitle;
+  el.avatar.textContent = node.avatar || scene.avatar;
+  el.npcEn.innerHTML = wrapWordsHTML(node.npcLine.en);
+  el.npcZh.textContent = node.npcLine.zh;
+  playAudio(node.npcLine.en, el.npcAudioBtn);
+  el.hint.textContent = "";
+  el.hint.classList.remove("visible");
+  wrongButtonsThisNode = new Set();
+
+  el.choices.innerHTML = "";
+  node.choices.forEach((choice, idx) => {
+    const btn = document.createElement("button");
+    btn.className = "choice-btn";
+    btn.textContent = choice.text;
+    btn.addEventListener("click", () => handleChoice(idx, btn));
+    el.choices.appendChild(btn);
+  });
+
+  renderSkillPanel();
+}
+
+function handleChoice(idx, btnEl) {
+  const node = currentNode();
+  const choice = node.choices[idx];
+  const audioDone = playAudio(choice.text, btnEl);
+
+  if (choice.correct) {
+    Array.from(el.choices.children).forEach((b) => (b.disabled = true));
+    state.skills[node.skill] = (state.skills[node.skill] || 0) + (choice.xp || 0);
+    const already = state.learnedVocab.some((v) => v.en === choice.text);
+    if (!already) {
+      state.learnedVocab.push({ en: choice.text, zh: choice.zh || node.npcLine.zh, skill: node.skill });
+    }
+    if (choice.xp) spawnXpFloat(btnEl, choice.xp);
+    saveState();
+    // 等选项的配音真正播完，再多停 1 秒给玩家读完，才切下一句
+    audioDone.then(() => {
+      setTimeout(() => advance(node.next), 1000);
+    });
+  } else {
+    btnEl.classList.add("wrong", "shake");
+    btnEl.addEventListener("animationend", () => btnEl.classList.remove("shake"), { once: true });
+    btnEl.disabled = true;
+    wrongButtonsThisNode.add(idx);
+    el.hint.textContent = "💡 " + node.hintOnWrong;
+    el.hint.classList.add("visible");
+
+    const targetEn = node.choices.find((c) => c.correct).text;
+    const targetZh = node.choices.find((c) => c.correct).zh || node.npcLine.zh;
+    const existing = state.reviewQueue.find((r) => r.en === targetEn);
+    if (existing) {
+      existing.streak = 0;
+    } else {
+      state.reviewQueue.push({ en: targetEn, zh: targetZh, streak: 0 });
+    }
+    saveState();
+  }
+}
+
+function advance(nextNodeId) {
+  if (nextNodeId) {
+    state.nodeId = nextNodeId;
+    saveState();
+    renderScene();
+    return;
+  }
+  // scene finished -> maybe show flashback review, then move to next scene
+  pendingFlashback = state.reviewQueue.slice(0, 2);
+  if (pendingFlashback.length > 0) {
+    showFlashback();
+  } else {
+    goToNextScene();
+  }
+}
+
+function goToNextScene() {
+  const nextIndex = state.sceneIndex + 1;
+  if (nextIndex >= GAME_CONTENT.scenes.length) {
+    showEndScreen();
+    return;
+  }
+  state.sceneIndex = nextIndex;
+  state.nodeId = GAME_CONTENT.scenes[nextIndex].startNode;
+  saveState();
+  renderScene();
+}
+
+function showFlashback() {
+  const item = pendingFlashback[0];
+  el.flashbackOverlay.classList.add("visible");
+  el.flashbackFeedback.textContent = "";
+  el.flashbackZh.textContent = item.zh;
+
+  const distractors = GAME_CONTENT.vocabBank
+    .filter((v) => v.en !== item.en)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 2)
+    .map((v) => v.en);
+
+  const options = [item.en, ...distractors].sort(() => Math.random() - 0.5);
+
+  el.flashbackChoices.innerHTML = "";
+  options.forEach((text) => {
+    const btn = document.createElement("button");
+    btn.className = "choice-btn";
+    btn.textContent = text;
+    btn.addEventListener("click", () => {
+      const audioDone = playAudio(text, btn);
+      handleFlashbackAnswer(text === item.en, item, btn, audioDone);
+    });
+    el.flashbackChoices.appendChild(btn);
+  });
+}
+
+function handleFlashbackAnswer(isCorrect, item, btnEl, audioDone) {
+  Array.from(el.flashbackChoices.children).forEach((b) => (b.disabled = true));
+  const target = state.reviewQueue.find((r) => r.en === item.en);
+
+  if (isCorrect) {
+    btnEl.classList.add("correct");
+    el.flashbackFeedback.textContent = "✅ 记住了！";
+    if (target) target.streak += 1;
+  } else {
+    btnEl.classList.add("wrong");
+    el.flashbackFeedback.textContent = `❌ 正确答案：${item.en}`;
+    if (target) target.streak = 0;
+  }
+
+  if (target && target.streak >= 2) {
+    state.reviewQueue = state.reviewQueue.filter((r) => r.en !== item.en);
+  }
+  saveState();
+
+  // 等配音播完，再留一点时间看反馈文字，才翻页——不是固定 1200ms 硬切
+  Promise.resolve(audioDone).then(() => {
+    setTimeout(() => {
+      pendingFlashback.shift();
+      if (pendingFlashback.length > 0) {
+        showFlashback();
+      } else {
+        el.flashbackOverlay.classList.remove("visible");
+        goToNextScene();
+      }
+    }, 500);
+  });
+}
+
+function showEndScreen() {
+  state.finished = true;
+  saveState();
+  el.choices.innerHTML = "";
+  el.gameScreen.classList.add("hidden");
+  el.endScreen.classList.remove("hidden");
+  const totalXp = Object.values(state.skills).reduce((a, b) => a + b, 0);
+  el.endSummary.innerHTML = `
+    <p>📖 第一章 · 完</p>
+    <p>你找到了 Emma，也看到了她的新书店——但她说，还有件事没告诉你……</p>
+    <p style="opacity:.7">下一章，敬请期待。</p>
+    <p>总经验值：${totalXp} ・ 学会词汇：${state.learnedVocab.length} 个</p>
+    <p>${Object.entries(GAME_CONTENT.skillMeta)
+      .map(([k, m]) => `${m.icon} ${m.label} ${state.skills[k] || 0}/${SKILL_MAX[k] || 0}`)
+      .join(" ・ ")}</p>
+  `;
+}
+
+function resetGame() {
+  localStorage.removeItem(SAVE_KEY);
+  state = freshState();
+  pendingFlashback = [];
+  el.endScreen.classList.add("hidden");
+  el.gameScreen.classList.remove("hidden");
+  renderScene();
+}
+
+el.resetBtn.addEventListener("click", () => {
+  if (confirm("确定要重新开始吗？当前进度会清空。")) resetGame();
+});
+el.restartBtn.addEventListener("click", resetGame);
+el.npcAudioBtn.addEventListener("click", () => playAudio(currentNode().npcLine.en, el.npcAudioBtn));
+el.zhToggleBtn.addEventListener("click", () => {
+  hideZh = !hideZh;
+  localStorage.setItem(ZH_HIDE_KEY, hideZh ? "1" : "0");
+  applyZhVisibility();
+});
+
+applyZhVisibility();
+
+if (state.finished) {
+  showEndScreen();
+} else {
+  renderScene();
+}
