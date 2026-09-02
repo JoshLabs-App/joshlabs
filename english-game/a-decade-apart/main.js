@@ -175,6 +175,18 @@ function scheduleAutoReplay(text, gen) {
 const ZH_HIDE_KEY = "eng-rpg-hide-zh";
 let hideZh = localStorage.getItem(ZH_HIDE_KEY) === "1";
 
+// 静音开关：自动播放/自动重播/点空白重播已经够频繁了，喇叭图标不再是"再放一遍"，
+// 改成"开关声音"——点一下静音，再点一下恢复。playAudio() 统一在这里拦，
+// 不用在每个调用它的地方各自判断。
+const AUDIO_MUTED_KEY = "eng-rpg-audio-muted";
+let audioMuted = localStorage.getItem(AUDIO_MUTED_KEY) === "1";
+
+function applyAudioMuted() {
+  el.npcAudioBtn.textContent = audioMuted ? "🔇" : "🔊";
+  el.npcAudioBtn.setAttribute("aria-label", audioMuted ? "取消静音" : "静音");
+  el.npcAudioBtn.setAttribute("aria-pressed", String(audioMuted));
+}
+
 const TITLE_ZH = "十年之约 · English Game · JoshLabs";
 const TITLE_EN = "A Decade Apart · English Game · JoshLabs";
 
@@ -293,6 +305,7 @@ function renderProgress() {
 // 调用方可以用它来"等配音说完再翻页"，而不是猜一个固定延迟。
 let currentAudio = null;
 function playAudio(text, btnEl) {
+  if (audioMuted) return Promise.resolve();
   const src = typeof AUDIO_MANIFEST !== "undefined" ? AUDIO_MANIFEST[text] : null;
   if (!src) return Promise.resolve();
   if (currentAudio) {
@@ -675,7 +688,12 @@ el.resetBtn.addEventListener("click", () => {
   if (confirm("确定要重新开始吗？当前进度会清空。")) resetGame();
 });
 el.restartBtn.addEventListener("click", resetGame);
-el.npcAudioBtn.addEventListener("click", () => playAudio(currentNode().npcLine.en, el.npcAudioBtn));
+el.npcAudioBtn.addEventListener("click", () => {
+  audioMuted = !audioMuted;
+  localStorage.setItem(AUDIO_MUTED_KEY, audioMuted ? "1" : "0");
+  applyAudioMuted();
+  if (!audioMuted) playAudio(currentNode().npcLine.en, el.npcAudioBtn);
+});
 // 点对话框里的空白处也能重播，不用非得精准点中那个小喇叭图标——
 // 但点单词（长按查词）或喇叭本身时跳过，避免和它们各自的逻辑重复触发。
 el.dialogueBubble.addEventListener("click", (e) => {
@@ -693,6 +711,7 @@ el.zhToggleBtn.addEventListener("click", () => {
 });
 
 applyZhVisibility();
+applyAudioMuted();
 
 // 进页面直接开始，不额外插入"点击开始"的确认步骤。手机浏览器不允许没有用户
 // 手势就自动放声音，所以第一句台词的自动配音在部分设备上可能放不出来——
