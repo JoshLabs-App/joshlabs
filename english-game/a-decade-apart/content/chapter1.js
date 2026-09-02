@@ -334,7 +334,7 @@ const GAME_CONTENT = {
         },
         n2: {
           avatar: "🥹",
-          npcLine: { en: "Ten years... you actually came.", zh: "十年了……你真的来了。" },
+          npcLine: { en: "Ten years... you actually came.", zh: "十年了……你真的来了。", voice: "emma" },
           skill: "dining",
           grammarTag: "statement",
           choices: [
@@ -346,7 +346,7 @@ const GAME_CONTENT = {
         },
         n3: {
           avatar: "😳",
-          npcLine: { en: "There's something I never told you. Can I show you tomorrow?", zh: "有件事我一直没告诉你。明天带你去看，好吗？" },
+          npcLine: { en: "There's something I never told you. Can I show you tomorrow?", zh: "有件事我一直没告诉你。明天带你去看，好吗？", voice: "emma" },
           skill: "dining",
           grammarTag: "will-future",
           choices: [
@@ -368,7 +368,7 @@ const GAME_CONTENT = {
       nodes: {
         n1: {
           avatar: "😄",
-          npcLine: { en: "Morning! Ready to see my surprise?", zh: "早上好！准备好看我的惊喜了吗？" },
+          npcLine: { en: "Morning! Ready to see my surprise?", zh: "早上好！准备好看我的惊喜了吗？", voice: "emma" },
           skill: "direction",
           grammarTag: "present-continuous",
           choices: [
@@ -380,7 +380,7 @@ const GAME_CONTENT = {
         },
         n2: {
           avatar: "😊",
-          npcLine: { en: "We'll take the streetcar. It's not far.", zh: "我们坐电车去，不远。" },
+          npcLine: { en: "We'll take the streetcar. It's not far.", zh: "我们坐电车去，不远。", voice: "emma" },
           skill: "direction",
           grammarTag: "statement",
           choices: [
@@ -392,7 +392,7 @@ const GAME_CONTENT = {
         },
         n3: {
           avatar: "🙂",
-          npcLine: { en: "Here's our stop!", zh: "到站了！" },
+          npcLine: { en: "Here's our stop!", zh: "到站了！", voice: "emma" },
           skill: "direction",
           grammarTag: "lets-suggestion",
           choices: [
@@ -413,7 +413,7 @@ const GAME_CONTENT = {
       nodes: {
         n1: {
           avatar: "😊",
-          npcLine: { en: "This is it. I opened it last spring.", zh: "就是这里。我去年春天开的。" },
+          npcLine: { en: "This is it. I opened it last spring.", zh: "就是这里。我去年春天开的。", voice: "emma" },
           skill: "shopping",
           grammarTag: "do-question",
           choices: [
@@ -425,7 +425,7 @@ const GAME_CONTENT = {
         },
         n2: {
           avatar: "🥹",
-          npcLine: { en: "I named it after the letters we wrote as kids.", zh: "我用我们小时候写的信给它取的名字。" },
+          npcLine: { en: "I named it after the letters we wrote as kids.", zh: "我用我们小时候写的信给它取的名字。", voice: "emma" },
           skill: "shopping",
           grammarTag: "statement",
           choices: [
@@ -437,7 +437,7 @@ const GAME_CONTENT = {
         },
         n3: {
           avatar: "😊",
-          npcLine: { en: "Come in — the first book is on me.", zh: "进来吧——第一本书我请你。" },
+          npcLine: { en: "Come in — the first book is on me.", zh: "进来吧——第一本书我请你。", voice: "emma" },
           skill: "shopping",
           grammarTag: "courtesy",
           choices: [
