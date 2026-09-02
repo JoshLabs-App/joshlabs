@@ -143,8 +143,7 @@ body {
 .npc-zh { margin: 0; color: var(--muted); font-size: 0.9rem; }
 body.hide-zh .npc-zh,
 body.hide-zh .scene-subtitle,
-body.hide-zh .tagline-zh,
-body.hide-zh .title-zh {
+body.hide-zh .zh-inline {
   display: none;
 }
 

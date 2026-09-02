@@ -161,7 +161,7 @@ function renderSkillPanel() {
     const row = document.createElement("div");
     row.className = "skill-row";
     row.innerHTML = `
-      <div class="skill-label">${meta.icon} ${meta.label}</div>
+      <div class="skill-label">${meta.icon} ${meta.labelEn} <span class="zh-inline">${meta.label}</span></div>
       <div class="skill-bar"><div class="skill-bar-fill" style="width:${pct}%"></div></div>
       <div class="skill-xp">${xp}/${max}</div>
     `;

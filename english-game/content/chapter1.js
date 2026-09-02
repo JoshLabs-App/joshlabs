@@ -48,10 +48,10 @@ const GAME_CONTENT = {
   // max 由引擎在加载时根据每个技能在所有场景里能拿到的总经验值自动算出，
   // 加新场景/新技能不需要再手动同步这里的数值。
   skillMeta: {
-    greeting: { label: "问候寒暄", icon: "👋" },
-    direction: { label: "方位交通", icon: "🧭" },
-    shopping: { label: "消费购物", icon: "💳" },
-    dining: { label: "餐饮点单", icon: "☕" }
+    greeting: { label: "问候寒暄", labelEn: "Greetings", icon: "👋" },
+    direction: { label: "方位交通", labelEn: "Directions & Transit", icon: "🧭" },
+    shopping: { label: "消费购物", labelEn: "Shopping", icon: "💳" },
+    dining: { label: "餐饮点单", labelEn: "Dining", icon: "☕" }
   },
 
   scenes: [
