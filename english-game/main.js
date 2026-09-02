@@ -24,6 +24,8 @@ const el = {
   flashbackWordbank: document.getElementById("flashback-wordbank"),
   flashbackFeedback: document.getElementById("flashback-feedback"),
   sceneProgress: document.getElementById("scene-progress"),
+  levelBarMask: document.getElementById("level-bar-mask"),
+  levelLabel: document.getElementById("level-label"),
   endScreen: document.getElementById("end-screen"),
   endSummary: document.getElementById("end-summary"),
   gameScreen: document.getElementById("game-screen"),
@@ -50,6 +52,54 @@ function computeSkillMax() {
 }
 
 const SKILL_MAX = computeSkillMax();
+
+// 词汇量进度：按 skills/joshlabs-dev/references/projects/english-game.md 里研究出来的
+// CEFR 词族数门槛来算，不是"第几章=第几级"的粗映射。累计到当前场景为止玩家实际读到过
+// 的不同词形数量（NPC 台词+两个选项都算，跟 scripts/validate-curriculum.mjs 同一套统计
+// 口径），实时对照门槛换算成"当前在哪个级别、这一级走了多少百分比"。
+// 门槛改了要同步 style.css 里 .level-bar 渐变的百分比断点（22.2% / 48.9%），两边写死对应
+// 500/1100/2250 这三个数字，不是动态算的。
+const CEFR_VOCAB_THRESHOLDS = [
+  { level: "A1", words: 500 },
+  { level: "A2", words: 1100 },
+  { level: "B1", words: 2250 }
+];
+
+function tokenizeWords(text) {
+  if (!text) return [];
+  return text.toLowerCase().match(/[a-z]+'?[a-z]*/g) || [];
+}
+
+// 只统计玩家实际会读到的文字（NPC 台词 + 场景里出现过的选项），不算 vocabBank——
+// 那是复习用的干扰项池，不是"读过的内容"。
+function computeVocabExposure(upToSceneIndex) {
+  const seen = new Set();
+  for (let i = 0; i <= upToSceneIndex && i < GAME_CONTENT.scenes.length; i++) {
+    for (const node of Object.values(GAME_CONTENT.scenes[i].nodes)) {
+      tokenizeWords(node.npcLine.en).forEach((w) => seen.add(w));
+      for (const c of node.choices) tokenizeWords(c.text).forEach((w) => seen.add(w));
+    }
+  }
+  return seen.size;
+}
+
+function computeLevelProgress(wordCount) {
+  // globalPct 是在"整条到 B1 的路"上的位置，用来算进度条该露出多少——
+  // 露出比例要对得上 CSS 渐变里色带的绝对位置，不能只按当前级别内部的比例算，
+  // 不然词汇量还远没到 A2，条却已经露到黄色那段去了。
+  const finalTarget = CEFR_VOCAB_THRESHOLDS[CEFR_VOCAB_THRESHOLDS.length - 1].words;
+  const globalPct = Math.max(0, Math.min(100, Math.round((wordCount / finalTarget) * 100)));
+
+  let prevThreshold = 0;
+  for (const tier of CEFR_VOCAB_THRESHOLDS) {
+    if (wordCount < tier.words) {
+      return { level: tier.level, globalPct, wordCount, target: tier.words };
+    }
+    prevThreshold = tier.words;
+  }
+  const last = CEFR_VOCAB_THRESHOLDS[CEFR_VOCAB_THRESHOLDS.length - 1];
+  return { level: last.level + "+", globalPct, wordCount, target: last.words };
+}
 
 // 复习间隔规则（见 skills/joshlabs-dev/references/projects/english-game.md）：
 // 答错入队时 status="active"，短期内连对 2 次后不直接移出，改成 status="pendingFinal"，
@@ -197,6 +247,11 @@ function renderProgress() {
     else if (idx === state.sceneIndex) dot.classList.add("active");
     el.sceneProgress.appendChild(dot);
   });
+
+  const wordCount = computeVocabExposure(state.sceneIndex);
+  const { level, globalPct, target } = computeLevelProgress(wordCount);
+  el.levelBarMask.style.width = 100 - globalPct + "%";
+  el.levelLabel.textContent = `${level} · ${wordCount}/${target} 词`;
 }
 
 // 配音播放：按台词原文去 AUDIO_MANIFEST 里查对应的音频文件。
