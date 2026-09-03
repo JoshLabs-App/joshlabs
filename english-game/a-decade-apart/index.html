@@ -21,11 +21,14 @@
     <h1>🍁 A Decade Apart <span class="zh-inline">十年之约</span></h1>
     <p class="tagline">A Decade Apart <span class="zh-inline">· 用英语能力推进剧情的养成 + 视觉小说游戏</span></p>
     <div class="header-controls">
+      <div id="streak-badge" class="streak-badge">🔥 0</div>
       <div class="account-wrap">
         <button id="account-btn" class="ghost-btn" type="button">☰</button>
         <div id="account-menu" class="account-menu hidden">
           <button id="zh-toggle-btn" class="menu-item" type="button" aria-pressed="true">隐藏中文</button>
           <a href="dialogue.html" class="menu-item">📖 全部对话</a>
+          <button id="character-edit-btn" class="menu-item" type="button">✏️ 编辑角色</button>
+          <button id="achievements-btn" class="menu-item" type="button">🏆 成就</button>
           <button id="reset-btn" class="menu-item" type="button">重新开始</button>
           <div class="menu-divider"></div>
           <div id="account-logged-out-item">
@@ -39,6 +42,8 @@
       </div>
     </div>
   </header>
+
+  <p id="streak-banner" class="streak-banner hidden"></p>
 
   <main id="game-screen" class="layout">
     <section class="scene-panel">
@@ -66,6 +71,7 @@
         <p id="npc-zh" class="npc-zh"></p>
       </div>
 
+      <div id="hearts-display" class="hearts-display"></div>
       <div id="choices" class="choices"></div>
       <button id="npc-audio-btn" class="play-btn" type="button">PLAY</button>
       <p id="hint" class="hint"></p>
@@ -79,6 +85,22 @@
       </div>
       <div class="stat-row">
         <span>Vocabulary Learned <span class="zh-inline">已学词汇</span></span><strong id="vocab-count">0</strong>
+      </div>
+
+      <div id="daily-goal-card" class="daily-goal-card">
+        <div class="daily-goal-head">
+          <span>🎯 Daily Goal <span class="zh-inline">今日目标</span></span>
+          <span id="daily-goal-count" class="daily-goal-count">0/3</span>
+        </div>
+        <div class="daily-goal-bar"><div id="daily-goal-fill" class="daily-goal-fill"></div></div>
+      </div>
+
+      <div class="leaderboard-card">
+        <h3>🏆 Leaderboard <span class="zh-inline">排行榜 · 即将推出</span></h3>
+        <p class="leaderboard-note">跨玩家排行需要服务器权限升级，目前还没法显示其他玩家的分数。</p>
+        <div class="stat-row">
+          <span>Your Total XP <span class="zh-inline">你的总经验值</span></span><strong id="leaderboard-self-xp">0</strong>
+        </div>
       </div>
     </aside>
   </main>
@@ -111,6 +133,25 @@
   </div>
 
   <div id="word-popup" class="word-popup hidden" aria-hidden="true"></div>
+
+  <div id="character-overlay" class="overlay">
+    <div class="flashback-card auth-card">
+      <button id="character-close-btn" class="auth-close" type="button" aria-label="关闭">×</button>
+      <p class="flashback-label">✏️ 编辑角色</p>
+      <input id="character-name-input" class="auth-input" type="text" placeholder="给主角起个名字" maxlength="12" />
+      <div id="avatar-picker" class="avatar-picker"></div>
+      <button id="character-save-btn" class="primary-btn auth-full-btn" type="button">保存</button>
+    </div>
+  </div>
+
+  <div id="achievements-overlay" class="overlay">
+    <div class="flashback-card auth-card achievements-card">
+      <button id="achievements-close-btn" class="auth-close" type="button" aria-label="关闭">×</button>
+      <p class="flashback-label">🏆 成就 · 称号</p>
+      <p class="achievements-hint zh-inline">点已解锁的成就可以佩戴成称号，显示在左上角</p>
+      <div id="achievements-grid" class="achievements-grid"></div>
+    </div>
+  </div>
 
   <div id="auth-overlay" class="overlay">
     <div class="flashback-card auth-card">
