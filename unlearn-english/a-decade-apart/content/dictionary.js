@@ -4237,5 +4237,30 @@ const WORD_DICT = {
   "sandbar": "沙洲",
   "break spot": "休息地点",
   "pace ourselves": "控制节奏",
-  "sun-kissed": "被阳光晒得微红的"
+  "sun-kissed": "被阳光晒得微红的",
+
+  // 第九十四部分：第九十三章新增词（天文馆穹幕电影）
+  "planetarium": "天文馆",
+  "domed": "圆顶的",
+  "anticipation": "期待",
+  "dome": "穹顶",
+  "theater": "影厅，剧场",
+  "bloom": "绽放",
+  "curved screen": "弯曲的银幕",
+  "projector": "投影仪",
+  "dizzying": "让人晕眩的",
+  "outer space": "外太空",
+  "narrator": "讲解员，旁白",
+  "solar system": "太阳系",
+  "perspective": "视角，看待方式",
+  "amazed": "惊叹的",
+  "nebula": "星云",
+  "swirling": "盘旋的",
+  "humbling": "让人谦卑的",
+  "plainer": "更朴素的",
+  "magnet": "磁铁",
+  "scattered": "散布的",
+  "dimmer": "更暗淡的",
+  "vastness": "浩瀚",
+  "vast": "浩瀚的"
 };
