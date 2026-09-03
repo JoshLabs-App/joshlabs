@@ -2785,5 +2785,29 @@ const WORD_DICT = {
   "heartfelt": "真诚的",
   "flew by": "过得飞快",
   "wouldn't trade it": "不会用它交换",
-  "fulfilled": "充满成就感的"
+  "fulfilled": "充满成就感的",
+
+  // 第五十一部分：第五十章新增词（看房买房）
+  "toddler": "蹒跚学步的孩子",
+  "bursting at the seams": "快装不下了",
+  "real estate agent": "房产中介",
+  "match": "匹配",
+  "showing": "看房",
+  "narrow it down": "缩小范围",
+  "school district": "学区",
+  "sleep on it": "先考虑一晚",
+  "flip a coin": "抛硬币决定",
+  "asking price": "标价",
+  "sellers": "卖家（复数）",
+  "anxiously": "焦虑地",
+  "distract": "分散注意力",
+  "home inspection": "房屋检查",
+  "joy": "喜悦",
+  "replace": "更换",
+  "plumbing": "管道",
+  "shape": "状况",
+  "bottom": "底部",
+  "foreign": "陌生的",
+  "set it up": "摆放好",
+  "hold memories": "承载回忆"
 };
