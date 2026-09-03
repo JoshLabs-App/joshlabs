@@ -17,6 +17,7 @@
 </head>
 <body>
   <header class="app-header">
+    <button id="user-badge" class="ghost-btn user-badge" type="button">请登录</button>
     <h1>🍁 A Decade Apart <span class="zh-inline">十年之约</span></h1>
     <p class="tagline">A Decade Apart <span class="zh-inline">· 用英语能力推进剧情的养成 + 视觉小说游戏</span></p>
     <div class="header-controls">
@@ -24,6 +25,7 @@
         <button id="account-btn" class="ghost-btn" type="button">☰</button>
         <div id="account-menu" class="account-menu hidden">
           <button id="zh-toggle-btn" class="menu-item" type="button" aria-pressed="true">隐藏中文</button>
+          <a href="dialogue.html" class="menu-item">📖 全部对话</a>
           <button id="reset-btn" class="menu-item" type="button">重新开始</button>
           <div class="menu-divider"></div>
           <div id="account-logged-out-item">
@@ -51,6 +53,12 @@
           <h2 id="scene-title">Heathrow Airport</h2>
           <p id="scene-subtitle" class="scene-subtitle">希思罗机场 · 入境检查</p>
         </div>
+      </div>
+
+      <p id="history-banner" class="history-banner hidden">🕰 回顾模式 · 这是你之前答对的内容</p>
+      <div class="history-nav">
+        <button id="history-prev-btn" class="ghost-btn history-nav-btn" type="button">◀ 上一页</button>
+        <button id="history-next-btn" class="ghost-btn history-nav-btn" type="button" disabled>下一页 ▶</button>
       </div>
 
       <div class="dialogue-bubble">
@@ -150,6 +158,8 @@
   <script src="content/chapter20.js"></script>
   <script src="content/chapter21.js"></script>
   <script src="content/chapter22.js"></script>
+  <script src="content/chapter23.js"></script>
+  <script src="content/chapter24.js"></script>
   <script src="content/audio-manifest.js"></script>
   <script src="content/word-audio-manifest.js"></script>
   <script src="content/dictionary.js"></script>

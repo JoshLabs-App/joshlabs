@@ -37,6 +37,10 @@ const el = {
   transitionEn: document.getElementById("transition-en"),
   transitionZh: document.getElementById("transition-zh"),
   transitionContinueBtn: document.getElementById("transition-continue-btn"),
+  historyBanner: document.getElementById("history-banner"),
+  historyPrevBtn: document.getElementById("history-prev-btn"),
+  historyNextBtn: document.getElementById("history-next-btn"),
+  userBadge: document.getElementById("user-badge"),
   accountBtn: document.getElementById("account-btn"),
   accountMenu: document.getElementById("account-menu"),
   accountMenuEmail: document.getElementById("account-menu-email"),
@@ -264,6 +268,88 @@ function currentNode() {
   return currentScene().nodes[state.nodeId];
 }
 
+// 翻页回看历史：游戏永远只有"答对才能往前走"这一条路径，所以玩家已经走过的
+// 每一句，都能从 GAME_CONTENT 按 scene.startNode → node.next 重新推导出来，
+// 不用另外维护一份 history 存档字段——省得旧存档没有这个字段还要迁移。
+// 算到当前 state.sceneIndex/state.nodeId（还没作答的那一句）为止，不包含它本身。
+function buildHistory() {
+  const history = [];
+  for (let s = 0; s <= state.sceneIndex && s < GAME_CONTENT.scenes.length; s++) {
+    const scene = GAME_CONTENT.scenes[s];
+    let nodeId = scene.startNode;
+    let guard = 0;
+    while (nodeId && scene.nodes[nodeId] && guard++ < 50) {
+      if (s === state.sceneIndex && nodeId === state.nodeId) break;
+      const node = scene.nodes[nodeId];
+      const correct = node.choices.find((c) => c.correct);
+      history.push({ sceneIndex: s, nodeId, node, correct });
+      nodeId = node.next;
+    }
+  }
+  return history;
+}
+
+// null = 在当前直播（可互动）的节点；否则是 buildHistory() 数组的下标，
+// 表示正在翻看第几条已经答对过的历史记录。只是个 UI 状态，不落存档，
+// 刷新页面就回到直播位置，符合"翻页只是回看，不是切换游戏进度"的预期。
+let browseIndex = null;
+
+function updateHistoryNavUI() {
+  const history = buildHistory();
+  const browsing = browseIndex !== null;
+  el.historyBanner.classList.toggle("hidden", !browsing);
+  el.historyPrevBtn.disabled = history.length === 0 || (browsing && browseIndex === 0);
+  el.historyNextBtn.disabled = !browsing;
+}
+
+function renderHistoryView(entry) {
+  const scene = GAME_CONTENT.scenes[entry.sceneIndex];
+  const node = entry.node;
+
+  hideWordPopup();
+  el.sceneTitle.innerHTML = wrapWordsHTML(scene.title);
+  el.sceneSubtitle.innerHTML = wrapWordsHTML(scene.subtitle);
+  el.avatar.textContent = node.avatar || scene.avatar;
+  el.npcEn.innerHTML = wrapWordsHTML(node.npcLine.en);
+  el.npcZh.textContent = node.npcLine.zh;
+  playAudio(node.npcLine.en, el.npcAudioBtn);
+  el.hint.textContent = "";
+  el.hint.classList.remove("visible");
+
+  // 回看模式只读：只展示当时选对的那句，禁用点击，不能重新作答。
+  el.choices.innerHTML = "";
+  const btn = document.createElement("button");
+  btn.className = "choice-btn correct";
+  btn.textContent = entry.correct ? entry.correct.text : "";
+  btn.disabled = true;
+  el.choices.appendChild(btn);
+
+  updateHistoryNavUI();
+}
+
+function goToPrevHistory() {
+  const history = buildHistory();
+  if (history.length === 0) return;
+  browseIndex = browseIndex === null ? history.length - 1 : Math.max(0, browseIndex - 1);
+  renderHistoryView(history[browseIndex]);
+}
+
+function goToNextHistory() {
+  if (browseIndex === null) return;
+  const history = buildHistory();
+  if (browseIndex < history.length - 1) {
+    browseIndex++;
+    renderHistoryView(history[browseIndex]);
+  } else {
+    // 已经翻到最新一条历史记录，再往前一步就是回到当前直播、可以正常作答的节点
+    browseIndex = null;
+    renderScene();
+  }
+}
+
+el.historyPrevBtn.addEventListener("click", goToPrevHistory);
+el.historyNextBtn.addEventListener("click", goToNextHistory);
+
 function renderSkillPanel() {
   el.skillPanel.innerHTML = "";
   for (const [key, meta] of Object.entries(GAME_CONTENT.skillMeta)) {
@@ -371,6 +457,7 @@ function renderSceneContent() {
   const scene = currentScene();
   const node = currentNode();
 
+  browseIndex = null; // 任何一次正常的直播渲染，都代表玩家不在翻页回看状态
   hideWordPopup();
   renderProgress();
   el.sceneTitle.innerHTML = wrapWordsHTML(scene.title);
@@ -397,6 +484,7 @@ function renderSceneContent() {
   });
 
   renderSkillPanel();
+  updateHistoryNavUI();
 }
 
 function handleChoice(idx, btnEl) {
@@ -703,11 +791,41 @@ el.zhToggleBtn.addEventListener("click", () => {
   el.accountMenu.classList.add("hidden");
 });
 
-// 顶部菜单：显示中文/重新开始 常驻在里面；账号区随登录状态在"登录账号"
-// 入口和"邮箱 + 退出登录"之间切换。登录状态变化由 auth.js 的 onAuthChange 驱动。
+// 昵称：登录后随机配一个"形容词+蔬果"的花名（比如"奔跑的土豆"），不用邮箱本身，
+// 按 user.id 存进 localStorage 只生成一次——同一个账号每次登录看到的都是同一个名字，
+// 不会一刷新就换掉。
+const NICKNAME_ADJ = [
+  "奔跑的", "快乐的", "神秘的", "勇敢的", "淡定的", "机智的", "爱笑的", "闪亮的",
+  "悠闲的", "话痨的", "元气满满的", "迷路的", "摸鱼的", "热情的", "安静的", "调皮的",
+  "打盹的", "路痴的", "好奇的", "慢悠悠的"
+];
+const NICKNAME_NOUN = [
+  "土豆", "西红柿", "香蕉", "苹果", "菠萝", "南瓜", "西瓜", "橙子",
+  "葡萄", "洋葱", "萝卜", "芒果", "椰子", "草莓", "冬瓜", "白菜",
+  "玉米", "柠檬", "牛油果", "哈密瓜"
+];
+const NICKNAME_KEY_PREFIX = "eng-rpg-nickname-";
+
+function getNickname(user) {
+  const key = NICKNAME_KEY_PREFIX + (user.id || user.email || "anon");
+  let name = localStorage.getItem(key);
+  if (!name) {
+    const adj = NICKNAME_ADJ[Math.floor(Math.random() * NICKNAME_ADJ.length)];
+    const noun = NICKNAME_NOUN[Math.floor(Math.random() * NICKNAME_NOUN.length)];
+    name = adj + noun;
+    localStorage.setItem(key, name);
+  }
+  return name;
+}
+
+// 顶部左边的身份标签（未登录显示"请登录"、登录后显示花名）跟右上角的 ☰ 菜单
+// 是两回事：☰ 一直只是"打开菜单"，不再随登录状态换文字。显示中文/重新开始
+// 常驻菜单里；账号区随登录状态在"登录账号"入口和"邮箱 + 退出登录"之间切换。
+// 登录状态变化由 auth.js 的 onAuthChange 驱动。
 function renderAuthPanel(user) {
   const loggedIn = !!user;
-  el.accountBtn.textContent = loggedIn ? "👤 " + (user.email ? user.email.split("@")[0] : "账号") : "☰";
+  el.userBadge.textContent = loggedIn ? getNickname(user) : "请登录";
+  el.userBadge.classList.toggle("logged-in", loggedIn);
   el.accountLoggedOutItem.classList.toggle("hidden", loggedIn);
   el.accountLoggedInItem.classList.toggle("hidden", !loggedIn);
   if (loggedIn) el.accountMenuEmail.textContent = user.email || "";
@@ -724,11 +842,23 @@ if (window.GameAuth) window.GameAuth.onAuthChange(renderAuthPanel);
 el.accountBtn.addEventListener("click", () => {
   el.accountMenu.classList.toggle("hidden");
 });
-// 点菜单外部的地方，自动收起菜单
+// 点菜单外部的地方，自动收起菜单——左上角的身份标签不算"外部"，
+// 不然它自己的点击事件冒泡到这里，会跟它下面的登录逻辑打架。
 document.addEventListener("click", (e) => {
-  if (!el.accountMenu.classList.contains("hidden") && !e.target.closest(".account-wrap")) {
+  if (
+    !el.accountMenu.classList.contains("hidden") &&
+    !e.target.closest(".account-wrap") &&
+    e.target !== el.userBadge
+  ) {
     el.accountMenu.classList.add("hidden");
   }
+});
+// 左上角身份标签：没登录时点一下直接弹登录框；登录了就只是个花名标签，不做别的——
+// 退出登录走右上角菜单里的入口，两边不重复。
+el.userBadge.addEventListener("click", () => {
+  if (window.GameAuth && window.GameAuth.getUser()) return;
+  resetAuthForm();
+  el.authOverlay.classList.add("visible");
 });
 el.accountLoginBtn.addEventListener("click", () => {
   el.accountMenu.classList.add("hidden");
