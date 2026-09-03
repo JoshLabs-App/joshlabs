@@ -4141,5 +4141,29 @@ const WORD_DICT = {
   "grips": "握持",
   "craftsmanship": "手艺",
   "sheath": "刀鞘",
-  "forged": "锻造过的"
+  "forged": "锻造过的",
+
+  // 第九十部分：第八十九章新增词（果园摘苹果与压苹果汁）
+  "orchard": "果园",
+  "crisp": "清爽的",
+  "rows": "行列",
+  "tiptoes": "脚尖",
+  "varieties": "品种",
+  "crunchier": "更脆的",
+  "farmhand": "农场工人",
+  "pounds": "磅",
+  "carried away": "太投入，忘乎所以",
+  "cider press": "榨汁机",
+  "cider": "苹果汁，苹果酒",
+  "paper cups": "纸杯",
+  "jug": "壶",
+  "hayride": "干草车兜风",
+  "wagon": "马车，货车",
+  "bumpier": "更颠簸的",
+  "rail": "栏杆",
+  "valley": "山谷",
+  "patch": "地块",
+  "rounder": "更圆的",
+  "went all in": "尽兴，全情投入",
+  "spoil": "变坏，腐烂"
 };
