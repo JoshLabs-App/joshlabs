@@ -4165,5 +4165,30 @@ const WORD_DICT = {
   "patch": "地块",
   "rounder": "更圆的",
   "went all in": "尽兴，全情投入",
-  "spoil": "变坏，腐烂"
+  "spoil": "变坏，腐烂",
+
+  // 第九十一部分：第九十章新增词（第一次去湖边钓鱼）
+  "fishing": "钓鱼",
+  "rods": "鱼竿",
+  "tackle box": "渔具箱",
+  "hooks": "鱼钩",
+  "weights": "铅坠",
+  "bobbers": "浮标",
+  "bait": "鱼饵",
+  "worms": "蚯蚓",
+  "wiggle": "扭动",
+  "squeamish": "有点害怕的",
+  "palm": "手心",
+  "cast": "抛竿",
+  "reel it in": "收线",
+  "ripples": "涟漪",
+  "bite": "（鱼）咬钩",
+  "jerks": "猛地一动",
+  "sinks": "下沉",
+  "tug": "拉力",
+  "slack": "松弛的",
+  "slippery": "滑溜的",
+  "catch and release": "钓放（钓鱼后放生）",
+  "shore": "岸边",
+  "sunburned": "晒黑的"
 };
