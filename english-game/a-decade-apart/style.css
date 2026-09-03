@@ -45,6 +45,17 @@ body {
   display: flex;
   gap: 8px;
 }
+.user-badge {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+.user-badge.logged-in {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  cursor: default;
+}
 .ghost-btn:hover { border-color: var(--accent); color: var(--accent); }
 #zh-toggle-btn[aria-pressed="false"] {
   color: var(--accent);
@@ -160,6 +171,36 @@ body {
 .scene-head h2 { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1.4rem; }
 .scene-subtitle { margin: 3px 0 0; color: var(--muted); font-size: 0.9rem; }
 
+/* 翻页回看：往回翻整段游戏历史（已经答对过的句子），翻到底再往前一步会回到当前进度。
+   见 main.js 的 buildHistory() / browseIndex。 */
+.history-nav {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+.history-nav-btn {
+  flex: 1;
+  text-align: center;
+}
+.ghost-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.ghost-btn:disabled:hover {
+  border-color: var(--border);
+  color: var(--ink);
+}
+.history-banner {
+  margin: 0 0 12px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.85rem;
+  text-align: center;
+}
+.history-banner.hidden { display: none; }
+
 .dialogue-bubble {
   background: #fdf8f3;
   border: 1px solid var(--border);
@@ -177,7 +218,8 @@ body.hide-zh .zh-inline {
 
 .npc-en .word,
 .scene-head h2 .word,
-.scene-subtitle .word {
+.scene-subtitle .word,
+.t-en .word {
   cursor: pointer;
   border-radius: 4px;
   padding: 0 1px;
@@ -189,7 +231,8 @@ body.hide-zh .zh-inline {
 }
 .npc-en .word.word-active,
 .scene-head h2 .word.word-active,
-.scene-subtitle .word.word-active {
+.scene-subtitle .word.word-active,
+.t-en .word.word-active {
   background: var(--accent-soft);
 }
 
@@ -430,6 +473,8 @@ body.hide-zh .zh-inline {
   cursor: pointer;
   border-radius: 8px;
   font-family: inherit;
+  text-decoration: none;
+  box-sizing: border-box;
 }
 .menu-item:hover { background: var(--accent-soft); color: var(--accent); }
 .menu-divider { height: 1px; background: var(--border); margin: 6px 0; }
@@ -467,4 +512,94 @@ body.hide-zh .zh-inline {
   .layout { flex-direction: column; align-items: stretch; }
   .scene-panel, .sidebar { min-width: 0; width: 100%; }
   .header-controls { position: static; justify-content: center; margin-top: 10px; }
+  .user-badge { position: static; display: inline-block; margin-top: 10px; }
+}
+
+/* 对话总览页（dialogue.html）：把所有台词摊平列成聊天记录，
+   NPC 靠左、玩家靠右，点单句播放/整段连续播放都在这一块样式里。 */
+.t-page {
+  max-width: 720px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
+
+.t-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bg);
+  padding: 14px 0;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.t-count { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
+
+.t-scene-head {
+  margin: 30px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--border);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.t-scene-head:first-child { margin-top: 4px; }
+.t-scene-title { font-family: var(--serif); font-weight: 600; font-size: 1.1rem; }
+.t-scene-sub { color: var(--muted); font-size: 0.85rem; }
+
+.t-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.t-row-player { flex-direction: row-reverse; }
+
+.t-avatar {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+}
+.t-avatar-player { background: var(--border); }
+
+.t-bubble {
+  max-width: 76%;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+}
+.t-bubble:hover { border-color: var(--accent); }
+.t-bubble:active { transform: scale(0.98); }
+.t-row-player .t-bubble { background: #fdf8f3; }
+.t-en { font-size: 1rem; font-weight: 600; line-height: 1.4; }
+.t-zh { color: var(--muted); font-size: 0.88rem; margin-top: 3px; }
+
+.t-row.t-playing .t-bubble {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* 隐藏中文模式下，点单句临时把这一行的翻译露出来（dialogue.js 里 3 秒后自动收回）——
+   选择器权重要压过上面通用的 body.hide-zh .zh-inline { display: none }。 */
+body.hide-zh .t-row.t-zh-reveal .t-zh.zh-inline {
+  display: block;
+}
+
+.t-sentinel { height: 1px; }
+
+@media (max-width: 640px) {
+  .t-bubble { max-width: 84%; }
 }
