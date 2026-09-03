@@ -34,6 +34,9 @@ const el = {
   zhToggleBtn: document.getElementById("zh-toggle-btn"),
   wordPopup: document.getElementById("word-popup"),
   transitionOverlay: document.getElementById("transition-overlay"),
+  transitionChapterCard: document.getElementById("transition-chapter-card"),
+  transitionChapterNum: document.getElementById("transition-chapter-num"),
+  transitionChapterTitle: document.getElementById("transition-chapter-title"),
   transitionEn: document.getElementById("transition-en"),
   transitionZh: document.getElementById("transition-zh"),
   transitionContinueBtn: document.getElementById("transition-continue-btn"),
@@ -97,7 +100,7 @@ function computeSkillMax() {
 
 const SKILL_MAX = computeSkillMax();
 
-// 词汇量进度：按 skills/joshlabs-dev/references/projects/english-game.md 里研究出来的
+// 词汇量进度：按 skills/joshlabs-dev/references/projects/unlearn-english.md 里研究出来的
 // CEFR 词族数门槛来算，不是"第几章=第几级"的粗映射。累计到当前场景为止玩家实际读到过
 // 的不同词形数量（NPC 台词+两个选项都算，跟 scripts/validate-curriculum.mjs 同一套统计
 // 口径），实时对照门槛换算成"当前在哪个级别、这一级走了多少百分比"。
@@ -156,7 +159,7 @@ function computeLevelProgress(wordCount) {
   return { level: last.level + "+", globalPct, wordCount, target: last.words };
 }
 
-// 复习间隔规则（见 skills/joshlabs-dev/references/projects/english-game.md）：
+// 复习间隔规则（见 skills/joshlabs-dev/references/projects/unlearn-english.md）：
 // 答错入队时 status="active"，短期内连对 2 次后不直接移出，改成 status="pendingFinal"，
 // 等场景数间隔 ≥ REVIEW_GAP_SCENES 后再抽考一次做最终确认，通过才真正移出队列。
 const REVIEW_GAP_SCENES = 5;
@@ -981,16 +984,31 @@ function goToNextScene() {
   // 场景之间如果隔了一段时间/换了地方，先过一下"一天过去了"这种简短的转场，
   // 不直接硬切——只有明确定义了 transition 的场景才会停一下，大多数场景之间还是直接接着走。
   const transition = GAME_CONTENT.scenes[nextIndex].transition;
-  if (transition) {
-    showTransition(transition);
+  // 跨章节（不只是跨场景）再叠加一张更醒目的"章节卡"——不然银行办完事直接
+  // 切到在家吃饭这种跨生活领域的跳转，读起来跟普通场景切换没区别，容易让人
+  // 没意识到"这其实是全新的一段故事"。CHAPTER_INDEX 是静态数据（见
+  // content/chapter-index.js），按 sceneIndex 查有没有对应章节即可，不用猜。
+  const chapterEntry =
+    typeof CHAPTER_INDEX !== "undefined" ? CHAPTER_INDEX.find((c) => c.sceneIndex === nextIndex) : null;
+  if (transition || chapterEntry) {
+    showTransition(transition, chapterEntry);
   } else {
     renderScene();
   }
 }
 
-function showTransition(transition) {
-  el.transitionEn.textContent = transition.en;
-  el.transitionZh.textContent = transition.zh;
+function showTransition(transition, chapterEntry) {
+  el.transitionChapterCard.classList.toggle("hidden", !chapterEntry);
+  if (chapterEntry) {
+    el.transitionChapterNum.textContent = `第 ${chapterEntry.chapter} 章`;
+    el.transitionChapterTitle.textContent = chapterEntry.title;
+  }
+  el.transitionEn.classList.toggle("hidden", !transition);
+  el.transitionZh.classList.toggle("hidden", !transition);
+  if (transition) {
+    el.transitionEn.textContent = transition.en;
+    el.transitionZh.textContent = transition.zh;
+  }
   el.transitionOverlay.classList.add("visible");
 }
 

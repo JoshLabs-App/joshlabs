@@ -3,44 +3,49 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>十年之约 · English Game · JoshLabs</title>
+<title>十年之约 · 别学英语</title>
 <meta name="description" content="用英语能力推进剧情的养成 + 视觉小说英语学习小游戏：十年之约，第一章。" />
 <meta name="theme-color" content="#d96b3a" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="English Game" />
+<meta name="apple-mobile-web-app-title" content="Unlearn English" />
 <link rel="canonical" href="https://joshlabs.app/unlearn-english/a-decade-apart/" />
 <link rel="manifest" href="/unlearn-english/a-decade-apart/icons/manifest.webmanifest" />
-<link rel="icon" href="/assets/icons/joshlabs.svg" type="image/svg+xml" />
+<link rel="icon" type="image/svg+xml" href="../icon.svg" />
 <link rel="apple-touch-icon" href="/unlearn-english/a-decade-apart/icons/apple-touch-icon.png" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="app-header">
-    <button id="user-badge" class="ghost-btn user-badge" type="button">请登录</button>
-    <h1>🍁 A Decade Apart <span class="zh-inline">十年之约</span></h1>
-    <p class="tagline">A Decade Apart <span class="zh-inline">· 用英语能力推进剧情的养成 + 视觉小说游戏</span></p>
-    <div class="header-controls">
-      <div id="streak-badge" class="streak-badge">🔥 0</div>
-      <div class="account-wrap">
-        <button id="account-btn" class="ghost-btn" type="button">☰</button>
-        <div id="account-menu" class="account-menu hidden">
-          <button id="zh-toggle-btn" class="menu-item" type="button" aria-pressed="true">隐藏中文</button>
-          <a href="dialogue.html" class="menu-item">📖 全部对话</a>
-          <button id="character-edit-btn" class="menu-item" type="button">✏️ 编辑角色</button>
-          <button id="achievements-btn" class="menu-item" type="button">🏆 成就</button>
-          <button id="reset-btn" class="menu-item" type="button">重新开始</button>
-          <div class="menu-divider"></div>
-          <div id="account-logged-out-item">
-            <button id="account-login-btn" class="menu-item" type="button">登录账号</button>
-          </div>
-          <div id="account-logged-in-item" class="hidden">
-            <p id="account-menu-email" class="account-menu-email"></p>
-            <button id="auth-sign-out-btn" class="menu-item" type="button">退出登录</button>
+    <div class="app-topbar">
+      <button id="user-badge" class="ghost-btn user-badge" type="button">
+        <span id="user-badge-avatar" class="user-badge-avatar"></span>
+        <span id="user-badge-label">请登录</span>
+      </button>
+      <div class="header-controls">
+        <div id="streak-badge" class="streak-badge">🔥 0</div>
+        <div class="account-wrap">
+          <button id="account-btn" class="ghost-btn" type="button">☰</button>
+          <div id="account-menu" class="account-menu hidden">
+            <button id="zh-toggle-btn" class="menu-item" type="button" aria-pressed="true">隐藏中文</button>
+            <a href="dialogue.html" class="menu-item">📖 全部对话</a>
+            <button id="character-edit-btn" class="menu-item" type="button">✏️ 编辑角色</button>
+            <button id="achievements-btn" class="menu-item" type="button">🏆 成就</button>
+            <button id="reset-btn" class="menu-item" type="button">重新开始</button>
+            <div class="menu-divider"></div>
+            <div id="account-logged-out-item">
+              <button id="account-login-btn" class="menu-item" type="button">登录账号</button>
+            </div>
+            <div id="account-logged-in-item" class="hidden">
+              <p id="account-menu-email" class="account-menu-email"></p>
+              <button id="auth-sign-out-btn" class="menu-item" type="button">退出登录</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <h1>🍁 A Decade Apart <span class="zh-inline">十年之约</span></h1>
+    <p class="tagline">A Decade Apart <span class="zh-inline">· 用英语能力推进剧情的养成 + 视觉小说游戏</span></p>
   </header>
 
   <p id="streak-banner" class="streak-banner hidden"></p>
@@ -60,12 +65,6 @@
         </div>
       </div>
 
-      <p id="history-banner" class="history-banner hidden">🕰 回顾模式 · 这是你之前答对的内容</p>
-      <div class="history-nav">
-        <button id="history-prev-btn" class="ghost-btn history-nav-btn" type="button">◀ 上一页</button>
-        <button id="history-next-btn" class="ghost-btn history-nav-btn" type="button" disabled>下一页 ▶</button>
-      </div>
-
       <div class="dialogue-bubble">
         <p id="npc-en" class="npc-en"></p>
         <p id="npc-zh" class="npc-zh"></p>
@@ -74,6 +73,13 @@
       <div id="hearts-display" class="hearts-display"></div>
       <div id="choices" class="choices"></div>
       <button id="npc-audio-btn" class="play-btn" type="button">PLAY</button>
+
+      <p id="history-banner" class="history-banner hidden">🕰 回顾模式 · 这是你之前答对的内容</p>
+      <div class="history-nav">
+        <button id="history-prev-btn" class="ghost-btn history-nav-btn" type="button">◀ PREVIOUS</button>
+        <button id="history-next-btn" class="ghost-btn history-nav-btn" type="button" disabled>NEXT ▶</button>
+      </div>
+
       <p id="hint" class="hint"></p>
     </section>
 
@@ -114,6 +120,10 @@
 
   <div id="transition-overlay" class="overlay">
     <div class="flashback-card">
+      <div id="transition-chapter-card" class="transition-chapter-card hidden">
+        <p id="transition-chapter-num" class="transition-chapter-num"></p>
+        <h2 id="transition-chapter-title" class="transition-chapter-title"></h2>
+      </div>
       <p id="transition-en" class="transition-en"></p>
       <p id="transition-zh" class="transition-zh"></p>
       <button id="transition-continue-btn" class="primary-btn" type="button">继续 Continue →</button>
@@ -141,6 +151,11 @@
       <p class="flashback-label">✏️ 编辑角色</p>
       <input id="character-name-input" class="auth-input" type="text" placeholder="给主角起个名字" maxlength="12" />
       <div id="avatar-picker" class="avatar-picker"></div>
+      <label class="avatar-upload-row">
+        <span id="avatar-upload-preview" class="avatar-upload-preview">📷</span>
+        <span class="avatar-upload-text zh-inline">上传自己的照片当头像</span>
+        <input id="avatar-upload-input" class="avatar-upload-input" type="file" accept="image/*" />
+      </label>
       <button id="character-save-btn" class="primary-btn auth-full-btn" type="button">保存</button>
     </div>
   </div>
@@ -272,6 +287,7 @@
   <script src="content/chapter92.js"></script>
   <script src="content/chapter93.js"></script>
   <script src="content/chapter94.js"></script>
+  <script src="content/chapter-index.js"></script>
   <script src="content/audio-manifest.js"></script>
   <script src="content/word-audio-manifest.js"></script>
   <script src="content/dictionary.js"></script>

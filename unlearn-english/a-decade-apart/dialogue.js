@@ -221,7 +221,14 @@ function renderRow(line, idx) {
 
   const avatar = document.createElement("div");
   avatar.className = "t-avatar" + (line.speaker === "player" ? " t-avatar-player" : "");
-  avatar.textContent = line.speaker === "player" ? (gameState.playerAvatar || "👨") : line.avatar || "🙂";
+  if (line.speaker === "player" && gameState.playerAvatarImage) {
+    const img = document.createElement("img");
+    img.src = gameState.playerAvatarImage;
+    img.alt = "";
+    avatar.appendChild(img);
+  } else {
+    avatar.textContent = line.speaker === "player" ? (gameState.playerAvatar || "👨") : line.avatar || "🙂";
+  }
 
   const bubble = document.createElement("div");
   bubble.className = "t-bubble";

@@ -22,12 +22,21 @@ body {
 }
 
 .app-header {
-  padding: 20px 24px 12px;
+  padding: 14px 20px 12px;
   text-align: center;
-  position: relative;
 }
-.app-header h1 { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1.75rem; }
-.tagline { margin: 6px 0 0; color: var(--muted); font-size: 0.95rem; }
+/* 顶部条：头像/名字（左）+ 火苗/菜单（右）在同一行里用 flex 排开，
+   不再各自 position:absolute 摆在角落——那样两块东西各自飘着，标题又是单独居中，
+   视觉上是三段互不相关的内容，改成一行之后才是一个整体的"应用顶栏"。 */
+.app-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.app-header h1 { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1.6rem; }
+.tagline { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem; }
 
 .ghost-btn, .primary-btn {
   border-radius: 999px;
@@ -39,16 +48,14 @@ body {
   color: var(--ink);
 }
 .header-controls {
-  position: absolute;
-  right: 20px;
-  top: 20px;
   display: flex;
+  align-items: center;
   gap: 8px;
 }
 .user-badge {
-  position: absolute;
-  left: 20px;
-  top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 .user-badge.logged-in {
   color: var(--accent);
@@ -56,6 +63,20 @@ body {
   border-color: var(--accent);
   cursor: default;
 }
+.user-badge-avatar {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+.user-badge-avatar:empty { display: none; }
+.user-badge-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .ghost-btn:hover { border-color: var(--accent); color: var(--accent); }
 #zh-toggle-btn[aria-pressed="false"] {
   color: var(--accent);
@@ -308,10 +329,16 @@ body.hide-zh .zh-inline {
    （见 main.js renderHeartsDisplay）。心数清零时 #choices 会被换成 .heart-gate-msg
    + 一个"去复习"按钮，不再是选项列表——见下面 .heart-gate-msg。 */
 .hearts-display {
-  font-size: 1.1rem;
   margin: 4px 0 10px;
-  color: var(--muted);
 }
+.hearts-row { font-size: 1.1rem; }
+.hearts-tip {
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin-top: 2px;
+}
+.hearts-tip-clickable { color: var(--accent); cursor: pointer; }
+.hearts-tip-clickable:hover { text-decoration: underline; }
 .heart-gate-msg {
   color: var(--muted);
   font-size: 0.92rem;
@@ -562,7 +589,31 @@ body.hide-zh .zh-inline {
 .flashback-feedback { min-height: 1.4em; margin-top: 14px; font-size: 0.9rem; }
 
 .transition-en { font-size: 1.1rem; font-style: italic; margin: 0 0 8px; }
+.transition-en.hidden, .transition-zh.hidden { display: none; }
 .transition-zh { color: var(--muted); font-size: 0.95rem; margin: 0 0 22px; }
+
+/* 章节卡：跨章节（不只是跨场景）才会出现，比下面那句"次日/几天后"式的小过场
+   更有仪式感——用来让读者明确意识到"故事换了一个新的生活领域"，见 main.js
+   goToNextScene() 里 CHAPTER_INDEX 的查找逻辑。*/
+.transition-chapter-card {
+  margin: 0 0 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+.transition-chapter-card.hidden { display: none; }
+.transition-chapter-num {
+  margin: 0 0 4px;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.transition-chapter-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.6rem;
+}
 
 .flashback-answer {
   min-height: 44px;
@@ -692,6 +743,44 @@ body.hide-zh .zh-inline {
 .avatar-option:hover { border-color: var(--accent); }
 .avatar-option.selected { border-color: var(--accent); background: var(--accent-soft); }
 
+/* 上传照片当头像：跟 emoji 选项二选一，见 main.js 的 pendingAvatarImage——
+   选了照片会自动清掉 emoji 的选中态，反过来点 emoji 也会清掉待存的照片。 */
+.avatar-upload-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1.5px dashed var(--border);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.avatar-upload-row:hover { border-color: var(--accent); background: var(--accent-soft); }
+.avatar-upload-preview {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+.avatar-upload-preview img { width: 100%; height: 100%; object-fit: cover; }
+.avatar-upload-row.selected .avatar-upload-preview { border-color: var(--accent); }
+.avatar-upload-text { font-size: 0.88rem; color: var(--muted); }
+.avatar-upload-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
 /* 成就墙：网格卡片，未解锁灰置+锁图标 */
 .achievements-card { max-width: 480px; }
 .achievements-hint { color: var(--muted); font-size: 0.82rem; margin: 0 0 16px; }
@@ -760,8 +849,7 @@ body.hide-zh .zh-inline {
 @media (max-width: 640px) {
   .layout { flex-direction: column; align-items: stretch; }
   .scene-panel, .sidebar { min-width: 0; width: 100%; }
-  .header-controls { position: static; justify-content: center; margin-top: 10px; }
-  .user-badge { position: static; display: inline-block; margin-top: 10px; }
+  .app-topbar { flex-wrap: wrap; justify-content: center; }
 }
 
 /* 对话总览页（dialogue.html）：把所有台词摊平列成聊天记录，
@@ -813,12 +901,14 @@ body.hide-zh .zh-inline {
   width: 36px;
   height: 36px;
   border-radius: 50%;
+  overflow: hidden;
   background: var(--accent-soft);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.05rem;
 }
+.t-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .t-avatar-player { background: var(--border); }
 
 .t-bubble {
