@@ -3980,5 +3980,31 @@ const WORD_DICT = {
   "extract": "提取，萃取",
   "jars": "罐子",
   "golden": "金色的",
-  "autumn": "秋天"
+  "autumn": "秋天",
+
+  // 第八十四部分：第八十三章新增词（居家蜡烛制作）
+  "candle-making": "蜡烛制作",
+  "wax": "蜡",
+  "wick": "烛芯",
+  "fragrance oil": "香精油",
+  "melted": "融化的",
+  "soy wax": "大豆蜡",
+  "beeswax": "蜂蜡",
+  "double boiler": "双层锅",
+  "liquefy": "液化",
+  "low heat": "小火",
+  "thermometer": "温度计",
+  "scent": "香味",
+  "vanilla": "香草",
+  "cinnamon": "肉桂",
+  "lavender": "薰衣草",
+  "cotton": "棉质的",
+  "centered": "居中的",
+  "wick clip": "烛芯夹",
+  "crooked": "歪的",
+  "undisturbed": "不受打扰的",
+  "trim": "修剪",
+  "flame": "火苗",
+  "ribbon": "丝带",
+  "by hand": "手工地"
 };
