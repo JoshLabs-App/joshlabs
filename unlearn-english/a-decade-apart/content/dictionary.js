@@ -4262,5 +4262,30 @@ const WORD_DICT = {
   "scattered": "散布的",
   "dimmer": "更暗淡的",
   "vastness": "浩瀚",
-  "vast": "浩瀚的"
+  "vast": "浩瀚的",
+
+  // 第九十五部分：第九十四章新增词（枫糖农场，累计词汇突破4000，B2终结达成）
+  "maple woods": "枫树林",
+  "sugar shack": "糖屋",
+  "steam": "蒸汽",
+  "maple syrup": "枫糖浆",
+  "barn": "谷仓",
+  "spile": "引流管（取树液用具）",
+  "sap": "树液",
+  "mesmerizing": "让人着迷的",
+  "boil it down": "熬煮浓缩",
+  "billows": "翻腾（蒸汽等）",
+  "wood fire": "柴火",
+  "amber": "琥珀色",
+  "degrees": "度数",
+  "grade": "等级",
+  "pricier": "更贵的",
+  "flavor": "风味",
+  "taffy": "太妃糖",
+  "hardening": "变硬",
+  "twirl": "缠绕，转动",
+  "chewy": "有嚼劲的",
+  "jaw": "下巴",
+  "messiest": "最狼狈的",
+  "pancakes": "薄煎饼"
 };
