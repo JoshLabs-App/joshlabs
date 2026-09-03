@@ -62,6 +62,38 @@ body {
   background: var(--accent-soft);
 }
 
+/* 连续打卡：header 里常驻的火苗徽章 + 今天还没打卡时的紧迫感横幅（见 main.js 的
+   renderStreakUI/updateStreakCountdown）。横幅要读出来比页面里其它提示条更"急"，
+   所以是实心 accent 底 + 白字，还带呼吸光晕，跟 .history-banner 那种柔和的浅色提示区分开。 */
+.streak-badge {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  font-weight: 700;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.streak-banner {
+  max-width: 920px;
+  margin: 0 auto 14px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 600;
+  background: var(--accent);
+  color: #fff;
+  animation: streak-banner-pulse 2s ease-in-out infinite;
+}
+.streak-banner.hidden { display: none; }
+@keyframes streak-banner-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent); }
+  50% { box-shadow: 0 0 0 8px transparent; }
+}
+
 .primary-btn {
   background: var(--accent);
   color: white;
@@ -272,6 +304,21 @@ body.hide-zh .zh-inline {
 .play-btn:active { transform: scale(0.98); }
 .play-btn.playing { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 
+/* 心数：紧挨着选项上方，答错即时掉血、恢复倒计时也在这一行里一起显示
+   （见 main.js renderHeartsDisplay）。心数清零时 #choices 会被换成 .heart-gate-msg
+   + 一个"去复习"按钮，不再是选项列表——见下面 .heart-gate-msg。 */
+.hearts-display {
+  font-size: 1.1rem;
+  margin: 4px 0 10px;
+  color: var(--muted);
+}
+.heart-gate-msg {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin: 0 0 12px;
+  text-align: center;
+}
+
 .choices {
   display: flex;
   flex-direction: column;
@@ -329,6 +376,38 @@ body.hide-zh .zh-inline {
   100% { transform: translateY(-40px); opacity: 0; }
 }
 
+/* 变量奖励：随机命中的双倍经验飘字，颜色/字号/动效都要跟普通 +XP 明显不一样，
+   让玩家一眼就能认出"这次不一样"——这就是它存在的意义，不能做得太克制。 */
+.xp-float-bonus {
+  color: var(--accent);
+  font-size: 1.3rem;
+  font-weight: 800;
+  text-shadow: 0 0 12px var(--accent-soft);
+  animation: xp-rise-bonus 1.4s cubic-bezier(0.2, 0.8, 0.3, 1.4) forwards;
+}
+@keyframes xp-rise-bonus {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  20% { transform: translateY(-6px) scale(1.3); opacity: 1; }
+  60% { transform: translateY(-26px) scale(1.05); opacity: 1; }
+  100% { transform: translateY(-58px) scale(1); opacity: 0; }
+}
+
+/* 每日目标达成庆祝：纯 CSS 彩纸屑，JS 只负责按随机位置/颜色/延迟生成这些 span
+   再自己移除（见 celebrateDailyGoal），不依赖任何图片/音频素材。 */
+.confetti-piece {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 200;
+  animation: confetti-fall 1.1s ease-in forwards;
+}
+@keyframes confetti-fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(260px) rotate(600deg); opacity: 0; }
+}
+
 .hint {
   min-height: 1.2em;
   margin-top: 14px;
@@ -375,6 +454,52 @@ body.hide-zh .zh-inline {
   border-top: 1px solid var(--border);
   margin-top: 10px;
 }
+
+/* 每日目标：进度条填满时 renderDailyGoal 会挂上 goal-complete，
+   celebrateDailyGoal 再强制重触发一次动画（见 main.js 的注释）。 */
+.daily-goal-card {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.daily-goal-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  margin-bottom: 6px;
+}
+.daily-goal-count { color: var(--muted); font-weight: 700; }
+.daily-goal-bar {
+  height: 10px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.daily-goal-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--correct);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+.daily-goal-card.goal-complete .daily-goal-fill {
+  animation: goal-pulse 0.7s ease;
+}
+@keyframes goal-pulse {
+  0% { transform: scaleY(1); }
+  35% { transform: scaleY(1.8); }
+  100% { transform: scaleY(1); }
+}
+
+/* 排行榜占位：Supabase RLS 目前按单用户存档设计（user_id = auth.uid()），
+   匿名/跨用户查询拿不到别人的行，见对话里给用户的说明。这里先只展示玩家自己的总XP，
+   等服务器端策略允许跨用户读取了再把这块换成真的榜单。 */
+.leaderboard-card {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.leaderboard-note { color: var(--muted); font-size: 0.8rem; margin: 2px 0 8px; }
 
 .overlay {
   position: fixed;
@@ -505,6 +630,93 @@ body.hide-zh .zh-inline {
 .auth-hint { color: var(--muted); font-size: 0.85rem; margin: 0 0 10px; }
 .auth-divider { text-align: center; color: var(--muted); font-size: 0.8rem; margin: 4px 0 10px; }
 .auth-error { color: var(--wrong); font-size: 0.85rem; min-height: 1.2em; margin: 4px 0 0; }
+
+/* 角色定制：头像选择器，一排 emoji 按钮，选中态用 accent 描边 */
+.avatar-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.avatar-option {
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.avatar-option:hover { border-color: var(--accent); }
+.avatar-option.selected { border-color: var(--accent); background: var(--accent-soft); }
+
+/* 成就墙：网格卡片，未解锁灰置+锁图标 */
+.achievements-card { max-width: 480px; }
+.achievements-hint { color: var(--muted); font-size: 0.82rem; margin: 0 0 16px; }
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  max-height: 55vh;
+  overflow-y: auto;
+}
+.achievement-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s, background 0.15s;
+}
+.achievement-card.locked {
+  opacity: 0.5;
+  cursor: default;
+}
+.achievement-card.unlocked:hover { border-color: var(--accent); background: var(--accent-soft); }
+.achievement-card.equipped { border-color: var(--accent); background: var(--accent-soft); }
+.achievement-card-icon { font-size: 1.8rem; }
+.achievement-card-title { font-size: 0.78rem; text-align: center; line-height: 1.3; }
+
+/* 成就解锁提示：居中卡片，比 .xp-float 醒目，停留久一点 */
+.achievement-toast {
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+  z-index: 200;
+  cursor: pointer;
+  animation: achievement-toast-in 0.3s ease;
+}
+.achievement-toast-out { animation: achievement-toast-out 0.25s ease forwards; }
+.achievement-toast-icon { font-size: 1.8rem; }
+.achievement-toast-label { font-size: 0.75rem; opacity: 0.7; }
+.achievement-toast-title { font-size: 1rem; font-weight: 700; }
+@keyframes achievement-toast-in {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-16px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+@keyframes achievement-toast-out {
+  0% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
 
 .hidden { display: none; }
 

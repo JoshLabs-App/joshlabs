@@ -40,6 +40,13 @@ const el = {
   historyBanner: document.getElementById("history-banner"),
   historyPrevBtn: document.getElementById("history-prev-btn"),
   historyNextBtn: document.getElementById("history-next-btn"),
+  streakBadge: document.getElementById("streak-badge"),
+  streakBanner: document.getElementById("streak-banner"),
+  heartsDisplay: document.getElementById("hearts-display"),
+  dailyGoalCard: document.getElementById("daily-goal-card"),
+  dailyGoalFill: document.getElementById("daily-goal-fill"),
+  dailyGoalCount: document.getElementById("daily-goal-count"),
+  leaderboardSelfXp: document.getElementById("leaderboard-self-xp"),
   userBadge: document.getElementById("user-badge"),
   accountBtn: document.getElementById("account-btn"),
   accountMenu: document.getElementById("account-menu"),
@@ -57,7 +64,17 @@ const el = {
   authRetryEmailBtn: document.getElementById("auth-retry-email-btn"),
   authGoogleBtn: document.getElementById("auth-google-btn"),
   authError: document.getElementById("auth-error"),
-  authSignOutBtn: document.getElementById("auth-sign-out-btn")
+  authSignOutBtn: document.getElementById("auth-sign-out-btn"),
+  characterEditBtn: document.getElementById("character-edit-btn"),
+  characterOverlay: document.getElementById("character-overlay"),
+  characterCloseBtn: document.getElementById("character-close-btn"),
+  characterNameInput: document.getElementById("character-name-input"),
+  avatarPicker: document.getElementById("avatar-picker"),
+  characterSaveBtn: document.getElementById("character-save-btn"),
+  achievementsBtn: document.getElementById("achievements-btn"),
+  achievementsOverlay: document.getElementById("achievements-overlay"),
+  achievementsCloseBtn: document.getElementById("achievements-close-btn"),
+  achievementsGrid: document.getElementById("achievements-grid")
 };
 
 // 每个技能能拿到的经验值上限，从内容里所有场景动态算出——
@@ -91,6 +108,15 @@ const CEFR_VOCAB_THRESHOLDS = [
   { level: "B1", words: 2250 },
   { level: "B2", words: 4000 }
 ];
+
+// 按本地时区拼"今天是几号"——不能用 toISOString()，那是 UTC，会在时区边界
+// （比如晚上八九点后，UTC 已经跨到第二天）把"今天"算错，连续打卡就会莫名其妙断掉。
+function localDateStr(d = new Date()) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
 
 function tokenizeWords(text) {
   if (!text) return [];
@@ -135,6 +161,73 @@ const REVIEW_GAP_SCENES = 5;
 // 玩家中断超过这个时长再打开，判定为"回访"而非同一次的场景切换，触发断点热身。
 const RECONNECT_GAP_MS = 20 * 60 * 1000;
 
+// —— 留存/激励机制参数 ——
+// 每天要答对几次算"打卡完成"；心数上限与回复速度；随机双倍经验的概率与倍数。
+// 都是可调数字，不影响存档结构，改这几个常量就能重新平衡数值。
+const DAILY_GOAL = 3;
+const MAX_HEARTS = 5;
+const HEART_REGEN_MS = 4 * 60 * 60 * 1000; // 每 4 小时回 1 颗心
+const BONUS_XP_CHANCE = 0.2; // 变量奖励：约 20% 概率触发双倍经验，制造"随机惊喜"而非可预测的节奏
+const BONUS_XP_MULTIPLIER = 2;
+
+// 成就/称号：解锁的成就同时也是可以佩戴、显示在左上角身份标签上的称号。
+// 内容层（chapter*.js）一直在自动增长、章节边界在引擎侧不可靠推算，所以不做
+// "每章一个成就"，改成基于三类引擎侧已经在可靠实时算的数据：词汇量里程碑
+// （复用 CEFR_VOCAB_THRESHOLDS 的门槛，两处口径保持一致）、技能精通（点满某个
+// 技能的 XP）、连续打卡天数。技能精通那组是从 GAME_CONTENT.skillMeta 动态生成的，
+// 跟 computeSkillMax() 一样的思路——以后内容层加新技能，成就自动跟上，不用手动同步。
+const ACHIEVEMENTS = [
+  { id: "vocab-a1", icon: "📖", title: "词汇破500 · A1达成", check: (s, vocab) => vocab >= 500 },
+  { id: "vocab-a2", icon: "📚", title: "词汇破1100 · A2达成", check: (s, vocab) => vocab >= 1100 },
+  { id: "vocab-b1", icon: "🎓", title: "词汇破2250 · B1达成", check: (s, vocab) => vocab >= 2250 },
+  { id: "vocab-b2", icon: "🏆", title: "词汇破4000 · B2达成", check: (s, vocab) => vocab >= 4000 },
+  ...Object.entries(GAME_CONTENT.skillMeta).map(([key, meta]) => ({
+    id: "skill-" + key,
+    icon: meta.icon,
+    title: meta.label + "达人",
+    check: (s) => (s.skills[key] || 0) >= (SKILL_MAX[key] || Infinity)
+  })),
+  { id: "streak-3", icon: "🔥", title: "连续学习3天", check: (s) => (s.streak || 0) >= 3 },
+  { id: "streak-7", icon: "🔥", title: "连续学习7天", check: (s) => (s.streak || 0) >= 7 },
+  { id: "streak-30", icon: "🔥", title: "连续学习30天", check: (s) => (s.streak || 0) >= 30 }
+];
+
+// 找出这次新解锁的成就（跟上次存的 unlockedAchievements 比对），记下来 + 逐个弹庆祝提示。
+// 调用时机：答对一题之后（技能XP/词汇量可能变了）、每日打卡结算之后（streak可能变了）。
+function checkAchievements() {
+  const vocab = computeVocabExposure(state.sceneIndex);
+  const unlocked = state.unlockedAchievements || (state.unlockedAchievements = []);
+  const newlyUnlocked = ACHIEVEMENTS.filter(
+    (a) => !unlocked.includes(a.id) && a.check(state, vocab)
+  );
+  if (newlyUnlocked.length === 0) return;
+  newlyUnlocked.forEach((a) => unlocked.push(a.id));
+  saveState();
+  newlyUnlocked.forEach((a, i) => setTimeout(() => showAchievementToast(a), i * 2600));
+}
+
+// 成就解锁提示：居中卡片，比 spawnXpFloat 那种飘字更醒目、停留更久，
+// 点一下可以提前关掉，不用干等自动消失。
+let achievementToastTimer = null;
+function showAchievementToast(achievement) {
+  const toast = document.createElement("div");
+  toast.className = "achievement-toast";
+  toast.innerHTML = `
+    <div class="achievement-toast-icon">${achievement.icon}</div>
+    <div class="achievement-toast-body">
+      <div class="achievement-toast-label zh-inline">解锁成就</div>
+      <div class="achievement-toast-title">${achievement.title}</div>
+    </div>
+  `;
+  const dismiss = () => {
+    toast.classList.add("achievement-toast-out");
+    setTimeout(() => toast.remove(), 250);
+  };
+  toast.addEventListener("click", dismiss);
+  document.body.appendChild(toast);
+  setTimeout(dismiss, 3800);
+}
+
 function freshState() {
   const skills = {};
   for (const key of Object.keys(GAME_CONTENT.skillMeta)) skills[key] = 0;
@@ -145,7 +238,20 @@ function freshState() {
     learnedVocab: [], // [{en, zh, skill}]
     reviewQueue: [], // [{en, zh, streak, status: "active"|"pendingFinal", queuedAtScene}]
     finished: false,
-    lastActiveAt: Date.now()
+    lastActiveAt: Date.now(),
+    // 旧存档没有下面这些字段——不做迁移，读取方一律用 ?? / || 兜底默认值，
+    // 新开一局才会真的用到这里写的初始值。
+    streak: 0,
+    lastStreakDate: null, // 本地日期字符串 "YYYY-MM-DD"，null 表示还没打过卡
+    dailyCorrectCount: 0,
+    dailyCorrectDate: null,
+    hearts: MAX_HEARTS,
+    lastHeartAt: Date.now(),
+    // 角色定制 + 成就/称号，同样不做旧存档迁移，读取方一律兜底默认值。
+    playerName: null,
+    playerAvatar: "👨",
+    equippedTitle: null,
+    unlockedAchievements: []
   };
 }
 
@@ -174,6 +280,10 @@ const reconnectGapMs = state.lastActiveAt ? Date.now() - state.lastActiveAt : 0;
 let pendingFlashback = []; // queue of items to review before advancing scene
 let flashbackOnComplete = goToNextScene; // 闪回队列清空后要做什么：正常翻页，或断点热身后继续当前场景
 let wrongButtonsThisNode = new Set();
+// 当前这次闪回是不是"心数清零后，靠复习赚回一颗心"触发的——是的话，
+// resolveFlashback 答对时要额外加一颗心；跟场景末尾/断点热身的闪回复用同一套 UI，
+// 不用另开一个弹层，只是这个标记决定结算方式不一样。
+let heartRecoveryMode = false;
 
 // 中文翻译显隐：全局开关，存在 localStorage 里跨场景/跨次打开都记得。
 // 只影响台词下方的中文翻译（.npc-zh），不影响回忆闪回的中文提示——那是游戏机制本身要考的。
@@ -350,6 +460,159 @@ function goToNextHistory() {
 el.historyPrevBtn.addEventListener("click", goToPrevHistory);
 el.historyNextBtn.addEventListener("click", goToNextHistory);
 
+// 连续打卡 + 每日目标：同一次"今天第一次答对"的判定里一起结算，
+// 避免分别读一遍"今天是几号"却因为跨了午夜边界得出不一致的结果。
+// 只在 handleChoice 的答对分支调用——回忆闪回答对不算"今天打卡"，
+// 不然玩家光靠复习旧词条就能刷连续记录，跟"今天有没有学新内容"这件事脱节了。
+function registerDailyProgress() {
+  const today = localDateStr();
+
+  if (state.lastStreakDate !== today) {
+    const yesterday = localDateStr(new Date(Date.now() - 24 * 60 * 60 * 1000));
+    state.streak = state.lastStreakDate === yesterday ? (state.streak || 0) + 1 : 1;
+    state.lastStreakDate = today;
+  }
+
+  if (state.dailyCorrectDate !== today) {
+    state.dailyCorrectDate = today;
+    state.dailyCorrectCount = 0;
+  }
+  const wasComplete = (state.dailyCorrectCount || 0) >= DAILY_GOAL;
+  state.dailyCorrectCount = (state.dailyCorrectCount || 0) + 1;
+  const nowComplete = state.dailyCorrectCount >= DAILY_GOAL;
+  return { justHitGoal: nowComplete && !wasComplete };
+}
+
+function renderStreakUI() {
+  el.streakBadge.textContent = `🔥 ${state.streak || 0}`;
+  const checkedInToday = state.lastStreakDate === localDateStr();
+  el.streakBanner.classList.toggle("hidden", checkedInToday);
+  if (!checkedInToday) updateStreakCountdown();
+}
+
+// 倒计时到本地零点——玩家今天还没打卡时才会用到，答对一次横幅立刻消失，
+// 不用等这个定时器下一轮才刷新。
+function updateStreakCountdown() {
+  const now = new Date();
+  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
+  const msLeft = Math.max(0, midnight - now);
+  const hours = Math.floor(msLeft / 3600000);
+  const mins = Math.floor((msLeft % 3600000) / 60000);
+  el.streakBanner.textContent = `🔥 今天还没打卡，还剩 ${hours} 小时 ${mins} 分钟，别断了连续记录！`;
+}
+// 横幅一直挂着的时候每半分钟刷新一次倒计时文字就够了，没必要按秒跳。
+setInterval(() => {
+  if (!el.streakBanner.classList.contains("hidden")) updateStreakCountdown();
+}, 30000);
+
+function renderDailyGoal() {
+  const today = localDateStr();
+  const count = state.dailyCorrectDate === today ? state.dailyCorrectCount || 0 : 0;
+  const pct = Math.min(100, Math.round((count / DAILY_GOAL) * 100));
+  el.dailyGoalFill.style.width = pct + "%";
+  el.dailyGoalCount.textContent = `${Math.min(count, DAILY_GOAL)}/${DAILY_GOAL}`;
+  el.dailyGoalCard.classList.toggle("goal-complete", count >= DAILY_GOAL);
+}
+
+// 达成今日目标的庆祝动画：纯 CSS/JS 生成的彩纸屑，不引入任何图片/音频素材。
+// 只在"刚好这一次跨过目标线"时调用一次（见 handleChoice），renderDailyGoal 本身
+// 之后每次重渲染只是维持 goal-complete 这个 class，不会重复放这段动画。
+const CONFETTI_COLORS = ["var(--accent)", "var(--correct)", "var(--accent-soft)"];
+function celebrateDailyGoal() {
+  // 强制重排一下再重新加 class，保证动画能重新触发（万一这个 class 已经在上面了）
+  el.dailyGoalCard.classList.remove("goal-complete");
+  void el.dailyGoalCard.offsetWidth;
+  el.dailyGoalCard.classList.add("goal-complete");
+
+  const originX = window.innerWidth / 2;
+  for (let i = 0; i < 24; i++) {
+    const piece = document.createElement("span");
+    piece.className = "confetti-piece";
+    piece.style.left = originX + (Math.random() - 0.5) * 280 + "px";
+    piece.style.top = "110px";
+    piece.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+    piece.style.animationDelay = Math.random() * 0.25 + "s";
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 1600);
+  }
+}
+
+// 心数：不用定时器实时刷新，而是每次要用到时按"过了几个 4 小时"来补——
+// 补满几颗心，lastHeartAt 就往前推进对应的整段时间，剩下不足一个周期的零头
+// 留着继续累积，不会因为"看了一眼"就被偷走进度。满心状态下 lastHeartAt
+// 持续贴着"现在"走，这样从满心掉血的那一刻起，下一颗心才重新开始计时。
+function syncHearts() {
+  const prevHearts = state.hearts;
+  const prevAt = state.lastHeartAt;
+  let hearts = state.hearts ?? MAX_HEARTS;
+  let lastHeartAt = state.lastHeartAt ?? state.lastActiveAt ?? Date.now();
+
+  if (hearts < MAX_HEARTS) {
+    const elapsed = Date.now() - lastHeartAt;
+    const regen = Math.floor(elapsed / HEART_REGEN_MS);
+    if (regen > 0) {
+      hearts = Math.min(MAX_HEARTS, hearts + regen);
+      lastHeartAt += regen * HEART_REGEN_MS;
+    }
+  } else {
+    lastHeartAt = Date.now();
+  }
+
+  state.hearts = hearts;
+  state.lastHeartAt = lastHeartAt;
+  if (hearts !== prevHearts || lastHeartAt !== prevAt) saveState();
+  return hearts;
+}
+
+function loseHeart() {
+  syncHearts(); // 扣血前先把该回的心补上，不然扣血这一刻可能刚好卡在回复点之后
+  state.hearts = Math.max(0, (state.hearts ?? MAX_HEARTS) - 1);
+}
+
+function renderHeartsDisplay() {
+  const hearts = syncHearts();
+  let text = "❤️".repeat(hearts) + "🖤".repeat(Math.max(0, MAX_HEARTS - hearts));
+  if (hearts < MAX_HEARTS) {
+    const msLeft = Math.max(0, state.lastHeartAt + HEART_REGEN_MS - Date.now());
+    const mins = Math.ceil(msLeft / 60000);
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    text += h > 0 ? `　下一颗 ${h}小时${m}分钟后` : `　下一颗 ${m}分钟后`;
+  }
+  el.heartsDisplay.textContent = text;
+}
+
+// 心数清零时不硬卡关：不让玩家点新的选项，但给一条出路——去复习队列里
+// 挑一条清掉，答对就还一颗心。复习队列本来就空的话说明没东西能清，
+// 这种边缘情况直接放行，不然会真的卡死（见 renderSceneContent 里的判断）。
+function renderHeartGate() {
+  const msg = document.createElement("p");
+  msg.className = "heart-gate-msg";
+  msg.textContent = "💔 心数用完了，先复习一条已学内容赚回一颗心，才能继续对话。";
+  const btn = document.createElement("button");
+  btn.className = "primary-btn";
+  btn.type = "button";
+  btn.textContent = "🎬 开始复习";
+  btn.addEventListener("click", startHeartRecoveryFlashback);
+  el.choices.appendChild(msg);
+  el.choices.appendChild(btn);
+}
+
+function startHeartRecoveryFlashback() {
+  if (state.reviewQueue.length === 0) {
+    renderScene();
+    return;
+  }
+  heartRecoveryMode = true;
+  el.flashbackLabel.textContent = "❤️ 复习赚心 · 答对就能回一颗心";
+  flashbackOnComplete = () => {
+    heartRecoveryMode = false;
+    renderScene();
+  };
+  pendingFlashback = [state.reviewQueue[0]];
+  showFlashback();
+}
+
 function renderSkillPanel() {
   el.skillPanel.innerHTML = "";
   for (const [key, meta] of Object.entries(GAME_CONTENT.skillMeta)) {
@@ -365,8 +628,10 @@ function renderSkillPanel() {
     `;
     el.skillPanel.appendChild(row);
   }
-  el.xpTotal.textContent = Object.values(state.skills).reduce((a, b) => a + b, 0);
+  const totalXp = Object.values(state.skills).reduce((a, b) => a + b, 0);
+  el.xpTotal.textContent = totalXp;
   el.vocabCount.textContent = state.learnedVocab.length;
+  if (el.leaderboardSelfXp) el.leaderboardSelfXp.textContent = totalXp;
 }
 
 function renderProgress() {
@@ -413,15 +678,79 @@ function playAudio(text, btnEl, manifest) {
   });
 }
 
-function spawnXpFloat(fromEl, amount) {
+// 音效：用 Web Audio API 合成，不依赖外部音频文件。
+let sfxCtx = null;
+function getSfxCtx() {
+  if (!sfxCtx) {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    sfxCtx = new Ctx();
+  }
+  if (sfxCtx.state === "suspended") sfxCtx.resume();
+  return sfxCtx;
+}
+
+function playTone(freq, startTime, duration, { type = "sine", gain = 0.2, ctx } = {}) {
+  const osc = ctx.createOscillator();
+  const g = ctx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  g.gain.setValueAtTime(0.0001, startTime);
+  g.gain.exponentialRampToValueAtTime(gain, startTime + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+  osc.connect(g);
+  g.connect(ctx.destination);
+  osc.start(startTime);
+  osc.stop(startTime + duration + 0.02);
+}
+
+function playCorrectSfx() {
+  try {
+    const ctx = getSfxCtx();
+    const now = ctx.currentTime;
+    playTone(660, now, 0.12, { ctx });
+    playTone(880, now + 0.1, 0.16, { ctx });
+  } catch (e) {}
+}
+
+function playWrongSfx() {
+  try {
+    const ctx = getSfxCtx();
+    const now = ctx.currentTime;
+    playTone(220, now, 0.18, { type: "sawtooth", gain: 0.15, ctx });
+    playTone(160, now + 0.08, 0.2, { type: "sawtooth", gain: 0.15, ctx });
+  } catch (e) {}
+}
+
+function playXpSfx() {
+  try {
+    const ctx = getSfxCtx();
+    const now = ctx.currentTime;
+    playTone(988, now, 0.08, { type: "triangle", gain: 0.18, ctx });
+    playTone(1319, now + 0.06, 0.12, { type: "triangle", gain: 0.18, ctx });
+  } catch (e) {}
+}
+
+// 变量奖励命中时用的音效：比普通 +XP 多一层上扬的音，跟视觉上的"双倍"一起，
+// 听感也要跟平时不一样，不只是加个视觉标签。
+function playBonusXpSfx() {
+  try {
+    const ctx = getSfxCtx();
+    const now = ctx.currentTime;
+    playTone(988, now, 0.08, { type: "triangle", gain: 0.2, ctx });
+    playTone(1319, now + 0.07, 0.1, { type: "triangle", gain: 0.2, ctx });
+    playTone(1760, now + 0.14, 0.16, { type: "triangle", gain: 0.22, ctx });
+  } catch (e) {}
+}
+
+function spawnXpFloat(fromEl, amount, isBonus) {
   const rect = fromEl.getBoundingClientRect();
   const float = document.createElement("span");
-  float.className = "xp-float";
-  float.textContent = `+${amount} XP`;
-  float.style.left = rect.right - 60 + "px";
+  float.className = isBonus ? "xp-float xp-float-bonus" : "xp-float";
+  float.textContent = isBonus ? `🎉 双倍 XP! +${amount}` : `+${amount} XP`;
+  float.style.left = rect.right - (isBonus ? 100 : 60) + "px";
   float.style.top = rect.top - 6 + "px";
   document.body.appendChild(float);
-  setTimeout(() => float.remove(), 900);
+  setTimeout(() => float.remove(), isBonus ? 1400 : 900);
 }
 
 const SCENE_TRANSITION_MS = 450;
@@ -471,19 +800,28 @@ function renderSceneContent() {
   el.hint.classList.remove("visible");
   wrongButtonsThisNode = new Set();
 
+  renderHeartsDisplay();
   el.choices.innerHTML = "";
-  // 内容里为了方便写作，正确选项总是排第一个——渲染时打乱顺序，
-  // 不然正确答案永远在同一个位置，玩家不用看台词也能蒙对。
-  const shuffled = node.choices.map((choice, idx) => ({ choice, idx })).sort(() => Math.random() - 0.5);
-  shuffled.forEach(({ choice, idx }) => {
-    const btn = document.createElement("button");
-    btn.className = "choice-btn";
-    btn.textContent = choice.text;
-    btn.addEventListener("click", () => handleChoice(idx, btn));
-    el.choices.appendChild(btn);
-  });
+  const hearts = state.hearts ?? MAX_HEARTS;
+  if (hearts <= 0 && state.reviewQueue.length > 0) {
+    // 心数清零：不让开新选项，先去复习赚回一颗心（见 renderHeartGate）。
+    renderHeartGate();
+  } else {
+    // 内容里为了方便写作，正确选项总是排第一个——渲染时打乱顺序，
+    // 不然正确答案永远在同一个位置，玩家不用看台词也能蒙对。
+    const shuffled = node.choices.map((choice, idx) => ({ choice, idx })).sort(() => Math.random() - 0.5);
+    shuffled.forEach(({ choice, idx }) => {
+      const btn = document.createElement("button");
+      btn.className = "choice-btn";
+      btn.textContent = choice.text;
+      btn.addEventListener("click", () => handleChoice(idx, btn));
+      el.choices.appendChild(btn);
+    });
+  }
 
   renderSkillPanel();
+  renderDailyGoal();
+  renderStreakUI();
   updateHistoryNavUI();
 }
 
@@ -494,13 +832,28 @@ function handleChoice(idx, btnEl) {
 
   if (choice.correct) {
     Array.from(el.choices.children).forEach((b) => (b.disabled = true));
-    state.skills[node.skill] = (state.skills[node.skill] || 0) + (choice.xp || 0);
+    // 变量奖励：小概率双倍经验，每次都要重新掷一次骰子，不能按固定节奏出现，
+    // 不然玩家会摸出规律，"随机惊喜"就失效了。
+    const isBonus = !!choice.xp && Math.random() < BONUS_XP_CHANCE;
+    const awardedXp = isBonus ? choice.xp * BONUS_XP_MULTIPLIER : choice.xp || 0;
+    state.skills[node.skill] = (state.skills[node.skill] || 0) + awardedXp;
     const already = state.learnedVocab.some((v) => v.en === choice.text);
     if (!already) {
       state.learnedVocab.push({ en: choice.text, zh: choice.zh || node.npcLine.zh, skill: node.skill });
     }
-    if (choice.xp) spawnXpFloat(btnEl, choice.xp);
+    playCorrectSfx();
+    if (choice.xp) {
+      spawnXpFloat(btnEl, awardedXp, isBonus);
+      setTimeout(isBonus ? playBonusXpSfx : playXpSfx, 150);
+    }
+    // 连续打卡 + 每日目标只在故事主线答对时结算（不含闪回复习），
+    // 见 registerDailyProgress 顶部注释。
+    const { justHitGoal } = registerDailyProgress();
     saveState();
+    renderStreakUI();
+    renderDailyGoal();
+    if (justHitGoal) celebrateDailyGoal();
+    checkAchievements(); // 技能XP/词汇量刚变，可能刚好摸到某个成就门槛
     // 答对先亮出中文确认理解，不管当前是不是"隐藏中文"模式，停留2秒再翻页，
     // 翻页前把隐藏状态还原，不影响用户原本的显示偏好。
     document.body.classList.remove("hide-zh");
@@ -509,6 +862,7 @@ function handleChoice(idx, btnEl) {
       advance(node.next);
     }, 2000);
   } else {
+    playWrongSfx();
     btnEl.classList.add("wrong", "shake");
     btnEl.addEventListener("animationend", () => btnEl.classList.remove("shake"), { once: true });
     btnEl.disabled = true;
@@ -527,7 +881,11 @@ function handleChoice(idx, btnEl) {
     } else {
       state.reviewQueue.push({ en: targetEn, zh: targetZh, kind: "sentence", streak: 0, status: "active", queuedAtScene: state.sceneIndex });
     }
+    // 答错额外扣一颗心——跟上面进复习队列的逻辑各管各的，互不影响
+    // （心数只影响"能不能开下一个节点的新选项"，不影响复习队列本身怎么记）。
+    loseHeart();
     saveState();
+    renderHeartsDisplay();
   }
 }
 
@@ -561,12 +919,18 @@ function pickFlashbackItems() {
 
 // 断点热身：玩家隔了一段时间才回来（不是同一次场景切换），
 // 继续当前场景前先抽一条复习queue里最老的词条考一下。
+// 隔了至少一整天再回来，换成 Emma 口吻的挽留提醒（带实际天数）——
+// 20分钟到1天这种短间隔还用"欢迎回来"就够了，天天都说"好几天没等到你"会显得假。
 function showReconnectWarmup() {
   if (state.reviewQueue.length === 0) {
     renderScene();
     return;
   }
-  el.flashbackLabel.textContent = "👋 欢迎回来，先复习一下";
+  const daysAway = Math.floor(reconnectGapMs / (24 * 60 * 60 * 1000));
+  el.flashbackLabel.textContent =
+    daysAway >= 1
+      ? `💌 Emma 已经 ${daysAway} 天没等到你了，快回去见她吧`
+      : "👋 欢迎回来，先复习一下";
   flashbackOnComplete = renderScene;
   pendingFlashback = [state.reviewQueue[0]];
   showFlashback();
@@ -705,9 +1069,11 @@ function renderFlashbackBuild(item) {
 
 function resolveFlashback(isCorrect, item, audioDone) {
   const target = state.reviewQueue.find((r) => r.en === item.en);
+  if (isCorrect) playCorrectSfx();
+  else playWrongSfx();
 
   if (isCorrect) {
-    el.flashbackFeedback.textContent = "✅ 记住了！";
+    el.flashbackFeedback.textContent = heartRecoveryMode ? "✅ 记住了！回一颗心 ❤️" : "✅ 记住了！";
     if (target) {
       if (target.status === "pendingFinal") {
         // 长间隔之后再考一次也答对了：真正学会，移出队列
@@ -720,6 +1086,12 @@ function resolveFlashback(isCorrect, item, audioDone) {
           target.queuedAtScene = state.sceneIndex;
         }
       }
+    }
+    if (heartRecoveryMode) {
+      // 心数清零时专门开的复习通道：答对就还一颗心，跟平常场景末尾/断点热身
+      // 的闪回（不带这个标记）区分开，不是随便一次复习都送心。
+      state.hearts = Math.min(MAX_HEARTS, (state.hearts ?? MAX_HEARTS) + 1);
+      renderHeartsDisplay();
     }
   } else {
     el.flashbackFeedback.textContent = `❌ 正确答案：${item.en}`;
@@ -751,6 +1123,7 @@ function showEndScreen() {
   el.choices.innerHTML = "";
   el.gameScreen.classList.add("hidden");
   el.endScreen.classList.remove("hidden");
+  renderStreakUI(); // 连续打卡徽章/提醒横幅在 header 里，不属于 game-screen，结局页也要照常显示
   const totalXp = Object.values(state.skills).reduce((a, b) => a + b, 0);
   el.endSummary.innerHTML = `
     <p>你在多伦多安顿了下来——开了账户、租了房、认识了室友——但那张旧照片和地址一直没放下。今晚，你决定明天就去看看。</p>
@@ -818,18 +1191,110 @@ function getNickname(user) {
   return name;
 }
 
-// 顶部左边的身份标签（未登录显示"请登录"、登录后显示花名）跟右上角的 ☰ 菜单
-// 是两回事：☰ 一直只是"打开菜单"，不再随登录状态换文字。显示中文/重新开始
+// 顶部左边的身份标签：优先显示玩家自己起的名字（state.playerName，不需要登录也能设置），
+// 没设置名字才退回"登录了显示花名 / 没登录显示请登录"这套原逻辑。命名跟登录状态解耦——
+// 登录只管跨设备同步存档，不是"能不能给角色起名"的前提，上手门槛更低。
+// 佩戴了称号（state.equippedTitle）的话，名字前面会带上成就的 icon+标题。
+function renderIdentityBadge() {
+  const loggedIn = !!(window.GameAuth && window.GameAuth.getUser());
+  const name = state.playerName || (loggedIn ? getNickname(window.GameAuth.getUser()) : null);
+  if (!name) {
+    el.userBadge.textContent = "请登录";
+    el.userBadge.classList.remove("logged-in");
+    return;
+  }
+  const titleObj = ACHIEVEMENTS.find((a) => a.id === state.equippedTitle);
+  el.userBadge.textContent = titleObj ? `${titleObj.icon}${titleObj.title} · ${name}` : name;
+  el.userBadge.classList.add("logged-in");
+}
+
+// 右上角 ☰ 菜单是两回事：☰ 一直只是"打开菜单"，不再随登录状态换文字。显示中文/重新开始
 // 常驻菜单里；账号区随登录状态在"登录账号"入口和"邮箱 + 退出登录"之间切换。
 // 登录状态变化由 auth.js 的 onAuthChange 驱动。
 function renderAuthPanel(user) {
   const loggedIn = !!user;
-  el.userBadge.textContent = loggedIn ? getNickname(user) : "请登录";
-  el.userBadge.classList.toggle("logged-in", loggedIn);
+  renderIdentityBadge();
   el.accountLoggedOutItem.classList.toggle("hidden", loggedIn);
   el.accountLoggedInItem.classList.toggle("hidden", !loggedIn);
   if (loggedIn) el.accountMenuEmail.textContent = user.email || "";
 }
+
+// 头像可选项固定这几个——都是清楚男性形象的 emoji，跟"主角是男性"这条项目约束保持一致，
+// 不引入女性/中性选项。
+const AVATAR_OPTIONS = ["👨", "🧑‍🦱", "🧔", "👨‍🦰", "🧑‍🦲", "👨‍🦳"];
+
+function renderAvatarPicker() {
+  el.avatarPicker.innerHTML = "";
+  AVATAR_OPTIONS.forEach((emoji) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "avatar-option";
+    btn.textContent = emoji;
+    if ((state.playerAvatar || "👨") === emoji) btn.classList.add("selected");
+    btn.addEventListener("click", () => {
+      el.avatarPicker.querySelectorAll(".avatar-option").forEach((b) => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      el.avatarPicker.dataset.selected = emoji;
+    });
+    el.avatarPicker.appendChild(btn);
+  });
+  el.avatarPicker.dataset.selected = state.playerAvatar || "👨";
+}
+
+el.characterEditBtn.addEventListener("click", () => {
+  el.accountMenu.classList.add("hidden");
+  el.characterNameInput.value = state.playerName || "";
+  renderAvatarPicker();
+  el.characterOverlay.classList.add("visible");
+});
+el.characterCloseBtn.addEventListener("click", () => {
+  el.characterOverlay.classList.remove("visible");
+});
+el.characterSaveBtn.addEventListener("click", () => {
+  const name = el.characterNameInput.value.trim();
+  state.playerName = name || null;
+  state.playerAvatar = el.avatarPicker.dataset.selected || "👨";
+  saveState();
+  renderIdentityBadge();
+  el.characterOverlay.classList.remove("visible");
+});
+
+// 成就墙：网格列出全部 ACHIEVEMENTS，未解锁的灰置+锁图标；已解锁的点一下佩戴/取消佩戴。
+function renderAchievementsGrid() {
+  const unlocked = state.unlockedAchievements || [];
+  el.achievementsGrid.innerHTML = "";
+  ACHIEVEMENTS.forEach((a) => {
+    const isUnlocked = unlocked.includes(a.id);
+    const isEquipped = state.equippedTitle === a.id;
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "achievement-card" + (isUnlocked ? " unlocked" : " locked") + (isEquipped ? " equipped" : "");
+    card.innerHTML = `
+      <div class="achievement-card-icon">${isUnlocked ? a.icon : "🔒"}</div>
+      <div class="achievement-card-title">${isUnlocked ? a.title : "？？？"}</div>
+    `;
+    if (isUnlocked) {
+      card.addEventListener("click", () => {
+        state.equippedTitle = isEquipped ? null : a.id;
+        saveState();
+        renderIdentityBadge();
+        renderAchievementsGrid();
+      });
+    } else {
+      card.disabled = true;
+    }
+    el.achievementsGrid.appendChild(card);
+  });
+}
+
+el.achievementsBtn.addEventListener("click", () => {
+  el.accountMenu.classList.add("hidden");
+  renderAchievementsGrid();
+  el.achievementsOverlay.classList.add("visible");
+});
+el.achievementsCloseBtn.addEventListener("click", () => {
+  el.achievementsOverlay.classList.remove("visible");
+});
 
 function resetAuthForm() {
   el.authEmailStep.classList.remove("hidden");
@@ -902,6 +1367,8 @@ applyZhVisibility();
 // 手势就自动放声音，所以第一句台词的自动配音在部分设备上可能放不出来——
 // 玩家可以点台词旁边的 🔊 按钮手动听，不为了保证自动配音去插一个额外的点击关卡。
 function startGame() {
+  renderIdentityBadge(); // 不用等 GameAuth 的登录回调，playerName 设置了就先显示出来
+  checkAchievements(); // 补一次成就检查——老玩家可能早就摸到某些门槛了，回来这次先算清楚
   if (state.finished) {
     showEndScreen();
   } else if (reconnectGapMs > RECONNECT_GAP_MS) {
