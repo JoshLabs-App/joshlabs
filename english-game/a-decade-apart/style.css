@@ -491,15 +491,52 @@ body.hide-zh .zh-inline {
   100% { transform: scaleY(1); }
 }
 
-/* 排行榜占位：Supabase RLS 目前按单用户存档设计（user_id = auth.uid()），
-   匿名/跨用户查询拿不到别人的行，见对话里给用户的说明。这里先只展示玩家自己的总XP，
-   等服务器端策略允许跨用户读取了再把这块换成真的榜单。 */
+/* 排行榜：走独立的 english_game_leaderboard 表（谁都能读，只能改自己那一行），
+   跟存档表 english_game_saves 分开——见 auth.js 顶部注释。未登录也能看榜，
+   只是不会有自己那一行；自己的名次靠比对 user_id 高亮，不额外发一次请求查排名。 */
 .leaderboard-card {
   margin-top: 14px;
   padding-top: 10px;
   border-top: 1px solid var(--border);
 }
 .leaderboard-note { color: var(--muted); font-size: 0.8rem; margin: 2px 0 8px; }
+.leaderboard-list {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.leaderboard-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+.leaderboard-rank {
+  flex: none;
+  width: 20px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--muted);
+}
+.leaderboard-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.leaderboard-xp { flex: none; font-weight: 700; }
+.leaderboard-row-self {
+  background: var(--accent-soft);
+}
+.leaderboard-row-self .leaderboard-rank,
+.leaderboard-row-self .leaderboard-xp {
+  color: var(--accent);
+}
 
 .overlay {
   position: fixed;

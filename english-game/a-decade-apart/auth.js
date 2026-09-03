@@ -85,6 +85,36 @@
     return data.state;
   }
 
+  async function pushLeaderboardNow(entry) {
+    if (!currentUser) return;
+    const supabase = await getClient();
+    await supabase.from(LEADERBOARD_TABLE).upsert({
+      user_id: currentUser.id,
+      nickname: entry.nickname,
+      total_xp: entry.totalXp,
+      updated_at: new Date().toISOString()
+    });
+  }
+
+  let leaderboardPushTimer = null;
+  function pushLeaderboardDebounced(entry) {
+    if (!currentUser) return;
+    clearTimeout(leaderboardPushTimer);
+    leaderboardPushTimer = setTimeout(() => pushLeaderboardNow(entry), LEADERBOARD_PUSH_DEBOUNCE_MS);
+  }
+
+  // 公开榜单，不需要登录也能查——用来在首页展示前 N 名，未登录用户看得到榜但不上榜。
+  async function fetchLeaderboard(limit) {
+    const supabase = await getClient();
+    const { data, error } = await supabase
+      .from(LEADERBOARD_TABLE)
+      .select("user_id, nickname, total_xp")
+      .order("total_xp", { ascending: false })
+      .limit(limit || 10);
+    if (error) return [];
+    return data || [];
+  }
+
   window.GameAuth = {
     // 首次会话检查的结果（登录用户或 null），页面刚打开时用它决定要不要拉云端存档。
     ready: readyPromise,
@@ -115,6 +145,8 @@
       await supabase.auth.signOut();
     },
     pushSave: pushSaveDebounced,
-    pullSave
+    pullSave,
+    pushLeaderboard: pushLeaderboardDebounced,
+    fetchLeaderboard
   };
 })();

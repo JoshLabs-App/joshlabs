@@ -47,6 +47,8 @@ const el = {
   dailyGoalFill: document.getElementById("daily-goal-fill"),
   dailyGoalCount: document.getElementById("daily-goal-count"),
   leaderboardSelfXp: document.getElementById("leaderboard-self-xp"),
+  leaderboardList: document.getElementById("leaderboard-list"),
+  leaderboardEmpty: document.getElementById("leaderboard-empty"),
   userBadge: document.getElementById("user-badge"),
   accountBtn: document.getElementById("account-btn"),
   accountMenu: document.getElementById("account-menu"),
@@ -632,6 +634,37 @@ function renderSkillPanel() {
   el.xpTotal.textContent = totalXp;
   el.vocabCount.textContent = state.learnedVocab.length;
   if (el.leaderboardSelfXp) el.leaderboardSelfXp.textContent = totalXp;
+
+  // 每次总分变化顺手推一次排行榜（哪怕没登录也调用，pushLeaderboard 内部会自己判断
+  // currentUser 存不存在再决定要不要真的发请求，这里不用重复判断登录状态）。
+  const user = window.GameAuth && window.GameAuth.getUser();
+  if (user) {
+    window.GameAuth.pushLeaderboard({ nickname: getNickname(user), totalXp });
+  }
+}
+
+// 排行榜：谁都能查（未登录也看得到榜），自己那一行按 user_id 对比高亮，
+// 不用额外发一次"查我的排名"请求。
+async function renderLeaderboard() {
+  if (!window.GameAuth || !el.leaderboardList) return;
+  const rows = await window.GameAuth.fetchLeaderboard(10);
+  el.leaderboardList.innerHTML = "";
+  if (rows.length === 0) {
+    el.leaderboardEmpty.classList.remove("hidden");
+    return;
+  }
+  el.leaderboardEmpty.classList.add("hidden");
+  const myId = window.GameAuth.getUser() ? window.GameAuth.getUser().id : null;
+  rows.forEach((row, i) => {
+    const li = document.createElement("li");
+    li.className = "leaderboard-row" + (row.user_id === myId ? " leaderboard-row-self" : "");
+    li.innerHTML = `
+      <span class="leaderboard-rank">${i + 1}</span>
+      <span class="leaderboard-name">${row.nickname}</span>
+      <span class="leaderboard-xp">${row.total_xp}</span>
+    `;
+    el.leaderboardList.appendChild(li);
+  });
 }
 
 function renderProgress() {
@@ -1216,7 +1249,13 @@ function renderAuthPanel(user) {
   renderIdentityBadge();
   el.accountLoggedOutItem.classList.toggle("hidden", loggedIn);
   el.accountLoggedInItem.classList.toggle("hidden", !loggedIn);
-  if (loggedIn) el.accountMenuEmail.textContent = user.email || "";
+  if (loggedIn) {
+    el.accountMenuEmail.textContent = user.email || "";
+    // 刚登录：把当前总分立刻推一次，不用等下一次答对题才上榜。
+    const totalXp = Object.values(state.skills).reduce((a, b) => a + b, 0);
+    window.GameAuth.pushLeaderboard({ nickname: getNickname(user), totalXp });
+  }
+  renderLeaderboard();
 }
 
 // 头像可选项固定这几个——都是清楚男性形象的 emoji，跟"主角是男性"这条项目约束保持一致，
