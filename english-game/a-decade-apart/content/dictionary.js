@@ -4115,5 +4115,31 @@ const WORD_DICT = {
   "richly": "丰富地",
   "kraft paper": "牛皮纸",
   "twine": "麻绳",
-  "handmade": "手工制作的"
+  "handmade": "手工制作的",
+
+  // 第八十九部分：第八十八章新增词（入门锻造课）
+  "blacksmithing": "锻造",
+  "forge": "锻造炉",
+  "leather aprons": "皮围裙",
+  "steel bar": "钢条",
+  "coals": "炭火",
+  "orange-yellow": "橙黄色",
+  "anvil": "铁砧",
+  "swinging": "挥动",
+  "flattening": "变扁",
+  "blade": "刀刃，刀身",
+  "spine": "刀背",
+  "template": "模板",
+  "tongs": "钳子",
+  "plunges": "浸入",
+  "hissed": "发出嘶嘶声",
+  "hardens": "使变硬",
+  "quenching": "淬火",
+  "grinder": "磨床",
+  "grind": "打磨",
+  "shine": "光泽",
+  "grips": "握持",
+  "craftsmanship": "手艺",
+  "sheath": "刀鞘",
+  "forged": "锻造过的"
 };
