@@ -295,8 +295,8 @@ let heartRecoveryMode = false;
 const ZH_HIDE_KEY = "eng-rpg-hide-zh";
 let hideZh = localStorage.getItem(ZH_HIDE_KEY) === "1";
 
-const TITLE_ZH = "十年之约 · English Game · JoshLabs";
-const TITLE_EN = "A Decade Apart · English Game · JoshLabs";
+const TITLE_ZH = "十年之约 · Unlearn";
+const TITLE_EN = "A Decade Apart · Unlearn";
 
 function applyZhVisibility() {
   document.body.classList.toggle("hide-zh", hideZh);
