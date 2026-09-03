@@ -4006,5 +4006,30 @@ const WORD_DICT = {
   "trim": "修剪",
   "flame": "火苗",
   "ribbon": "丝带",
-  "by hand": "手工地"
+  "by hand": "手工地",
+
+  // 第八十五部分：第八十四章新增词（车库木工做鸟屋）
+  "birdhouse": "鸟屋",
+  "safety glasses": "护目镜",
+  "sand": "打磨",
+  "splinters": "木刺",
+  "ruler": "尺子",
+  "angles": "角度",
+  "drives in": "敲入（钉子）",
+  "bending": "弯曲",
+  "getting the hang of it": "摸到窍门",
+  "safe distance": "安全距离",
+  "tightly": "紧紧地",
+  "slanted": "倾斜的",
+  "roof pieces": "屋顶部件",
+  "glue": "胶水",
+  "brush": "刷子",
+  "focused": "专注的",
+  "tree branch": "树枝",
+  "fence": "篱笆",
+  "facing away": "背对着",
+  "pop": "（颜色）鲜艳突出",
+  "creatures": "生物",
+  "perches": "停歇",
+  "checking out": "查看"
 };
