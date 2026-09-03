@@ -11,6 +11,11 @@
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnb2JhZGhkeWxhcmhzc3VkcGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyMTMwMDAsImV4cCI6MjA5Njc4OTAwMH0.5EqC5hJFmydZaVBmpXJk1ddJNGX_fY2hN83k5IzAO3I";
   const TABLE = "english_game_saves";
   const PUSH_DEBOUNCE_MS = 1200;
+  // 排行榜走独立的小表，只装"昵称+总分"，跟 english_game_saves（含复习队列等
+  // 更细的学习数据）分开——那张表按单用户设计的 RLS 不开放跨用户读，这张表
+  // 反过来：谁都能 SELECT，但只能 upsert 自己那一行（auth.uid() = user_id）。
+  const LEADERBOARD_TABLE = "english_game_leaderboard";
+  const LEADERBOARD_PUSH_DEBOUNCE_MS = 1500;
 
   let clientPromise = null;
   function getClient() {
