@@ -182,7 +182,9 @@ body.hide-zh .zh-inline {
   display: none;
 }
 
-.npc-en .word {
+.npc-en .word,
+.scene-head h2 .word,
+.scene-subtitle .word {
   cursor: pointer;
   border-radius: 4px;
   padding: 0 1px;
@@ -192,7 +194,9 @@ body.hide-zh .zh-inline {
   -webkit-touch-callout: none;
   transition: background 0.15s;
 }
-.npc-en .word.word-active {
+.npc-en .word.word-active,
+.scene-head h2 .word.word-active,
+.scene-subtitle .word.word-active {
   background: var(--accent-soft);
 }
 

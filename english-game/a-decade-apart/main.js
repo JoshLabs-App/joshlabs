@@ -154,30 +154,12 @@ let pendingFlashback = []; // queue of items to review before advancing scene
 let flashbackOnComplete = goToNextScene; // 闪回队列清空后要做什么：正常翻页，或断点热身后继续当前场景
 let wrongButtonsThisNode = new Set();
 
-// 一直没选答案的话，隔几秒把台词自动重播一遍，提醒玩家还在等TA选。
-// nodeGen 是"第几次渲染节点"的代号，节点一换、或玩家选了任意选项，就自增失效，
-// 防止旧节点的自动重播定时器在切到新节点之后还继续响。
-const AUTO_REPLAY_GAP_MS = 3000;
-let nodeGen = 0;
-let autoReplayTimer = null;
-
-function scheduleAutoReplay(text, gen) {
-  clearTimeout(autoReplayTimer);
-  autoReplayTimer = setTimeout(() => {
-    if (gen !== nodeGen) return; // 这期间已经切节点或已经选过答案了，这轮作废
-    playAudio(text, el.npcAudioBtn).then(() => {
-      if (gen !== nodeGen) return;
-      scheduleAutoReplay(text, gen);
-    });
-  }, AUTO_REPLAY_GAP_MS);
-}
-
 // 中文翻译显隐：全局开关，存在 localStorage 里跨场景/跨次打开都记得。
 // 只影响台词下方的中文翻译（.npc-zh），不影响回忆闪回的中文提示——那是游戏机制本身要考的。
 const ZH_HIDE_KEY = "eng-rpg-hide-zh";
 let hideZh = localStorage.getItem(ZH_HIDE_KEY) === "1";
 
-// 静音开关：自动播放/自动重播/点空白重播已经够频繁了，喇叭图标不再是"再放一遍"，
+// 静音开关：自动播放一次+点空白重播已经够用了，喇叭图标不再是"再放一遍"，
 // 改成"开关声音"——点一下静音，再点一下恢复。playAudio() 统一在这里拦，
 // 不用在每个调用它的地方各自判断。
 const AUDIO_MUTED_KEY = "eng-rpg-audio-muted";
@@ -206,7 +188,7 @@ const WORD_POPUP_MS = 2500;
 let wordPopupTimer = null;
 
 function wrapWordsHTML(text) {
-  return text.replace(/[A-Za-z']+/g, (word) => `<span class="word" data-word="${word.toLowerCase()}">${word}</span>`);
+  return text.replace(/[A-Za-zÀ-ÿ']+/g, (word) => `<span class="word" data-word="${word.toLowerCase()}">${word}</span>`);
 }
 
 function queueWordForReview(word, meaning) {
@@ -252,11 +234,16 @@ function hideWordPopup() {
   document.querySelectorAll(".word.word-active").forEach((w) => w.classList.remove("word-active"));
 }
 
-el.npcEn.addEventListener("click", (e) => {
-  const wordEl = e.target.closest(".word");
-  if (!wordEl) return;
-  showWordPopup(wordEl);
-});
+// 点查词范围：不只是台词本身，场景大标题（英文）、小标题也能点单词查释义——
+// 都走同一套 showWordPopup，查过的词照样存进 reviewQueue 参与复习。
+function attachWordLookup(container) {
+  container.addEventListener("click", (e) => {
+    const wordEl = e.target.closest(".word");
+    if (!wordEl) return;
+    showWordPopup(wordEl);
+  });
+}
+[el.npcEn, el.sceneTitle, el.sceneSubtitle].forEach(attachWordLookup);
 
 function currentScene() {
   return GAME_CONTENT.scenes[state.sceneIndex];
@@ -373,17 +360,15 @@ function renderSceneContent() {
   const scene = currentScene();
   const node = currentNode();
 
-  nodeGen++; // 换节点了，上一个节点排的自动重播定时器自动作废
-  const myGen = nodeGen;
-
   hideWordPopup();
   renderProgress();
-  el.sceneTitle.textContent = scene.title;
-  el.sceneSubtitle.textContent = scene.subtitle;
+  el.sceneTitle.innerHTML = wrapWordsHTML(scene.title);
+  el.sceneSubtitle.innerHTML = wrapWordsHTML(scene.subtitle);
   el.avatar.textContent = node.avatar || scene.avatar;
   el.npcEn.innerHTML = wrapWordsHTML(node.npcLine.en);
   el.npcZh.textContent = node.npcLine.zh;
-  playAudio(node.npcLine.en, el.npcAudioBtn).then(() => scheduleAutoReplay(node.npcLine.en, myGen));
+  // 进节点自动放一遍就够了，不再循环提醒——想再听就点对话框空白处（见下面的监听器）。
+  playAudio(node.npcLine.en, el.npcAudioBtn);
   el.hint.textContent = "";
   el.hint.classList.remove("visible");
   wrongButtonsThisNode = new Set();
@@ -404,8 +389,6 @@ function renderSceneContent() {
 }
 
 function handleChoice(idx, btnEl) {
-  nodeGen++; // 已经选了（哪怕选错），停掉这个节点的自动重播，不用再提醒
-  clearTimeout(autoReplayTimer);
   const node = currentNode();
   const choice = node.choices[idx];
   const audioDone = playAudio(choice.text, btnEl);

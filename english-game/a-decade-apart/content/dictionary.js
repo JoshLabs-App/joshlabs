@@ -296,5 +296,30 @@ const WORD_DICT = {
   "week": "周",
   "where's": "在哪儿（where is）",
   "wifi": "无线网络",
-  "write": "写"
+  "write": "写",
+
+  // 第三部分：场景大/小标题里出现的地名、场所词
+  "airport": "机场",
+  "apart": "分开；相隔",
+  "bookstore": "书店",
+  "café": "咖啡馆",
+  "checkout": "结账（收银台）",
+  "decade": "十年",
+  "diner": "小餐馆",
+  "downtown": "市中心",
+  "envelope": "信封",
+  "grocery": "食品杂货",
+  "hallway": "走廊",
+  "house": "房子",
+  "hunting": "寻找（hunt 的现在分词，house hunting 看房）",
+  "kensington": "肯辛顿（地名）",
+  "maple": "枫（树）",
+  "market": "市场",
+  "night": "夜晚",
+  "opening": "开设；打开（open 的现在分词）",
+  "pearson": "皮尔逊（机场名）",
+  "photograph": "照片",
+  "racing": "飞奔；赶往（race 的现在分词）",
+  "run": "跑；采购一趟（grocery run 买菜）",
+  "taxi": "出租车"
 };
