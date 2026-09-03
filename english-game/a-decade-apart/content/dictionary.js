@@ -3957,5 +3957,28 @@ const WORD_DICT = {
   "universe": "宇宙",
   "dark-sky park": "暗夜公园",
   "city lights": "城市灯光",
-  "camp overnight": "露营过夜"
+  "camp overnight": "露营过夜",
+
+  // 第八十三部分：第八十二章新增词（后院养蜂）
+  "stung": "被蜇",
+  "protective suit": "防护服",
+  "bulkier": "更笨重的",
+  "hives": "蜂箱",
+  "startle": "惊吓",
+  "queen bee": "蜂后",
+  "worker bees": "工蜂",
+  "lays eggs": "产卵",
+  "wooden": "木制的",
+  "bee colony": "蜂群",
+  "release": "放出，释放",
+  "pollen": "花粉",
+  "nectar": "花蜜",
+  "honey": "蜂蜜",
+  "honeycomb": "蜂巢",
+  "frames": "框架",
+  "hexagon cells": "六边形蜂房",
+  "extract": "提取，萃取",
+  "jars": "罐子",
+  "golden": "金色的",
+  "autumn": "秋天"
 };
