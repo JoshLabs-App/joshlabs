@@ -4190,5 +4190,28 @@ const WORD_DICT = {
   "slippery": "滑溜的",
   "catch and release": "钓放（钓鱼后放生）",
   "shore": "岸边",
-  "sunburned": "晒黑的"
+  "sunburned": "晒黑的",
+
+  // 第九十二部分：第九十一章新增词（桌游咖啡馆之夜）
+  "board game": "桌游",
+  "selection": "选择范围",
+  "staff": "店员，员工",
+  "recommendation": "推荐",
+  "strategy game": "策略游戏",
+  "pieces": "配件",
+  "rulebook": "规则书",
+  "tokens": "代币",
+  "scoring": "计分",
+  "step by step": "一步一步地",
+  "dice": "骰子",
+  "luckier": "更幸运的",
+  "spaces": "格子（棋盘用语）",
+  "strategic": "有策略性的",
+  "path": "路径",
+  "gave it credit for": "低估了（反用表达）",
+  "lucky charm": "幸运符",
+  "tallied": "被计算，被统计",
+  "recount": "重新数",
+  "cooperative": "合作类的",
+  "complex": "复杂的"
 };
