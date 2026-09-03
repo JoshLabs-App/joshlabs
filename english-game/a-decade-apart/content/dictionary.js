@@ -4213,5 +4213,29 @@ const WORD_DICT = {
   "tallied": "被计算，被统计",
   "recount": "重新数",
   "cooperative": "合作类的",
-  "complex": "复杂的"
+  "complex": "复杂的",
+
+  // 第九十三部分：第九十二章新增词（第一次河边划皮划艇）
+  "paddles": "桨",
+  "paddled": "划过",
+  "life jackets": "救生衣",
+  "launch": "下水",
+  "stroke": "划桨动作",
+  "master": "掌握",
+  "glide": "滑行",
+  "current": "水流",
+  "downstream": "顺流而下",
+  "tandem kayak": "双人皮划艇",
+  "duck": "鸭子",
+  "wildlife": "野生动物",
+  "bend": "弯道",
+  "got the hang of it": "摸到窍门",
+  "heron": "苍鹭",
+  "motionless": "一动不动的",
+  "shallows": "浅水处",
+  "scare it off": "把它吓跑",
+  "sandbar": "沙洲",
+  "break spot": "休息地点",
+  "pace ourselves": "控制节奏",
+  "sun-kissed": "被阳光晒得微红的"
 };
