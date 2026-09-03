@@ -4031,5 +4031,31 @@ const WORD_DICT = {
   "pop": "（颜色）鲜艳突出",
   "creatures": "生物",
   "perches": "停歇",
-  "checking out": "查看"
+  "checking out": "查看",
+
+  // 第八十六部分：第八十五章新增词（居家做奶酪）
+  "cheese-making": "奶酪制作",
+  "cultures": "菌种",
+  "rennet": "凝乳酶",
+  "cheesecloth": "奶酪布",
+  "starter culture": "发酵菌种",
+  "circles": "圈（搅拌动作）",
+  "curds": "凝乳",
+  "whey": "乳清",
+  "clumps": "凝块",
+  "straining": "过滤",
+  "gravity": "重力",
+  "drained": "沥干的",
+  "cracked pepper": "碎黑胡椒",
+  "creamier": "更绵密的",
+  "chives": "香葱",
+  "cautiously": "小心翼翼地",
+  "spoonful": "一勺",
+  "nodding": "点头",
+  "pressing": "压制",
+  "age": "熟成",
+  "rind": "外皮",
+  "aging process": "熟成过程",
+  "achievement": "成就",
+  "smoked": "烟熏的"
 };
