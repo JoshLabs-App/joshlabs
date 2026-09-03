@@ -20,8 +20,21 @@
     <h1>🍁 A Decade Apart <span class="zh-inline">十年之约</span></h1>
     <p class="tagline">A Decade Apart <span class="zh-inline">· 用英语能力推进剧情的养成 + 视觉小说游戏</span></p>
     <div class="header-controls">
-      <button id="zh-toggle-btn" class="ghost-btn" type="button" aria-pressed="true">隐藏中文</button>
-      <button id="reset-btn" class="ghost-btn">重新开始</button>
+      <div class="account-wrap">
+        <button id="account-btn" class="ghost-btn" type="button">☰</button>
+        <div id="account-menu" class="account-menu hidden">
+          <button id="zh-toggle-btn" class="menu-item" type="button" aria-pressed="true">隐藏中文</button>
+          <button id="reset-btn" class="menu-item" type="button">重新开始</button>
+          <div class="menu-divider"></div>
+          <div id="account-logged-out-item">
+            <button id="account-login-btn" class="menu-item" type="button">登录账号</button>
+          </div>
+          <div id="account-logged-in-item" class="hidden">
+            <p id="account-menu-email" class="account-menu-email"></p>
+            <button id="auth-sign-out-btn" class="menu-item" type="button">退出登录</button>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -41,14 +54,12 @@
       </div>
 
       <div class="dialogue-bubble">
-        <div class="npc-en-row">
-          <p id="npc-en" class="npc-en"></p>
-          <button id="npc-audio-btn" class="audio-btn" type="button" aria-label="播放发音">🔊</button>
-        </div>
+        <p id="npc-en" class="npc-en"></p>
         <p id="npc-zh" class="npc-zh"></p>
       </div>
 
       <div id="choices" class="choices"></div>
+      <button id="npc-audio-btn" class="play-btn" type="button">PLAY</button>
       <p id="hint" class="hint"></p>
     </section>
 
@@ -93,10 +104,41 @@
 
   <div id="word-popup" class="word-popup hidden" aria-hidden="true"></div>
 
+  <div id="auth-overlay" class="overlay">
+    <div class="flashback-card auth-card">
+      <button id="auth-close-btn" class="auth-close" type="button" aria-label="关闭">×</button>
+
+      <div id="auth-logged-out">
+        <p class="flashback-label">🔐 登录账号 <span class="zh-inline">· 进度可跨设备同步</span></p>
+
+        <div id="auth-email-step">
+          <input id="auth-email-input" class="auth-input" type="email" placeholder="邮箱 email" autocomplete="email" />
+          <button id="auth-send-link-btn" class="primary-btn auth-full-btn" type="button">发送登录邮件</button>
+        </div>
+
+        <div id="auth-email-sent-step" class="hidden">
+          <p class="auth-hint">📧 已发送登录邮件到 <span id="auth-sent-email"></span>，请查收并点击邮件里的链接完成登录。</p>
+          <button id="auth-retry-email-btn" class="ghost-btn auth-full-btn" type="button">换一个邮箱</button>
+        </div>
+
+        <p class="auth-divider">或者</p>
+        <button id="auth-google-btn" class="ghost-btn auth-full-btn" type="button">使用 Google 登录</button>
+        <p id="auth-error" class="auth-error"></p>
+      </div>
+    </div>
+  </div>
+
   <script src="content/chapter1.js"></script>
   <script src="content/chapter2.js"></script>
+  <script src="content/chapter3.js"></script>
+  <script src="content/chapter4.js"></script>
+  <script src="content/chapter5.js"></script>
+  <script src="content/chapter6.js"></script>
+  <script src="content/chapter7.js"></script>
   <script src="content/audio-manifest.js"></script>
+  <script src="content/word-audio-manifest.js"></script>
   <script src="content/dictionary.js"></script>
+  <script src="auth.js"></script>
   <script src="main.js"></script>
   <script>
     if ("serviceWorker" in navigator) {

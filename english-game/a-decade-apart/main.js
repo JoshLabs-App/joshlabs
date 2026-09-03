@@ -4,7 +4,6 @@ const SAVE_KEY = "eng-rpg-london-day1";
 
 const el = {
   scenePanel: document.querySelector(".scene-panel"),
-  dialogueBubble: document.querySelector(".dialogue-bubble"),
   sceneTitle: document.getElementById("scene-title"),
   sceneSubtitle: document.getElementById("scene-subtitle"),
   avatar: document.getElementById("avatar"),
@@ -37,7 +36,24 @@ const el = {
   transitionOverlay: document.getElementById("transition-overlay"),
   transitionEn: document.getElementById("transition-en"),
   transitionZh: document.getElementById("transition-zh"),
-  transitionContinueBtn: document.getElementById("transition-continue-btn")
+  transitionContinueBtn: document.getElementById("transition-continue-btn"),
+  accountBtn: document.getElementById("account-btn"),
+  accountMenu: document.getElementById("account-menu"),
+  accountMenuEmail: document.getElementById("account-menu-email"),
+  accountLoginBtn: document.getElementById("account-login-btn"),
+  accountLoggedOutItem: document.getElementById("account-logged-out-item"),
+  accountLoggedInItem: document.getElementById("account-logged-in-item"),
+  authOverlay: document.getElementById("auth-overlay"),
+  authCloseBtn: document.getElementById("auth-close-btn"),
+  authEmailStep: document.getElementById("auth-email-step"),
+  authEmailInput: document.getElementById("auth-email-input"),
+  authSendLinkBtn: document.getElementById("auth-send-link-btn"),
+  authEmailSentStep: document.getElementById("auth-email-sent-step"),
+  authSentEmail: document.getElementById("auth-sent-email"),
+  authRetryEmailBtn: document.getElementById("auth-retry-email-btn"),
+  authGoogleBtn: document.getElementById("auth-google-btn"),
+  authError: document.getElementById("auth-error"),
+  authSignOutBtn: document.getElementById("auth-sign-out-btn")
 };
 
 // 每个技能能拿到的经验值上限，从内容里所有场景动态算出——
@@ -144,6 +160,7 @@ function loadState() {
 function saveState() {
   state.lastActiveAt = Date.now();
   localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+  if (window.GameAuth) window.GameAuth.pushSave(state); // 登录了才会真的发请求，见 auth.js
 }
 
 let state = loadState();
@@ -158,18 +175,6 @@ let wrongButtonsThisNode = new Set();
 // 只影响台词下方的中文翻译（.npc-zh），不影响回忆闪回的中文提示——那是游戏机制本身要考的。
 const ZH_HIDE_KEY = "eng-rpg-hide-zh";
 let hideZh = localStorage.getItem(ZH_HIDE_KEY) === "1";
-
-// 静音开关：自动播放一次+点空白重播已经够用了，喇叭图标不再是"再放一遍"，
-// 改成"开关声音"——点一下静音，再点一下恢复。playAudio() 统一在这里拦，
-// 不用在每个调用它的地方各自判断。
-const AUDIO_MUTED_KEY = "eng-rpg-audio-muted";
-let audioMuted = localStorage.getItem(AUDIO_MUTED_KEY) === "1";
-
-function applyAudioMuted() {
-  el.npcAudioBtn.textContent = audioMuted ? "🔇" : "🔊";
-  el.npcAudioBtn.setAttribute("aria-label", audioMuted ? "取消静音" : "静音");
-  el.npcAudioBtn.setAttribute("aria-pressed", String(audioMuted));
-}
 
 const TITLE_ZH = "十年之约 · English Game · JoshLabs";
 const TITLE_EN = "A Decade Apart · English Game · JoshLabs";
@@ -221,6 +226,12 @@ function showWordPopup(wordEl) {
 
   document.querySelectorAll(".word.word-active").forEach((w) => w.classList.remove("word-active"));
   wordEl.classList.add("word-active");
+
+  // 单词发音走独立的 WORD_AUDIO_MANIFEST（按 WORD_DICT 的 key 合成），
+  // 跟整句配音的 AUDIO_MANIFEST 分开维护——查词弹出解释的同时读一遍这个词。
+  if (typeof WORD_AUDIO_MANIFEST !== "undefined") {
+    playAudio(word, null, WORD_AUDIO_MANIFEST);
+  }
 
   clearTimeout(wordPopupTimer);
   wordPopupTimer = setTimeout(hideWordPopup, WORD_POPUP_MS);
@@ -293,9 +304,9 @@ function renderProgress() {
 // 返回一个 Promise，在这段音频真正播完（或没有音频/播放失败）时 resolve——
 // 调用方可以用它来"等配音说完再翻页"，而不是猜一个固定延迟。
 let currentAudio = null;
-function playAudio(text, btnEl) {
-  if (audioMuted) return Promise.resolve();
-  const src = typeof AUDIO_MANIFEST !== "undefined" ? AUDIO_MANIFEST[text] : null;
+function playAudio(text, btnEl, manifest) {
+  const activeManifest = manifest || (typeof AUDIO_MANIFEST !== "undefined" ? AUDIO_MANIFEST : null);
+  const src = activeManifest ? activeManifest[text] : null;
   if (!src) return Promise.resolve();
   if (currentAudio) {
     currentAudio.pause();
@@ -391,7 +402,7 @@ function renderSceneContent() {
 function handleChoice(idx, btnEl) {
   const node = currentNode();
   const choice = node.choices[idx];
-  const audioDone = playAudio(choice.text, btnEl);
+  playAudio(choice.text, btnEl);
 
   if (choice.correct) {
     Array.from(el.choices.children).forEach((b) => (b.disabled = true));
@@ -402,10 +413,13 @@ function handleChoice(idx, btnEl) {
     }
     if (choice.xp) spawnXpFloat(btnEl, choice.xp);
     saveState();
-    // 等选项的配音真正播完，再多停 1 秒给玩家读完，才切下一句
-    audioDone.then(() => {
-      setTimeout(() => advance(node.next), 1000);
-    });
+    // 答对先亮出中文确认理解，不管当前是不是"隐藏中文"模式，停留2秒再翻页，
+    // 翻页前把隐藏状态还原，不影响用户原本的显示偏好。
+    document.body.classList.remove("hide-zh");
+    setTimeout(() => {
+      if (hideZh) document.body.classList.add("hide-zh");
+      advance(node.next);
+    }, 2000);
   } else {
     btnEl.classList.add("wrong", "shake");
     btnEl.addEventListener("animationend", () => btnEl.classList.remove("shake"), { once: true });
@@ -663,6 +677,7 @@ function showEndScreen() {
 function resetGame() {
   localStorage.removeItem(SAVE_KEY);
   state = freshState();
+  if (window.GameAuth) window.GameAuth.pushSave(state); // 登录了的话云端存档也一起清空
   pendingFlashback = [];
   el.endScreen.classList.add("hidden");
   el.gameScreen.classList.remove("hidden");
@@ -670,19 +685,11 @@ function resetGame() {
 }
 
 el.resetBtn.addEventListener("click", () => {
+  el.accountMenu.classList.add("hidden");
   if (confirm("确定要重新开始吗？当前进度会清空。")) resetGame();
 });
 el.restartBtn.addEventListener("click", resetGame);
 el.npcAudioBtn.addEventListener("click", () => {
-  audioMuted = !audioMuted;
-  localStorage.setItem(AUDIO_MUTED_KEY, audioMuted ? "1" : "0");
-  applyAudioMuted();
-  if (!audioMuted) playAudio(currentNode().npcLine.en, el.npcAudioBtn);
-});
-// 点对话框里的空白处也能重播，不用非得精准点中那个小喇叭图标——
-// 但点单词（长按查词）或喇叭本身时跳过，避免和它们各自的逻辑重复触发。
-el.dialogueBubble.addEventListener("click", (e) => {
-  if (e.target.closest(".word") || e.target.closest("#npc-audio-btn")) return;
   playAudio(currentNode().npcLine.en, el.npcAudioBtn);
 });
 el.transitionContinueBtn.addEventListener("click", () => {
@@ -693,18 +700,105 @@ el.zhToggleBtn.addEventListener("click", () => {
   hideZh = !hideZh;
   localStorage.setItem(ZH_HIDE_KEY, hideZh ? "1" : "0");
   applyZhVisibility();
+  el.accountMenu.classList.add("hidden");
+});
+
+// 顶部菜单：显示中文/重新开始 常驻在里面；账号区随登录状态在"登录账号"
+// 入口和"邮箱 + 退出登录"之间切换。登录状态变化由 auth.js 的 onAuthChange 驱动。
+function renderAuthPanel(user) {
+  const loggedIn = !!user;
+  el.accountBtn.textContent = loggedIn ? "👤 " + (user.email ? user.email.split("@")[0] : "账号") : "☰";
+  el.accountLoggedOutItem.classList.toggle("hidden", loggedIn);
+  el.accountLoggedInItem.classList.toggle("hidden", !loggedIn);
+  if (loggedIn) el.accountMenuEmail.textContent = user.email || "";
+}
+
+function resetAuthForm() {
+  el.authEmailStep.classList.remove("hidden");
+  el.authEmailSentStep.classList.add("hidden");
+  el.authError.textContent = "";
+}
+
+if (window.GameAuth) window.GameAuth.onAuthChange(renderAuthPanel);
+
+el.accountBtn.addEventListener("click", () => {
+  el.accountMenu.classList.toggle("hidden");
+});
+// 点菜单外部的地方，自动收起菜单
+document.addEventListener("click", (e) => {
+  if (!el.accountMenu.classList.contains("hidden") && !e.target.closest(".account-wrap")) {
+    el.accountMenu.classList.add("hidden");
+  }
+});
+el.accountLoginBtn.addEventListener("click", () => {
+  el.accountMenu.classList.add("hidden");
+  resetAuthForm();
+  el.authOverlay.classList.add("visible");
+});
+el.authCloseBtn.addEventListener("click", () => {
+  el.authOverlay.classList.remove("visible");
+});
+el.authSendLinkBtn.addEventListener("click", async () => {
+  const email = el.authEmailInput.value.trim();
+  if (!email) return;
+  el.authError.textContent = "";
+  el.authSendLinkBtn.disabled = true;
+  try {
+    await window.GameAuth.sendMagicLink(email);
+    el.authSentEmail.textContent = email;
+    el.authEmailStep.classList.add("hidden");
+    el.authEmailSentStep.classList.remove("hidden");
+  } catch (e) {
+    el.authError.textContent = "发送失败，请检查邮箱地址后重试";
+  } finally {
+    el.authSendLinkBtn.disabled = false;
+  }
+});
+el.authRetryEmailBtn.addEventListener("click", resetAuthForm);
+el.authGoogleBtn.addEventListener("click", () => {
+  el.authError.textContent = "";
+  window.GameAuth.signInWithGoogle().catch(() => {
+    el.authError.textContent = "Google 登录暂时不可用";
+  });
+});
+el.authSignOutBtn.addEventListener("click", async () => {
+  await window.GameAuth.signOut();
+  el.accountMenu.classList.add("hidden");
 });
 
 applyZhVisibility();
-applyAudioMuted();
 
 // 进页面直接开始，不额外插入"点击开始"的确认步骤。手机浏览器不允许没有用户
 // 手势就自动放声音，所以第一句台词的自动配音在部分设备上可能放不出来——
 // 玩家可以点台词旁边的 🔊 按钮手动听，不为了保证自动配音去插一个额外的点击关卡。
-if (state.finished) {
-  showEndScreen();
-} else if (reconnectGapMs > RECONNECT_GAP_MS) {
-  showReconnectWarmup();
-} else {
-  renderScene();
+function startGame() {
+  if (state.finished) {
+    showEndScreen();
+  } else if (reconnectGapMs > RECONNECT_GAP_MS) {
+    showReconnectWarmup();
+  } else {
+    renderScene();
+  }
 }
+
+// 打开页面先看一下有没有已登录账号：有的话拉云端存档，跟本地比谁更新就用谁，
+// 两边收敛后再正常进入游戏；没登录/云端不可用时直接跳过，不影响离线单机玩。
+async function syncFromCloudThenStart() {
+  if (window.GameAuth) {
+    try {
+      const user = await window.GameAuth.ready;
+      if (user) {
+        const cloud = await window.GameAuth.pullSave();
+        if (cloud && (cloud.lastActiveAt || 0) > (state.lastActiveAt || 0)) {
+          state = cloud;
+        }
+        saveState(); // 落地本地 + 回写云端，确保两边收敛到同一份
+      }
+    } catch (e) {
+      // 云端拉取失败不阻塞游戏，继续用本地存档
+    }
+  }
+  startGame();
+}
+
+syncFromCloudThenStart();
