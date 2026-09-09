@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "notes": "Append-only. One entry per measurement run. Positions are Search Console 7-day averages (dataState=final, ending 2 days ago).",
+  "runs": []
+}

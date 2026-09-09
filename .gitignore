@@ -2,4 +2,9 @@
 .cursor/
 *.log
 .venv-porkbun/
-scripts/
+scripts/*
+# local credentials (never commit)
+.secrets/
+
+# SEO rank watch scripts are tracked (nothing secret inside)
+!scripts/seo/

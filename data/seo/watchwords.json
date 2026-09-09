@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "site": "sc-domain:joshlabs.app",
+  "notes": "Keywords we actively try to rank #1 for on joshlabs.app. targetPage is the page we optimise; status: active (improvement candidate) | observing (changed, wait 7 days) | achieved (rank 1, monitor only). Run `node scripts/seo/candidates.mjs` to auto-suggest additions from Search Console.",
+  "words": [
+    { "keyword": "joshlabs", "targetPage": "/", "priority": 10, "status": "active", "addedAt": "2026-09-09" },
+    { "keyword": "selah bible app", "targetPage": "/selah-my/", "priority": 9, "status": "active", "addedAt": "2026-09-09" },
+    { "keyword": "selah.my", "targetPage": "/selah-my/", "priority": 9, "status": "active", "addedAt": "2026-09-09" },
+    { "keyword": "photoporter", "targetPage": "/photo-porter/", "priority": 8, "status": "active", "addedAt": "2026-09-09" },
+    { "keyword": "lan photo transfer app", "targetPage": "/photo-porter/", "priority": 7, "status": "active", "addedAt": "2026-09-09" },
+    { "keyword": "cabinet x ai kitchen design", "targetPage": "/cabinet-x/", "priority": 8, "status": "active", "addedAt": "2026-09-09" },
+    { "keyword": "ai kitchen design app", "targetPage": "/cabinet-x/", "priority": 7, "status": "active", "addedAt": "2026-09-09" },
+    { "keyword": "joshmoney", "targetPage": "/joshmoney/", "priority": 8, "status": "active", "addedAt": "2026-09-09" },
+    { "keyword": "tax prep assistant app canada", "targetPage": "/joshmoney/", "priority": 6, "status": "active", "addedAt": "2026-09-09" },
+    { "keyword": "别学英语", "targetPage": "/unlearn-english/", "priority": 7, "status": "active", "addedAt": "2026-09-09" }
+  ]
+}

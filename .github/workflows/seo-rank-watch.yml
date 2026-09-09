@@ -1,0 +1,62 @@
+name: SEO rank watch（每周测排名）
+
+# ===========================================================================
+# 每周一自动从 Google Search Console 拉取 watchwords 的排名，追加到
+# data/seo/rank-history.json 并提交。改页面的动作由 /seo-rank-watch 技能在
+# 会话里完成，这里只负责"测量 + 记录"。
+#
+# 提交信息带 [skip ci]，不会触发 Cloudflare Pages 的重新部署。
+#
+# Secret: GSC_SERVICE_ACCOUNT_JSON（服务账号密钥 JSON 全文，与 joshkitchen 共用）
+# ===========================================================================
+
+on:
+  schedule:
+    - cron: "10 12 * * 1" # 每周一 UTC 12:10 ≈ 多伦多早上 8 点
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: seo-rank-watch
+  cancel-in-progress: false
+
+env:
+  GSC_SITE_URL: sc-domain:joshlabs.app
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: 测量排名并写入 rank-history
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: node scripts/seo/measure.mjs --days 7
+
+      - name: 列出可冲第一的候选词（仅日志）
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: node scripts/seo/candidates.mjs --days 28 --limit 30
+
+      - name: 提交数据
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/seo/
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "📈 SEO rank watch — $(date -u +%Y-%m-%d) [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
