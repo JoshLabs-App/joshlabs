@@ -1,5 +1,117 @@
 {
   "version": 1,
   "notes": "Append-only. One entry per measurement run. Positions are Search Console 7-day averages (dataState=final, ending 2 days ago).",
-  "runs": []
+  "runs": [
+    {
+      "measuredAt": "2026-09-09T20:31:44.026Z",
+      "window": {
+        "startDate": "2026-09-01",
+        "endDate": "2026-09-07",
+        "days": 7
+      },
+      "site": "sc-domain:joshlabs.app",
+      "results": [
+        {
+          "keyword": "joshlabs",
+          "targetPage": "/",
+          "status": "active",
+          "position": null,
+          "rankingPage": null,
+          "targetPosition": null,
+          "clicks": 0,
+          "impressions": 0
+        },
+        {
+          "keyword": "selah bible app",
+          "targetPage": "/selah-my/",
+          "status": "active",
+          "position": null,
+          "rankingPage": null,
+          "targetPosition": null,
+          "clicks": 0,
+          "impressions": 0
+        },
+        {
+          "keyword": "selah.my",
+          "targetPage": "/selah-my/",
+          "status": "active",
+          "position": null,
+          "rankingPage": null,
+          "targetPosition": null,
+          "clicks": 0,
+          "impressions": 0
+        },
+        {
+          "keyword": "photoporter",
+          "targetPage": "/photo-porter/",
+          "status": "active",
+          "position": null,
+          "rankingPage": null,
+          "targetPosition": null,
+          "clicks": 0,
+          "impressions": 0
+        },
+        {
+          "keyword": "lan photo transfer app",
+          "targetPage": "/photo-porter/",
+          "status": "active",
+          "position": null,
+          "rankingPage": null,
+          "targetPosition": null,
+          "clicks": 0,
+          "impressions": 0
+        },
+        {
+          "keyword": "cabinet x ai kitchen design",
+          "targetPage": "/cabinet-x/",
+          "status": "active",
+          "position": null,
+          "rankingPage": null,
+          "targetPosition": null,
+          "clicks": 0,
+          "impressions": 0
+        },
+        {
+          "keyword": "ai kitchen design app",
+          "targetPage": "/cabinet-x/",
+          "status": "active",
+          "position": null,
+          "rankingPage": null,
+          "targetPosition": null,
+          "clicks": 0,
+          "impressions": 0
+        },
+        {
+          "keyword": "joshmoney",
+          "targetPage": "/joshmoney/",
+          "status": "active",
+          "position": null,
+          "rankingPage": null,
+          "targetPosition": null,
+          "clicks": 0,
+          "impressions": 0
+        },
+        {
+          "keyword": "tax prep assistant app canada",
+          "targetPage": "/joshmoney/",
+          "status": "active",
+          "position": null,
+          "rankingPage": null,
+          "targetPosition": null,
+          "clicks": 0,
+          "impressions": 0
+        },
+        {
+          "keyword": "别学英语",
+          "targetPage": "/unlearn-english/",
+          "status": "active",
+          "position": null,
+          "rankingPage": null,
+          "targetPosition": null,
+          "clicks": 0,
+          "impressions": 0
+        }
+      ]
+    }
+  ]
 }
