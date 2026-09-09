@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter40.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：Emma的祖母去世，两人一起出席葬礼，互相支持、悼念，并带着孩子
 // 认识家族的根。全新词汇领域：慰问用语/葬礼流程/追悼词/家族回忆。

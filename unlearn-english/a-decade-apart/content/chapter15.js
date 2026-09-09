@@ -1,7 +1,7 @@
 // 内容数据层：第十五章，紧接第十四章——同一个 GAME_CONTENT 对象继续 push。
 // index.html 里这个文件排在 chapter14.js 之后、audio-manifest.js 之前加载。
 //
-// Tier: L4（跟第十三、十四章同一个 tier，见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L4（跟第十三、十四章同一个 tier，见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 本章引入 L4 第三个新 grammarTag：
 //   - reported-speech（structure，占"一课一个新点"名额，3课内必须复现）：
 //     间接引语（she said that... / he told me he had...），

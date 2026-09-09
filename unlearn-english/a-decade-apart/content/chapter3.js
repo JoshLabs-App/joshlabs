@@ -1,7 +1,7 @@
 // 内容数据层：第三章，紧接第二章——同一个 GAME_CONTENT 对象继续 push。
 // index.html 里这个文件排在 chapter2.js 之后、audio-manifest.js 之前加载。
 //
-// Tier: L1（跟第一、二章同一个 tier，见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L1（跟第一、二章同一个 tier，见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // L1 横跨第1-3章，本章同样不引入任何新 grammarTag——全部复现第一章已经教过的
 // 10 个语法点，专注在新场景（邻居/洗衣房/公交月票/感恩节晚餐）铺词汇广度。
 // 悬疑线：Ho太太认出照片里的街区/房子，但克制住不让她在本章讲出完整往事

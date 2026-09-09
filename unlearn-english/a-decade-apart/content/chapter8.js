@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter7.js 之后、audio-manifest.js 之前加载。
 // 这是 L3（第8-12章，B1）的第一章。
 //
-// Tier: L3（见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L3（见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 本章引入一个新 grammarTag：
 //   - present-perfect（structure，占"一课一个新点"名额，3课内必须复现）：
 //     现在完成时（have/has + 过去分词，ever/never/already/yet 等信号词），

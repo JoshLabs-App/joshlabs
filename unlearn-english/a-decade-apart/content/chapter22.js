@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter21.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：婚礼当天。全新词汇领域：司仪/花束/誓词/敬酒/初舞等婚礼仪式词汇。
 

@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter25.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：考驾照、买车。全新词汇领域：驾校/路考/保险/试驾/贷款购车——
 // 为即将到来的宝宝准备一辆车。

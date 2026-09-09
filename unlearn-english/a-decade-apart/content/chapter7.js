@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter6.js 之后、audio-manifest.js 之前加载。
 // 这是 L2（第4-7章）的最后一章。
 //
-// Tier: L2（跟第四、五、六章同一个 tier，见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L2（跟第四、五、六章同一个 tier，见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 本章不引入新 grammarTag。剧情里程碑：路线图"拜访年长的证人/亲戚，
 // 听TA讲完整的往事——揭晓部分真相"在本章兑现。Uncle Lok（Ho太太的哥哥）
 // 用连续几段过去时叙述（第3/4/5课，NPC输入不受产出上限约束）讲述家族

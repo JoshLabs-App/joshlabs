@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter33.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：在宝宝出生前，两人为双方家人办了一场家宴。全新词汇领域：菜单规划/
 // 餐桌摆设/招待客人/宴席闲聊。

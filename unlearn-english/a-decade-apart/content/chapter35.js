@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter34.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：为了迎接宝宝，两人决定换一套更划算的手机和网络套餐。全新词汇领域：
 // 客服通话/套餐比较/账单/合约条款。

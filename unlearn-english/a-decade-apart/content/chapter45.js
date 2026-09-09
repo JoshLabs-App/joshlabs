@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter44.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：为了保持社交和运动习惯，两人加入了一个社区业余排球联赛。全新词汇领域：
 // 报名参赛/组队/赛程安排/胜负与团队精神。

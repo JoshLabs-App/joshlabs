@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter35.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：宝宝出生前最后一次二人自驾游，去朋友的湖边度假屋。全新词汇领域：
 // 自驾游规划/湖边度假屋/皮划艇/篝火夜谈。

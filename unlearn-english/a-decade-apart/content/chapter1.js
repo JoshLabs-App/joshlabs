@@ -3,7 +3,7 @@
 // 用普通 JS 全局变量承载（而非 fetch 一个 .json），这样双击打开 index.html 也能跑，
 // 不会被浏览器的 file:// 同源策略卡住。
 //
-// Tier: L1（分级/复现规则见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L1（分级/复现规则见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 每个 node 的 grammarTag 只标"玩家正确选项"的产出语法点，NPC 台词（npcLine）是输入，
 // 可以略超纲，不计入 grammarTag 统计——跑 scripts/validate-curriculum.mjs 校验复现间隔。
 

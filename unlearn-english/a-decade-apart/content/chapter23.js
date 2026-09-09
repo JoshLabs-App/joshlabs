@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter22.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：蜜月旅行。全新词汇领域：订机票/办登机/行李托运/酒店入住/货币兑换/
 // 旅游观光——跟第一章"入境"呼应，但这次是从加拿大出发去别处度假。

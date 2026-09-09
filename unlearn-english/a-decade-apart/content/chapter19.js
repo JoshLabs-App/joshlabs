@@ -1,7 +1,7 @@
 // 内容数据层：第十九章，紧接第十八章——同一个 GAME_CONTENT 对象继续 push。
 // index.html 里这个文件排在 chapter18.js 之后、audio-manifest.js 之前加载。
 //
-// Tier: L4（见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L4（见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 本章引入 L4 原计划的最后一个新 grammarTag：
 //   - phrasal-verb（chunk，不占"一课一个新点"名额，5课内复现——短语动词是
 //     固定搭配、整块记忆，认知负担低，跟courtesy/lets-suggestion同类）：

@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter10.js 之后、audio-manifest.js 之前加载。
 // L3（第8-12章）倒数第二章。
 //
-// Tier: L3（跟第八/九/十章同一个 tier，见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L3（跟第八/九/十章同一个 tier，见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 本章引入 L3 最后一个新 grammarTag：
 //   - passive（structure，占"一课一个新点"名额，3课内必须复现）：
 //     被动语态（was written / was known for / was kept 等），

@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter20.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略提高新词密度，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：拿到永久居民身份后，主角开始认真考虑跟Emma的未来——"十年之约"这条
 // 感情线走到求婚这一步。全新词汇领域：戒指/求婚/婚礼筹备，情感分量也是

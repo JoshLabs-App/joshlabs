@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter32.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：预产期临近时，多伦多遭遇一场暴风雪。全新词汇领域：天气预警/
 // 停电应急/铲雪/紧急物资准备。

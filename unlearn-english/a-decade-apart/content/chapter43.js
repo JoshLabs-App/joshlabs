@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter42.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：受祖母去世的触动，加上现在有了孩子和小生意，两人决定立遗嘱。
 // 全新词汇领域：遗嘱条款/监护人指定/遗产分配/律师咨询。

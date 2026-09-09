@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter26.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：宝宝出生前，两人决定养成健身习惯。全新词汇领域：健身房会员/私教/
 // 体测/器械/团课/伤病恢复。

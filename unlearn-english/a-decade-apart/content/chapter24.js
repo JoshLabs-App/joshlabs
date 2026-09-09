@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter23.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：买第一套房。全新词汇领域：房产经纪/看房/验房/贷款利率/报价/过户。
 

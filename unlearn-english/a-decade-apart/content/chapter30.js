@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter29.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：报税季到来，两人第一次以夫妻身份联合报税。全新词汇领域：报税表格/
 // 抵扣项/退税/会计师咨询。

@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter39.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：有了宝宝后，两人第一次认真规划退休储蓄。全新词汇领域：退休金账户/
 // 投资配置/理财顾问咨询/长期规划。

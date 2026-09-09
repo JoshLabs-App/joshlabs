@@ -1,10 +1,7 @@
-# My Class — SPA share links (/my-class/826 etc.)
-/my-class/JOHN /my-class/JOHN/ 301
-/my-class/JOHN/ /my-class/JOHN/index.html 200
-/my-class/MEN /my-class/MEN/ 301
-/my-class/MEN/ /my-class/MEN/index.html 200
-/my-class/worldview /my-class/worldview/ 301
-/my-class/worldview/ /my-class/worldview/index.html 200
-/my-class/strong-home /my-class/strong-home/ 301
-/my-class/strong-home/ /my-class/strong-home/index.html 200
-/my-class/*  /my-class/index.html  200
+# My Class 已独立部署到 class.joshlabs.app（2026-09-08）
+# 老地址保留，全部转到新站；/my-class/826 这类分享链接照样能开。
+# 先用 302：确认新站稳定后再改 301（301 会被浏览器长期缓存，改回来很难）。
+/my-class https://class.joshlabs.app/ 302
+/my-class/ https://class.joshlabs.app/ 302
+/my-class/index.html https://class.joshlabs.app/ 302
+/my-class/* https://class.joshlabs.app/:splat 302

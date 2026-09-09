@@ -1,7 +1,7 @@
 // 内容数据层：第六章，紧接第五章——同一个 GAME_CONTENT 对象继续 push。
 // index.html 里这个文件排在 chapter5.js 之后、audio-manifest.js 之前加载。
 //
-// Tier: L2（跟第四、五章同一个 tier，见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L2（跟第四、五章同一个 tier，见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 本章不引入新 grammarTag。剧情里程碑：路线图里"第一次由NPC完整用过去时讲述
 // 一段往事"在本章兑现（第5课 a-story-unfolds、第6课 the-story-continues 两课，
 // Ho太太用连续几句过去时叙述自己的童年）——这是 NPC 输入，不受产出语法上限约束，

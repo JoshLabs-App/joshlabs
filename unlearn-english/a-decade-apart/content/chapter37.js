@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter36.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：怀孕晚期，两人参加一位老朋友的婚礼。全新词汇领域：请柬回复/伴娘伴郎/
 // 婚礼仪式/敬酒致辞/礼物登记。

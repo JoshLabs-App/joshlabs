@@ -1,7 +1,7 @@
 // 内容数据层：第十七章，紧接第十六章——同一个 GAME_CONTENT 对象继续 push。
 // index.html 里这个文件排在 chapter16.js 之后、audio-manifest.js 之前加载。
 //
-// Tier: L4（见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L4（见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 本章引入 L4 第五个新 grammarTag（超出原计划的四个，视词汇/语法进度自然生长）：
 //   - conditional-advanced（structure，占"一课一个新点"名额，3课内必须复现）：
 //     更复杂的条件句（second conditional：if + 过去式, would + 动词原形，

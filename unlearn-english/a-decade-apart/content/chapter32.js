@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter31.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：产假前，两人一起去社区食物银行做志愿者。全新词汇领域：志愿者报名/
 // 分拣捐赠物资/派发餐食/社区服务反思。

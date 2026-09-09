@@ -1,7 +1,7 @@
 // 内容数据层：第四章，紧接第三章——同一个 GAME_CONTENT 对象继续 push。
 // index.html 里这个文件排在 chapter3.js 之后、audio-manifest.js 之前加载。
 //
-// Tier: L2（首次解锁一般过去时叙述，见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L2（首次解锁一般过去时叙述，见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 本章引入两个新 grammarTag：
 //   - past-simple（structure，占"一课一个新点"名额，3课内必须复现）：一般过去时叙述，
 //     第2课（the-interview）引入，第2/3/9/10课多次复现。

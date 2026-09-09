@@ -19,7 +19,7 @@
 1. 读本文件全文。
 2. 遵守 JoshLabs Dev：`/Users/joshua/Desktop/APP/skills/joshlabs-dev/SKILL.md` → `references/core-dev-principles.md`。
 3. 最小改动；未要求不上线、不 commit、不 push。
-4. 动 My Class 功能/数据 → 去 **`../03MyClass`**，不要只在本仓 `my-class/` 改一版当真源。
+4. 动 My Class → 去 **`../03MyClass`**，它已是独立站（`class.joshlabs.app`），**与本仓无关**；本仓只保留老地址跳转。
 5. 动门户文案/图标/产品页 → 改本仓对应路径，复用 `assets/styles.css` 与现有 page-hero 骨架。
 
 ---
@@ -29,7 +29,7 @@
 | 禁止 | 原因 |
 |------|------|
 | 未要求就 publish / deploy | 上线需用户明确说 |
-| 把 `my-class/` 当唯一真源长期改 | 真源是 `03MyClass`；门户是同步产物 |
+| 重建 `my-class/` 目录 | 已于 2026-09-08 独立出去；目录一旦存在，静态文件优先于 `_redirects`，老地址跳转会失效 |
 | 新建框架、打包器、组件库 | 保持纯静态 |
 | 擅自加装饰动画/未请求的 UI 效果 | JoshLabs Dev UI 默认 |
 | 改 AskBible 产品本体 | 首页只链到 `https://askbible.me` |
@@ -67,14 +67,6 @@ npx wrangler@latest pages deploy . \
 node scripts/publish.mjs
 ```
 
-从 My Class 一侧一键「同步 + 上线」：
-
-```bash
-cd /Users/joshua/Desktop/APP/03MyClass
-npm run publish          # 同步 my-class/ 并 wrangler 整站
-SKIP_UPDATE=1 npm run publish  # 不同步讲道数据更新
-```
-
 仓库里有 `.github/workflows/deploy.yml`（push `main` → Pages），但实践上以 **wrangler 本机发布** 为准；push 主要用于备份，不等于已上线。
 
 `.cfignore` 排除：`.git/`、`.cursor/`、`scripts/`、`.venv-porkbun/`。
@@ -97,7 +89,6 @@ SKIP_UPDATE=1 npm run publish  # 不同步讲道数据更新
 ├── cabinet-x/                ← 产品页 + privacy/
 ├── selah-my/                 ← 产品页 + privacy/
 ├── photo-porter/             ← 产品页 + privacy/ + download/*.apk
-├── my-class/                 ← 讲道集 Web App（由 03MyClass 同步）
 ├── scripts/                  ← 本地工具（gitignored）：publish.mjs, porkbun_dns_setup.py
 └── .github/workflows/deploy.yml
 ```
@@ -110,7 +101,7 @@ SKIP_UPDATE=1 npm run publish  # 不同步讲道数据更新
 | joshmoney | live | `/joshmoney/` |
 | cabinet-x | review | `/cabinet-x/` |
 | selah-my | review | `/selah-my/` |
-| my-class | live | `/my-class/` |
+| my-class | live | 外链 `https://class.joshlabs.app/` |
 | photo-porter | live | `/photo-porter/` |
 
 双语：元素上 `data-en` / `data-zh`，`localStorage` key `joshlabs-lang`。
@@ -119,31 +110,31 @@ SKIP_UPDATE=1 npm run publish  # 不同步讲道数据更新
 
 ---
 
-## 6. My Class（真源与同步）
+## 6. My Class（已独立，门户只剩跳转）
+
+**2026-09-08 起 My Class 不再是门户的一部分。**
 
 | | |
 |--|--|
-| **真源** | `/Users/joshua/Desktop/APP/03MyClass` |
-| **门户副本** | `00JoshLabs/my-class/` |
-| 线上 | `https://joshlabs.app/my-class/` |
+| 仓库 = 真源 | `/Users/joshua/Desktop/APP/03MyClass`（独立 git 仓库 `JoshLabs-App/my-class`） |
+| 线上 | `https://class.joshlabs.app`（Cloudflare Pages 项目 `my-class`） |
+| 门户这边留什么 | 首页磁贴外链 + 根 `_redirects` 里的老地址跳转，**没有 `my-class/` 目录** |
 
-同步（在 `03MyClass`）：
+根 `_redirects` 里的四条：
 
-```bash
-npm run deploy                 # update 数据 + 拷贝到 00JoshLabs/my-class/
-SKIP_UPDATE=1 npm run deploy     # 只拷贝，不跑 update
+```
+/my-class            https://class.joshlabs.app/          302
+/my-class/           https://class.joshlabs.app/          302
+/my-class/index.html https://class.joshlabs.app/          302
+/my-class/*          https://class.joshlabs.app/:splat    302
 ```
 
-`deploy.mjs` 会：
+⚠️ **不要重建 `my-class/` 目录**。Cloudflare Pages 里静态文件优先于 `_redirects`，
+目录一存在，老地址就会命中旧文件、跳转失效。
 
-- 清空并重写 `00JoshLabs/my-class/`
-- 拷贝根文件：`index.html`, `app.js`, `install.js`, `base-path.js`, `styles.css`, `sunday-classify.js`, `theme.js`
-- 拷贝：`public/sw.js`→`sw.js`（打 SW 版本戳）、`public/icons`, `public/data`, `public/worldview`, `public/strong-home`, `MEN`, `JOHN`
-- 写 `my-class/_redirects`，并确保根 `_redirects` 含 `/my-class/*` SPA 规则
+跳转先用 302，新站跑稳后可改 301（301 会被浏览器长期缓存，回滚困难）。
 
-子路径：`/my-class/JOHN/`、`/MEN/`、`/worldview/`、`/strong-home/`（教材阅读器等）。
-
-**改门户里的 my-class 而不回写 03MyClass，下次 deploy 会被覆盖。**
+改 My Class 本身一律去 `03MyClass`，那边有自己的 `npm run build` / `npm run publish`。
 
 ---
 
@@ -191,7 +182,7 @@ My Class 开发预览优先在 `03MyClass`：`npm run dev`。
   - `joshmoney/` 文案页
   - `photo-porter/` → 链到 **1.0.4** APK（未跟踪的 `PhotoPorter-1.0.4.apk`）
   - 未跟踪：`selah-my/`、`assets/icons/selah.png`、根 `_redirects`
-  - `my-class/` 大改 + 未跟踪子目录 `JOHN/`、`MEN/`、`worldview/`、`strong-home/`
+  - `my-class/` 目录已于 2026-09-08 **整个删除**（My Class 独立到 class.joshlabs.app）；根 `_redirects` 改为老地址 302 跳转
 - 产品页 eyebrow 可能仍写 `v1.0.3`，下载链已是 `1.0.4` — 改文案时对齐版本。
 
 上线前：确认要发布的是**工作区当前文件**还是**干净 commit**；`wrangler pages deploy .` 会部署**磁盘上的当前目录**（含未 commit 文件）。

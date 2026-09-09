@@ -1,7 +1,7 @@
 // 内容数据层：第九章，紧接第八章——同一个 GAME_CONTENT 对象继续 push。
 // index.html 里这个文件排在 chapter8.js 之后、audio-manifest.js 之前加载。
 //
-// Tier: L3（跟第八章同一个 tier，见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L3（跟第八章同一个 tier，见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 本章引入一个新 grammarTag：
 //   - comparative（structure，占"一课一个新点"名额，3课内必须复现）：
 //     比较级/最高级（bigger than / the best / the brightest yet 等），

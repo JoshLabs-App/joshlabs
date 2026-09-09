@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter19.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag——L4七个语法点已在第13-19章全部引入完毕，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // **场景领域切换（Josh 2026-09-03拍板）**：前19章一直围着"Lily's House
 // 社区空间"这个圈子打转，核心高频词已经用得差不多了，新词密度自然放缓

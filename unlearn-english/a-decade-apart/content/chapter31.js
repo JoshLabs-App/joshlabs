@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter30.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：宝宝出生前，主角在职场迎来一次晋升机会。全新词汇领域：绩效评估/
 // 晋升面谈/团队交接/加薪谈判。

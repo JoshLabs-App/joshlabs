@@ -1,7 +1,7 @@
 // 内容数据层：第五章，紧接第四章——同一个 GAME_CONTENT 对象继续 push。
 // index.html 里这个文件排在 chapter4.js 之后、audio-manifest.js 之前加载。
 //
-// Tier: L2（跟第四章同一个 tier，见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L2（跟第四章同一个 tier，见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 本章不引入新 grammarTag——past-simple/connector 已经在第四章引入并复现过，
 // 这里继续巩固，同时合法使用 when/how 这类L2解锁的疑问词（归到 wh-question tag下）。
 // 悬疑线：开篇先兑现第四章结尾的承诺（去找Ho太太问名字），但她还没准备好，

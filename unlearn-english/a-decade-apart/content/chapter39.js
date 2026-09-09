@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter38.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：宝宝出生后的头几周，两人适应新生儿的照顾节奏。全新词汇领域：
 // 新生儿护理/喂养/儿科随访/睡眠不足。

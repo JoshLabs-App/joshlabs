@@ -1,7 +1,7 @@
 // 内容数据层：第十章，紧接第九章——同一个 GAME_CONTENT 对象继续 push。
 // index.html 里这个文件排在 chapter9.js 之后、audio-manifest.js 之前加载。
 //
-// Tier: L3（跟第八、九章同一个 tier，见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L3（跟第八、九章同一个 tier，见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 本章引入一个新 grammarTag：
 //   - conditional（structure，占"一课一个新点"名额，3课内必须复现）：
 //     条件句（if... , ...will...，first conditional），

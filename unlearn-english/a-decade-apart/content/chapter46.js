@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter45.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：两人申请了一块社区花园地块，带着孩子一起种菜。全新词汇领域：
 // 地块申请/播种施肥/病虫害/丰收分享。

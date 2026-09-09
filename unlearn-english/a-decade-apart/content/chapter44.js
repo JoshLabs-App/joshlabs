@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter43.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：Emma的表弟大学毕业，一家三口去参加毕业典礼。全新词汇领域：
 // 学位帽长袍/毕业典礼流程/致辞/拍照留念。

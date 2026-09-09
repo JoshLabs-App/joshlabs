@@ -2,7 +2,7 @@
 // 直接往 scenes/vocabBank/skillMeta 里追加，不是新开一个游戏。
 // index.html 里这个文件排在 chapter1.js 之后、main.js 之前加载。
 //
-// Tier: L1（跟第一章同一个 tier，见 skills/joshlabs-dev/references/projects/english-game.md）
+// Tier: L1（跟第一章同一个 tier，见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 // 本章刻意不引入任何新 grammarTag——L1 这个级别横跨第1-3章，第二章只做新词汇场景
 // （银行开户/租房/超市/wifi/邻里寒暄），全部复现第一章已经教过的10个语法点，
 // 重点把第一章复现不够的 do-question / can-modal / will-future / present-continuous

@@ -2,7 +2,7 @@
 // index.html 里这个文件排在 chapter27.js 之后、audio-manifest.js 之前加载。
 //
 // Tier: L4（不引入新grammarTag，继续场景领域切换策略，
-// 见 skills/joshlabs-dev/references/projects/english-game.md）
+// 见 skills/joshlabs-dev/references/projects/unlearn-english.md）
 //
 // 剧情：为迎接宝宝，翻新家里的一间空房间。全新词汇领域：装修承包商/预算/
 // 涂料/地板/家具组装/验收。
