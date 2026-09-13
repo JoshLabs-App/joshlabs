@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>English150 Terms of Service · JoshLabs</title>
+    <meta
+      name="description"
+      content="English150 terms of service — English learning short video publisher by JoshLabs."
+    />
+    <meta name="theme-color" content="#121110" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/assets/icons/joshlabs.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icons/joshlabs.png" type="image/png" sizes="512x512" />
+    <link rel="apple-touch-icon" href="/assets/icons/joshlabs.png" sizes="512x512" />
+    <link rel="stylesheet" href="../../assets/styles.css" />
+    <link rel="canonical" href="https://joshlabs.app/english/terms/" />
+  </head>
+  <body>
+    <header class="topbar" id="topbar">
+      <div class="shell topbar__inner">
+        <a class="brand" href="/">
+          <span class="brand__mark" aria-hidden="true">JL</span>
+          <span class="brand__name">Josh<span class="wordmark__labs">Labs</span></span>
+        </a>
+        <a class="topbar__contact" href="mailto:josh.zeng.ca@gmail.com">Contact</a>
+      </div>
+    </header>
+
+    <main class="legal shell">
+      <header class="legal__header">
+        <a class="page-hero__back" href="/english/">← English150</a>
+        <p class="hero__eyebrow">Terms of Service · 服务条款</p>
+        <h1>English150 Publisher</h1>
+        <p class="legal__meta">Effective September 12, 2026 · 生效日期：2026年9月12日</p>
+        <p class="legal__meta">Personal publishing tool · 英语学习短视频自动发布工具</p>
+        <nav class="legal__nav" aria-label="Language">
+          <a href="#zh">中文</a>
+          <a href="#en">English</a>
+          <a href="mailto:josh.zeng.ca@gmail.com">Support</a>
+        </nav>
+      </header>
+
+      <div class="legal__body">
+        <section id="zh" lang="zh-Hans">
+          <h2>概述</h2>
+          <p>
+            English150 Publisher 是 JoshLabs（Joshua Zeng）出品的个人内容自动化工具，用于将英语学习短视频批量发布到 TikTok 账号。本工具仅供账号所有者本人使用，不面向公众开放。
+          </p>
+          <p>
+            本条款应与 <a href="/english/privacy/">English150 隐私政策</a> 一并阅读。
+          </p>
+
+          <h2>使用范围</h2>
+          <p>
+            本工具通过 TikTok Content Posting API 代表账号所有者发布视频内容。使用者必须遵守 TikTok 的服务条款、社区准则及内容政策。任何违反 TikTok 规则的使用方式均由使用者自行承担责任。
+          </p>
+
+          <h2>你的内容</h2>
+          <p>
+            通过本工具发布的视频及 caption 归账号所有者所有。使用者须确保拥有所发布内容的必要权利，且内容符合 TikTok 的内容政策。
+          </p>
+
+          <h2>免责声明</h2>
+          <p>
+            本工具按现状提供，不附带任何明示或默示担保。JoshLabs 不对因使用本工具导致的账号被限流、封禁或其他平台处罚承担责任。TikTok API 政策可能随时变更，本工具的可用性取决于 TikTok 的 API 可用性与审核状态。
+          </p>
+
+          <h2>适用法律</h2>
+          <p>
+            本条款受加拿大安大略省法律管辖。
+          </p>
+
+          <h2>联系</h2>
+          <p>
+            如有疑问，请发送邮件至 <a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a>。
+          </p>
+        </section>
+
+        <hr class="legal__divider" />
+
+        <section id="en" lang="en">
+          <h2>Overview</h2>
+          <p>
+            English150 Publisher is a personal content automation tool by JoshLabs (Joshua Zeng) for batch-publishing English learning short videos to a TikTok account. This tool is operated solely by the account owner and is not open to the public.
+          </p>
+          <p>
+            These terms should be read together with the <a href="/english/privacy/">English150 Privacy Policy</a>.
+          </p>
+
+          <h2>Permitted use</h2>
+          <p>
+            This tool uses the TikTok Content Posting API to publish video content on behalf of the account owner. Users must comply with TikTok's Terms of Service, Community Guidelines, and content policies. Any consequences arising from use that violates TikTok's rules are the sole responsibility of the user.
+          </p>
+
+          <h2>Your content</h2>
+          <p>
+            Videos and captions published through this tool remain the property of the account owner. Users must ensure they hold the necessary rights to all content published and that such content complies with TikTok's content policies.
+          </p>
+
+          <h2>Disclaimer</h2>
+          <p>
+            This tool is provided as-is without warranties of any kind. JoshLabs is not liable for account restrictions, bans, or other platform penalties resulting from use of this tool. TikTok API policies may change at any time; the availability of this tool depends on TikTok's API availability and review status.
+          </p>
+
+          <h2>Governing law</h2>
+          <p>
+            These terms are governed by the laws of the Province of Ontario, Canada.
+          </p>
+
+          <h2>Contact</h2>
+          <p>
+            Questions can be sent to <a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a>.
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="shell site-footer">
+      <p><a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a></p>
+      <p>© <span id="year"></span> Joshua Zeng · <a href="/">Josh<span class="wordmark__labs">Labs</span></a></p>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+      const topbar = document.getElementById("topbar");
+      const toggleTopbar = () => topbar.classList.toggle("is-scrolled", window.scrollY > 8);
+      toggleTopbar();
+      window.addEventListener("scroll", toggleTopbar, { passive: true });
+    </script>
+  </body>
+</html>
