@@ -5,3 +5,12 @@
 /my-class/ https://class.joshlabs.app/ 302
 /my-class/index.html https://class.joshlabs.app/ 302
 /my-class/* https://class.joshlabs.app/:splat 302
+
+# 本地开发文件不对外提供（发布脚本已排除，这里再挡一层；见 AGENTS.md §4）。
+/.secrets/* / 302
+/scripts/* / 302
+/docs/* / 302
+/.claude/* / 302
+/.github/* / 302
+/AGENTS.md / 302
+/README.md / 302

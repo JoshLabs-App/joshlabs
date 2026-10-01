@@ -49,27 +49,18 @@
 | CF Pages 项目名 | `joshlabs2026` |
 | 联系邮箱 | `josh.zeng.ca@gmail.com` |
 
-### 发布方式（优先 wrangler）
+### 发布方式（只用脚本）
 
-团队约定：**不要指望 git push 自动上线**。正式发布用本机 wrangler：
+**不要直接 `wrangler pages deploy .`**——wrangler 不认 `.cfignore`，会把 `.secrets/`、`scripts/`、`docs/` 一起发到线上
+（原因见 `docs/DECISIONS.md` D-2）。正式发布一律：
 
 ```bash
 # 在本仓（需已 npx wrangler login）
-npx wrangler@latest pages deploy . \
-  --project-name=joshlabs2026 \
-  --branch=main \
-  --commit-dirty=true
-```
-
-或用本地脚本（**未进 git**，见 `scripts/publish.mjs`）：
-
-```bash
 node scripts/publish.mjs
 ```
 
-仓库里有 `.github/workflows/deploy.yml`（push `main` → Pages），但实践上以 **wrangler 本机发布** 为准；push 主要用于备份，不等于已上线。
-
-`.cfignore` 排除：`.git/`、`.cursor/`、`scripts/`、`.venv-porkbun/`。
+脚本会先把要上线的文件拷到临时目录（排除清单在脚本开头 `EXCLUDES`），再发布那个目录。**不要指望 git push 自动上线**：
+仓库里有 `.github/workflows/deploy.yml`（push `main` → Pages），但实践上以本机脚本发布为准；push 主要用于备份，不等于已上线。
 
 ---
 
@@ -101,7 +92,8 @@ node scripts/publish.mjs
 | joshmoney | live | `/joshmoney/` |
 | cabinet-x | review | `/cabinet-x/` |
 | selah-my | review | `/selah-my/` |
-| my-class | live | 外链 `https://class.joshlabs.app/` |
+| tingdao（听到，原 My Class） | live | 外链 `https://class.joshlabs.app/` |
+| chadao（查到） | live | 外链下载页 `https://chadao-media.joshlabs.app/download.html` |
 | photo-porter | live | `/photo-porter/` |
 
 双语：元素上 `data-en` / `data-zh`，`localStorage` key `joshlabs-lang`。
@@ -198,7 +190,7 @@ My Class 开发预览优先在 `03MyClass`：`npm run dev`。
 | 更新 My Class 功能或讲道数据 | 在 `03MyClass` 改 → `npm run deploy` 或 `publish` |
 | 换 PhotoPorter APK | 放 `photo-porter/download/`，改链接与 README |
 | 加新 App 入口 | 复制现有产品页骨架 + 首页磁贴 + `assets/icons/` 图标；状态用 `data-status` |
-| 上线 | 用户明确要求后 wrangler（见 §4） |
+| 上线 | 用户明确要求后 `node scripts/publish.mjs`（见 §4） |
 | 备份到 GitHub | 用户要求 commit/push 时再做 |
 
 ---
