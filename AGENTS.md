@@ -92,7 +92,7 @@ node scripts/publish.mjs
 | joshmoney | live | `/joshmoney/` |
 | cabinet-x | review | `/cabinet-x/` |
 | selah-my | review | `/selah-my/` |
-| tingdao（听到，原 My Class） | live | 外链 `https://class.joshlabs.app/` |
+| tingdao（听到，原 My Class） | live | 外链 `https://td.askbible.me/`（2026-10-01 起，见 03MyClass DECISIONS D-28；旧域 `class.joshlabs.app` 同时可用） |
 | chadao（查到） | live | 外链下载页 `https://chadao-media.joshlabs.app/download.html` |
 | photo-porter | live | `/photo-porter/` |
 
