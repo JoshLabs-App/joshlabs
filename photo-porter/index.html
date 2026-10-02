@@ -6,10 +6,9 @@
     <title>PhotoPorter — LAN album transfer · JoshLabs</title>
     <meta
       name="description"
-      content="PhotoPorter — LAN file transfer between Android phones, iPhone, and Mac. Photos, videos, and files. No cloud. · 安卓、iPhone、Mac 局域网互传照片视频与文件。"
+      content="PhotoPorter — LAN file transfer between Android phones, iPhone, and Mac. No cloud, no account. Photos, videos, and files over Wi-Fi or hotspot."
     />
     <meta name="theme-color" content="#121110" />
-    <link rel="manifest" href="/site.webmanifest" />
     <link rel="icon" href="/assets/icons/joshlabs.svg" type="image/svg+xml" />
     <link rel="icon" href="/assets/icons/joshlabs.png" type="image/png" sizes="512x512" />
     <link rel="apple-touch-icon" href="/assets/icons/joshlabs.png" sizes="512x512" />
@@ -28,68 +27,125 @@
     </header>
 
     <main>
-      <section class="page-hero shell">
-        <a class="page-hero__back" href="/">← Josh<span class="wordmark__labs">Labs</span> catalog</a>
-        <div class="page-hero__row">
+      <!-- Hero -->
+      <section class="product-hero shell">
+        <a class="product-hero__back" href="/">← JoshLabs</a>
+
+        <div class="product-hero__identity">
           <img
-            class="page-hero__icon"
+            class="product-hero__icon-lg"
             src="../assets/icons/photo-porter.png"
-            alt=""
-            width="88"
-            height="88"
+            alt="PhotoPorter"
+            width="76"
+            height="76"
           />
-          <div>
-            <p class="hero__eyebrow">Transfer · 传输 · v1.0.3</p>
-            <h1>PhotoPorter</h1>
-            <p class="page-hero__tagline">
-              LAN file transfer between Android phones, iPhone, and Mac — photos, videos, and hand-picked
-              files over Wi‑Fi or hotspot. No cloud, no account.
-            </p>
-            <p class="page-hero__tagline">
-              安卓手机、iPhone、Mac 之间的局域网传输工具：照片、视频、手选文件，经 Wi‑Fi 或热点互传。没有账号、没有公网中继。
-            </p>
-            <div class="page-hero__actions">
-              <a class="btn btn--solid" href="/photo-porter/download/PhotoPorter-1.0.4.apk"
-                >Android APK · 安卓安装包</a
-              >
-              <a
-                class="btn btn--solid"
-                href="https://apps.apple.com/app/id6805702109"
-                target="_blank"
-                rel="noopener noreferrer"
-                >iPhone · App Store</a
-              >
-              <a
-                class="btn btn--solid"
-                href="https://apps.apple.com/app/id6805962527"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Mac · App Store</a
-              >
-              <a class="btn btn--outline" href="/photo-porter/privacy/">Privacy · 隐私</a>
-              <a class="btn btn--outline" href="mailto:josh.zeng.ca@gmail.com">Support · 支持</a>
-            </div>
-            <p class="page-hero__tagline" style="margin-top: 0.75rem; font-size: 0.9rem; opacity: 0.75">
-              <strong>Android</strong> — send &amp; receive: pair with other Android phones, iPhones, or a Mac
-              inbox (<a href="/photo-porter/download/PhotoPorter-1.0.4.apk">APK</a> ·
-              <a href="https://play.google.com/store/apps/details?id=app.joshlabs.phonexfer">Play</a>).
-              <strong>iPhone</strong> — send to an Android or Mac inbox (<a
-                href="https://apps.apple.com/app/id6805702109"
-                >PhotoPorter X</a
-              >).
-              <strong>Mac</strong> — receive inbox from Android &amp; iPhone senders (<a
-                href="https://apps.apple.com/app/id6805962527"
-                >PhotoPorter Mac</a
-              >).
-              <br />
-              <strong>安卓</strong> — 可发可收，与安卓、iPhone、Mac 收箱互传。
-              <strong>iPhone</strong> — 发送到安卓或 Mac 收箱机。
-              <strong>Mac</strong> — 收箱机，接收安卓与 iPhone 发送端。
-            </p>
+          <div class="product-hero__nameblock">
+            <p class="product-hero__eyebrow">Transfer · v1.0.4 · Free</p>
+            <h1 class="product-hero__name">PhotoPorter</h1>
           </div>
+        </div>
+
+        <p class="product-hero__headline">Transfer photos without giving them away.</p>
+
+        <p class="product-hero__subline">
+          Android, iPhone, Mac — one protocol, one Wi‑Fi, no cloud in between.
+          Scan a QR once and your camera roll moves directly to where you want it.
+          <br />
+          安卓、iPhone、Mac 同一套协议，扫码一次，相册直达目标。不经公网，没有账号。
+        </p>
+
+        <div class="product-hero__dl">
+          <!-- Google Play -->
+          <a class="store-badge" href="https://play.google.com/store/apps/details?id=app.joshlabs.phonexfer" target="_blank" rel="noopener noreferrer" aria-label="Get it on Google Play">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3.18 1.07C2.47 1.46 2 2.22 2 3.09v17.82c0 .87.47 1.63 1.18 2.02l.1.06 9.98-9.98v-.24L3.28 1.01l-.1.06Z" fill="#4285F4"/>
+              <path d="M16.58 16.41l-3.32-3.33v-.24l3.32-3.32.08.04 3.93 2.23c1.12.64 1.12 1.68 0 2.32l-3.93 2.23-.08.07Z" fill="#FBBC04"/>
+              <path d="M16.66 16.34 13.26 13 3.18 23.07c.37.39.95.44 1.62.08l11.86-6.81Z" fill="#34A853"/>
+              <path d="M16.66 9.66 4.8 2.85C4.13 2.48 3.55 2.54 3.18 2.93L13.26 13l3.4-3.34Z" fill="#EA4335"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Get it on</span>
+              <span class="store-badge__name">Google Play</span>
+            </div>
+          </a>
+          <!-- App Store iPhone -->
+          <a class="store-badge" href="https://apps.apple.com/app/id6805702109" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store for iPhone">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.43c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.53 3.96ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Download on the</span>
+              <span class="store-badge__name">App Store</span>
+            </div>
+          </a>
+          <!-- App Store Mac -->
+          <a class="store-badge" href="https://apps.apple.com/app/id6805962527" target="_blank" rel="noopener noreferrer" aria-label="Download on the Mac App Store">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.43c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.53 3.96ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Download on the</span>
+              <span class="store-badge__name">Mac App Store</span>
+            </div>
+          </a>
+          <!-- APK -->
+          <a class="store-badge store-badge--apk" href="/photo-porter/download/PhotoPorter-1.0.4.apk" aria-label="Download Android APK">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M7 17.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm10 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM6.04 9H17.96A1 1 0 0 1 18.95 10.14L18 17a2 2 0 0 1-2 1.75H8A2 2 0 0 1 6 17l-.95-6.86A1 1 0 0 1 6.04 9ZM3 11l1.5 1M21 11l-1.5 1M15.5 3.5l-1 1.75M8.5 3.5l1 1.75"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Direct download</span>
+              <span class="store-badge__name">Android APK</span>
+            </div>
+          </a>
+          <a class="btn btn--outline" href="/photo-porter/privacy/" style="align-self: center;">Privacy</a>
+        </div>
+
+        <p class="product-hero__note">
+          <strong>Android</strong> — send &amp; receive, pairs with Android · iPhone · Mac.&ensp;
+          <strong>iPhone</strong> — send to Android or Mac inbox.&ensp;
+          <strong>Mac</strong> — receive-only inbox; files land in <code>~/Pictures/PhoneInbox/</code>.
+        </p>
+      </section>
+
+      <!-- Philosophy -->
+      <section class="beliefs shell" aria-label="What makes PhotoPorter different">
+        <p class="beliefs__label">Philosophy</p>
+        <div class="beliefs__grid">
+          <article class="belief-card">
+            <p class="belief-card__num">01</p>
+            <h2 class="belief-card__claim">No cloud in between.</h2>
+            <p class="belief-card__body">
+              Transfers stay on your Wi‑Fi or the sender's hotspot. There is no public relay,
+              no server log, no third-party storage. What leaves your phone lands directly on the receiver.
+              <br /><br />
+              传输在局域网里发生，没有公网中继，没有服务器日志，没有第三方存储。
+            </p>
+          </article>
+          <article class="belief-card">
+            <p class="belief-card__num">02</p>
+            <h2 class="belief-card__claim">Scan once, transfer always.</h2>
+            <p class="belief-card__body">
+              Pair two devices by scanning a QR code once. The token persists even when the IP changes —
+              reconnect automatically, no re-scanning. Albums move with one tap.
+              <br /><br />
+              扫码配对一次，Token 在 IP 变动后仍然有效，自动重连，相册一键发送。
+            </p>
+          </article>
+          <article class="belief-card">
+            <p class="belief-card__num">03</p>
+            <h2 class="belief-card__claim">Verified before it's done.</h2>
+            <p class="belief-card__body">
+              Every file is marked sent only after the receiver writes it and confirms the SHA‑256
+              checksum. Copy, not sync. What arrives is exactly what left.
+              <br /><br />
+              每个文件经 SHA-256 校验通过后才标记完成。拷贝，不是同步；到达即原样。
+            </p>
+          </article>
         </div>
       </section>
 
+      <!-- Platforms -->
       <section class="shell" aria-label="Platforms">
         <div class="section-head">
           <h2>Platforms · 各端</h2>
@@ -99,102 +155,65 @@
           <article class="feature-card">
             <h3>Android · 安卓</h3>
             <p>
-              Send and receive. Copy from other Android phones or iPhones onto this phone, or send to another
-              Android phone or Mac inbox. 可发可收：从其他安卓或 iPhone 拷到本机，或发到另一台安卓或 Mac 收箱。
+              Send and receive. Copy from other Android phones or iPhones onto this phone,
+              or send to another Android phone or Mac inbox.
             </p>
           </article>
           <article class="feature-card">
             <h3>iPhone</h3>
             <p>
-              Send photos, videos, and hand-picked files to an Android phone or Mac inbox on the same Wi‑Fi.
-              Scan the receiver QR once. 发送到同一 Wi‑Fi 上的安卓手机或 Mac 收箱机；扫码配对一次即可。
+              Send photos, videos, and hand-picked files to an Android phone or Mac inbox on the same
+              Wi‑Fi. Scan the receiver QR once.
             </p>
           </article>
           <article class="feature-card">
             <h3>Mac</h3>
             <p>
-              Receive inbox for your desk. Android and iPhone senders scan the Mac QR code; files land in
-              Pictures, Movies, or Downloads/PhoneInbox. 桌面收箱机：安卓与 iPhone 发送端扫 Mac 二维码，文件落入对应文件夹。
+              Receive inbox for your desk. Files land in
+              <code>~/Pictures/PhoneInbox/</code>, <code>~/Movies/PhoneInbox/</code>,
+              or <code>~/Downloads/PhoneInbox/</code>.
             </p>
           </article>
           <article class="feature-card">
             <h3>What transfers · 传什么</h3>
             <p>
-              Camera rolls (photos &amp; videos together), plus one-shot sends of files or a whole folder.
-              Checksum before ACK — copy, not cloud sync. 相册原样（照片视频一起），也可手选文件或目录发一次；校验通过才确认，是拷贝不是云同步。
+              Camera rolls (photos &amp; videos together), plus one-shot sends of files or
+              a whole folder. Checksum before ACK.
             </p>
           </article>
         </div>
       </section>
 
-      <section class="shell" aria-label="How to use">
-        <div class="section-head">
-          <h2>How to use · 怎么用</h2>
-          <p>Wi‑Fi or hotspot</p>
-        </div>
-        <div class="feature-grid">
-          <article class="feature-card">
-            <h3>1. Receive · 接收</h3>
-            <p>
-              Open PhotoPorter on the inbox (Android phone, Mac, or another Android). 收箱机打开
-              App（安卓手机或 Mac），选「接收」。
-            </p>
-          </article>
-          <article class="feature-card">
-            <h3>2. Pair · 配对</h3>
-            <p>
-              On camera phones choose Send and scan the QR code. 相机手机选「发送」，扫二维码配对。
-            </p>
-          </article>
-          <article class="feature-card">
-            <h3>3. Auto copy · 自动拷</h3>
-            <p>
-              While the app is in the foreground, new photos and videos (or selected albums) copy
-              over. App 在前台时，新照片新视频（或你选中的相册）自动拷过去。
-            </p>
-          </article>
-          <article class="feature-card">
-            <h3>4. Send once · 发一次</h3>
-            <p>
-              Or hand-pick files, a folder, or a few album items for a one-shot transfer.
-              也可手选文件、整个目录或相册里几项，发完即止。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="shell" aria-label="PhotoPorter features">
+      <!-- Features -->
+      <section class="shell" aria-label="Features">
         <div class="section-head">
           <h2>Features · 功能</h2>
           <p>Android · iPhone · Mac</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
-            <h3>Send or receive · 发送 / 接收</h3>
-            <p>
-              Phones send; Android phone or Mac receives. One protocol, same QR pairing.
-              手机发送；安卓手机或 Mac 接收。同一协议、同一套二维码配对。
-            </p>
-          </article>
-          <article class="feature-card">
             <h3>Albums as-is · 相册原样</h3>
-            <p>Whatever is in the album goes — photos and videos together. No type switch to forget.</p>
+            <p>Photos and videos together — no type switch to forget.</p>
           </article>
           <article class="feature-card">
             <h3>LAN only · 仅局域网</h3>
-            <p>Traffic stays on Wi‑Fi or the sender’s hotspot. There is no public relay.</p>
+            <p>Traffic stays on Wi‑Fi or the sender's hotspot. No public relay.</p>
           </article>
           <article class="feature-card">
             <h3>Pair once · 配对一次</h3>
-            <p>Scan the receiver QR (or type the code). Token sticks when the IP changes.</p>
+            <p>Token sticks when the IP changes. No re-scanning needed.</p>
           </article>
           <article class="feature-card">
             <h3>Checksum ACK · 校验确认</h3>
-            <p>Marked sent only after the receiver writes the file and verifies SHA‑256.</p>
+            <p>Marked sent only after SHA‑256 is verified on the receiver.</p>
           </article>
           <article class="feature-card">
             <h3>Send once · 手选发送</h3>
             <p>Hand-pick files, a folder, or a few album items for a one-shot transfer.</p>
+          </article>
+          <article class="feature-card">
+            <h3>No account · 无账号</h3>
+            <p>Opens and works immediately. No registration, no login.</p>
           </article>
           <article class="feature-card">
             <h3>English &amp; 中文</h3>
@@ -202,41 +221,93 @@
           </article>
           <article class="feature-card">
             <h3>Copy, not sync · 拷贝非同步</h3>
-            <p>A one-way copy into the inbox folders — not two-way album sync.</p>
+            <p>One-way copy into inbox folders — not two-way album sync.</p>
           </article>
         </div>
       </section>
 
-      <section class="shell principles" aria-label="Notes" id="mac">
-        <article class="principle">
-          <h3>Downloads · 下载</h3>
-          <p>
-            <strong>Android</strong>:
+      <!-- Download shelf -->
+      <section class="download-shelf shell" aria-label="Download PhotoPorter">
+        <p class="download-shelf__eyebrow">Download · 下载</p>
+        <h2 class="download-shelf__headline">Start transferring in 60 seconds.</h2>
+        <div class="download-shelf__btns">
+          <a class="store-badge" href="https://play.google.com/store/apps/details?id=app.joshlabs.phonexfer" target="_blank" rel="noopener noreferrer" aria-label="Get it on Google Play">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3.18 1.07C2.47 1.46 2 2.22 2 3.09v17.82c0 .87.47 1.63 1.18 2.02l.1.06 9.98-9.98v-.24L3.28 1.01l-.1.06Z" fill="#4285F4"/>
+              <path d="M16.58 16.41l-3.32-3.33v-.24l3.32-3.32.08.04 3.93 2.23c1.12.64 1.12 1.68 0 2.32l-3.93 2.23-.08.07Z" fill="#FBBC04"/>
+              <path d="M16.66 16.34 13.26 13 3.18 23.07c.37.39.95.44 1.62.08l11.86-6.81Z" fill="#34A853"/>
+              <path d="M16.66 9.66 4.8 2.85C4.13 2.48 3.55 2.54 3.18 2.93L13.26 13l3.4-3.34Z" fill="#EA4335"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Get it on</span>
+              <span class="store-badge__name">Google Play</span>
+            </div>
+          </a>
+          <a class="store-badge" href="https://apps.apple.com/app/id6805702109" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.43c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.53 3.96ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Download on the</span>
+              <span class="store-badge__name">App Store</span>
+            </div>
+          </a>
+          <a class="store-badge" href="https://apps.apple.com/app/id6805962527" target="_blank" rel="noopener noreferrer" aria-label="Download on the Mac App Store">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.43c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.53 3.96ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Download on the</span>
+              <span class="store-badge__name">Mac App Store</span>
+            </div>
+          </a>
+          <a class="store-badge store-badge--apk" href="/photo-porter/download/PhotoPorter-1.0.4.apk" aria-label="Download Android APK">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M7 17.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm10 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1ZM6.04 9H17.96A1 1 0 0 1 18.95 10.14L18 17a2 2 0 0 1-2 1.75H8A2 2 0 0 1 6 17l-.95-6.86A1 1 0 0 1 6.04 9ZM3 11l1.5 1M21 11l-1.5 1M15.5 3.5l-1 1.75M8.5 3.5l1 1.75"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Direct download</span>
+              <span class="store-badge__name">Android APK</span>
+            </div>
+          </a>
+        </div>
+        <div class="download-shelf__details">
+          <div class="download-detail">
+            <strong>Android</strong>
             <a href="/photo-porter/download/PhotoPorter-1.0.4.apk">PhotoPorter-1.0.4.apk</a>
-            (sideload) ·
-            <a href="https://play.google.com/store/apps/details?id=app.joshlabs.phonexfer">Google Play</a>
-            · package <code>app.joshlabs.phonexfer</code>
-            <br />
-            <strong>iPhone</strong>:
-            <a href="https://apps.apple.com/app/id6805702109">App Store — PhotoPorter X</a>
-            · send to Android/Mac inbox
-            <br />
-            <strong>Mac</strong>:
-            <a href="https://apps.apple.com/app/id6805962527">App Store — PhotoPorter Mac</a>
-            · photos → <code>~/Pictures/PhoneInbox/</code> · videos → <code>~/Movies/PhoneInbox/</code>
-          </p>
-        </article>
+            (sideload) · or <a href="https://play.google.com/store/apps/details?id=app.joshlabs.phonexfer" target="_blank" rel="noopener noreferrer">Google Play</a>
+            <br />Package: <code>app.joshlabs.phonexfer</code>
+          </div>
+          <div class="download-detail">
+            <strong>iPhone</strong>
+            <a href="https://apps.apple.com/app/id6805702109" target="_blank" rel="noopener noreferrer">PhotoPorter X on App Store</a>
+            <br />Send to Android or Mac inbox
+          </div>
+          <div class="download-detail">
+            <strong>Mac</strong>
+            <a href="https://apps.apple.com/app/id6805962527" target="_blank" rel="noopener noreferrer">PhotoPorter Mac on App Store</a>
+            <br />Receive inbox · photos → <code>Pictures/PhoneInbox/</code>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footnotes -->
+      <section class="shell principles" aria-label="Notes">
         <article class="principle">
           <h3>Privacy · 隐私</h3>
           <p>
-            Transfers stay on your LAN.
+            Transfers stay on your LAN. ·
             <a href="/photo-porter/privacy/">Privacy policy</a> ·
             <a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a>
           </p>
         </article>
         <article class="principle">
           <h3>Josh<span class="wordmark__labs">Labs</span></h3>
-          <p>Part of the JoshLabs app family — independent studio by Joshua Zeng, Canada.</p>
+          <p>Independent app studio by Joshua Zeng, Canada.</p>
+        </article>
+        <article class="principle">
+          <h3>Support</h3>
+          <p><a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a></p>
         </article>
       </section>
     </main>

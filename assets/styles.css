@@ -1214,3 +1214,344 @@ a {
     max-width: 30rem;
   }
 }
+
+/* ── Product landing page (app sub-pages) ── */
+
+.product-hero {
+  padding: clamp(3.5rem, 9vh, 6rem) 0 clamp(2.5rem, 6vh, 4rem);
+}
+
+.product-hero__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 2rem;
+  font-size: 0.82rem;
+  font-weight: 550;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.product-hero__back:hover {
+  color: var(--fg-soft);
+}
+
+.product-hero__identity {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 2.25rem;
+}
+
+.product-hero__icon-lg {
+  width: 4.75rem;
+  height: 4.75rem;
+  border-radius: 1.1rem;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow:
+    0 0 0 1px rgba(18, 17, 16, 0.06),
+    0 16px 36px rgba(18, 17, 16, 0.14);
+}
+
+.product-hero__nameblock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.product-hero__eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.product-hero__name {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.product-hero__headline {
+  margin: 0;
+  font-size: clamp(2.3rem, 6vw, 4rem);
+  font-weight: 560;
+  line-height: 1.07;
+  letter-spacing: -0.04em;
+  max-width: 22rem;
+}
+
+.product-hero__subline {
+  margin: 1.1rem 0 0;
+  max-width: 40rem;
+  font-size: 1.06rem;
+  line-height: 1.7;
+  color: var(--fg-soft);
+}
+
+.product-hero__dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 2rem;
+}
+
+.product-hero__note {
+  margin: 1rem 0 0;
+  max-width: 44rem;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.product-hero__note a {
+  text-decoration: none;
+}
+
+.product-hero__note a:hover {
+  color: var(--fg-soft);
+}
+
+/* Philosophy / beliefs */
+.beliefs {
+  padding: clamp(2.75rem, 6vh, 4.5rem) 0;
+  border-top: 1px solid var(--line);
+}
+
+.beliefs__label {
+  margin: 0 0 1.75rem;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.beliefs__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.belief-card {
+  padding: 1.65rem 1.4rem 1.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--card-fill);
+}
+
+.belief-card__num {
+  margin: 0 0 1.15rem;
+  font-size: 2.25rem;
+  font-weight: 750;
+  letter-spacing: -0.05em;
+  color: var(--line-strong);
+  line-height: 1;
+}
+
+.belief-card__claim {
+  margin: 0 0 0.6rem;
+  font-size: 1.08rem;
+  font-weight: 660;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+
+.belief-card__body {
+  margin: 0;
+  font-size: 0.89rem;
+  line-height: 1.65;
+  color: var(--fg-soft);
+}
+
+/* Download shelf */
+.download-shelf {
+  padding: clamp(2.75rem, 6vh, 4.5rem) 0 clamp(4rem, 10vh, 6.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.download-shelf__eyebrow {
+  margin: 0 0 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.download-shelf__headline {
+  margin: 0 0 1.75rem;
+  font-size: clamp(1.65rem, 4vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+.download-shelf__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.download-shelf__details {
+  margin-top: 2rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.download-detail {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--fg-soft);
+}
+
+.download-detail strong {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.download-detail a {
+  text-decoration: none;
+}
+
+.download-detail a:hover {
+  color: var(--fg);
+}
+
+.download-detail code {
+  font-family: "SF Mono", "Fira Code", Menlo, monospace;
+  font-size: 0.82em;
+  padding: 0.1em 0.35em;
+  border-radius: 0.3em;
+  background: var(--glass-fill);
+}
+
+/* Store badge buttons */
+.store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0 1.2rem 0 1rem;
+  border-radius: 0.75rem;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+  flex-shrink: 0;
+}
+
+.store-badge:hover {
+  opacity: 0.82;
+  transform: translateY(-1px);
+}
+
+.store-badge:active {
+  transform: scale(0.96);
+  opacity: 1;
+  transition-duration: 100ms;
+}
+
+.store-badge__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+.store-badge__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.store-badge__sub {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  opacity: 0.78;
+  line-height: 1;
+}
+
+.store-badge__name {
+  font-size: 0.95rem;
+  font-weight: 680;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.store-badge--apk {
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.store-badge--soon {
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  color: var(--muted);
+  pointer-events: none;
+  opacity: 0.72;
+}
+
+.store-badge--soon .store-badge__sub {
+  opacity: 0.75;
+}
+
+@media (prefers-color-scheme: dark) {
+  .store-badge {
+    background: #1c1c1e;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .store-badge--apk {
+    background: #2a2a2a;
+    border-color: rgba(255,255,255,0.15);
+  }
+}
+
+/* Coming soon / notify */
+.coming-soon-banner {
+  padding: 1.5rem 1.75rem;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--glass-fill);
+  margin-top: 2rem;
+}
+
+.coming-soon-banner p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--fg-soft);
+}
+
+.coming-soon-banner a {
+  color: var(--fg);
+  font-weight: 550;
+}
+
+@media (max-width: 860px) {
+  .beliefs__grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+  .download-shelf__details {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .product-hero__headline {
+    font-size: clamp(2rem, 9vw, 2.4rem);
+    max-width: none;
+  }
+}

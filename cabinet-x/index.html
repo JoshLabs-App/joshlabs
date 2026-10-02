@@ -6,10 +6,9 @@
     <title>Cabinet X — AI Kitchen Design · JoshLabs</title>
     <meta
       name="description"
-      content="Cabinet X — upload a kitchen photo, choose cabinet door styles, and preview AI before/after redesigns. For homeowners and kitchen pros."
+      content="Cabinet X — upload a kitchen photo, choose cabinet door styles, and preview AI before/after redesigns in seconds. For homeowners and kitchen professionals."
     />
     <meta name="theme-color" content="#121110" />
-    <link rel="manifest" href="/site.webmanifest" />
     <link rel="icon" href="/assets/icons/joshlabs.svg" type="image/svg+xml" />
     <link rel="icon" href="/assets/icons/joshlabs.png" type="image/png" sizes="512x512" />
     <link rel="apple-touch-icon" href="/assets/icons/joshlabs.png" sizes="512x512" />
@@ -28,59 +27,123 @@
     </header>
 
     <main>
-      <section class="page-hero page-hero--cabinet-x shell">
-        <a class="page-hero__back" href="/">← Josh<span class="wordmark__labs">Labs</span> catalog</a>
-        <div class="page-hero__row">
+      <!-- Hero -->
+      <section class="product-hero shell">
+        <a class="product-hero__back" href="/">← JoshLabs</a>
+
+        <div class="product-hero__identity">
           <img
-            class="page-hero__icon"
+            class="product-hero__icon-lg"
             src="../assets/icons/cabinet-x.png"
-            alt=""
-            width="88"
-            height="88"
+            alt="Cabinet X"
+            width="76"
+            height="76"
           />
-          <div>
-            <p class="hero__eyebrow">Kitchen Design · 厨房设计 · v1.0.0</p>
-            <h1>Cabinet X</h1>
-            <p class="page-hero__tagline">
-              Upload a kitchen photo, pick real cabinet door finishes, and preview AI before/after
-              redesigns in seconds. Compare up to six styles, save history, and share with clients.
-            </p>
-            <p class="page-hero__tagline">
-              上传厨房照片，选择真实门型与台面材质，AI 秒级生成改造前后对比图。最多六种方案并排对比，保存历史并分享给客户。
-            </p>
-            <div class="page-hero__actions">
-              <a class="btn btn--solid" href="/cabinet-x/privacy/">Privacy policy</a>
-              <a class="btn btn--outline" href="mailto:josh.zeng.ca@gmail.com">Support</a>
-            </div>
+          <div class="product-hero__nameblock">
+            <p class="product-hero__eyebrow">Kitchen Design · iOS &amp; Android · v1.0.0</p>
+            <h1 class="product-hero__name">Cabinet X</h1>
           </div>
+        </div>
+
+        <p class="product-hero__headline">See your new kitchen before you build it.</p>
+
+        <p class="product-hero__subline">
+          Upload a kitchen photo, choose a cabinet door style, and Cabinet X shows you what the
+          finished room looks like — in seconds, not weeks. Compare up to six finishes side by side
+          before spending a dollar on renovation.
+          <br /><br />
+          上传厨房照片，选门型与材质，Cabinet X 秒级生成改造后效果图。最多六种方案并排对比，一分钱没花就能看到结果。
+        </p>
+
+        <div class="product-hero__dl">
+          <a class="store-badge" href="https://apps.apple.com/app/id6785025926" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.43c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.53 3.96ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Download on the</span>
+              <span class="store-badge__name">App Store</span>
+            </div>
+          </a>
+          <a class="store-badge" href="https://play.google.com/store/apps/details?id=com.cabinetx.app" target="_blank" rel="noopener noreferrer" aria-label="Get it on Google Play">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3.18 1.07C2.47 1.46 2 2.22 2 3.09v17.82c0 .87.47 1.63 1.18 2.02l.1.06 9.98-9.98v-.24L3.28 1.01l-.1.06Z" fill="#4285F4"/>
+              <path d="M16.58 16.41l-3.32-3.33v-.24l3.32-3.32.08.04 3.93 2.23c1.12.64 1.12 1.68 0 2.32l-3.93 2.23-.08.07Z" fill="#FBBC04"/>
+              <path d="M16.66 16.34 13.26 13 3.18 23.07c.37.39.95.44 1.62.08l11.86-6.81Z" fill="#34A853"/>
+              <path d="M16.66 9.66 4.8 2.85C4.13 2.48 3.55 2.54 3.18 2.93L13.26 13l3.4-3.34Z" fill="#EA4335"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Get it on</span>
+              <span class="store-badge__name">Google Play</span>
+            </div>
+          </a>
+          <a class="btn btn--outline" href="/cabinet-x/privacy/" style="align-self: center;">Privacy</a>
         </div>
       </section>
 
+      <!-- Philosophy -->
+      <section class="beliefs shell" aria-label="What makes Cabinet X different">
+        <p class="beliefs__label">Philosophy</p>
+        <div class="beliefs__grid">
+          <article class="belief-card">
+            <p class="belief-card__num">01</p>
+            <h2 class="belief-card__claim">Decide with your eyes, not your imagination.</h2>
+            <p class="belief-card__body">
+              Kitchen renovations are expensive and hard to reverse. Cabinet X lets you
+              see the result before you commit — real AI visualization, your actual kitchen, your actual room.
+              <br /><br />
+              厨房改造贵且难以反悔。Cabinet X 让你在决定之前先看到结果，用你真实的厨房照片做 AI 效果图。
+            </p>
+          </article>
+          <article class="belief-card">
+            <p class="belief-card__num">02</p>
+            <h2 class="belief-card__claim">Compare six, not one.</h2>
+            <p class="belief-card__body">
+              Generate up to six cabinet finishes in one run and swipe through before/after results.
+              The best decision comes from comparison, not guessing.
+              <br /><br />
+              一次生成最多六种方案，滑动对比改造前后。最好的决定来自比较，而不是猜测。
+            </p>
+          </article>
+          <article class="belief-card">
+            <p class="belief-card__num">03</p>
+            <h2 class="belief-card__claim">Professional, from quote to close.</h2>
+            <p class="belief-card__body">
+              Kitchen designers and contractors can share AI renders directly with clients,
+              add a company watermark, and present options in one tap.
+              <br /><br />
+              厨房设计师和承包商可以直接把效果图分享给客户，加上公司水印，一键展示方案。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Features -->
       <section class="shell" aria-label="Cabinet X features">
         <div class="section-head">
-          <h2>Features</h2>
+          <h2>Features · 功能</h2>
           <p>iOS &amp; Android</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
             <h3>Photo in, design out</h3>
-            <p>Snap or import a kitchen photo and get an AI redesign with your chosen cabinet style.</p>
+            <p>Snap or import a kitchen photo and get an AI redesign with your chosen cabinet style instantly.</p>
           </article>
           <article class="feature-card">
             <h3>13+ door styles</h3>
-            <p>Flat and shaker finishes from the Josh Kitchen catalog, plus optional custom door upload.</p>
+            <p>Flat and shaker finishes from the Josh Kitchen catalog, plus optional custom door photo upload.</p>
           </article>
           <article class="feature-card">
-            <h3>Batch compare</h3>
+            <h3>Batch compare · 批量对比</h3>
             <p>Generate up to six finishes in one run and swipe through before/after results.</p>
           </article>
           <article class="feature-card">
-            <h3>Before &amp; after</h3>
+            <h3>Before &amp; after slider</h3>
             <p>Interactive slider to review the original room against the AI visualization.</p>
           </article>
           <article class="feature-card">
-            <h3>Save &amp; share</h3>
-            <p>Export images to Photos, share with clients, and optional company watermark.</p>
+            <h3>Save &amp; share · 保存与分享</h3>
+            <p>Export images to Photos, share with clients, and add an optional company watermark.</p>
           </article>
           <article class="feature-card">
             <h3>Optional cloud sync</h3>
@@ -91,13 +154,14 @@
             <p>Switch language in Settings. Built for North American kitchen workflows.</p>
           </article>
           <article class="feature-card">
-            <h3>Reference only</h3>
-            <p>AI renders are visual previews — not construction drawings or material orders.</p>
+            <h3>Visual reference only</h3>
+            <p>AI renders are previews — confirm materials and layout with your contractor.</p>
           </article>
         </div>
       </section>
 
-      <section class="shell principles" aria-label="Disclaimers">
+      <!-- Footnotes -->
+      <section class="shell principles" aria-label="Notes">
         <article class="principle">
           <h3>Visual reference</h3>
           <p>Generated images are for design exploration. Confirm materials and layout with your contractor.</p>
@@ -106,12 +170,13 @@
           <h3>Privacy</h3>
           <p>
             <a href="/cabinet-x/privacy/">Privacy policy</a> ·
+            <a href="/cabinet-x/terms/">Terms of service</a> ·
             <a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a>
           </p>
         </article>
         <article class="principle">
           <h3>Josh<span class="wordmark__labs">Labs</span></h3>
-          <p>Part of the JoshLabs app family — independent studio by Joshua Zeng, Canada.</p>
+          <p>Independent app studio by Joshua Zeng, Canada.</p>
         </article>
       </section>
     </main>

@@ -1,8 +1,7 @@
 name: Deploy to Cloudflare Pages
 
+# 只留手动触发：线上一律用本机 `node scripts/publish.mjs` 发布，push 只是备份（docs/DECISIONS.md D-5）
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:

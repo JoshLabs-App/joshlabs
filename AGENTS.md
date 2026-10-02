@@ -60,7 +60,7 @@ node scripts/publish.mjs
 ```
 
 脚本会先把要上线的文件拷到临时目录（排除清单在脚本开头 `EXCLUDES`），再发布那个目录。**不要指望 git push 自动上线**：
-仓库里有 `.github/workflows/deploy.yml`（push `main` → Pages），但实践上以本机脚本发布为准；push 主要用于备份，不等于已上线。
+`.github/workflows/deploy.yml` 自 2026-10-01 起只留手动触发（`workflow_dispatch`），push `main` 不再自动部署；push 只是备份，不等于已上线。
 
 ---
 

@@ -6,10 +6,9 @@
     <title>Selah.my — Quiet rest · JoshLabs</title>
     <meta
       name="description"
-      content="Selah.my — a quiet rest app with nature scenes, ambient sound, and a rest timer. By JoshLabs."
+      content="Selah.my — a quiet rest app. Nature scenes, ambient sound, and a rest timer. No account required. Works offline."
     />
     <meta name="theme-color" content="#121110" />
-    <link rel="manifest" href="/site.webmanifest" />
     <link rel="icon" href="/assets/icons/joshlabs.svg" type="image/svg+xml" />
     <link rel="icon" href="/assets/icons/joshlabs.png" type="image/png" sizes="512x512" />
     <link rel="apple-touch-icon" href="/assets/icons/joshlabs.png" sizes="512x512" />
@@ -28,41 +27,165 @@
     </header>
 
     <main>
-      <section class="page-hero shell">
-        <a class="page-hero__back" href="/">← Josh<span class="wordmark__labs">Labs</span> catalog</a>
-        <div class="page-hero__row">
+      <!-- Hero -->
+      <section class="product-hero shell">
+        <a class="product-hero__back" href="/">← JoshLabs</a>
+
+        <div class="product-hero__identity">
           <img
-            class="page-hero__icon"
+            class="product-hero__icon-lg"
             src="../assets/icons/selah.png"
-            alt=""
-            width="88"
-            height="88"
+            alt="Selah.my"
+            width="76"
+            height="76"
           />
-          <div>
-            <p class="hero__eyebrow">Quiet rest · 安静歇息 · v1.0.0</p>
-            <h1>Selah.my</h1>
-            <p class="page-hero__tagline">
-              A quiet rest app: nature scenes, ambient sound, and a rest timer. Works offline.
-              Optional sign-in is only for syncing your preferences.
-            </p>
-            <p class="page-hero__tagline">
-              安静歇息：自然场景、环境声与休息计时。默认可离线使用。可选登录仅用于同步偏好。
-            </p>
-            <div class="page-hero__actions">
-              <a class="btn btn--solid" href="/selah-my/privacy/">Privacy policy</a>
-              <a class="btn btn--outline" href="mailto:josh.zeng.ca@gmail.com">Support</a>
-            </div>
+          <div class="product-hero__nameblock">
+            <p class="product-hero__eyebrow">Quiet rest · 安静歇息 · v1.0.0</p>
+            <h1 class="product-hero__name">Selah.my</h1>
           </div>
         </div>
+
+        <p class="product-hero__headline">A pause in a world that never stops.</p>
+
+        <p class="product-hero__subline">
+          Selah is a Hebrew pause mark — a breath between verses. This app is the same:
+          nature scenes, ambient sound, and a rest timer. Open it, set a duration, and stop.
+          No notifications, no feed, nothing to do.
+          <br /><br />
+          Selah 是希伯来文的停顿符号——诗节之间的一口气。这款 App 也是：自然场景、环境声、休息计时。打开，设个时间，停下来。没有推送，没有信息流，什么都不用做。
+        </p>
+
+        <div class="product-hero__dl">
+          <a class="store-badge" href="https://apps.apple.com/app/id6801122212" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.43c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.53 3.96ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Download on the</span>
+              <span class="store-badge__name">App Store</span>
+            </div>
+          </a>
+          <!-- Google Play — 上架中 -->
+          <span class="store-badge store-badge--soon" aria-label="Google Play — Coming soon">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3.18 1.07C2.47 1.46 2 2.22 2 3.09v17.82c0 .87.47 1.63 1.18 2.02l.1.06 9.98-9.98v-.24L3.28 1.01l-.1.06Z" fill="currentColor" opacity=".5"/>
+              <path d="M16.58 16.41l-3.32-3.33v-.24l3.32-3.32.08.04 3.93 2.23c1.12.64 1.12 1.68 0 2.32l-3.93 2.23-.08.07Z" fill="currentColor" opacity=".7"/>
+              <path d="M16.66 16.34 13.26 13 3.18 23.07c.37.39.95.44 1.62.08l11.86-6.81Z" fill="currentColor" opacity=".6"/>
+              <path d="M16.66 9.66 4.8 2.85C4.13 2.48 3.55 2.54 3.18 2.93L13.26 13l3.4-3.34Z" fill="currentColor" opacity=".55"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Google Play</span>
+              <span class="store-badge__name">上架中…</span>
+            </div>
+          </span>
+          <a class="btn btn--outline" href="/selah-my/privacy/" style="align-self: center;">Privacy</a>
+          <a class="btn btn--outline" href="mailto:josh.zeng.ca@gmail.com?subject=Selah.my launch notification" style="align-self: center;">Get notified · 通知我</a>
+        </div>
+      </section>
+
+      <!-- Philosophy -->
+      <section class="beliefs shell" aria-label="What makes Selah.my different">
+        <p class="beliefs__label">Philosophy</p>
+        <div class="beliefs__grid">
+          <article class="belief-card">
+            <p class="belief-card__num">01</p>
+            <h2 class="belief-card__claim">Rest is not wasted time.</h2>
+            <p class="belief-card__body">
+              We built Selah.my because most "relaxation" apps want your attention.
+              Selah wants nothing from you. Open, breathe, set a timer, stop.
+              <br /><br />
+              大多数"放松"应用抢你的注意力。Selah 什么都不要。打开，深呼吸，定时，停下来。
+            </p>
+          </article>
+          <article class="belief-card">
+            <p class="belief-card__num">02</p>
+            <h2 class="belief-card__claim">No account. No profile. No feed.</h2>
+            <p class="belief-card__body">
+              Selah.my opens and works. There is nothing to log in to, nothing to follow,
+              no metrics tracked. Optional sign-in exists only to sync your preferences —
+              you opt in, not out.
+              <br /><br />
+              无需登录，无关注，无数据追踪。可选登录仅用于偏好同步，你选择开启。
+            </p>
+          </article>
+          <article class="belief-card">
+            <p class="belief-card__num">03</p>
+            <h2 class="belief-card__claim">Nature, sound, and a timer. That's the whole app.</h2>
+            <p class="belief-card__body">
+              No AI suggestions. No wellness score. No streak counter.
+              A beautiful scene, ambient sound, and a countdown. Simple by intention, not by accident.
+              <br /><br />
+              没有 AI 建议，没有健康评分，没有连续打卡计数。一幅自然场景、一段环境声、一个倒计时。简单是设计，不是偷懒。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section class="shell" aria-label="Selah.my features">
+        <div class="section-head">
+          <h2>Features · 功能</h2>
+          <p>iOS &amp; Android</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Nature scenes · 自然场景</h3>
+            <p>Curated landscape backgrounds that give your eyes somewhere to rest.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Ambient sound · 环境声</h3>
+            <p>Rain, forest, ocean — layered ambient audio that fills the silence without demanding attention.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Rest timer · 休息计时</h3>
+            <p>Set how long you want to pause. The app ends gently, no alarm blast.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Offline-first · 离线</h3>
+            <p>Works without a connection. Scenes and sounds load once, no stream to buffer.</p>
+          </article>
+          <article class="feature-card">
+            <h3>No account required · 无需账号</h3>
+            <p>Opens immediately. Optional sign-in for syncing preferences only.</p>
+          </article>
+          <article class="feature-card">
+            <h3>No notifications · 不推送</h3>
+            <p>Selah.my does not interrupt. It waits until you come to it.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Footnotes -->
+      <section class="shell principles" aria-label="Notes">
+        <article class="principle">
+          <h3>Name · 名字的意思</h3>
+          <p>Selah (סֶלָה) is a Hebrew musical or liturgical term — a pause, a breath. It appears 74 times in the Psalms.</p>
+        </article>
+        <article class="principle">
+          <h3>Privacy</h3>
+          <p>
+            <a href="/selah-my/privacy/">Privacy policy</a> ·
+            <a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a>
+          </p>
+        </article>
+        <article class="principle">
+          <h3>Josh<span class="wordmark__labs">Labs</span></h3>
+          <p>Independent app studio by Joshua Zeng, Canada.</p>
+        </article>
       </section>
     </main>
 
     <footer class="shell site-footer">
       <p><a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a></p>
-      <p>© <span id="year"></span> Joshua Zeng · Josh<span class="wordmark__labs">Labs</span></p>
+      <p>© <span id="year"></span> Joshua Zeng · <a href="/">Josh<span class="wordmark__labs">Labs</span></a></p>
     </footer>
+
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
+      const topbar = document.getElementById("topbar");
+      const toggleTopbar = () => topbar.classList.toggle("is-scrolled", window.scrollY > 8);
+      toggleTopbar();
+      window.addEventListener("scroll", toggleTopbar, { passive: true });
     </script>
   </body>
 </html>
