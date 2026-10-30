@@ -16,11 +16,10 @@
           || (/^\/\d+$/.test(p) ? `第${p.slice(1)}集 全文` : /^\/ep\d+$/.test(p) ? `第${p.slice(3)}集` : /^\/s\/\d+$/.test(p) ? `第${p.slice(3)}集 出处` : p);
       },
     },
-    cabinetx: {
-      name: "Cabinet-X",
-      id: "cabinetx",
-      type: "app_stats",
-    },
+    cabinetx: { name: "Cabinet-X", id: "cabinetx", type: "app_stats" },
+    tingdao:  { name: "听到",       id: "tingdao",  type: "app_stats" },
+    askbible: { name: "AskBible",  id: "askbible", type: "app_stats" },
+    joshmoney:{ name: "JoshMoney", id: "joshmoney", type: "app_stats" },
   };
 
   const getToken = () => { try { return sessionStorage.getItem(TOKEN_STORE) || ""; } catch { return ""; } };
@@ -100,7 +99,11 @@
       content.innerHTML = `<p class="tj-msg">载入失败（${esc(String(e.message))}）。<br>如在本地开发，请先 <code>npx wrangler pages dev . --binding GOOGLE_CLIENT_ID=xxx --binding SW_ADMIN_KEY=your_key</code></p>`;
       return;
     }
-    if (j._type === "cx_stats") { renderCX(j, d); } else { render(j, p, d); }
+    if (j._type === "cx_stats") { renderCX(j, d); }
+    else if (j._type === "td_stats") { renderTD(j, d); }
+    else if (j._type === "ab_stats") { renderAB(j, d); }
+    else if (j._type === "jm_stats") { renderJM(j, d); }
+    else { render(j, p, d); }
   }
 
   function listItems(rows, label) {
@@ -210,6 +213,86 @@
 <div class="tj-recent-title">最近分享链接</div>
 <ol class="tj-recent">${linksHTML}</ol>`;
 
+    document.getElementById("tj-range").addEventListener("click", ev => {
+      const b = ev.target.closest("button[data-d]"); if (!b) return;
+      days = +b.dataset.d; load(currentProduct, days);
+    });
+  }
+
+  function rangeBar(d, opts) {
+    return `<div class="tj-range" id="tj-range" role="group" aria-label="时间范围">
+  ${opts.map(([v, label]) => `<button type="button" data-d="${v}"${d === v ? ' aria-pressed="true"' : ""}>${label}</button>`).join("")}
+</div>`;
+  }
+
+  function simpleSeries(series, cols, labels) {
+    if (!series || !series.length) return `<p class="tj-msg">暂无数据</p>`;
+    const head = cols.map(c => `<th>${labels[c] || c}</th>`).join("");
+    const rows = series.slice(-14).reverse().map(row => {
+      const cells = cols.map(c => `<td>${row[c] ?? 0}</td>`).join("");
+      return `<tr><th>${esc(row.day)}</th>${cells}</tr>`;
+    }).join("");
+    return `<div class="tj-cx-table-wrap"><table class="tj-cx-table"><thead><tr><th>日期</th>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+
+  function renderTD(j, d) {
+    const t = j.totals || {};
+    const kpiCards = [
+      { v: t.active_7d ?? "—", label: "7 天活跃用户" },
+      { v: t.users_total ?? "—", label: "累计注册" },
+      { v: t.users_7d ?? "—", label: "7 天新用户" },
+      { v: t.plays_7d ?? "—", label: "7 天播放" },
+      { v: t.plays_total ?? "—", label: "累计播放" },
+      { v: t.visitors_7d ?? "—", label: "7 天访客设备" },
+    ].map(c => `<div class="tj-kpi-card"><b>${c.v}</b><span>${esc(c.label)}</span></div>`).join("");
+
+    content.innerHTML = `${rangeBar(d, [[7,"7天"],[30,"30天"],[90,"90天"]])}
+<div class="tj-kpi">${kpiCards}</div>
+<div class="tj-cx-section"><h2>趋势（按天，近 14 天）</h2>
+  ${simpleSeries(j.series, ["plays", "visitors", "signups"], { plays: "播放", visitors: "访客", signups: "注册" })}
+</div>`;
+    document.getElementById("tj-range").addEventListener("click", ev => {
+      const b = ev.target.closest("button[data-d]"); if (!b) return;
+      days = +b.dataset.d; load(currentProduct, days);
+    });
+  }
+
+  function renderAB(j, d) {
+    const t = j.totals || {};
+    const kpiCards = [
+      { v: t.active_7d ?? "—", label: "7 天活跃设备" },
+      { v: t.active_today ?? "—", label: "今日活跃" },
+      { v: t.users_total ?? "—", label: "累计会员" },
+      { v: t.users_7d ?? "—", label: "7 天新会员" },
+      { v: t.events_7d ?? "—", label: "7 天事件" },
+    ].map(c => `<div class="tj-kpi-card"><b>${c.v}</b><span>${esc(c.label)}</span></div>`).join("");
+
+    content.innerHTML = `${rangeBar(d, [[7,"7天"],[30,"30天"],[90,"90天"]])}
+<div class="tj-kpi">${kpiCards}</div>
+<div class="tj-cx-section"><h2>趋势（按天，近 14 天）</h2>
+  ${simpleSeries(j.series, ["dau", "events"], { dau: "活跃设备", events: "事件" })}
+</div>`;
+    document.getElementById("tj-range").addEventListener("click", ev => {
+      const b = ev.target.closest("button[data-d]"); if (!b) return;
+      days = +b.dataset.d; load(currentProduct, days);
+    });
+  }
+
+  function renderJM(j, d) {
+    const t = j.totals || {};
+    const kpiCards = [
+      { v: t.users_total ?? "—", label: "累计用户" },
+      { v: t.users_7d ?? "—", label: "7 天新用户" },
+      { v: t.businesses_total ?? "—", label: "累计公司" },
+      { v: t.businesses_7d ?? "—", label: "7 天新公司" },
+      { v: t.active_7d ?? "—", label: "7 天活跃用户" },
+    ].map(c => `<div class="tj-kpi-card"><b>${c.v}</b><span>${esc(c.label)}</span></div>`).join("");
+
+    content.innerHTML = `${rangeBar(d, [[7,"7天"],[30,"30天"],[90,"90天"]])}
+<div class="tj-kpi">${kpiCards}</div>
+<div class="tj-cx-section"><h2>趋势（按天，近 14 天）</h2>
+  ${simpleSeries(j.series, ["signups", "businesses"], { signups: "新用户", businesses: "新公司" })}
+</div>`;
     document.getElementById("tj-range").addEventListener("click", ev => {
       const b = ev.target.closest("button[data-d]"); if (!b) return;
       days = +b.dataset.d; load(currentProduct, days);

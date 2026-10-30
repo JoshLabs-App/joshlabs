@@ -1,9 +1,11 @@
 // JoshLabs Pages Function: proxy admin stats for each product.
 // Env vars required (set in Cloudflare Pages → Settings → Environment variables):
-//   GOOGLE_CLIENT_ID          — OAuth 2.0 Web Application Client ID
-//   SW_ADMIN_KEY              — 守望 shouwang.org admin key (never leaves this server)
-//   CX_SUPABASE_URL           — Cabinet-X Supabase project URL
-//   CX_SUPABASE_SERVICE_KEY   — Cabinet-X Supabase service role key (never leaves this server)
+//   GOOGLE_CLIENT_ID                — OAuth 2.0 Web Application Client ID
+//   SW_ADMIN_KEY                    — 守望 shouwang.org admin key (never leaves this server)
+//   CX_SUPABASE_URL                 — Cabinet-X Supabase project URL
+//   CX_SUPABASE_SERVICE_KEY         — Cabinet-X Supabase service role key (never leaves this server)
+//   JOSHLABS_SUPABASE_URL           — Shared Supabase URL (听到/AskBible/JoshMoney)
+//   JOSHLABS_SUPABASE_SERVICE_KEY   — Shared Supabase service role key (never leaves this server)
 
 const ALLOWED_EMAIL = "josh.zeng.ca@gmail.com";
 
@@ -45,6 +47,16 @@ export async function onRequest(ctx) {
   // Cabinet-X: call Supabase RPC directly with service role key
   if (product === "cabinetx") {
     return handleCabinetX(env, days, request);
+  }
+
+  // Shared Supabase products (听到 / AskBible / JoshMoney)
+  const JOSHLABS_RPC = {
+    tingdao:   "my_class_tj_stats_srv",
+    askbible:  "askbible_tj_stats_srv",
+    joshmoney: "joshmoney_tj_stats_srv",
+  };
+  if (JOSHLABS_RPC[product]) {
+    return handleJoshlabsSupabase(env, product, JOSHLABS_RPC[product], days, request);
   }
 
   const p = BEARER_PRODUCTS[product];
@@ -121,6 +133,44 @@ async function handleCabinetX(env, days, request) {
     }
     const data = await r.json();
     return new Response(JSON.stringify({ _type: "cx_stats", ...data }), {
+      headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store", ...corsHeaders(request) },
+    });
+  } catch (e) {
+    return new Response(JSON.stringify({ error: "Upstream error", detail: String(e) }), {
+      status: 502, headers: { "content-type": "application/json", ...corsHeaders(request) },
+    });
+  }
+}
+
+async function handleJoshlabsSupabase(env, product, rpcName, days, request) {
+  const supabaseUrl = env.JOSHLABS_SUPABASE_URL;
+  const serviceKey = env.JOSHLABS_SUPABASE_SERVICE_KEY;
+  if (!supabaseUrl || !serviceKey) {
+    return new Response(JSON.stringify({ error: `${product} not configured` }), {
+      status: 503, headers: { "content-type": "application/json", ...corsHeaders(request) },
+    });
+  }
+
+  const count = Math.min(days, 90);
+
+  try {
+    const r = await fetch(`${supabaseUrl}/rest/v1/rpc/${rpcName}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "apikey": serviceKey,
+        "authorization": `Bearer ${serviceKey}`,
+      },
+      body: JSON.stringify({ p_days: count }),
+    });
+    if (!r.ok) {
+      const txt = await r.text();
+      return new Response(JSON.stringify({ error: `Supabase error ${r.status}`, detail: txt }), {
+        status: 502, headers: { "content-type": "application/json", ...corsHeaders(request) },
+      });
+    }
+    const data = await r.json();
+    return new Response(JSON.stringify(data), {
       headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store", ...corsHeaders(request) },
     });
   } catch (e) {
