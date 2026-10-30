@@ -8,11 +8,15 @@
 ### ~~O-5~~ 使用分析页 /tj 上线前需要在 Cloudflare 设置两个环境变量（关闭于 2026-10-30）
 已在 2026-10-30 完成 Google OAuth 改造并部署。见 O-6。
 
-### O-6 /tj 分析页 Google 登录已上线（待清理旧变量）（2026-10-30）
-- **现状**：/tj 已改为 Google Identity Services 登录（`josh.zeng.ca@gmail.com`）。Google Cloud `joshlabs` 项目已建 OAuth 同意屏幕（JoshLabs Admin，外部）和 Web Application Client ID。Cloudflare `joshlabs2026` 已加 `GOOGLE_CLIENT_ID` 文本变量。代码已提交推送部署。
-- **凭据**：`/Users/joshua/Desktop/APP/00/google-oauth/joshlabs/client-id.txt`
-- **待做（JOSHUA 手动）**：Cloudflare Pages `joshlabs2026` → Settings → 变量和秘密 → 删除 `JL_ADMIN_KEY`（旧密码变量，新代码不再使用）。`SW_ADMIN_KEY` 保留。
-- **Google Cloud 待做**：OAuth 同意屏幕发布状态是「测试」，当前只有添加的测试用户能登录。只有自己用不需要改；若以后要其他人用，需要在 Google Cloud Console 把应用发布为「正式版」。
+### ~~O-6~~ /tj 分析页 Google 登录上线 + 旧变量已清理（关闭于 2026-10-30）
+- Google OAuth 改造完成，`JL_ADMIN_KEY` 已从 Cloudflare Pages `joshlabs2026` 删除。
+- 现有变量：`GOOGLE_CLIENT_ID`（文本）、`SW_ADMIN_KEY`（密钥）。
+- OAuth 同意屏幕仍为"测试"状态，只有 `josh.zeng.ca@gmail.com` 可用，自用够，需开放再改。
+
+### O-7 /tj 分析页接入所有 JoshLabs 产品（2026-10-30）
+- **现状**：/tj 当前只有「守望」一个 tab。JOSHUA 要求所有软件都接进来（Cabinet-X、听到、150英语、好师傅等）。
+- **影响**：需要每个产品有可对接的后端 Admin Stats API，以及对应的 admin key 存入 Cloudflare。
+- **需要 JOSHUA 决定**：哪些产品目前有 `/api/admin/stats` 或类似接口可以直接对接？没有的先列出，后续逐步开发。
 
 ### O-4 好师傅的链接还是 vercel 临时地址（2026-10-01）
 - **现状**：首页好师傅磁贴和说明链的是 `https://goodpro-alpha.vercel.app`；GoodPro 项目里只找到这一个地址，
