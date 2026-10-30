@@ -9,11 +9,17 @@
     shouwang: {
       name: "守望",
       id: "shouwang",
+      type: "pageview",
       pageMap: { "/": "首页", "/ep": "节目", "/map": "网络图", "/people": "人物", "/jing": "经文", "/tip": "线索", "/links": "推荐", "/about": "关于" },
       pageName(p) {
         return this.pageMap[p]
           || (/^\/\d+$/.test(p) ? `第${p.slice(1)}集 全文` : /^\/ep\d+$/.test(p) ? `第${p.slice(3)}集` : /^\/s\/\d+$/.test(p) ? `第${p.slice(3)}集 出处` : p);
       },
+    },
+    cabinetx: {
+      name: "Cabinet-X",
+      id: "cabinetx",
+      type: "app_stats",
     },
   };
 
@@ -94,7 +100,7 @@
       content.innerHTML = `<p class="tj-msg">载入失败（${esc(String(e.message))}）。<br>如在本地开发，请先 <code>npx wrangler pages dev . --binding GOOGLE_CLIENT_ID=xxx --binding SW_ADMIN_KEY=your_key</code></p>`;
       return;
     }
-    render(j, p, d);
+    if (j._type === "cx_stats") { renderCX(j, d); } else { render(j, p, d); }
   }
 
   function listItems(rows, label) {
@@ -152,6 +158,62 @@
     });
 
     drawMap(j);
+  }
+
+  function renderCX(j, d) {
+    const t = j.totals || {};
+    const series = j.series || [];
+    const links = j.links || [];
+    const bucket = j.bucket || "day";
+
+    // KPI cards
+    const kpiCards = [
+      { v: t.active7 ?? "—", label: "7 天活跃用户" },
+      { v: t.signups ?? "—", label: "累计注册" },
+      { v: t.downloads ?? "—", label: "累计下载" },
+      { v: t.projects ?? "—", label: "累计项目" },
+      { v: t.designs ?? "—", label: "累计设计" },
+      { v: t.shares ?? "—", label: "累计分享" },
+    ].map(c => `<div class="tj-kpi-card"><b>${c.v}</b><span>${esc(c.label)}</span></div>`).join("");
+
+    // Time series table: show last N rows
+    const metrics = ["active", "signups", "downloads", "projects", "designs", "shares"];
+    const metricLabels = { active: "活跃", signups: "注册", downloads: "下载", projects: "项目", designs: "设计", shares: "分享" };
+    const seriesRows = series.slice(-14).reverse().map(row => {
+      const cells = metrics.map(m => `<td>${row[m] ?? 0}</td>`).join("");
+      return `<tr><th>${esc(row.k)}</th>${cells}</tr>`;
+    }).join("");
+    const seriesHead = metrics.map(m => `<th>${metricLabels[m]}</th>`).join("");
+    const seriesHTML = series.length
+      ? `<div class="tj-cx-table-wrap"><table class="tj-cx-table"><thead><tr><th>${bucket === "week" ? "周" : "日"}</th>${seriesHead}</tr></thead><tbody>${seriesRows}</tbody></table></div>`
+      : `<p class="tj-msg">暂无数据</p>`;
+
+    // Recent shared links
+    const linksHTML = links.length
+      ? links.slice(0, 20).map(l => {
+          const kind = l.kind === "s" ? "分享" : "报价";
+          const revoked = l.revoked ? ' <span style="color:var(--muted)">(已撤销)</span>' : "";
+          const views = l.views ? `${l.views} 次查看` : "0 次查看";
+          const lastViewed = l.lastViewed ? `· 最近 ${when(l.lastViewed)}` : "";
+          return `<li><div><time>${esc(when(l.at))}</time> <span class="rpage">${esc(kind)}</span>${revoked}<div class="rmeta">${esc(l.email || "—")} · ${views} ${esc(lastViewed)}</div></div></li>`;
+        }).join("")
+      : `<li style="color:var(--muted);font-size:0.875rem;padding:0.6rem 0">暂无分享</li>`;
+
+    content.innerHTML = `
+<div class="tj-range" id="tj-range" role="group" aria-label="时间范围">
+  <button type="button" data-d="7"${d === 7 ? ' aria-pressed="true"' : ""}>7 天</button>
+  <button type="button" data-d="30"${d === 30 ? ' aria-pressed="true"' : ""}>30 天</button>
+  <button type="button" data-d="365"${d === 365 ? ' aria-pressed="true"' : ""}>一年</button>
+</div>
+<div class="tj-kpi">${kpiCards}</div>
+<div class="tj-cx-section"><h2>趋势（${bucket === "week" ? "按周" : "按天"}）</h2>${seriesHTML}</div>
+<div class="tj-recent-title">最近分享链接</div>
+<ol class="tj-recent">${linksHTML}</ol>`;
+
+    document.getElementById("tj-range").addEventListener("click", ev => {
+      const b = ev.target.closest("button[data-d]"); if (!b) return;
+      days = +b.dataset.d; load(currentProduct, days);
+    });
   }
 
   function drawMap(j) {

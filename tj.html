@@ -69,6 +69,16 @@
     .tj-msg { color: var(--muted); font-size: 0.875rem; padding: 3rem 0; text-align: center; }
     .tj-content { padding: 0 0 4rem; }
 
+    /* Cabinet-X app stats table */
+    .tj-cx-section { margin-bottom: 1.5rem; }
+    .tj-cx-section h2 { font-size: 0.75rem; font-weight: 600; margin: 0 0 0.625rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .tj-cx-table-wrap { overflow-x: auto; }
+    .tj-cx-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+    .tj-cx-table th, .tj-cx-table td { padding: 0.35rem 0.6rem; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+    .tj-cx-table th:first-child, .tj-cx-table td:first-child { text-align: left; color: var(--muted); font-weight: 500; }
+    .tj-cx-table thead th { color: var(--muted); font-weight: 600; }
+    .tj-cx-table tbody tr:last-child td { border-bottom: none; }
+
     /* Auth overlay */
     .tj-auth {
       max-width: 22rem; margin: 5rem auto; padding: 0 1.25rem;
@@ -117,6 +127,7 @@
       <h1>使用分析</h1>
       <div class="tj-products" id="tj-products" role="tablist">
         <button class="tj-tab" role="tab" aria-selected="true" data-product="shouwang">守望</button>
+        <button class="tj-tab" role="tab" aria-selected="false" data-product="cabinetx">Cabinet-X</button>
       </div>
     </div>
     <div class="tj-content" id="tj-content"></div>
