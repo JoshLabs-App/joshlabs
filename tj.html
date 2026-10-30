@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>使用分析 · JoshLabs</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="icon" href="assets/icons/joshlabs.svg" type="image/svg+xml">
+  <style>
+    .tj-wrap { max-width: var(--max); margin: 0 auto; padding: 0 1.25rem; }
+    .tj-header { padding: 2rem 0 1.25rem; border-bottom: 1px solid var(--line); }
+    .tj-header h1 { font-size: 1.375rem; font-weight: 700; margin: 0 0 1rem; }
+    .tj-products { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .tj-tab {
+      padding: 0.35rem 0.875rem; border-radius: 2rem; border: 1px solid var(--line);
+      background: none; color: var(--fg-soft); font: inherit; cursor: pointer; font-size: 0.875rem;
+      transition: background 0.15s, color 0.15s;
+    }
+    .tj-tab[aria-selected=true] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+    .tj-range { display: flex; gap: 0.5rem; margin: 1.25rem 0 1.25rem; flex-wrap: wrap; }
+    .tj-range button {
+      padding: 0.3rem 0.75rem; border-radius: 2rem; border: 1px solid var(--line);
+      background: none; color: var(--fg-soft); font: inherit; cursor: pointer; font-size: 0.8125rem;
+    }
+    .tj-range button[aria-pressed=true] { background: var(--surface); color: var(--fg); border-color: var(--line-strong); box-shadow: var(--shadow-sm); }
+    .tj-kpi { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 0.75rem; margin-bottom: 1.25rem; }
+    .tj-kpi-card {
+      background: var(--surface); border-radius: var(--radius-md); padding: 1rem;
+      border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+    }
+    .tj-kpi-card b { display: block; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.2rem; color: var(--fg); }
+    .tj-kpi-card span { font-size: 0.8125rem; color: var(--muted); }
+    .tj-map-wrap {
+      border-radius: var(--radius-md); overflow: hidden;
+      background: var(--surface); border: 1px solid var(--line);
+      margin-bottom: 1.25rem; position: relative;
+    }
+    #tjmap { width: 100%; display: block; }
+    #tjmap circle { fill: var(--askbible); opacity: 0.75; }
+    #tjmap path { stroke: var(--bg); stroke-width: 0.5; }
+    .tj-tip {
+      position: absolute; background: var(--surface); border: 1px solid var(--line-strong);
+      padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.8125rem;
+      pointer-events: none; white-space: nowrap; box-shadow: var(--shadow-sm);
+    }
+    .tj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem; }
+    .tj-section h2 { font-size: 0.75rem; font-weight: 600; margin: 0 0 0.625rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .tj-list { list-style: none; margin: 0; padding: 0; font-size: 0.875rem; }
+    .tj-list li { display: flex; justify-content: space-between; align-items: baseline; padding: 0.375rem 0; border-bottom: 1px solid var(--line); gap: 0.5rem; }
+    .tj-list li:last-child { border-bottom: none; }
+    .tj-list li b { font-weight: 600; white-space: nowrap; color: var(--fg); font-size: 0.875rem; }
+    .tj-list li span { color: var(--fg-soft); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.875rem; }
+    .tj-bars li { display: flex; align-items: center; gap: 0.625rem; padding: 0.35rem 0; border-bottom: 1px solid var(--line); }
+    .tj-bars li:last-child { border-bottom: none; }
+    .tj-bar { height: 5px; border-radius: 3px; background: var(--askbible); flex-shrink: 0; transition: width 0.3s; }
+    .tj-bars li span { font-size: 0.8125rem; color: var(--fg-soft); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tj-bars li b { font-size: 0.8125rem; font-weight: 600; white-space: nowrap; }
+    .tj-recent-title { font-size: 0.9375rem; font-weight: 600; margin: 1.75rem 0 0.875rem; }
+    .tj-recent { list-style: none; margin: 0; padding: 0; }
+    .tj-recent li { display: grid; grid-template-columns: 1fr auto; gap: 0.75rem; align-items: start; padding: 0.625rem 0; border-bottom: 1px solid var(--line); font-size: 0.8125rem; }
+    .tj-recent li:last-child { border-bottom: none; }
+    .tj-recent time { color: var(--muted); margin-right: 0.5rem; font-variant-numeric: tabular-nums; }
+    .tj-recent .rpage { font-weight: 500; color: var(--fg); }
+    .tj-recent .rmeta { color: var(--muted); margin-top: 0.15rem; }
+    .tj-recent b { font-weight: 600; white-space: nowrap; color: var(--fg); font-size: 0.8125rem; }
+    .tj-note { color: var(--muted); font-size: 0.8125rem; margin: 1rem 0 3rem; }
+    .tj-msg { color: var(--muted); font-size: 0.875rem; padding: 3rem 0; text-align: center; }
+    .tj-content { padding: 0 0 4rem; }
+
+    /* Auth overlay */
+    .tj-auth {
+      max-width: 22rem; margin: 5rem auto; padding: 0 1.25rem;
+    }
+    .tj-auth-card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 1.75rem; box-shadow: var(--shadow-md);
+    }
+    .tj-auth h1 { font-size: 1.125rem; font-weight: 700; margin: 0 0 1.25rem; }
+    .tj-auth-form { display: flex; flex-direction: column; gap: 0.875rem; }
+    .tj-auth label { font-size: 0.8125rem; color: var(--fg-soft); margin-bottom: 0.25rem; display: block; }
+    .tj-auth select,
+    .tj-auth input[type=password] {
+      width: 100%; padding: 0.5625rem 0.75rem; border-radius: var(--radius-sm);
+      border: 1px solid var(--line-strong); background: var(--bg); color: var(--fg);
+      font: inherit; font-size: 0.875rem; -webkit-appearance: none;
+    }
+    .tj-auth select:focus,
+    .tj-auth input:focus { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-color: transparent; }
+    .tj-auth-submit {
+      padding: 0.5625rem 1rem; border-radius: var(--radius-sm); border: none;
+      background: var(--fg); color: var(--bg); font: inherit; font-size: 0.875rem;
+      font-weight: 600; cursor: pointer; margin-top: 0.25rem;
+    }
+    .tj-auth-submit:hover { opacity: 0.88; }
+    .tj-auth-err { color: #c0392b; font-size: 0.8125rem; min-height: 1.25em; }
+  </style>
+</head>
+<body>
+<header class="topbar" id="topbar">
+  <div class="shell topbar__inner">
+    <a class="brand" href="/">
+      <span class="brand__mark" aria-hidden="true">JL</span>
+      <span class="brand__name">Josh<span class="wordmark__labs">Labs</span></span>
+    </a>
+    <button id="tj-key-btn" style="background:none;border:none;color:var(--muted);font:inherit;font-size:0.8125rem;cursor:pointer;padding:0.25rem 0.625rem;border-radius:var(--radius-sm);">
+      密钥设置
+    </button>
+  </div>
+</header>
+
+<!-- Auth UI -->
+<div id="tj-auth-ui" hidden>
+  <div class="tj-auth">
+    <div class="tj-auth-card">
+      <h1>管理登录</h1>
+      <form class="tj-auth-form" id="tj-auth-form" novalidate>
+        <div>
+          <label for="tj-product-sel">产品</label>
+          <select id="tj-product-sel">
+            <option value="shouwang">守望</option>
+          </select>
+        </div>
+        <div>
+          <label for="tj-key-input">管理密钥</label>
+          <input type="password" id="tj-key-input" placeholder="输入管理员密钥" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="tj-auth-err" id="tj-auth-err" role="alert"></div>
+        <button type="submit" class="tj-auth-submit">确认</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Main dashboard -->
+<div id="tj-main" hidden>
+  <div class="tj-wrap">
+    <div class="tj-header">
+      <h1>使用分析</h1>
+      <div class="tj-products" id="tj-products" role="tablist">
+        <button class="tj-tab" role="tab" aria-selected="true" data-product="shouwang">守望</button>
+      </div>
+    </div>
+    <div class="tj-content" id="tj-content"></div>
+  </div>
+</div>
+
+<script src="assets/tj.js" defer></script>
+</body>
+</html>
