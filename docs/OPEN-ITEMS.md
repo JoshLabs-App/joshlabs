@@ -13,10 +13,10 @@
 - 现有变量：`GOOGLE_CLIENT_ID`（文本）、`SW_ADMIN_KEY`（密钥）。
 - OAuth 同意屏幕仍为"测试"状态，只有 `josh.zeng.ca@gmail.com` 可用，自用够，需开放再改。
 
-### O-7 /tj 分析页接入所有 JoshLabs 产品（2026-10-30）
-- **现状**：/tj 当前只有「守望」一个 tab。JOSHUA 要求所有软件都接进来（Cabinet-X、听到、150英语、好师傅等）。
-- **影响**：需要每个产品有可对接的后端 Admin Stats API，以及对应的 admin key 存入 Cloudflare。
-- **需要 JOSHUA 决定**：哪些产品目前有 `/api/admin/stats` 或类似接口可以直接对接？没有的先列出，后续逐步开发。
+### O-7 /tj 分析页接入所有 JoshLabs 产品（进行中，2026-10-30）
+- **已完成**：Cabinet-X tab 代码已写好并部署（`da66300`）。调 Cabinet-X Supabase 的 `cx_admin_stats_srv` RPC，显示：7天活跃用户、累计注册/下载/项目/设计/分享、趋势表、最近分享链接。
+- **JOSHUA 待做（Cabinet-X 能用的前提）**：在 Cloudflare Pages `joshlabs2026` → Settings → 变量和秘密 → 添加 Secret：名称 `CX_SUPABASE_SERVICE_KEY`，值从 `07Cabinet-X/apps/web/.dev.vars` 第 3 行 (`SUPABASE_SERVICE_ROLE_KEY=...`) 复制。`CX_SUPABASE_URL` 已自动加好。
+- **后续接入（待开发）**：听到（需加 Supabase RPC）、AskBible、JoshMoney——都需要先在各自 Supabase 项目里建 `admin_tj_stats` RPC 函数，再加到 joshlabs `stats.js`。
 
 ### O-4 好师傅的链接还是 vercel 临时地址（2026-10-01）
 - **现状**：首页好师傅磁贴和说明链的是 `https://goodpro-alpha.vercel.app`；GoodPro 项目里只找到这一个地址，
