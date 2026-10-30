@@ -1,7 +1,10 @@
 // JoshLabs unified analytics dashboard · /tj (admin only)
-// Calls /api/stats?product=<id>&days=N with Authorization: Bearer <JL_ADMIN_KEY>
-// Key stored in localStorage under "jl_admin_key" (never transmitted to 3rd parties).
+// Auth: Google Identity Services one-tap login. ID token sent as Bearer to /api/stats.
+// Token stored in sessionStorage — refreshed on next visit via Google silent flow.
 (() => {
+  const GOOGLE_CLIENT_ID = "584910137845-jneeasl3tjefegse0k3gnj8aefb9dtf6.apps.googleusercontent.com";
+  const TOKEN_STORE = "jl_google_id_token";
+
   const PRODUCTS = {
     shouwang: {
       name: "守望",
@@ -14,9 +17,9 @@
     },
   };
 
-  const KEY_STORE = "jl_admin_key";
-  const getKey = () => { try { return localStorage.getItem(KEY_STORE) || ""; } catch { return ""; } };
-  const setKey = v => { try { localStorage.setItem(KEY_STORE, v); } catch {} };
+  const getToken = () => { try { return sessionStorage.getItem(TOKEN_STORE) || ""; } catch { return ""; } };
+  const setToken = v => { try { sessionStorage.setItem(TOKEN_STORE, v); } catch {} };
+  const clearToken = () => { try { sessionStorage.removeItem(TOKEN_STORE); } catch {} };
 
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const fmt = s => { s = Math.round(s); return s < 60 ? `${s}秒` : s < 3600 ? `${Math.floor(s / 60)}分${s % 60 ? s % 60 + "秒" : ""}` : `${Math.floor(s / 3600)}小时${Math.floor(s % 3600 / 60)}分`; };
@@ -29,7 +32,6 @@
 
   const authUI   = document.getElementById("tj-auth-ui");
   const mainUI   = document.getElementById("tj-main");
-  const authForm = document.getElementById("tj-auth-form");
   const authErr  = document.getElementById("tj-auth-err");
   const keyBtn   = document.getElementById("tj-key-btn");
   const content  = document.getElementById("tj-content");
@@ -37,26 +39,59 @@
   function showAuth() {
     authUI.hidden = false; mainUI.hidden = true;
     authErr.textContent = "";
-    document.getElementById("tj-key-input").value = "";
-    requestAnimationFrame(() => document.getElementById("tj-key-input").focus());
+    // Re-render Google button if needed
+    if (window.google?.accounts?.id) {
+      renderGoogleBtn();
+    }
   }
   function showMain() { authUI.hidden = true; mainUI.hidden = false; }
 
+  function renderGoogleBtn() {
+    const container = document.getElementById("tj-google-btn");
+    if (!container || !window.google?.accounts?.id) return;
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: onGoogleCredential,
+      auto_select: true,
+    });
+    google.accounts.id.renderButton(container, {
+      theme: "outline",
+      size: "large",
+      text: "signin_with",
+      locale: "zh-CN",
+    });
+    // Also try one-tap prompt
+    google.accounts.id.prompt();
+  }
+
+  function onGoogleCredential(response) {
+    const idToken = response.credential;
+    setToken(idToken);
+    authErr.textContent = "";
+    showMain();
+    load(currentProduct, days);
+  }
+
   async function load(product, d) {
     const p = PRODUCTS[product]; if (!p) return;
-    const key = getKey();
-    if (!key) { showAuth(); return; }
+    const token = getToken();
+    if (!token) { showAuth(); return; }
     content.innerHTML = `<p class="tj-msg">载入中…</p>`;
     let j;
     try {
       const r = await fetch(`/api/stats?product=${product}&days=${d}`, {
-        headers: { "Authorization": `Bearer ${key}` },
+        headers: { "Authorization": `Bearer ${token}` },
       });
-      if (r.status === 401) { authErr.textContent = "密钥不正确，请重新输入。"; showAuth(); return; }
+      if (r.status === 401) {
+        clearToken();
+        authErr.textContent = "登录已过期，请重新登录。";
+        showAuth();
+        return;
+      }
       if (!r.ok) throw new Error(`${r.status}`);
       j = await r.json();
     } catch (e) {
-      content.innerHTML = `<p class="tj-msg">载入失败（${esc(String(e.message))}）。<br>如在本地开发，请先 <code>npx wrangler pages dev . --binding JL_ADMIN_KEY=test --binding SW_ADMIN_KEY=your_key</code></p>`;
+      content.innerHTML = `<p class="tj-msg">载入失败（${esc(String(e.message))}）。<br>如在本地开发，请先 <code>npx wrangler pages dev . --binding GOOGLE_CLIENT_ID=xxx --binding SW_ADMIN_KEY=your_key</code></p>`;
       return;
     }
     render(j, p, d);
@@ -111,13 +146,11 @@
 <ol class="tj-recent">${recentHTML}</ol>
 <p class="tj-note">停留时长：只算页面在前台的秒数，2026-10-29 起才有。时间按本地时区显示。</p>`;
 
-    // Wire range buttons
     document.getElementById("tj-range").addEventListener("click", ev => {
       const b = ev.target.closest("button[data-d]"); if (!b) return;
       days = +b.dataset.d; load(currentProduct, days);
     });
 
-    // Draw map
     drawMap(j);
   }
 
@@ -158,16 +191,6 @@
     map.addEventListener("pointerleave", () => { tip.hidden = true; });
   }
 
-  // Auth form submit
-  authForm.addEventListener("submit", e => {
-    e.preventDefault();
-    const key = document.getElementById("tj-key-input").value.trim();
-    if (!key) { authErr.textContent = "请输入密钥。"; return; }
-    setKey(key);
-    showMain();
-    load(currentProduct, days);
-  });
-
   // Product tab switching
   document.getElementById("tj-products").addEventListener("click", ev => {
     const t = ev.target.closest(".tj-tab[data-product]"); if (!t) return;
@@ -177,22 +200,36 @@
     load(currentProduct, days);
   });
 
-  // Key reset button
-  keyBtn.addEventListener("click", () => showAuth());
+  // Sign out button
+  keyBtn.addEventListener("click", () => {
+    clearToken();
+    if (window.google?.accounts?.id) google.accounts.id.disableAutoSelect();
+    showAuth();
+  });
 
-  // Load world map (local copy)
+  // Load world map
   fetch("assets/world.json").then(r => r.json()).then(w => {
     world = w;
     worldNames = { ...(w.n || {}), ...Object.fromEntries(w.c.map(([k, n]) => [k, n])) };
-    // Re-draw if stats already loaded
     const map = document.getElementById("tjmap");
     if (map && map.children.length === 0 && content.querySelector(".tj-map-wrap")) {
-      // stats rendered but map was empty because world not yet loaded
       load(currentProduct, days);
     }
   }).catch(() => {});
 
-  // Init
-  if (getKey()) { showMain(); load(currentProduct, days); }
-  else showAuth();
+  // Init: check for stored token first, then render Google button
+  window.addEventListener("load", () => {
+    if (getToken()) {
+      showMain();
+      load(currentProduct, days);
+    } else {
+      showAuth();
+      renderGoogleBtn();
+    }
+  });
+
+  // Google GIS loaded callback (in case script loads after window load)
+  window.__tjGoogleReady = () => {
+    if (!getToken()) renderGoogleBtn();
+  };
 })();

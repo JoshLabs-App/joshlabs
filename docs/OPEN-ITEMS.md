@@ -5,19 +5,14 @@
 
 ## 待决
 
-### O-5 使用分析页 /tj 上线前需要在 Cloudflare 设置两个环境变量（2026-10-30）
-- **现状**：已建 `tj.html`（登录入口）+ `assets/tj.js`（仪表板）+ `functions/api/stats.js`（Pages Function 代取守望数据）+ `assets/world.json`（地图）。本地静态预览 UI 流程 OK；上线还差两步：① Cloudflare Pages 设 env vars，② 部署。
-- **影响**：`/api/stats` 调用会 404，拿不到数据。
-- **需要 JOSHUA 做**：
-  1. 打开 Cloudflare Pages → `joshlabs` 项目 → Settings → Environment variables，加两个 Secret（Production + Preview 都选）：
-     - `JL_ADMIN_KEY` = 你自己想的登录密码（访问 `/tj` 时浏览器输这个）
-     - `SW_ADMIN_KEY` = 守望管理密钥（从 `/Users/joshua/Desktop/APP/03听到/守望资料/网站/.admin_key` 复制，48 字符那行）
-  2. 在 Pages 仪表板触发一次重新部署（或 `npx wrangler pages deploy .`），让 Function 生效。
-  3. 打开 `joshlabs.app/tj`，输入你刚设的 `JL_ADMIN_KEY`，看到守望统计即完成。
-- **本地联调命令**（不想等部署）：
-  ```bash
-  npx wrangler pages dev . --binding JL_ADMIN_KEY=你的密码 --binding SW_ADMIN_KEY=$(cat /Users/joshua/Desktop/APP/03听到/守望资料/网站/.admin_key)
-  ```
+### ~~O-5~~ 使用分析页 /tj 上线前需要在 Cloudflare 设置两个环境变量（关闭于 2026-10-30）
+已在 2026-10-30 完成 Google OAuth 改造并部署。见 O-6。
+
+### O-6 /tj 分析页 Google 登录已上线（待清理旧变量）（2026-10-30）
+- **现状**：/tj 已改为 Google Identity Services 登录（`josh.zeng.ca@gmail.com`）。Google Cloud `joshlabs` 项目已建 OAuth 同意屏幕（JoshLabs Admin，外部）和 Web Application Client ID。Cloudflare `joshlabs2026` 已加 `GOOGLE_CLIENT_ID` 文本变量。代码已提交推送部署。
+- **凭据**：`/Users/joshua/Desktop/APP/00/google-oauth/joshlabs/client-id.txt`
+- **待做（JOSHUA 手动）**：Cloudflare Pages `joshlabs2026` → Settings → 变量和秘密 → 删除 `JL_ADMIN_KEY`（旧密码变量，新代码不再使用）。`SW_ADMIN_KEY` 保留。
+- **Google Cloud 待做**：OAuth 同意屏幕发布状态是「测试」，当前只有添加的测试用户能登录。只有自己用不需要改；若以后要其他人用，需要在 Google Cloud Console 把应用发布为「正式版」。
 
 ### O-4 好师傅的链接还是 vercel 临时地址（2026-10-01）
 - **现状**：首页好师傅磁贴和说明链的是 `https://goodpro-alpha.vercel.app`；GoodPro 项目里只找到这一个地址，

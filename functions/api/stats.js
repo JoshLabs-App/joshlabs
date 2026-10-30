@@ -1,7 +1,9 @@
 // JoshLabs Pages Function: proxy admin stats for each product.
 // Env vars required (set in Cloudflare Pages → Settings → Environment variables):
-//   JL_ADMIN_KEY   — password for the /tj admin page (you choose)
-//   SW_ADMIN_KEY   — 守望 shouwang.org admin key (copy from .admin_key file)
+//   GOOGLE_CLIENT_ID  — OAuth 2.0 Web Application Client ID (public, from Google Cloud Console)
+//   SW_ADMIN_KEY      — 守望 shouwang.org admin key (never leaves this server)
+
+const ALLOWED_EMAIL = "josh.zeng.ca@gmail.com";
 
 const PRODUCTS = {
   shouwang: {
@@ -10,29 +12,27 @@ const PRODUCTS = {
   },
 };
 
-function same(a, b) {
-  if (!a || !b || a.length !== b.length) return false;
-  let d = 0;
-  for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  return d === 0;
-}
-
 export async function onRequest(ctx) {
   const { request, env } = ctx;
   const url = new URL(request.url);
 
-  // CORS preflight
   if (request.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: corsHeaders(request) });
   }
 
-  // Auth: Authorization: Bearer <JL_ADMIN_KEY>
+  // Verify Google ID token
   const auth = request.headers.get("authorization") || "";
-  const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
-  if (!env.JL_ADMIN_KEY || !same(token, env.JL_ADMIN_KEY)) {
+  const idToken = auth.startsWith("Bearer ") ? auth.slice(7) : "";
+  if (!idToken) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), {
-      status: 401,
-      headers: { "content-type": "application/json", ...corsHeaders(request) },
+      status: 401, headers: { "content-type": "application/json", ...corsHeaders(request) },
+    });
+  }
+
+  const email = await verifyGoogleToken(idToken, env.GOOGLE_CLIENT_ID);
+  if (!email || email !== ALLOWED_EMAIL) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401, headers: { "content-type": "application/json", ...corsHeaders(request) },
     });
   }
 
@@ -41,16 +41,14 @@ export async function onRequest(ctx) {
   const p = PRODUCTS[product];
   if (!p) {
     return new Response(JSON.stringify({ error: "Unknown product" }), {
-      status: 400,
-      headers: { "content-type": "application/json", ...corsHeaders(request) },
+      status: 400, headers: { "content-type": "application/json", ...corsHeaders(request) },
     });
   }
 
   const key = env[p.keyVar];
   if (!key) {
     return new Response(JSON.stringify({ error: "Product key not configured" }), {
-      status: 503,
-      headers: { "content-type": "application/json", ...corsHeaders(request) },
+      status: 503, headers: { "content-type": "application/json", ...corsHeaders(request) },
     });
   }
 
@@ -70,17 +68,29 @@ export async function onRequest(ctx) {
         ...corsHeaders(request),
       },
     });
-  } catch (e) {
+  } catch {
     return new Response(JSON.stringify({ error: "Upstream error" }), {
-      status: 502,
-      headers: { "content-type": "application/json", ...corsHeaders(request) },
+      status: 502, headers: { "content-type": "application/json", ...corsHeaders(request) },
     });
+  }
+}
+
+async function verifyGoogleToken(idToken, clientId) {
+  try {
+    const r = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(idToken)}`);
+    if (!r.ok) return null;
+    const payload = await r.json();
+    // Verify audience matches our client ID and token is not expired
+    if (clientId && payload.aud !== clientId) return null;
+    if (payload.exp && Number(payload.exp) < Date.now() / 1000) return null;
+    return payload.email || null;
+  } catch {
+    return null;
   }
 }
 
 function corsHeaders(req) {
   const origin = req.headers.get("origin") || "";
-  // Only allow from joshlabs.app itself (same origin, but include for local dev)
   const allowed = ["https://joshlabs.app", "http://localhost:8788", "http://localhost:8080"];
   return allowed.includes(origin)
     ? { "access-control-allow-origin": origin, "access-control-allow-headers": "Authorization, Content-Type" }

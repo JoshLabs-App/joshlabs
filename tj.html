@@ -7,6 +7,7 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="icon" href="assets/icons/joshlabs.svg" type="image/svg+xml">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     .tj-wrap { max-width: var(--max); margin: 0 auto; padding: 0 1.25rem; }
     .tj-header { padding: 2rem 0 1.25rem; border-bottom: 1px solid var(--line); }
@@ -74,26 +75,12 @@
     }
     .tj-auth-card {
       background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
-      padding: 1.75rem; box-shadow: var(--shadow-md);
+      padding: 1.75rem; box-shadow: var(--shadow-md); text-align: center;
     }
-    .tj-auth h1 { font-size: 1.125rem; font-weight: 700; margin: 0 0 1.25rem; }
-    .tj-auth-form { display: flex; flex-direction: column; gap: 0.875rem; }
-    .tj-auth label { font-size: 0.8125rem; color: var(--fg-soft); margin-bottom: 0.25rem; display: block; }
-    .tj-auth select,
-    .tj-auth input[type=password] {
-      width: 100%; padding: 0.5625rem 0.75rem; border-radius: var(--radius-sm);
-      border: 1px solid var(--line-strong); background: var(--bg); color: var(--fg);
-      font: inherit; font-size: 0.875rem; -webkit-appearance: none;
-    }
-    .tj-auth select:focus,
-    .tj-auth input:focus { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-color: transparent; }
-    .tj-auth-submit {
-      padding: 0.5625rem 1rem; border-radius: var(--radius-sm); border: none;
-      background: var(--fg); color: var(--bg); font: inherit; font-size: 0.875rem;
-      font-weight: 600; cursor: pointer; margin-top: 0.25rem;
-    }
-    .tj-auth-submit:hover { opacity: 0.88; }
-    .tj-auth-err { color: #c0392b; font-size: 0.8125rem; min-height: 1.25em; }
+    .tj-auth h1 { font-size: 1.125rem; font-weight: 700; margin: 0 0 0.5rem; }
+    .tj-auth-desc { font-size: 0.8125rem; color: var(--muted); margin: 0 0 1.5rem; }
+    .tj-auth-google { display: flex; justify-content: center; }
+    .tj-auth-err { color: #c0392b; font-size: 0.8125rem; min-height: 1.25em; margin-top: 1rem; }
   </style>
 </head>
 <body>
@@ -104,7 +91,7 @@
       <span class="brand__name">Josh<span class="wordmark__labs">Labs</span></span>
     </a>
     <button id="tj-key-btn" style="background:none;border:none;color:var(--muted);font:inherit;font-size:0.8125rem;cursor:pointer;padding:0.25rem 0.625rem;border-radius:var(--radius-sm);">
-      密钥设置
+      退出登录
     </button>
   </div>
 </header>
@@ -114,20 +101,11 @@
   <div class="tj-auth">
     <div class="tj-auth-card">
       <h1>管理登录</h1>
-      <form class="tj-auth-form" id="tj-auth-form" novalidate>
-        <div>
-          <label for="tj-product-sel">产品</label>
-          <select id="tj-product-sel">
-            <option value="shouwang">守望</option>
-          </select>
-        </div>
-        <div>
-          <label for="tj-key-input">管理密钥</label>
-          <input type="password" id="tj-key-input" placeholder="输入管理员密钥" autocomplete="off" spellcheck="false">
-        </div>
-        <div class="tj-auth-err" id="tj-auth-err" role="alert"></div>
-        <button type="submit" class="tj-auth-submit">确认</button>
-      </form>
+      <p class="tj-auth-desc">使用 Google 账号登录</p>
+      <div class="tj-auth-google">
+        <div id="tj-google-btn"></div>
+      </div>
+      <div class="tj-auth-err" id="tj-auth-err" role="alert"></div>
     </div>
   </div>
 </div>
