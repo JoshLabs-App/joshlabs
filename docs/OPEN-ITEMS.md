@@ -13,10 +13,39 @@
 - 现有变量：`GOOGLE_CLIENT_ID`（文本）、`SW_ADMIN_KEY`（密钥）。
 - OAuth 同意屏幕仍为"测试"状态，只有 `josh.zeng.ca@gmail.com` 可用，自用够，需开放再改。
 
-### O-7 /tj 分析页接入所有 JoshLabs 产品（进行中，2026-10-30）
-- **已完成**：Cabinet-X tab 代码已写好并部署（`da66300`）。调 Cabinet-X Supabase 的 `cx_admin_stats_srv` RPC，显示：7天活跃用户、累计注册/下载/项目/设计/分享、趋势表、最近分享链接。
-- **JOSHUA 待做（Cabinet-X 能用的前提）**：在 Cloudflare Pages `joshlabs2026` → Settings → 变量和秘密 → 添加 Secret：名称 `CX_SUPABASE_SERVICE_KEY`，值从 `07Cabinet-X/apps/web/.dev.vars` 第 3 行 (`SUPABASE_SERVICE_ROLE_KEY=...`) 复制。`CX_SUPABASE_URL` 已自动加好。
-- **后续接入（待开发）**：听到（需加 Supabase RPC）、AskBible、JoshMoney——都需要先在各自 Supabase 项目里建 `admin_tj_stats` RPC 函数，再加到 joshlabs `stats.js`。
+### O-7 /tj 分析页接入所有 JoshLabs 产品（待 JOSHUA 配置密钥，2026-10-30）
+- **已完成**：
+  - Cabinet-X tab 代码已写好并部署（`da66300`）。
+  - 听到 / AskBible / JoshMoney 三个 tab 代码已写好并推送（`d5eed61`）。
+  - SQL migration：`05JoshMoney/supabase/migrations/021_joshlabs_tj_stats.sql`
+    创建了 `my_class_tj_stats_srv` / `askbible_tj_stats_srv` / `joshmoney_tj_stats_srv`
+    三个函数（听到 / AskBible / JoshMoney 共用同一 Supabase 项目 `tgobadhdylarhssudplc`）。
+
+- **JOSHUA 还需做以下两步后才能生效**：
+
+  **步骤 1 — 跑 SQL migration（只需跑一次）**
+  ```
+  cd ~/Desktop/APP/05JoshMoney && ~/bin/db_migrate.sh 021_joshlabs_tj_stats.sql
+  ```
+  这会在 `tgobadhdylarhssudplc.supabase.co` 数据库建三个 stats 函数。
+  （Cabinet-X 的 `cx_admin_stats_srv` 早已存在，不需要重新跑）
+
+  **步骤 2 — 在 Cloudflare Pages 加两组 Secret**
+  去 [Cloudflare Pages → joshlabs2026 → Settings → 变量和秘密](https://dash.cloudflare.com/652050e08d4a384c7cbe975ea02fb52c/pages/view/joshlabs2026/settings/environment-variables)：
+
+  a) 加 Secret: 名称 `CX_SUPABASE_SERVICE_KEY`
+     值：从 `07Cabinet-X/apps/web/.dev.vars` 里的 `SUPABASE_SERVICE_ROLE_KEY=...` 这行复制
+     （Cabinet-X 专用，Supabase 项目 `copbrwcrdxvxjvpnyavo`）
+
+  b) 加 Secret: 名称 `JOSHLABS_SUPABASE_URL`
+     值：`https://tgobadhdylarhssudplc.supabase.co`
+     （可以是纯文本变量，不必是 Secret）
+
+  c) 加 Secret: 名称 `JOSHLABS_SUPABASE_SERVICE_KEY`
+     值：去 [Supabase 控制台 → tgobadhdylarhssudplc → Settings → API](https://supabase.com/dashboard/project/tgobadhdylarhssudplc/settings/api)
+     复制 `service_role` 那个 key（`eyJ…` 开头的长串）
+
+  加完后 Cloudflare Pages 会自动重新部署。
 
 ### O-4 好师傅的链接还是 vercel 临时地址（2026-10-01）
 - **现状**：首页好师傅磁贴和说明链的是 `https://goodpro-alpha.vercel.app`；GoodPro 项目里只找到这一个地址，
