@@ -13,7 +13,7 @@
 - 现有变量：`GOOGLE_CLIENT_ID`（文本）、`SW_ADMIN_KEY`（密钥）。
 - OAuth 同意屏幕仍为"测试"状态，只有 `josh.zeng.ca@gmail.com` 可用，自用够，需开放再改。
 
-### O-7 /tj 分析页接入所有 JoshLabs 产品（待 JOSHUA 配置密钥，2026-10-30）
+### ~~O-7~~ /tj 分析页接入所有 JoshLabs 产品（关闭于 2026-10-30）
 - **已完成**：
   - Cabinet-X tab 代码已写好并部署（`da66300`）。
   - 听到 / AskBible / JoshMoney 三个 tab 代码已写好并推送（`d5eed61`）。
