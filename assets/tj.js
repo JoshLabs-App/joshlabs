@@ -41,11 +41,11 @@
   const keyBtn   = document.getElementById("tj-key-btn");
   const content  = document.getElementById("tj-content");
 
+  let googleBtnRendered = false;
   function showAuth() {
     authUI.hidden = false; mainUI.hidden = true;
     authErr.textContent = "";
-    // Re-render Google button if needed
-    if (window.google?.accounts?.id) {
+    if (!googleBtnRendered && window.google?.accounts?.id) {
       renderGoogleBtn();
     }
   }
@@ -54,6 +54,7 @@
   function renderGoogleBtn() {
     const container = document.getElementById("tj-google-btn");
     if (!container || !window.google?.accounts?.id) return;
+    googleBtnRendered = true;
     google.accounts.id.initialize({
       client_id: GOOGLE_CLIENT_ID,
       callback: onGoogleCredential,
