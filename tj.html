@@ -69,6 +69,54 @@
     .tj-msg { color: var(--muted); font-size: 0.875rem; padding: 3rem 0; text-align: center; }
     .tj-content { padding: 0 0 4rem; }
 
+    /* Charts */
+    .tj-chart-section { margin-bottom: 1.5rem; }
+    .tj-chart-section h2 { font-size: 0.75rem; font-weight: 600; margin: 0 0 0.5rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .tj-chart-wrap { width: 100%; margin: 0; }
+    .tj-chart-empty { color: var(--muted); font-size: 0.875rem; padding: 2.5rem 0; text-align: center; }
+
+    /* Trend badges — inline by default; KPI card positions them absolutely */
+    .tj-trend-up, .tj-trend-dn {
+      display: inline-block; font-size: 0.6875rem; font-weight: 600;
+      padding: 2px 5px; border-radius: 10px; white-space: nowrap; line-height: 1.4;
+    }
+    .tj-trend-up { color: #059669; background: rgba(16,185,129,0.12); }
+    .tj-trend-dn { color: #dc2626; background: rgba(220,38,38,0.1); }
+    .tj-kpi-card { position: relative; }
+    .tj-kpi-card .tj-trend-up, .tj-kpi-card .tj-trend-dn { position: absolute; top: 0.5rem; right: 0.5rem; }
+
+    /* Overview header summary stats */
+    .tj-ov-header {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+      gap: 0.75rem; margin-bottom: 1.25rem;
+    }
+    .tj-ov-stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 0.875rem 1rem; }
+    .tj-ov-stat b { display: block; font-size: 1.375rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .tj-ov-stat span { font-size: 0.75rem; color: var(--muted); }
+
+    /* Overview product cards grid */
+    .tj-ov-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+      gap: 0.875rem; margin-bottom: 2rem;
+    }
+    .tj-pcard {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-md); padding: 1rem;
+      cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; outline: none;
+    }
+    .tj-pcard:hover, .tj-pcard:focus-visible {
+      border-color: var(--pc, var(--line-strong));
+      box-shadow: 0 0 0 1px var(--pc, var(--line-strong));
+    }
+    .tj-pcard-name {
+      font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--pc, var(--muted)); margin-bottom: 0.75rem;
+    }
+    .tj-pcard-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 0.5rem; }
+    .tj-pcard-kpi { font-size: 1.625rem; font-weight: 700; color: var(--fg); line-height: 1; }
+    .tj-pcard-lbl { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+    .tj-pcard-foot { margin-top: 0.625rem; font-size: 0.75rem; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; }
+
     /* Cabinet-X app stats table */
     .tj-cx-section { margin-bottom: 1.5rem; }
     .tj-cx-section h2 { font-size: 0.75rem; font-weight: 600; margin: 0 0 0.625rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
@@ -126,7 +174,8 @@
     <div class="tj-header">
       <h1>使用分析</h1>
       <div class="tj-products" id="tj-products" role="tablist">
-        <button class="tj-tab" role="tab" aria-selected="true" data-product="shouwang">守望</button>
+        <button class="tj-tab" role="tab" aria-selected="true"  data-product="overview">总览</button>
+        <button class="tj-tab" role="tab" aria-selected="false" data-product="shouwang">守望</button>
         <button class="tj-tab" role="tab" aria-selected="false" data-product="cabinetx">Cabinet-X</button>
         <button class="tj-tab" role="tab" aria-selected="false" data-product="tingdao">听到</button>
         <button class="tj-tab" role="tab" aria-selected="false" data-product="askbible">AskBible</button>
