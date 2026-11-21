@@ -1,5 +1,7 @@
 # JoshLabs 门户 — AI 交接开发文档
 
+> 完成交付统一遵循 `/Users/joshua/Desktop/APP/AGENTS.md`「完整交付」：修好、验收通过、按已有授权发布并复验后才算完成；必要配套工作持续推进，不等 DD。历史条款与当前授权冲突时以当前授权为准；纯文档无需部署。
+
 > **后续 AI：先读本文件，再动手。**  
 > 产品站：https://joshlabs.app  
 > 本仓库是**静态门户**，不是各 App 的源码仓。
@@ -8,9 +10,13 @@
 
 ## 1. 一句话
 
-`joshlabs.app` = Cloudflare Pages 上的静态站点：首页 App 目录 + 各产品介绍/隐私页 + **My Class** 完整 Web App + **PhotoPorter** 安卓 APK 直链。
+`joshlabs.app` = Cloudflare Pages 上的静态站点：**首屏主推 `JoshBox` 一站式启动器（macOS `.dmg` / Windows `.exe` + 在线软件源 `joshbox/catalog.json`、`apps-mac.json`、`apps-win.json`）** + 旗下全部非信仰工具软件的独立子站、隐私页与单独安装包。
 
-无构建步骤（无 Vite/Next）。改 HTML/CSS/JS → 本地预览 → 用户明确要求后再 `wrangler pages deploy`。
+> **⚠️ 2026-11-20 硬性安全红线（物理切割）**：
+> 为防止 `joshlabs.app`（及 `JoshBox` 在线模块源）被中国防火墙连坐封杀，**所有信仰类产品（AskBible、听到、查到、TovCore、守望、圣经游戏）已全线剥离至 `askbible.me` / `tovcore.com` / `shouwang.org` 体系**。
+> **严禁**在 `joshlabs.app` 任何 HTML/CSS/JS/图标/跳转或 `*.joshlabs.app` DNS/R2/Worker 子域中添加任何信仰类产品链接、字样或二级域名；两边保持 100% 零互链、零子域共用。`Selah.my` 留在 `joshlabs.app`，定位严格保持纯自然白噪音与专注休息计时工具。
+
+无构建步骤（无 Vite/Next）。改 HTML/CSS/JS → 本地预览 → 按已有授权使用下述正式发布脚本。
 
 ---
 
@@ -18,8 +24,8 @@
 
 1. 读本文件全文。
 2. 遵守 JoshLabs Dev：`/Users/joshua/Desktop/APP/skills/joshlabs-dev/SKILL.md` → `references/core-dev-principles.md`。
-3. 最小改动；未要求不上线、不 commit、不 push。
-4. 动 My Class → 去 **`../03MyClass`**，它已是独立站（`class.joshlabs.app`），**与本仓无关**；本仓只保留老地址跳转。
+3. 持续完成实现和验收；按当前任务及已有授权提交、推送和发布，已有授权不重复询问。
+4. 动 My Class → 去 **`../03听到`**，它已是独立站（`class.joshlabs.app`），**与本仓无关**；本仓只保留老地址跳转。
 5. 动门户文案/图标/产品页 → 改本仓对应路径，复用 `assets/styles.css` 与现有 page-hero 骨架。
 
 ---
@@ -28,10 +34,9 @@
 
 | 禁止 | 原因 |
 |------|------|
-| 未要求就 publish / deploy | 上线需用户明确说 |
+| 无发布授权时直接上线 | 先完成验证与发布准备，仅询问缺失授权；已有授权不重复问 |
 | 重建 `my-class/` 目录 | 已于 2026-09-08 独立出去；目录一旦存在，静态文件优先于 `_redirects`，老地址跳转会失效 |
 | 新建框架、打包器、组件库 | 保持纯静态 |
-| 擅自加装饰动画/未请求的 UI 效果 | JoshLabs Dev UI 默认 |
 | 改 AskBible 产品本体 | 首页只链到 `https://askbible.me` |
 | 把 `scripts/` 当线上依赖 | 已被 `.gitignore` / `.cfignore` 排除 |
 
@@ -215,7 +220,7 @@ My Class 开发预览优先在 `03MyClass`：`npm run dev`。
 - [ ] 只动了请求范围内的文件  
 - [ ] My Class 改动是否应回 `03MyClass`？  
 - [ ] 本地 `python3 -m http.server` 打开相关路径可看  
-- [ ] 未擅自 deploy / commit / push  
+- [ ] 已按授权完成提交、发布和线上复验；缺授权时已备齐可审阅结果
 - [ ] 版本号、APK 文件名、商店链接一致  
 
 ---

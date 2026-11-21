@@ -53,7 +53,7 @@
           <ul>
             <li><strong>设备本地数据</strong>：场景与环境声偏好、计时设置、语言、通知开关等，默认保存在本机。</li>
             <li><strong>可选登录</strong>（Sign in with Apple / Google，经 Supabase）：用户 ID、电子邮件、显示名称，用于可选云端同步。</li>
-            <li><strong>可选云端同步</strong>：若你登录，语言与阅读相关偏好可能通过 JoshLabs 会员服务（askbible.me / Supabase）与你的账号关联。Selah.my 同步数据与其他 JoshLabs 应用隔离处理。</li>
+            <li><strong>可选云端同步</strong>：若你登录，语言与场景偏好可能通过 JoshLabs 云同步服务（基于 Supabase）与你的账号关联。Selah.my 同步数据与其他 JoshLabs 应用隔离处理。</li>
             <li><strong>可选通知</strong>：若你开启，系统会在本机安排休息提醒；我们不把通知内容用于广告。</li>
           </ul>
 
@@ -70,8 +70,7 @@
 
           <h2>第三方服务</h2>
           <ul>
-            <li><strong>Supabase</strong> — 可选 Apple / Google 登录身份验证。</li>
-            <li><strong>JoshLabs 会员服务（askbible.me）</strong> — 可选账号与偏好同步。</li>
+            <li><strong>Supabase</strong> — 可选 Apple / Google 登录身份验证与偏好云端同步。</li>
           </ul>
           <p>各服务商受其自身隐私政策约束。</p>
 
@@ -111,7 +110,7 @@
           <ul>
             <li><strong>On-device data</strong> — scene and ambient preferences, timer settings, language, and notification choices, stored locally by default.</li>
             <li><strong>Optional sign-in</strong> (Sign in with Apple / Google via Supabase) — user ID, email, and display name for optional cloud sync.</li>
-            <li><strong>Optional cloud sync</strong> — when signed in, language and related preferences may be stored through JoshLabs member services (askbible.me / Supabase) linked to your account. Selah.my sync data is handled separately from other JoshLabs apps.</li>
+            <li><strong>Optional cloud sync</strong> — when signed in, language and scene preferences may be stored through JoshLabs cloud sync services (powered by Supabase) linked to your account. Selah.my sync data is handled separately from other JoshLabs apps.</li>
             <li><strong>Optional notifications</strong> — if you enable them, rest reminders are scheduled on-device. We do not use notification content for ads.</li>
           </ul>
 
@@ -128,8 +127,7 @@
 
           <h2>Third-party services</h2>
           <ul>
-            <li><strong>Supabase</strong> — optional Apple / Google sign-in.</li>
-            <li><strong>JoshLabs member services (askbible.me)</strong> — optional account and preference sync.</li>
+            <li><strong>Supabase</strong> — optional Apple / Google sign-in and preference sync.</li>
           </ul>
 
           <h2>Your choices</h2>

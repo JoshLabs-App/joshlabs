@@ -1,21 +1,12 @@
 // JoshLabs Pages Function: proxy admin stats for each product.
 // Env vars required (set in Cloudflare Pages → Settings → Environment variables):
 //   GOOGLE_CLIENT_ID                — OAuth 2.0 Web Application Client ID
-//   SW_ADMIN_KEY                    — 守望 shouwang.org admin key (never leaves this server)
 //   CX_SUPABASE_URL                 — Cabinet-X Supabase project URL
 //   CX_SUPABASE_SERVICE_KEY         — Cabinet-X Supabase service role key (never leaves this server)
-//   JOSHLABS_SUPABASE_URL           — Shared Supabase URL (听到/AskBible/JoshMoney)
+//   JOSHLABS_SUPABASE_URL           — Shared Supabase URL (JoshMoney)
 //   JOSHLABS_SUPABASE_SERVICE_KEY   — Shared Supabase service role key (never leaves this server)
 
 const ALLOWED_EMAIL = "josh.zeng.ca@gmail.com";
-
-// Products backed by a simple bearer-key API (shouwang pattern)
-const BEARER_PRODUCTS = {
-  shouwang: {
-    api: "https://shouwang.org/api/admin/stats",
-    keyVar: "SW_ADMIN_KEY",
-  },
-};
 
 export async function onRequest(ctx) {
   const { request, env } = ctx;
@@ -41,7 +32,7 @@ export async function onRequest(ctx) {
     });
   }
 
-  const product = url.searchParams.get("product") || "shouwang";
+  const product = url.searchParams.get("product") || "cabinetx";
   const days = Math.max(1, Math.min(3660, Number(url.searchParams.get("days")) || 7));
 
   // Cabinet-X: call Supabase RPC directly with service role key
@@ -49,51 +40,17 @@ export async function onRequest(ctx) {
     return handleCabinetX(env, days, request);
   }
 
-  // Shared Supabase products (听到 / AskBible / JoshMoney)
+  // Shared Supabase products (JoshMoney)
   const JOSHLABS_RPC = {
-    tingdao:   "my_class_tj_stats_srv",
-    askbible:  "askbible_tj_stats_srv",
     joshmoney: "joshmoney_tj_stats_srv",
   };
   if (JOSHLABS_RPC[product]) {
     return handleJoshlabsSupabase(env, product, JOSHLABS_RPC[product], days, request);
   }
 
-  const p = BEARER_PRODUCTS[product];
-  if (!p) {
-    return new Response(JSON.stringify({ error: "Unknown product" }), {
-      status: 400, headers: { "content-type": "application/json", ...corsHeaders(request) },
-    });
-  }
-
-  const key = env[p.keyVar];
-  if (!key) {
-    return new Response(JSON.stringify({ error: "Product key not configured" }), {
-      status: 503, headers: { "content-type": "application/json", ...corsHeaders(request) },
-    });
-  }
-
-  try {
-    const upstream = await fetch(`${p.api}?days=${days}`, {
-      headers: {
-        "Authorization": `Bearer ${key}`,
-        "User-Agent": "Mozilla/5.0 (compatible; JoshLabs-Stats/1.0)",
-      },
-    });
-    const body = await upstream.arrayBuffer();
-    return new Response(body, {
-      status: upstream.status,
-      headers: {
-        "content-type": upstream.headers.get("content-type") || "application/json",
-        "cache-control": "no-store",
-        ...corsHeaders(request),
-      },
-    });
-  } catch {
-    return new Response(JSON.stringify({ error: "Upstream error" }), {
-      status: 502, headers: { "content-type": "application/json", ...corsHeaders(request) },
-    });
-  }
+  return new Response(JSON.stringify({ error: "Unknown product" }), {
+    status: 400, headers: { "content-type": "application/json", ...corsHeaders(request) },
+  });
 }
 
 async function handleCabinetX(env, days, request) {
@@ -107,24 +64,22 @@ async function handleCabinetX(env, days, request) {
 
   // Map days → bucket + count
   let bucket, count;
-  if (days >= 180) {
-    bucket = "week";
-    count = Math.min(Math.ceil(days / 7), 52);
-  } else {
-    bucket = "day";
-    count = Math.min(days, 90);
-  }
+  if (days >= 180) { bucket = "week"; count = Math.min(Math.ceil(days / 7), 52); }
+  else              { bucket = "day";  count = Math.min(days, 90); }
 
   try {
-    const r = await fetch(`${supabaseUrl}/rest/v1/rpc/cx_admin_stats_srv`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "apikey": serviceKey,
-        "authorization": `Bearer ${serviceKey}`,
-      },
-      body: JSON.stringify({ p_bucket: bucket, p_count: count, p_exclude: [] }),
-    });
+    const [r, countries] = await Promise.all([
+      fetch(`${supabaseUrl}/rest/v1/rpc/cx_admin_stats_srv`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "apikey": serviceKey, "authorization": `Bearer ${serviceKey}` },
+        body: JSON.stringify({ p_bucket: bucket, p_count: count, p_exclude: [] }),
+      }),
+      fetchGeo(supabaseUrl, serviceKey, [
+        { table: "profiles",  col: "country_code" },
+        { table: "profiles",  col: "country" },
+        { table: "users",     col: "country_code" },
+      ]),
+    ]);
     if (!r.ok) {
       const txt = await r.text();
       return new Response(JSON.stringify({ error: `Supabase error ${r.status}`, detail: txt }), {
@@ -132,7 +87,7 @@ async function handleCabinetX(env, days, request) {
       });
     }
     const data = await r.json();
-    return new Response(JSON.stringify({ _type: "cx_stats", ...data }), {
+    return new Response(JSON.stringify({ _type: "cx_stats", countries, ...data }), {
       headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store", ...corsHeaders(request) },
     });
   } catch (e) {
@@ -154,15 +109,18 @@ async function handleJoshlabsSupabase(env, product, rpcName, days, request) {
   const count = Math.min(days, 90);
 
   try {
-    const r = await fetch(`${supabaseUrl}/rest/v1/rpc/${rpcName}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "apikey": serviceKey,
-        "authorization": `Bearer ${serviceKey}`,
-      },
-      body: JSON.stringify({ p_days: count }),
-    });
+    const [r, countries] = await Promise.all([
+      fetch(`${supabaseUrl}/rest/v1/rpc/${rpcName}`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "apikey": serviceKey, "authorization": `Bearer ${serviceKey}` },
+        body: JSON.stringify({ p_days: count }),
+      }),
+      fetchGeo(supabaseUrl, serviceKey, [
+        { table: "profiles",  col: "country_code" },
+        { table: "profiles",  col: "country" },
+        { table: "app_users", col: "country_code" },
+      ]),
+    ]);
     if (!r.ok) {
       const txt = await r.text();
       return new Response(JSON.stringify({ error: `Supabase error ${r.status}`, detail: txt }), {
@@ -170,7 +128,7 @@ async function handleJoshlabsSupabase(env, product, rpcName, days, request) {
       });
     }
     const data = await r.json();
-    return new Response(JSON.stringify(data), {
+    return new Response(JSON.stringify({ ...data, countries }), {
       headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store", ...corsHeaders(request) },
     });
   } catch (e) {
@@ -178,6 +136,29 @@ async function handleJoshlabsSupabase(env, product, rpcName, days, request) {
       status: 502, headers: { "content-type": "application/json", ...corsHeaders(request) },
     });
   }
+}
+
+// Try multiple table/column combinations; returns [{k:"US",n:5},…] or []
+async function fetchGeo(supabaseUrl, serviceKey, attempts) {
+  for (const { table, col } of attempts) {
+    try {
+      const r = await fetch(
+        `${supabaseUrl}/rest/v1/${table}?select=${col}&${col}=not.is.null&limit=5000`,
+        { headers: { "apikey": serviceKey, "authorization": `Bearer ${serviceKey}` } }
+      );
+      if (!r.ok) continue;
+      const rows = await r.json();
+      if (!Array.isArray(rows) || !rows.length) continue;
+      const map = {};
+      for (const row of rows) {
+        const c = String(row[col] || "").trim().toUpperCase().slice(0, 2);
+        if (/^[A-Z]{2}$/.test(c)) map[c] = (map[c] || 0) + 1;
+      }
+      const result = Object.entries(map).map(([k, n]) => ({ k, n })).sort((a, b) => b.n - a.n);
+      if (result.length) return result;
+    } catch { /* try next */ }
+  }
+  return [];
 }
 
 async function verifyGoogleToken(idToken, clientId) {

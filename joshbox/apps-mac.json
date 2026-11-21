@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "platform": "macos",
+  "updatedAt": "2026-11-20",
+  "apps": [
+    {
+      "id": "jl-system-load",
+      "name": "JOSH本机资源负载",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "Apple Silicon 实时 CPU/GPU/内存负载大屏与全球联网防火墙管控",
+      "downloadUrl": "https://joshlabs.app/josh-load/"
+    },
+    {
+      "id": "jl-photoporter",
+      "name": "PhotoPorter",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "Android、iPhone 与 Mac 局域网高速直传照片、视频与大文件，不经云",
+      "downloadUrl": "https://joshlabs.app/photo-porter/"
+    },
+    {
+      "id": "jl-joshmoney",
+      "name": "JoshMoney 记账报税",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "公司、个体户免费记账本：实况报表、发票工资、美加优化报税表",
+      "downloadUrl": "https://joshlabs.app/joshmoney/"
+    },
+    {
+      "id": "jl-cabinetx",
+      "name": "Cabinet X 厨房设计",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "上传厨房实景照片，AI 生成门型与材质改造前后高清对比图",
+      "downloadUrl": "https://joshlabs.app/cabinet-x/"
+    },
+    {
+      "id": "jl-jietuyi",
+      "name": "截图译",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "外文截图秒出整段中英对照，点词听发音并连同原句存入生词本",
+      "downloadUrl": "https://joshlabs.app/jietuyi/"
+    },
+    {
+      "id": "jl-durian",
+      "name": "榴莲英语 Durian English",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "274 课当代美国生活对话（A1–B2），逐句音频、录音对比与离线随身听",
+      "downloadUrl": "https://durianenglish.joshlabs.app/"
+    },
+    {
+      "id": "jl-unlearn",
+      "name": "别学英语 & English +1",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "《十年之约》英语剧情养成游戏 + 80 课核心动词到写作训练",
+      "downloadUrl": "https://unlearn-eng.pages.dev/"
+    },
+    {
+      "id": "jl-selah",
+      "name": "Selah.my 安静小憩",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "离线自然声景、环境白噪音与温和休息计时，零推送打扰",
+      "downloadUrl": "https://joshlabs.app/selah-my/"
+    },
+    {
+      "id": "jl-goodpro",
+      "name": "好师傅 GoodPro",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "多伦多本地维修安装师傅对接平台：发布需求、透明比价选定",
+      "downloadUrl": "https://goodpro-alpha.vercel.app"
+    },
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "category": "AI 专栏",
+      "summary": "OpenAI 官方 macOS 客户端，支持 Option+Space 随时唤起与语音对话",
+      "brewCask": "chatgpt",
+      "downloadUrl": "https://openai.com/chatgpt/download/"
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "category": "AI 专栏",
+      "summary": "Anthropic 官方桌面端，深度支持写作、编程与本地 MCP 扩展",
+      "brewCask": "claude",
+      "downloadUrl": "https://claude.ai/download"
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "category": "AI 专栏",
+      "summary": "主流 AI 代码编辑器，深度融合代码补全与多文件 Agent 协作",
+      "brewCask": "cursor",
+      "downloadUrl": "https://www.cursor.com/downloads"
+    },
+    {
+      "id": "cherry-studio",
+      "name": "Cherry Studio",
+      "category": "AI 专栏",
+      "summary": "开源全能多模型 AI 桌面客户端，聚合 OpenAI/Claude/Gemini/DeepSeek",
+      "brewCask": "cherry-studio",
+      "downloadUrl": "https://cherry-ai.com/download"
+    },
+    {
+      "id": "ollama",
+      "name": "Ollama",
+      "category": "AI 专栏",
+      "summary": "Apple Silicon 本地跑 DeepSeek / Qwen / Llama 开源大模型首选",
+      "brewCask": "ollama",
+      "downloadUrl": "https://ollama.com/download/mac"
+    },
+    {
+      "id": "lm-studio",
+      "name": "LM Studio",
+      "category": "AI 专栏",
+      "summary": "可视化本地大模型运行与管理桌面端，零命令行门槛",
+      "brewCask": "lm-studio",
+      "downloadUrl": "https://lmstudio.ai/"
+    },
+    {
+      "id": "doubao",
+      "name": "豆包",
+      "category": "AI 专栏",
+      "summary": "字节跳动官方 AI 助手桌面端，支持划词、文档总结与语音对话",
+      "downloadUrl": "https://www.doubao.com/download/desktop"
+    },
+    {
+      "id": "sogou-wubi",
+      "name": "搜狗五笔输入法",
+      "category": "输入法与效率",
+      "summary": "经典好用的五笔输入法，支持五笔拼音混输与个人词库同步",
+      "downloadUrl": "https://wubi.sogou.com/"
+    },
+    {
+      "id": "raycast",
+      "name": "Raycast",
+      "category": "输入法与效率",
+      "summary": "Mac 必装效率启动器，集成窗口管理、快捷指令、插件与剪贴板",
+      "brewCask": "raycast",
+      "downloadUrl": "https://www.raycast.com/"
+    },
+    {
+      "id": "rectangle",
+      "name": "Rectangle",
+      "category": "输入法与效率",
+      "summary": "开源免费的 macOS 窗口分屏快捷键工具，轻量零负担",
+      "brewCask": "rectangle",
+      "downloadUrl": "https://rectangleapp.com/"
+    },
+    {
+      "id": "keka",
+      "name": "Keka",
+      "category": "输入法与效率",
+      "summary": "macOS 好用的开源压缩/解压工具，支持 7z / rar / zip",
+      "brewCask": "keka",
+      "downloadUrl": "https://www.keka.io/"
+    },
+    {
+      "id": "appcleaner",
+      "name": "AppCleaner",
+      "category": "输入法与效率",
+      "summary": "拖拽彻底卸载 Mac 软件并清理偏好设置与缓存残留",
+      "brewCask": "appcleaner",
+      "downloadUrl": "https://freemacsoft.net/appcleaner/"
+    },
+    {
+      "id": "localsend",
+      "name": "LocalSend",
+      "category": "输入法与效率",
+      "summary": "开源局域网免登录高速互传大文件，支持 Mac / Win / iOS / Android",
+      "brewCask": "localsend",
+      "downloadUrl": "https://localsend.org/download"
+    },
+    {
+      "id": "wechat",
+      "name": "微信 WeChat",
+      "category": "通讯与办公",
+      "summary": "日常沟通与文件传输必备官方桌面端",
+      "brewCask": "wechat",
+      "downloadUrl": "https://mac.weixin.qq.com/"
+    },
+    {
+      "id": "feishu",
+      "name": "飞书",
+      "category": "通讯与办公",
+      "summary": "一体化团队协作、云文档与多维表格办公套件",
+      "brewCask": "feishu",
+      "downloadUrl": "https://www.feishu.cn/download"
+    },
+    {
+      "id": "telegram",
+      "name": "Telegram",
+      "category": "通讯与办公",
+      "summary": "极速跨平台云端即时通讯与大文件传输工具",
+      "brewCask": "telegram",
+      "downloadUrl": "https://macos.telegram.org/"
+    },
+    {
+      "id": "notion",
+      "name": "Notion",
+      "category": "通讯与办公",
+      "summary": "模块化笔记、知识库与项目协作空间",
+      "brewCask": "notion",
+      "downloadUrl": "https://www.notion.so/desktop"
+    },
+    {
+      "id": "obsidian",
+      "name": "Obsidian",
+      "category": "通讯与办公",
+      "summary": "本地优先的 Markdown 双向链接个人知识库",
+      "brewCask": "obsidian",
+      "downloadUrl": "https://obsidian.md/download"
+    },
+    {
+      "id": "wps",
+      "name": "WPS Office",
+      "category": "通讯与办公",
+      "summary": "兼容 Word / Excel / PPT / PDF 的办公套件",
+      "brewCask": "wpsoffice-cn",
+      "downloadUrl": "https://platform.wps.cn/"
+    },
+    {
+      "id": "chrome",
+      "name": "Google Chrome",
+      "category": "浏览器与网络",
+      "summary": "生态最全、速度领先的主流网页浏览器",
+      "brewCask": "google-chrome",
+      "downloadUrl": "https://www.google.com/chrome/"
+    },
+    {
+      "id": "clash-verge",
+      "name": "Clash Verge Rev",
+      "category": "浏览器与网络",
+      "summary": "开源轻量跨平台网络代理客户端",
+      "brewCask": "clash-verge-rev",
+      "downloadUrl": "https://github.com/clash-verge-rev/clash-verge-rev/releases"
+    },
+    {
+      "id": "rustdesk",
+      "name": "RustDesk",
+      "category": "浏览器与网络",
+      "summary": "开源免费、支持自建中继的流畅远程桌面控制工具",
+      "brewCask": "rustdesk",
+      "downloadUrl": "https://rustdesk.com/"
+    },
+    {
+      "id": "vscode",
+      "name": "Visual Studio Code",
+      "category": "开发工具",
+      "summary": "微软开源全能代码编辑器，插件生态极其丰富",
+      "brewCask": "visual-studio-code",
+      "downloadUrl": "https://code.visualstudio.com/"
+    },
+    {
+      "id": "iterm2",
+      "name": "iTerm2",
+      "category": "开发工具",
+      "summary": "macOS 最受欢迎的增强终端，支持分屏、快捷键与主题",
+      "brewCask": "iterm2",
+      "downloadUrl": "https://iterm2.com/"
+    },
+    {
+      "id": "git",
+      "name": "Git",
+      "category": "开发工具",
+      "summary": "现代代码版本控制核心命令行工具",
+      "brewFormula": "git",
+      "downloadUrl": "https://git-scm.com/download/mac"
+    },
+    {
+      "id": "nodejs",
+      "name": "Node.js",
+      "category": "开发工具",
+      "summary": "JavaScript / TypeScript 运行环境与 npm 包管理",
+      "brewFormula": "node",
+      "downloadUrl": "https://nodejs.org/"
+    },
+    {
+      "id": "docker",
+      "name": "Docker Desktop",
+      "category": "开发工具",
+      "summary": "容器化开发与本地服务编排标准工具",
+      "brewCask": "docker",
+      "downloadUrl": "https://www.docker.com/products/docker-desktop/"
+    },
+    {
+      "id": "iina",
+      "name": "IINA",
+      "category": "影音与设计",
+      "summary": "macOS 原生现代开源万能视频播放器，流畅播 4K",
+      "brewCask": "iina",
+      "downloadUrl": "https://iina.io/"
+    },
+    {
+      "id": "jianying",
+      "name": "剪映专业版",
+      "category": "影音与设计",
+      "summary": "上手极快的全能视频剪辑与智能字幕工具",
+      "downloadUrl": "https://www.capcut.cn/"
+    },
+    {
+      "id": "figma",
+      "name": "Figma",
+      "category": "影音与设计",
+      "summary": "主流 UI/UX 界面设计与团队实时协作工具",
+      "brewCask": "figma",
+      "downloadUrl": "https://www.figma.com/downloads/"
+    },
+    {
+      "id": "obs",
+      "name": "OBS Studio",
+      "category": "影音与设计",
+      "summary": "开源专业录屏与直播推流软件",
+      "brewCask": "obs",
+      "downloadUrl": "https://obsproject.com/"
+    }
+  ]
+}

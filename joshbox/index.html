@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JoshBox — 一站式极轻启动器与模块化工具箱 · JoshLabs</title>
+    <meta
+      name="description"
+      content="JoshBox：仅约 2 MB 的原生 macOS 与 Windows 一站式启动器。内置本机资源负载、PhotoPorter 收箱、合盖常运行、安全清盘、多端云剪贴板、装机软件库，并集成 JoshLabs 旗下全系应用。"
+    />
+    <meta name="theme-color" content="#121110" />
+    <link rel="icon" href="/assets/icons/joshlabs.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/icons/joshbox.png" sizes="512x512" />
+    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="canonical" href="https://joshlabs.app/joshbox/" />
+    <style>
+      .jb-preview {
+        margin: 1.5rem 0 2.75rem;
+        border: 1px solid var(--line-strong);
+        border-radius: 16px;
+        overflow: hidden;
+        background: #141418;
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.22);
+      }
+      .jb-preview img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .jb-modules {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 0.9rem;
+        margin-top: 1.2rem;
+        margin-bottom: 2.5rem;
+      }
+      .jb-mod-card {
+        border: 1px solid var(--line-strong);
+        border-radius: 12px;
+        padding: 1rem 1.1rem;
+        background: var(--surface, rgba(255, 255, 255, 0.03));
+      }
+      .jb-mod-card__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-bottom: 0.35rem;
+      }
+      .jb-mod-card__title {
+        font-weight: 600;
+        font-size: 0.98rem;
+      }
+      .jb-mod-card__size {
+        font-size: 0.76rem;
+        opacity: 0.72;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      .jb-mod-card__desc {
+        margin: 0;
+        font-size: 0.86rem;
+        line-height: 1.5;
+        opacity: 0.82;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar" id="topbar">
+      <div class="shell topbar__inner">
+        <a class="brand" href="/">
+          <span class="brand__mark" aria-hidden="true">JL</span>
+          <span class="brand__name">Josh<span class="wordmark__labs">Labs</span></span>
+        </a>
+        <a class="topbar__contact" href="mailto:josh.zeng.ca@gmail.com">Contact</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="product-hero shell">
+        <a class="product-hero__back" href="/">← JoshLabs</a>
+        <div class="product-hero__identity">
+          <img class="product-hero__icon-lg" src="../assets/icons/joshbox.png" alt="JoshBox" width="76" height="76" />
+          <div class="product-hero__nameblock">
+            <p class="product-hero__eyebrow">JoshBox · macOS 14+ &amp; Windows 10/11 · v0.2.0 · Free</p>
+            <h1 class="product-hero__name">JoshBox</h1>
+          </div>
+        </div>
+
+        <p class="product-hero__headline">装好这一个极轻启动器，JoshLabs 全系工具与软件都在里面一站式获取。</p>
+        <p class="product-hero__subline">
+          告别臃肿的全家桶与挨个找安装包的繁琐。JoshBox 主壳纯原生编写（macOS SwiftUI / Windows Rust，仅约 2 MB），内置跨设备云剪贴板与常用装机库；旗下所有桌面子应用、效率轻命令与跨端软件拆分为独立模块按需一键安装、SHA-256 校验、静默更新、不用随时卸载。
+        </p>
+
+        <div class="product-hero__dl" style="flex-wrap: wrap; gap: 0.85rem;">
+          <a class="store-badge" href="/joshbox/download/JoshBox-0.2.0.dmg" aria-label="下载 JoshBox macOS 安装包 DMG">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">Apple 公证直装 · macOS 14+</span>
+              <span class="store-badge__name">macOS 官方下载 (.dmg)</span>
+            </div>
+          </a>
+
+          <a class="store-badge" href="/joshbox/download/JoshBox-Windows.exe" aria-label="下载 JoshBox Windows 单文件版 EXE">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M3 5.557 10.355 4.5v7.1H3V5.557Zm0 12.886 7.355 1.057v-7.1H3v6.043Zm8.178 1.174L21 21v-8.6h-9.822v7.217Zm0-15.234v7.217H21V3l-9.822 1.383Z"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub">原生免安装单文件 · Windows 10/11</span>
+              <span class="store-badge__name">Windows 官方下载 (.exe)</span>
+            </div>
+          </a>
+
+          <a class="btn btn--outline" href="/joshbox/privacy/" style="align-self: center;">隐私政策 · Privacy</a>
+        </div>
+      </section>
+
+      <section class="shell" aria-label="界面预览">
+        <figure class="jb-preview">
+          <img src="./preview-main.jpg" alt="JoshBox 极简树状导航与模块化图标主页" loading="lazy" />
+        </figure>
+      </section>
+
+      <section class="shell" aria-label="内置全系模块与旗下应用">
+        <div class="section-head">
+          <h2>启动器内置工具与旗下软件 · All-in-One Suite</h2>
+          <p>每个模块独立切包、SHA-256 强制校验，装好 JoshBox 即可在内部按需一键启用</p>
+        </div>
+        <div class="jb-modules">
+          <article class="jb-mod-card">
+            <div class="jb-mod-card__top">
+              <span class="jb-mod-card__title">本机资源负载</span>
+              <span class="jb-mod-card__size">原生 .app</span>
+            </div>
+            <p class="jb-mod-card__desc">Apple Silicon 实时 CPU/GPU/内存监控与全球网络世界地图防火墙管控。</p>
+          </article>
+          <article class="jb-mod-card">
+            <div class="jb-mod-card__top">
+              <span class="jb-mod-card__title">PhotoPorter 收箱</span>
+              <span class="jb-mod-card__size">原生 .app</span>
+            </div>
+            <p class="jb-mod-card__desc">局域网高速接收安卓与 iPhone 照片、视频与大文件，SHA-256 校验落盘。</p>
+          </article>
+          <article class="jb-mod-card">
+            <div class="jb-mod-card__top">
+              <span class="jb-mod-card__title">合盖常运行</span>
+              <span class="jb-mod-card__size">2.0 KB</span>
+            </div>
+            <p class="jb-mod-card__desc">实时检测 pmset 电源状态，一键切换 MacBook 合盖保持运行或恢复休眠。</p>
+          </article>
+          <article class="jb-mod-card">
+            <div class="jb-mod-card__top">
+              <span class="jb-mod-card__title">安全清理磁盘 &amp; 构建产物</span>
+              <span class="jb-mod-card__size">14 KB</span>
+            </div>
+            <p class="jb-mod-card__desc">智能回收旧缓存、build/dist/node_modules 与已合并 worktree，先预览后删除。</p>
+          </article>
+          <article class="jb-mod-card">
+            <div class="jb-mod-card__top">
+              <span class="jb-mod-card__title">跨端云剪贴板 &amp; 装机库</span>
+              <span class="jb-mod-card__size">主壳内置</span>
+            </div>
+            <p class="jb-mod-card__desc">Mac 与 Windows 双向秒传文字/截图剪贴板；常用 AI 与办公开发软件一键批量装机。</p>
+          </article>
+          <article class="jb-mod-card">
+            <div class="jb-mod-card__top">
+              <span class="jb-mod-card__title">JoshMoney 记账报税</span>
+              <span class="jb-mod-card__size">官方应用</span>
+            </div>
+            <p class="jb-mod-card__desc">公司、商业与个体户免费记账本：实况报表、发票工资与美加报税表导出。</p>
+          </article>
+          <article class="jb-mod-card">
+            <div class="jb-mod-card__top">
+              <span class="jb-mod-card__title">Cabinet X 厨房设计</span>
+              <span class="jb-mod-card__size">官方应用</span>
+            </div>
+            <p class="jb-mod-card__desc">实景厨房照片一键生成门型材质改造前后高清对比图，直连在线设计工作台。</p>
+          </article>
+          <article class="jb-mod-card">
+            <div class="jb-mod-card__top">
+              <span class="jb-mod-card__title">截图译</span>
+              <span class="jb-mod-card__size">官方应用</span>
+            </div>
+            <p class="jb-mod-card__desc">外文截图整段中英对照，点任意单词查词义、听发音并连同原句存入生词本。</p>
+          </article>
+          <article class="jb-mod-card">
+            <div class="jb-mod-card__top">
+              <span class="jb-mod-card__title">榴莲英语 &amp; 别学英语</span>
+              <span class="jb-mod-card__size">官方应用</span>
+            </div>
+            <p class="jb-mod-card__desc">274 课今日美语对话、English +1 八十课体系训练与《十年之约》剧情化英语游戏。</p>
+          </article>
+          <article class="jb-mod-card">
+            <div class="jb-mod-card__top">
+              <span class="jb-mod-card__title">Selah.my &amp; 好师傅</span>
+              <span class="jb-mod-card__size">官方应用</span>
+            </div>
+            <p class="jb-mod-card__desc">内置桌面温和呼吸小憩倒计时器（Selah.my）与本地师傅报价对接应用（GoodPro）。</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell site-footer">
+      <p><a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a></p>
+      <p>© <span id="year"></span> Joshua Zeng · Josh<span class="wordmark__labs">Labs</span></p>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+      const topbar = document.getElementById("topbar");
+      const toggle = () => topbar.classList.toggle("is-scrolled", window.scrollY > 8);
+      toggle();
+      window.addEventListener("scroll", toggle, { passive: true });
+    </script>
+  </body>
+</html>

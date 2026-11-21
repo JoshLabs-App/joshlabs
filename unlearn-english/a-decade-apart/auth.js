@@ -1,5 +1,5 @@
-// 账号登录 + 云端存档同步。复用 josh-apps 共享 Supabase 项目
-// （AskBible / JoshMoney / Selah 同一个后端），只加了 english_game_saves 一张表。
+// 账号登录 + 云端存档同步。复用 JoshLabs 共享 Supabase 项目
+// （JoshMoney / Selah 同一个后端），只加了 english_game_saves 一张表。
 // 用普通 <script> 加载（不是 type="module"），跟 content/*.js、main.js 保持同一套
 // 全局脚本约定；Supabase SDK 用动态 import() 懒加载，避免整站改成 ES module。
 //

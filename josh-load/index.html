@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JOSH本机资源负载 — Mac 实时硬件大屏与全球网络管控 · JoshLabs</title>
+    <meta
+      name="description"
+      content="JOSH本机资源负载（JOSH System Load）：Apple Silicon 原生 macOS 实时硬件与内存负载大屏，支持一键杀掉闲置吃内存进程、全球世界地图实时外联航线追踪与系统级禁访问。"
+    />
+    <meta name="theme-color" content="#121110" />
+    <link rel="icon" href="/assets/icons/joshlabs.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/icons/josh-load.png" sizes="512x512" />
+    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="canonical" href="https://joshlabs.app/josh-load/" />
+    <style>
+      .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.1rem;
+        margin: 1.5rem 0 2.75rem;
+      }
+      .preview-shot {
+        margin: 0;
+        border: 1px solid var(--line-strong);
+        border-radius: 14px;
+        overflow: hidden;
+        background: #0b101b;
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.14);
+      }
+      .preview-shot img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .preview-shot figcaption {
+        padding: 0.65rem 0.9rem;
+        font-size: 0.82rem;
+        color: #cbd5e1;
+        background: #0f172a;
+        border-top: 1px solid rgba(148, 163, 184, 0.18);
+      }
+      @media (max-width: 820px) {
+        .preview-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar" id="topbar">
+      <div class="shell topbar__inner">
+        <a class="brand" href="/">
+          <span class="brand__mark" aria-hidden="true">JL</span>
+          <span class="brand__name">Josh<span class="wordmark__labs">Labs</span></span>
+        </a>
+        <a class="topbar__contact" href="mailto:josh.zeng.ca@gmail.com">Contact</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="product-hero shell">
+        <a class="product-hero__back" href="/">← JoshLabs</a>
+        <div class="product-hero__identity">
+          <img class="product-hero__icon-lg" src="../assets/icons/josh-load.png" alt="JOSH本机资源负载" width="76" height="76" />
+          <div class="product-hero__nameblock">
+            <p class="product-hero__eyebrow">JOSH System Load · macOS 14+ (Apple Silicon M1–M5) · v1.0.0</p>
+            <h1 class="product-hero__name">JOSH本机资源负载</h1>
+          </div>
+        </div>
+
+        <p class="product-hero__headline">一眼看透整机负载与全球外联，一键杀内存、禁访问。</p>
+        <p class="product-hero__subline">
+          专为 Apple Silicon Mac 打造的原生实时驾驶舱：全景透视多核 CPU、Metal GPU 统一显存、内核真实物理内存足迹（<code>phys_footprint</code>）与 Swap 压力；切换到「全球网络与禁访问」，在世界地图上实时追踪哪款软件正在连向哪座城市、哪个网址域名、占多少带宽，并可随时杀掉软件或从系统级禁止访问。
+          <br /><br />
+          Real-time native macOS cockpit for Apple Silicon: inspect per-core CPU, Metal GPU VRAM, and true kernel memory footprint, reclaim memory safely in one click, and switch to the live World Map to see which apps are connecting to which domains/cities, their bandwidth, and kill or firewall-block access instantly.
+        </p>
+
+        <div class="product-hero__dl">
+          <a class="store-badge" href="/josh-load/download/JOSH-System-Load-1.0.0.dmg" aria-label="下载 macOS 安装包 DMG">
+            <svg class="store-badge__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            <div class="store-badge__text">
+              <span class="store-badge__sub" id="dmgMetaSub">Apple 公证直装 · 1.6 MB · Apple Silicon</span>
+              <span class="store-badge__name">macOS 下载 (.dmg)</span>
+            </div>
+          </a>
+          <a class="btn btn--outline" href="/josh-load/privacy/" style="align-self: center;">隐私政策 · Privacy</a>
+        </div>
+      </section>
+
+      <section class="shell" aria-label="实机界面预览">
+        <div class="section-head">
+          <h2>双页全屏驾驶舱 · Dual-View Cockpit</h2>
+          <p>硬件与内存清理 + 全球网络地图与防火墙阻断</p>
+        </div>
+        <div class="preview-grid">
+          <figure class="preview-shot">
+            <img src="./preview-hardware.png" alt="JOSH本机资源负载 — 硬件与内存负载大屏" loading="lazy" />
+            <figcaption>视图一：统一内存构成、多核 CPU 矩阵、Metal GPU 显存、内存大户分布条与一键进程内存回收</figcaption>
+          </figure>
+          <figure class="preview-shot">
+            <img src="./preview-worldmap.png" alt="JOSH本机资源负载 — 全球网络航线图与禁访问管控" loading="lazy" />
+            <figcaption>视图二：全球实时外联航线图、联网软件实时上下行带宽、访问网址域名透视与一键禁访问 / 杀掉软件</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="shell" id="mac-install" aria-label="Mac 安装说明">
+        <div class="section-head">
+          <h2>如何安装 · macOS Install</h2>
+          <p>Apple Developer ID 签名与公证（Notarized），零外部环境依赖</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>1. 下载 DMG 镜像</h3>
+            <p>点击上方「macOS 下载 (.dmg)」，获取经 Apple 官方公证钉票的安装镜像（适用于 M1 / M2 / M3 / M4 / M5 全系 Apple Silicon Mac，macOS 14.0 及以上）。</p>
+          </article>
+          <article class="feature-card">
+            <h3>2. 拖入应用程序</h3>
+            <p>双击打开下载的 <code>JOSH-System-Load-1.0.0.dmg</code>，将「JOSH本机资源负载」图标拖入右侧 <code>Applications</code> 文件夹即可完成安装。</p>
+          </article>
+          <article class="feature-card">
+            <h3>3. 即点即开，无需配置</h3>
+            <p>纯原生 Swift + IOKit 内核采集引擎封装，无需安装 Node、Python 或任何后台常驻插件；关闭窗口即彻底退出，零后台耗电。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="beliefs shell" aria-label="核心特性">
+        <p class="beliefs__label">为什么做 JOSH本机资源负载</p>
+        <div class="beliefs__grid">
+          <article class="belief-card">
+            <p class="belief-card__num">01</p>
+            <h2 class="belief-card__claim">看真实的内存账本，而不是虚标数字。</h2>
+            <p class="belief-card__body">
+              直读 Darwin 内核 <code>ri_phys_footprint</code> 物理内存足迹，与 macOS 活动监视器完全同源，自动将浏览器渲染子进程、AI 模型训练脚本与残留构建进程按项目聚合归类。
+            </p>
+          </article>
+          <article class="belief-card">
+            <p class="belief-card__num">02</p>
+            <h2 class="belief-card__claim">全球谁在联网、去哪、占多少带宽，一目了然。</h2>
+            <p class="belief-card__body">
+              内置全球实时外联航线图，展示本机每一款联网软件正在访问的网址域名、云服务商、国家城市坐标与实时上下行速率。
+            </p>
+          </article>
+          <article class="belief-card">
+            <p class="belief-card__num">03</p>
+            <h2 class="belief-card__claim">既能安全杀掉软件，也能系统级禁访问。</h2>
+            <p class="belief-card__body">
+              三级安全护栏自动保护 macOS 核心服务与活跃训练工作台；对异常吃内存或偷偷联网的软件，支持优雅结束、强制杀掉回收内存，或通过 Hosts + PF 内核防火墙一键阻断访问并随时恢复。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="shell" aria-label="功能清单">
+        <div class="section-head">
+          <h2>功能亮点 · Features</h2>
+          <p>macOS 14 Sonoma 或更高版本 · Apple Silicon 原生 64 位</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card"><h3>多核 CPU 与 Metal GPU</h3><p>区分超级核（Super）与性能核（Perf）实时柱状矩阵，直读 Apple GPU 渲染器利用率与统一显存（VRAM）占用。</p></article>
+          <article class="feature-card"><h3>智能识别闲置吃内存元凶</h3><p>自动扫描低 CPU 却常驻高内存的闲置应用与僵尸构建进程，一键勾选批量释放，实时反馈回收内存量。</p></article>
+          <article class="feature-card"><h3>全球外联世界地图</h3><p>从本机所在城市出发绘制实时动态飞线与流量粒子，点击任意海外城市节点即可下钻查看对应软件与连接。</p></article>
+          <article class="feature-card"><h3>联网软件与网址透视</h3><p>支持「按联网软件聚合」与「按远端网址 / IP 明细」双维度切换，实时监控 TCP / QUIC / UDP 上下行速率与累计流量。</p></article>
+          <article class="feature-card"><h3>一键禁访问与恢复</h3><p>输入任意网址域名或点击连接行即可写入受管 Hosts 与 macOS <code>pfctl</code> 防火墙锚点立即切断连接，支持一键恢复访问。</p></article>
+          <article class="feature-card"><h3>本机隐私零上传</h3><p>所有硬件与进程数据 100% 留在本机处理，免费、无广告、无账号体系。</p></article>
+        </div>
+      </section>
+
+      <section class="shell principles" aria-label="Notes">
+        <article class="principle">
+          <h3>官网与下载</h3>
+          <p><a href="https://joshlabs.app/josh-load/">https://joshlabs.app/josh-load/</a></p>
+        </article>
+        <article class="principle">
+          <h3>隐私与反馈</h3>
+          <p><a href="/josh-load/privacy/">隐私政策 Privacy Policy</a> · <a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a></p>
+        </article>
+        <article class="principle">
+          <h3>Josh<span class="wordmark__labs">Labs</span></h3>
+          <p>Independent app studio by Joshua Zeng, Canada · <a href="https://joshlabs.app">joshlabs.app</a></p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="shell site-footer">
+      <p><a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a></p>
+      <p>© <span id="year"></span> Joshua Zeng · <a href="/">Josh<span class="wordmark__labs">Labs</span></a></p>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+      const topbar = document.getElementById("topbar");
+      const toggleTopbar = () => topbar.classList.toggle("is-scrolled", window.scrollY > 8);
+      toggleTopbar();
+      window.addEventListener("scroll", toggleTopbar, { passive: true });
+    </script>
+  </body>
+</html>

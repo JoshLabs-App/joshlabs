@@ -14,10 +14,9 @@
   --radius-sm: 0.5rem;
   --max: 72rem;
   --font: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --askbible: #d49200;
+  --brand-amber: #d49200;
   --joshmoney: #0a6e5a;
   --cabinet: #000000;
-  --my-class: #ffb100;
   --live: #16794a;
   --review: #9a6700;
   --soon: #6b6762;
@@ -385,20 +384,12 @@ a {
   transform: translateY(-1px);
 }
 
-.app-card[data-app="askbible"] {
-  --accent: var(--askbible);
-}
-
 .app-card[data-app="joshmoney"] {
   --accent: var(--joshmoney);
 }
 
 .app-card[data-app="cabinet-x"] {
   --accent: var(--cabinet);
-}
-
-.app-card[data-app="my-class"] {
-  --accent: var(--my-class);
 }
 
 .app-card__visual {

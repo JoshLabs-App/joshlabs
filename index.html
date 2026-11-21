@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>JoshLabs — Independent App Studio</title>
+    <title>JoshLabs — JoshBox 一站式工具箱与实用软件工作室</title>
     <meta
       name="description"
-      content="JoshLabs — 独立移动应用品牌。AskBible.me、JoshMoney、Cabinet X、Selah.my、听到、查到、English +1、PhotoPorter。"
+      content="JoshLabs 独立软件工作室：主推极轻原生一站式启动器 JoshBox（macOS 与 Windows），内置本机资源负载、PhotoPorter、JoshMoney、Cabinet X、截图译、榴莲英语、别学英语、Selah.my、好师傅等全系工具，同时保留每款软件的独立子站与单独下载。"
     />
-    <meta property="og:title" content="JoshLabs — Independent App Studio" />
+    <meta property="og:title" content="JoshLabs — JoshBox Launcher &amp; Practical Apps" />
     <meta
       property="og:description"
-      content="Practical mobile apps with privacy-first design. AskBible.me, JoshMoney, Cabinet X, Selah.my, 听到, 查到, English +1, and PhotoPorter."
+      content="Install JoshBox, our ultra-light native launcher for macOS &amp; Windows, to access all JoshLabs tools in one place — or explore standalone subsites for PhotoPorter, JOSH System Load, JoshMoney, Cabinet X, Durian English, and more."
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://joshlabs.app/assets/icons/joshlabs.png" />
@@ -21,6 +21,227 @@
     <link rel="icon" href="/assets/icons/joshlabs.png" type="image/png" sizes="512x512" />
     <link rel="apple-touch-icon" href="/assets/icons/joshlabs.png" sizes="512x512" />
     <link rel="stylesheet" href="assets/styles.css" />
+    <style>
+      .jb-flagship {
+        margin: 0 auto 3rem;
+      }
+      .jb-flagship__card {
+        position: relative;
+        overflow: hidden;
+        padding: 2rem 2.15rem 1.75rem;
+        border-radius: 22px;
+        border: 1px solid rgba(56, 189, 248, 0.32);
+        background:
+          radial-gradient(circle at 92% 12%, rgba(56, 189, 248, 0.18), transparent 42%),
+          radial-gradient(circle at 10% 100%, rgba(99, 102, 241, 0.16), transparent 46%),
+          linear-gradient(140deg, #151821 0%, #0f131b 100%);
+        color: #f8fafc;
+        box-shadow: 0 24px 56px rgba(0, 0, 0, 0.22);
+      }
+      .jb-flagship__top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+      .jb-flagship__identity {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.35rem;
+        min-width: 0;
+        max-width: 44rem;
+      }
+      .jb-flagship__icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        flex-shrink: 0;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42);
+      }
+      .jb-flagship__eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        margin: 0 0 0.45rem;
+        padding: 0.24rem 0.68rem;
+        border-radius: 999px;
+        background: rgba(45, 212, 191, 0.14);
+        border: 1px solid rgba(45, 212, 191, 0.3);
+        font-size: 0.74rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: #5eead4;
+      }
+      .jb-flagship__title-row {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+      }
+      .jb-flagship__title {
+        margin: 0;
+        font-size: clamp(1.65rem, 2.8vw, 2.15rem);
+        font-weight: 750;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+      }
+      .jb-flagship__ver {
+        font-size: 0.82rem;
+        color: rgba(226, 232, 240, 0.68);
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      .jb-flagship__headline {
+        margin: 0.45rem 0 0;
+        font-size: 1.06rem;
+        font-weight: 600;
+        color: #f1f5f9;
+        line-height: 1.45;
+      }
+      .jb-flagship__desc {
+        margin: 0.45rem 0 0;
+        font-size: 0.9rem;
+        color: rgba(226, 232, 240, 0.78);
+        line-height: 1.62;
+      }
+      .jb-flagship__cta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 1.4rem;
+      }
+      .jb-dl-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.78rem 1.25rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.92rem;
+        text-decoration: none;
+        white-space: nowrap;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.07);
+        color: #f8fafc;
+        transition: transform 0.15s ease, filter 0.15s ease, background 0.15s ease;
+      }
+      .jb-dl-btn:hover {
+        transform: translateY(-1px);
+        background: rgba(255, 255, 255, 0.13);
+      }
+      .jb-dl-btn.is-primary {
+        background: linear-gradient(135deg, #38bdf8, #6366f1);
+        border-color: transparent;
+        color: #ffffff;
+        box-shadow: 0 10px 24px rgba(56, 189, 248, 0.25);
+      }
+      .jb-dl-btn.is-primary:hover {
+        filter: brightness(1.08);
+      }
+      .jb-dl-link {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.74rem 1.05rem;
+        border-radius: 12px;
+        color: rgba(226, 232, 240, 0.88);
+        font-size: 0.88rem;
+        font-weight: 500;
+        text-decoration: none;
+      }
+      .jb-dl-link:hover {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .jb-flagship__suite {
+        margin-top: 1.45rem;
+        padding-top: 1.15rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .jb-suite__label {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: rgba(148, 163, 184, 0.95);
+        margin-right: 0.25rem;
+      }
+      .jb-suite__chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.24rem 0.62rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.065);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.77rem;
+        color: rgba(241, 245, 249, 0.88);
+        text-decoration: none;
+        transition: background 0.15s ease, border-color 0.15s ease;
+      }
+      .jb-suite__chip:hover {
+        background: rgba(56, 189, 248, 0.16);
+        border-color: rgba(56, 189, 248, 0.4);
+        color: #ffffff;
+      }
+      .standalone-head {
+        margin: 0 auto 1.35rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.5rem 1.5rem;
+      }
+      .standalone-head__title {
+        margin: 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      .standalone-head__sub {
+        margin: 0;
+        font-size: 0.86rem;
+        color: var(--muted);
+      }
+      .note__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+      .note__jb-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.16rem 0.52rem;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        background: var(--glass-fill);
+        border: 1px solid var(--line-strong);
+        color: var(--fg-soft);
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .note__jb-badge:hover {
+        border-color: var(--outline-hover);
+        color: var(--fg);
+      }
+      @media (max-width: 780px) {
+        .jb-flagship__card {
+          padding: 1.45rem 1.35rem;
+        }
+        .jb-flagship__top,
+        .jb-flagship__identity {
+          flex-direction: column;
+          gap: 1rem;
+        }
+        .jb-flagship__icon {
+          width: 66px;
+          height: 66px;
+        }
+      }
+    </style>
   </head>
   <body>
     <header class="topbar" id="topbar">
@@ -50,25 +271,109 @@
 
     <main>
       <section class="lead shell">
-        <p class="lead__eyebrow" data-en="Independent App Studio" data-zh="独立应用工作室">Independent App Studio</p>
+        <p class="lead__eyebrow" data-en="JoshBox Launcher &amp; Practical Apps" data-zh="一站式工具箱与独立软件工作室">一站式工具箱与独立软件工作室</p>
         <h1 class="lead__title">Josh<span class="wordmark__labs">Labs</span></h1>
       </section>
 
+      <section class="jb-flagship shell" aria-label="JoshBox All-in-One Launcher">
+        <div class="jb-flagship__card">
+          <div class="jb-flagship__top">
+            <div class="jb-flagship__identity">
+              <img class="jb-flagship__icon" src="assets/icons/joshbox.png" alt="JoshBox" width="80" height="80" />
+              <div>
+                <p
+                  class="jb-flagship__eyebrow"
+                  data-en="★ Official Flagship · Recommended First Install"
+                  data-zh="★ 官方主推 · 推荐优先安装的一站式启动器"
+                >
+                  ★ 官方主推 · 推荐优先安装的一站式启动器
+                </p>
+                <div class="jb-flagship__title-row">
+                  <h2 class="jb-flagship__title">JoshBox</h2>
+                  <span class="jb-flagship__ver">v0.2.0 · macOS &amp; Windows · Free</span>
+                </div>
+                <p
+                  class="jb-flagship__headline"
+                  data-en="Install one ~2 MB launcher — all JoshLabs apps and power tools live right inside."
+                  data-zh="装好这一个极轻启动器，旗下所有软件与效率工具都在里面一站式下载与启动。"
+                >
+                  装好这一个极轻启动器，旗下所有软件与效率工具都在里面一站式下载与启动。
+                </p>
+                <p
+                  class="jb-flagship__desc"
+                  data-en="No need to hunt and download apps one by one. Native SwiftUI on macOS and native Rust on Windows — install tools on demand, auto-update in KB, sync clipboard &amp; setup across computers via email OTP, and access every JoshLabs product from a single dock."
+                  data-zh="无需在网页上一个一个找、挨个下载安装。纯原生极轻底座（macOS SwiftUI / Windows Rust），按需一键获取旗下全部桌面子应用、轻命令模块与跨端应用，支持 KB 级静默更新、多机云剪贴板同步与常用软件一键装机。"
+                >
+                  无需在网页上一个一个找、挨个下载安装。纯原生极轻底座（macOS SwiftUI / Windows Rust），按需一键获取旗下全部桌面子应用、轻命令模块与跨端应用，支持 KB 级静默更新、多机云剪贴板同步与常用软件一键装机。
+                </p>
+
+                <div class="jb-flagship__cta">
+                  <a class="jb-dl-btn is-primary" id="jb-dl-mac" href="/joshbox/download/JoshBox-0.2.0.dmg">
+                    <span data-en="Download for macOS (.dmg)" data-zh="下载 macOS 启动器 (.dmg)">下载 macOS 启动器 (.dmg)</span>
+                  </a>
+                  <a class="jb-dl-btn" id="jb-dl-win" href="/joshbox/download/JoshBox-Windows.exe">
+                    <span data-en="Download for Windows (.exe)" data-zh="下载 Windows 启动器 (.exe)">下载 Windows 启动器 (.exe)</span>
+                  </a>
+                  <a class="jb-dl-link" href="/joshbox/">
+                    <span data-en="Explore Built-in Suite →" data-zh="查看内置工具清单与详情 →">查看内置工具清单与详情 →</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="jb-flagship__suite">
+            <span class="jb-suite__label" data-en="Built into JoshBox:" data-zh="启动器内置一站直达：">启动器内置一站直达：</span>
+            <a class="jb-suite__chip" href="/josh-load/" data-en="JOSH System Load" data-zh="本机资源负载">本机资源负载</a>
+            <a class="jb-suite__chip" href="/photo-porter/" data-en="PhotoPorter Inbox" data-zh="PhotoPorter 收箱">PhotoPorter 收箱</a>
+            <a class="jb-suite__chip" href="/joshbox/" data-en="Keep-Awake &amp; Safe Cleaners" data-zh="合盖常运行 · 安全清盘">合盖常运行 · 安全清盘</a>
+            <a class="jb-suite__chip" href="/joshbox/" data-en="Cloud Clipboard &amp; App Installer" data-zh="多端云剪贴板 · 装机库">多端云剪贴板 · 装机库</a>
+            <a class="jb-suite__chip" href="/joshmoney/">JoshMoney</a>
+            <a class="jb-suite__chip" href="/cabinet-x/">Cabinet X</a>
+            <a class="jb-suite__chip" href="/jietuyi/" data-en="Screenshot Translator" data-zh="截图译">截图译</a>
+            <a class="jb-suite__chip" href="https://durianenglish.joshlabs.app/" target="_blank" rel="noopener noreferrer" data-en="Durian English" data-zh="榴莲英语">榴莲英语</a>
+            <a class="jb-suite__chip" href="https://unlearn-eng.pages.dev/" target="_blank" rel="noopener noreferrer" data-en="Unlearn English &amp; +1" data-zh="别学英语 · English +1">别学英语 · English +1</a>
+            <a class="jb-suite__chip" href="/selah-my/">Selah.my</a>
+            <a class="jb-suite__chip" href="https://goodpro-alpha.vercel.app" target="_blank" rel="noopener noreferrer" data-en="GoodPro" data-zh="好师傅">好师傅</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="standalone-head shell">
+        <h2 class="standalone-head__title" data-en="Standalone Subsites &amp; Direct Downloads" data-zh="旗下独立软件子站与单独下载">旗下独立软件子站与单独下载</h2>
+        <p
+          class="standalone-head__sub"
+          data-en="All apps below are available inside JoshBox — or open any standalone subsite to download individually."
+          data-zh="推荐装 JoshBox 一站式管理；如需单独安装某款桌面或移动端 App，也可直接进入下方独立子站。"
+        >
+          推荐装 JoshBox 一站式管理；如需单独安装某款桌面或移动端 App，也可直接进入下方独立子站。
+        </p>
+      </div>
+
       <section class="apps shell" aria-label="Apps by JoshLabs">
         <div class="apps__grid">
-          <a
-            class="app-tile"
-            data-app="askbible"
-            data-status="live"
-            href="https://askbible.me"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a class="app-tile" data-app="joshbox" data-status="live" href="/joshbox/">
             <span class="app-tile__icon">
-              <img src="assets/icons/askbible.png" alt="AskBible.me" width="120" height="120" />
+              <img src="assets/icons/joshbox.png" alt="JoshBox" width="120" height="120" />
             </span>
-            <span class="app-tile__name">AskBible.me</span>
-            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Scripture" data-zh="经文">Scripture</span></span>
+            <span class="app-tile__name">JoshBox</span>
+            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="All-in-One Launcher" data-zh="一站式总启动器">All-in-One Launcher</span></span>
+          </a>
+
+          <a class="app-tile" data-app="josh-load" data-status="live" href="/josh-load/">
+            <span class="app-tile__icon">
+              <img src="assets/icons/josh-load.png" alt="JOSH本机资源负载" width="120" height="120" />
+            </span>
+            <span class="app-tile__name">JOSH本机资源负载 <span class="app-tile__name-en">JOSH System Load</span></span>
+            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Mac Load &amp; Net Radar" data-zh="本机负载与网络管控">Mac Load &amp; Net Radar</span></span>
+          </a>
+
+          <a class="app-tile" data-app="photo-porter" data-status="live" href="/photo-porter/">
+            <span class="app-tile__icon">
+              <img src="assets/icons/photo-porter.png" alt="PhotoPorter" width="120" height="120" />
+            </span>
+            <span class="app-tile__name">PhotoPorter</span>
+            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="LAN Transfer" data-zh="局域网互传">LAN Transfer</span></span>
           </a>
 
           <a class="app-tile" data-app="joshmoney" data-status="live" href="/joshmoney/">
@@ -76,7 +381,7 @@
               <img src="assets/icons/joshmoney.png" alt="JoshMoney" width="120" height="120" />
             </span>
             <span class="app-tile__name">JoshMoney</span>
-            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Bookkeeping" data-zh="记账">Bookkeeping</span></span>
+            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Bookkeeping" data-zh="记账报税">Bookkeeping</span></span>
           </a>
 
           <a class="app-tile" data-app="cabinet-x" data-status="live" href="/cabinet-x/">
@@ -95,38 +400,6 @@
             <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Screenshot Translator" data-zh="截图翻译">Screenshot Translator</span></span>
           </a>
 
-          <a class="app-tile" data-app="selah-my" data-status="live" href="/selah-my/">
-            <span class="app-tile__icon">
-              <img src="assets/icons/selah.png" alt="Selah.my" width="120" height="120" />
-            </span>
-            <span class="app-tile__name">Selah.my</span>
-            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Quiet rest" data-zh="安静歇息">Quiet rest</span></span>
-          </a>
-
-          <a class="app-tile" data-app="tingdao" data-status="live" href="https://td.askbible.me/">
-            <span class="app-tile__icon">
-              <img src="assets/icons/tingdao.png" alt="听到" width="120" height="120" />
-            </span>
-            <span class="app-tile__name">听到</span>
-            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Sermons" data-zh="听道">Sermons</span></span>
-          </a>
-
-          <a class="app-tile" data-app="chadao" data-status="live" href="https://chadao-media.joshlabs.app/download.html">
-            <span class="app-tile__icon">
-              <img src="assets/icons/chadao.png" alt="查到" width="120" height="120" />
-            </span>
-            <span class="app-tile__name">查到</span>
-            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Group Bible Study" data-zh="小组查经">Group Bible Study</span></span>
-          </a>
-
-          <a class="app-tile" data-app="unlearn-english" data-status="live" href="https://unlearn-eng.pages.dev/">
-            <span class="app-tile__icon">
-              <img src="assets/icons/unlearn-english.svg" alt="Unlearn English" width="120" height="120" />
-            </span>
-            <span class="app-tile__name">别学英语 <span class="app-tile__name-en">Unlearn English</span></span>
-            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Story-Driven English" data-zh="剧情化英语">Story-Driven English</span></span>
-          </a>
-
           <a
             class="app-tile"
             data-app="durian-english"
@@ -142,12 +415,20 @@
             <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="English Course" data-zh="英语课程">English Course</span></span>
           </a>
 
-          <a class="app-tile" data-app="photo-porter" data-status="live" href="/photo-porter/">
+          <a class="app-tile" data-app="unlearn-english" data-status="live" href="https://unlearn-eng.pages.dev/">
             <span class="app-tile__icon">
-              <img src="assets/icons/photo-porter.png" alt="PhotoPorter" width="120" height="120" />
+              <img src="assets/icons/unlearn-english.svg" alt="Unlearn English" width="120" height="120" />
             </span>
-            <span class="app-tile__name">PhotoPorter</span>
-            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Transfer" data-zh="传输">Transfer</span></span>
+            <span class="app-tile__name">别学英语 <span class="app-tile__name-en">Unlearn English</span></span>
+            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Story-Driven English" data-zh="剧情化英语">Story-Driven English</span></span>
+          </a>
+
+          <a class="app-tile" data-app="selah-my" data-status="live" href="/selah-my/">
+            <span class="app-tile__icon">
+              <img src="assets/icons/selah.png" alt="Selah.my" width="120" height="120" />
+            </span>
+            <span class="app-tile__name">Selah.my</span>
+            <span class="app-tile__meta"><span class="app-tile__dot"></span><span data-en="Quiet rest" data-zh="安静歇息">Quiet rest</span></span>
           </a>
 
           <a
@@ -170,220 +451,57 @@
       <section class="notes shell" aria-label="App details">
         <div class="notes__grid">
           <article class="note">
-            <h2 class="note__name">AskBible.me</h2>
-            <p class="note__cat" data-en="Scripture · iOS &amp; Android" data-zh="经文 · iOS 与 Android">Scripture · iOS &amp; Android</p>
+            <div class="note__top">
+              <h2 class="note__name">JoshBox</h2>
+              <a class="note__jb-badge" href="/joshbox/" data-en="Flagship Launcher" data-zh="官方主推底座">官方主推底座</a>
+            </div>
+            <p class="note__cat" data-en="All-in-One Launcher · macOS &amp; Windows" data-zh="一站式模块化启动器 · macOS 与 Windows">All-in-One Launcher · macOS &amp; Windows</p>
             <p
               class="note__desc"
-              data-en="Daily scripture, nature scenes, and worship music for a calm reading rhythm."
-              data-zh="每日经文、自然场景与敬虔音乐，帮助你在忙碌中安静片刻。"
+              data-en="Ultra-light ~2 MB native launcher containing all JoshLabs desktop tools, cross-device cloud clipboard, curated app installer, and one-stop entry to our mobile &amp; web apps."
+              data-zh="仅约 2 MB 的原生模块化启动器：内置全系桌面工具、跨端云剪贴板、装机软件库与旗下全部软件的一站式下载启动入口。"
             >
-              Daily scripture, nature scenes, and worship music for a calm reading rhythm.
+              仅约 2 MB 的原生模块化启动器：内置全系桌面工具、跨端云剪贴板、装机软件库与旗下全部软件的一站式下载启动入口。
             </p>
             <p class="note__links">
-              <a href="https://apps.apple.com/app/id6771996188" target="_blank" rel="noopener noreferrer"
-                >App Store</a
-              >
+              <a href="/joshbox/" data-en="Subsite" data-zh="产品主页">Subsite</a>
               ·
-              <a
-                href="https://play.google.com/store/apps/details?id=me.askbible"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Google Play</a
-              >
+              <a href="/joshbox/download/JoshBox-0.2.0.dmg" data-en="macOS (.dmg)" data-zh="macOS 下载 (.dmg)">macOS (.dmg)</a>
               ·
-              <a href="https://askbible-media.joshlabs.app/download.html" data-en="Android Download" data-zh="安卓下载"
-                >Android Download</a
-              >
+              <a href="/joshbox/download/JoshBox-Windows.exe" data-en="Windows (.exe)" data-zh="Windows 下载 (.exe)">Windows (.exe)</a>
+              ·
+              <a href="/joshbox/privacy/">Privacy</a>
             </p>
           </article>
 
           <article class="note">
-            <h2 class="note__name">JoshMoney</h2>
-            <p class="note__cat" data-en="Bookkeeping · iOS &amp; Android" data-zh="记账 · iOS 与 Android">Bookkeeping · iOS &amp; Android</p>
+            <div class="note__top">
+              <h2 class="note__name">JOSH本机资源负载 · JOSH System Load</h2>
+              <a class="note__jb-badge" href="/joshbox/" data-en="In JoshBox" data-zh="已内置于 JoshBox">已内置于 JoshBox</a>
+            </div>
+            <p class="note__cat" data-en="System Load &amp; Global Network Firewall · macOS" data-zh="硬件负载大屏与全球网络管控 · macOS">System Load &amp; Global Network Firewall · macOS</p>
             <p
               class="note__desc"
-              data-en="Free books for companies, businesses &amp; sole props: live reports, tax-prep assistant, invoices, payroll, team books &amp; insights. CA/US tax-form exports."
-              data-zh="给公司、商业、个体户的记账本：实况报表、报税助手、发票、工资、多人记账、经营分析。美加优化报税表。"
+              data-en="Native Apple Silicon dashboard for real-time CPU/GPU/Unified Memory load, safe one-click memory reclamation, and an interactive World Map showing outbound app connections, domains, bandwidth, and instant firewall blocking."
+              data-zh="Apple Silicon 原生本机实时运行负载大屏：透视多核 CPU、GPU 显存与物理内存并一键杀掉吃内存软件；内置全球网络世界地图，实时查看哪些软件在联网、访问网址与带宽，支持一键杀掉或系统级禁访问。"
             >
-              Free books for companies, businesses &amp; sole props: live reports, tax-prep assistant, invoices, payroll, team books &amp; insights. CA/US tax-form exports.
+              Native Apple Silicon dashboard for real-time CPU/GPU/Unified Memory load, safe one-click memory reclamation, and an interactive World Map showing outbound app connections, domains, bandwidth, and instant firewall blocking.
             </p>
             <p class="note__links">
-              <a href="https://apps.apple.com/ca/app/joshmoney/id6780067998?uo=4" target="_blank" rel="noopener noreferrer"
-                >App Store</a
-              >
+              <a href="/josh-load/" data-en="Subsite" data-zh="独立子站">Subsite</a>
               ·
-              <a
-                href="https://play.google.com/store/apps/details?id=ca.joshmoney.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Google Play</a
-              >
+              <a href="/josh-load/download/JOSH-System-Load-1.0.0.dmg" data-en="Standalone DMG" data-zh="单独下载 (.dmg)">Standalone DMG</a>
+              ·
+              <a href="/josh-load/privacy/">Privacy</a>
             </p>
           </article>
 
           <article class="note">
-            <h2 class="note__name">Cabinet X</h2>
-            <p class="note__cat" data-en="Kitchen Design · iOS &amp; Android" data-zh="厨房设计 · iOS 与 Android">Kitchen Design · iOS &amp; Android</p>
-            <p
-              class="note__desc"
-              data-en="Upload a kitchen photo, choose door styles and materials, and preview an AI before/after redesign."
-              data-zh="上传厨房照片，选择门型与材质，AI 生成改造前后对比图。"
-            >
-              Upload a kitchen photo, choose door styles and materials, and preview an AI before/after redesign.
-            </p>
-            <p class="note__links">
-              <a href="https://apps.apple.com/app/id6785025926" target="_blank" rel="noopener noreferrer"
-                >App Store</a
-              >
-              ·
-              <a
-                href="https://play.google.com/store/apps/details?id=com.cabinetx.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Google Play</a
-              >
-              ·
-              <a href="/cabinet-x/privacy/">Privacy</a>
-            </p>
-          </article>
-
-          <article class="note">
-            <h2 class="note__name">截图译</h2>
-            <p class="note__cat" data-en="Screenshot Translator · iOS &amp; Android" data-zh="截图翻译 · iOS 与 Android">Screenshot Translator · iOS &amp; Android</p>
-            <p
-              class="note__desc"
-              data-en="Screenshot any English you can't read and get it side by side in Chinese. Tap a word for meaning and pronunciation — it's saved with its sentence to your wordbook."
-              data-zh="看到看不懂的外文，截个图，整段中英对照马上出来。点任意单词看释义、听发音，查过的词连同原句留进生词本。"
-            >
-              Screenshot any English you can't read and get it side by side in Chinese. Tap a word for meaning and pronunciation — it's saved with its sentence to your wordbook.
-            </p>
-            <p class="note__links">
-              <a href="https://apps.apple.com/app/id6812111067" target="_blank" rel="noopener noreferrer"
-                >App Store</a
-              >
-              ·
-              <a href="https://jietuyi-media.joshlabs.app/download.html" data-en="Android Download" data-zh="安卓下载"
-                >Android Download</a
-              >
-              ·
-              <a href="/jietuyi/privacy/">Privacy</a>
-            </p>
-          </article>
-
-          <article class="note">
-            <h2 class="note__name">Selah.my</h2>
-            <p class="note__cat" data-en="Quiet rest · iOS &amp; Android" data-zh="安静歇息 · iOS 与 Android">Quiet rest · iOS &amp; Android</p>
-            <p
-              class="note__desc"
-              data-en="Nature scenes, ambient sound, and a rest timer for a quiet pause."
-              data-zh="自然场景、环境声与休息计时，帮你安静歇一口气。"
-            >
-              Nature scenes, ambient sound, and a rest timer for a quiet pause.
-            </p>
-            <p class="note__links">
-              <a href="https://apps.apple.com/app/id6801122212" target="_blank" rel="noopener noreferrer"
-                >App Store</a
-              >
-              ·
-              <a href="/selah-my/privacy/">Privacy</a>
-            </p>
-          </article>
-
-          <article class="note">
-            <h2 class="note__name">听到</h2>
-            <p class="note__cat" data-en="Sermons · Web &amp; Android" data-zh="听道 · 网页与 Android">Sermons · Web &amp; Android</p>
-            <p
-              class="note__desc"
-              data-en="Bible studies and Sunday sermons from around the world, in Chinese — arranged by book of the Bible, with text to read along."
-              data-zh="世界各地的查经与主日讲道，用中文听；按圣经书卷编排，可边听边读。"
-            >
-              Bible studies and Sunday sermons from around the world, in Chinese — arranged by book of the Bible, with text to read along.
-            </p>
-            <p class="note__links">
-              <a href="https://td.askbible.me/" data-en="Web App" data-zh="网页版">Web App</a>
-              ·
-              <a href="https://my-class-media.joshlabs.app/download.html" data-en="Android Download" data-zh="安卓下载"
-                >Android Download</a
-              >
-            </p>
-          </article>
-
-          <article class="note">
-            <h2 class="note__name">查到</h2>
-            <p class="note__cat" data-en="Group Bible Study · iOS &amp; Android" data-zh="小组查经 · iOS 与 Android">Group Bible Study · iOS &amp; Android</p>
-            <p
-              class="note__desc"
-              data-en="An inductive Bible study tool for small-group leaders — read, prepare, lead, and schedule in one place. All content is bundled and works right after install."
-              data-zh="给小组长用的归纳法查经工具：读经、备课、带组、排期，一套做完。内容已全部打包，装上即用。"
-            >
-              An inductive Bible study tool for small-group leaders — read, prepare, lead, and schedule in one place. All content is bundled and works right after install.
-            </p>
-            <p class="note__links">
-              <a href="https://apps.apple.com/app/id6815240486" target="_blank" rel="noopener noreferrer"
-                >App Store</a
-              >
-              ·
-              <a href="https://chadao-media.joshlabs.app/download.html" data-en="Android Download" data-zh="安卓下载"
-                >Android Download</a
-              >
-              ·
-              <a href="https://chadao-media.joshlabs.app/privacy.html" data-en="Privacy" data-zh="隐私">Privacy</a>
-            </p>
-          </article>
-
-          <article class="note">
-            <h2 class="note__name">English +1</h2>
-            <p class="note__cat" data-en="Language Learning · Web App" data-zh="语言学习 · 网页应用">Language Learning · Web App</p>
-            <p
-              class="note__desc"
-              data-en="80 lessons from core verbs to IELTS writing — speaking drills, grammar, and progress tracking, all saved on your device."
-              data-zh="80节课，从核心动词到雅思写作——口语练习、语法与写作结构，学习进度保存在本机。"
-            >
-              80 lessons from core verbs to IELTS writing — speaking drills, grammar, and progress tracking, all saved on your device.
-            </p>
-          </article>
-
-          <article class="note">
-            <h2 class="note__name">English Game</h2>
-            <p class="note__cat" data-en="Language Game · Web &amp; iOS" data-zh="语言游戏 · 网页与 iOS">Language Game · Web &amp; iOS</p>
-            <p
-              class="note__desc"
-              data-en="A Decade Apart: a story RPG for learning English. Your choices unlock dialogue, skills, and voiced narration as you search Toronto for a pen pal you promised to meet ten years ago."
-              data-zh="《十年之约》：用英语能力推进剧情的养成类小游戏，选对台词解锁技能与配音剧情——在多伦多寻找十年前约定见面的笔友。"
-            >
-              A Decade Apart: a story RPG for learning English. Your choices unlock dialogue, skills, and voiced narration as you search Toronto for a pen pal you promised to meet ten years ago.
-            </p>
-            <p class="note__links">
-              <a href="https://unlearn-eng.pages.dev/" data-en="Web App" data-zh="网页版">Web App</a>
-              ·
-              <a href="https://apps.apple.com/app/id6808794026" target="_blank" rel="noopener noreferrer"
-                >App Store</a
-              >
-            </p>
-          </article>
-
-          <article class="note">
-            <h2 class="note__name">榴莲英语 Durian English</h2>
-            <p class="note__cat" data-en="English Course · iOS" data-zh="英语课程 · iOS">English Course · iOS</p>
-            <p
-              class="note__desc"
-              data-en="A full English course set in today's America: 274 everyday dialogues in four levels (A1–B2). Listen, shadow, and memorize — with sentence-by-sentence audio, record-and-compare, and offline listening."
-              data-zh="内容要新，方法要硬。274 课今天的美国生活对话，四阶分级（A1–B2）；听、跟读、背——逐句音频、录音对比、离线随身听。"
-            >
-              A full English course set in today's America: 274 everyday dialogues in four levels (A1–B2). Listen, shadow, and memorize — with sentence-by-sentence audio, record-and-compare, and offline listening.
-            </p>
-            <p class="note__links">
-              <a href="https://durianenglish.joshlabs.app/" target="_blank" rel="noopener noreferrer" data-en="Website" data-zh="官网">Website</a>
-              ·
-              <a href="https://apps.apple.com/app/id6809924643" target="_blank" rel="noopener noreferrer"
-                >App Store</a
-              >
-            </p>
-          </article>
-
-          <article class="note">
-            <h2 class="note__name">PhotoPorter</h2>
-            <p class="note__cat" data-en="Transfer · Android, iPhone &amp; Mac" data-zh="传输 · Android、iPhone 与 Mac">Transfer · Android, iPhone &amp; Mac</p>
+            <div class="note__top">
+              <h2 class="note__name">PhotoPorter</h2>
+              <a class="note__jb-badge" href="/joshbox/" data-en="In JoshBox" data-zh="已内置于 JoshBox">已内置于 JoshBox</a>
+            </div>
+            <p class="note__cat" data-en="Transfer · Android, iPhone &amp; Mac" data-zh="局域网互传 · Android、iPhone 与 Mac">Transfer · Android, iPhone &amp; Mac</p>
             <p
               class="note__desc"
               data-en="LAN file transfer between Android phones, iPhone, and Mac — photos, videos, and files on your Wi‑Fi. No cloud."
@@ -393,6 +511,8 @@
               Wi‑Fi. No cloud.
             </p>
             <p class="note__links">
+              <a href="/photo-porter/" data-en="Subsite" data-zh="独立子站">Subsite</a>
+              ·
               <a href="/photo-porter/download/PhotoPorter-1.0.4.apk">Android APK</a>
               ·
               <a href="https://play.google.com/store/apps/details?id=app.joshlabs.phonexfer" target="_blank" rel="noopener noreferrer">Google Play</a>
@@ -406,7 +526,162 @@
           </article>
 
           <article class="note">
-            <h2 class="note__name">好师傅 GoodPro</h2>
+            <div class="note__top">
+              <h2 class="note__name">JoshMoney</h2>
+              <a class="note__jb-badge" href="/joshbox/" data-en="In JoshBox" data-zh="已内置于 JoshBox">已内置于 JoshBox</a>
+            </div>
+            <p class="note__cat" data-en="Bookkeeping · iOS &amp; Android" data-zh="记账报税 · iOS 与 Android">Bookkeeping · iOS &amp; Android</p>
+            <p
+              class="note__desc"
+              data-en="Free books for companies, businesses &amp; sole props: live reports, tax-prep assistant, invoices, payroll, team books &amp; insights. CA/US tax-form exports."
+              data-zh="给公司、商业、个体户的记账本：实况报表、报税助手、发票、工资、多人记账、经营分析。美加优化报税表。"
+            >
+              Free books for companies, businesses &amp; sole props: live reports, tax-prep assistant, invoices, payroll, team books &amp; insights. CA/US tax-form exports.
+            </p>
+            <p class="note__links">
+              <a href="/joshmoney/" data-en="Subsite" data-zh="独立子站">Subsite</a>
+              ·
+              <a href="https://apps.apple.com/ca/app/joshmoney/id6780067998?uo=4" target="_blank" rel="noopener noreferrer">App Store</a>
+              ·
+              <a href="https://play.google.com/store/apps/details?id=ca.joshmoney.app" target="_blank" rel="noopener noreferrer">Google Play</a>
+              ·
+              <a href="/joshmoney/privacy/">Privacy</a>
+            </p>
+          </article>
+
+          <article class="note">
+            <div class="note__top">
+              <h2 class="note__name">Cabinet X</h2>
+              <a class="note__jb-badge" href="/joshbox/" data-en="In JoshBox" data-zh="已内置于 JoshBox">已内置于 JoshBox</a>
+            </div>
+            <p class="note__cat" data-en="Kitchen Design · Web, iOS &amp; Android" data-zh="厨房设计 · Web、iOS 与 Android">Kitchen Design · Web, iOS &amp; Android</p>
+            <p
+              class="note__desc"
+              data-en="Upload a kitchen photo, choose door styles and materials, and preview an AI before/after redesign."
+              data-zh="上传厨房照片，选择门型与材质，AI 生成改造前后对比图。"
+            >
+              Upload a kitchen photo, choose door styles and materials, and preview an AI before/after redesign.
+            </p>
+            <p class="note__links">
+              <a href="/cabinet-x/" data-en="Subsite" data-zh="独立子站">Subsite</a>
+              ·
+              <a href="https://apps.apple.com/app/id6785025926" target="_blank" rel="noopener noreferrer">App Store</a>
+              ·
+              <a href="https://play.google.com/store/apps/details?id=com.cabinetx.app" target="_blank" rel="noopener noreferrer">Google Play</a>
+              ·
+              <a href="/cabinet-x/privacy/">Privacy</a>
+            </p>
+          </article>
+
+          <article class="note">
+            <div class="note__top">
+              <h2 class="note__name">截图译</h2>
+              <a class="note__jb-badge" href="/joshbox/" data-en="In JoshBox" data-zh="已内置于 JoshBox">已内置于 JoshBox</a>
+            </div>
+            <p class="note__cat" data-en="Screenshot Translator · iOS &amp; Android" data-zh="截图翻译 · iOS 与 Android">Screenshot Translator · iOS &amp; Android</p>
+            <p
+              class="note__desc"
+              data-en="Screenshot any English you can't read and get it side by side in Chinese. Tap a word for meaning and pronunciation — it's saved with its sentence to your wordbook."
+              data-zh="看到看不懂的外文，截个图，整段中英对照马上出来。点任意单词看释义、听发音，查过的词连同原句留进生词本。"
+            >
+              Screenshot any English you can't read and get it side by side in Chinese. Tap a word for meaning and pronunciation — it's saved with its sentence to your wordbook.
+            </p>
+            <p class="note__links">
+              <a href="/jietuyi/" data-en="Subsite" data-zh="独立子站">Subsite</a>
+              ·
+              <a href="https://apps.apple.com/app/id6812111067" target="_blank" rel="noopener noreferrer">App Store</a>
+              ·
+              <a href="https://jietuyi-media.joshlabs.app/download.html" data-en="Android Download" data-zh="安卓下载">Android Download</a>
+              ·
+              <a href="/jietuyi/privacy/">Privacy</a>
+            </p>
+          </article>
+
+          <article class="note">
+            <div class="note__top">
+              <h2 class="note__name">榴莲英语 Durian English</h2>
+              <a class="note__jb-badge" href="/joshbox/" data-en="In JoshBox" data-zh="已内置于 JoshBox">已内置于 JoshBox</a>
+            </div>
+            <p class="note__cat" data-en="English Course · Web &amp; iOS" data-zh="英语课程 · 网页与 iOS">English Course · Web &amp; iOS</p>
+            <p
+              class="note__desc"
+              data-en="A full English course set in today's America: 274 everyday dialogues in four levels (A1–B2). Listen, shadow, and memorize — with sentence-by-sentence audio, record-and-compare, and offline listening."
+              data-zh="内容要新，方法要硬。274 课今天的美国生活对话，四阶分级（A1–B2）；听、跟读、背——逐句音频、录音对比、离线随身听。"
+            >
+              A full English course set in today's America: 274 everyday dialogues in four levels (A1–B2). Listen, shadow, and memorize — with sentence-by-sentence audio, record-and-compare, and offline listening.
+            </p>
+            <p class="note__links">
+              <a href="https://durianenglish.joshlabs.app/" target="_blank" rel="noopener noreferrer" data-en="Website" data-zh="独立官网">Website</a>
+              ·
+              <a href="https://apps.apple.com/app/id6809924643" target="_blank" rel="noopener noreferrer">App Store</a>
+            </p>
+          </article>
+
+          <article class="note">
+            <div class="note__top">
+              <h2 class="note__name">别学英语 · Unlearn English</h2>
+              <a class="note__jb-badge" href="/joshbox/" data-en="In JoshBox" data-zh="已内置于 JoshBox">已内置于 JoshBox</a>
+            </div>
+            <p class="note__cat" data-en="Language Game · Web &amp; iOS" data-zh="语言游戏 · 网页与 iOS">Language Game · Web &amp; iOS</p>
+            <p
+              class="note__desc"
+              data-en="A Decade Apart: a story RPG for learning English. Your choices unlock dialogue, skills, and voiced narration as you search Toronto for a pen pal you promised to meet ten years ago."
+              data-zh="《十年之约》：用英语能力推进剧情的养成类小游戏，选对台词解锁技能与配音剧情——在多伦多寻找十年前约定见面的笔友。"
+            >
+              A Decade Apart: a story RPG for learning English. Your choices unlock dialogue, skills, and voiced narration as you search Toronto for a pen pal you promised to meet ten years ago.
+            </p>
+            <p class="note__links">
+              <a href="https://unlearn-eng.pages.dev/" data-en="Web App" data-zh="网页版">Web App</a>
+              ·
+              <a href="https://apps.apple.com/app/id6808794026" target="_blank" rel="noopener noreferrer">App Store</a>
+            </p>
+          </article>
+
+          <article class="note">
+            <div class="note__top">
+              <h2 class="note__name">English +1</h2>
+              <a class="note__jb-badge" href="/joshbox/" data-en="In JoshBox" data-zh="已内置于 JoshBox">已内置于 JoshBox</a>
+            </div>
+            <p class="note__cat" data-en="Language Learning · Web App" data-zh="语言学习 · 网页应用">Language Learning · Web App</p>
+            <p
+              class="note__desc"
+              data-en="80 lessons from core verbs to IELTS writing — speaking drills, grammar, and progress tracking, all saved on your device."
+              data-zh="80节课，从核心动词到雅思写作——口语练习、语法与写作结构，学习进度保存在本机。"
+            >
+              80 lessons from core verbs to IELTS writing — speaking drills, grammar, and progress tracking, all saved on your device.
+            </p>
+            <p class="note__links">
+              <a href="/english/" data-en="Open Web App" data-zh="打开网页版">Open Web App</a>
+            </p>
+          </article>
+
+          <article class="note">
+            <div class="note__top">
+              <h2 class="note__name">Selah.my</h2>
+              <a class="note__jb-badge" href="/joshbox/" data-en="In JoshBox" data-zh="已内置于 JoshBox">已内置于 JoshBox</a>
+            </div>
+            <p class="note__cat" data-en="Quiet rest · macOS Widget &amp; iOS" data-zh="安静歇息 · 桌面计时与 iOS">Quiet rest · macOS Widget &amp; iOS</p>
+            <p
+              class="note__desc"
+              data-en="Nature scenes, ambient sound, and a rest timer for a quiet pause."
+              data-zh="自然场景、环境声与休息计时，帮你安静歇一口气。"
+            >
+              Nature scenes, ambient sound, and a rest timer for a quiet pause.
+            </p>
+            <p class="note__links">
+              <a href="/selah-my/" data-en="Subsite" data-zh="独立子站">Subsite</a>
+              ·
+              <a href="https://apps.apple.com/app/id6801122212" target="_blank" rel="noopener noreferrer">App Store</a>
+              ·
+              <a href="/selah-my/privacy/">Privacy</a>
+            </p>
+          </article>
+
+          <article class="note">
+            <div class="note__top">
+              <h2 class="note__name">好师傅 GoodPro</h2>
+              <a class="note__jb-badge" href="/joshbox/" data-en="In JoshBox" data-zh="已内置于 JoshBox">已内置于 JoshBox</a>
+            </div>
             <p class="note__cat" data-en="Local Services · Web App" data-zh="本地师傅 · 网页应用">Local Services · Web App</p>
             <p
               class="note__desc"
@@ -430,6 +705,16 @@
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      const ua = (navigator.userAgent || navigator.platform || "").toLowerCase();
+      if (ua.includes("win")) {
+        const macBtn = document.getElementById("jb-dl-mac");
+        const winBtn = document.getElementById("jb-dl-win");
+        if (macBtn && winBtn) {
+          macBtn.classList.remove("is-primary");
+          winBtn.classList.add("is-primary");
+        }
+      }
 
       const topbar = document.getElementById("topbar");
       const toggleTopbar = () => {

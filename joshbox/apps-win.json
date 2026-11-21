@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 1,
+  "platform": "windows",
+  "updatedAt": "2026-11-20",
+  "apps": [
+    {
+      "id": "jl-photoporter",
+      "name": "PhotoPorter",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "Android、iPhone 与 Mac 局域网高速直传照片、视频与大文件，不经云",
+      "downloadUrl": "https://joshlabs.app/photo-porter/"
+    },
+    {
+      "id": "jl-joshmoney",
+      "name": "JoshMoney 记账报税",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "公司、个体户免费记账本：实况报表、发票工资、美加优化报税表",
+      "downloadUrl": "https://joshlabs.app/joshmoney/"
+    },
+    {
+      "id": "jl-cabinetx",
+      "name": "Cabinet X 厨房设计",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "上传厨房实景照片，AI 生成门型与材质改造前后高清对比图",
+      "downloadUrl": "https://joshlabs.app/cabinet-x/"
+    },
+    {
+      "id": "jl-jietuyi",
+      "name": "截图译",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "外文截图秒出整段中英对照，点词听发音并连同原句存入生词本",
+      "downloadUrl": "https://joshlabs.app/jietuyi/"
+    },
+    {
+      "id": "jl-durian",
+      "name": "榴莲英语 Durian English",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "274 课当代美国生活对话（A1–B2），逐句音频、录音对比与离线随身听",
+      "downloadUrl": "https://durianenglish.joshlabs.app/"
+    },
+    {
+      "id": "jl-unlearn",
+      "name": "别学英语 & English +1",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "《十年之约》英语剧情养成游戏 + 80 课核心动词到写作训练",
+      "downloadUrl": "https://unlearn-eng.pages.dev/"
+    },
+    {
+      "id": "jl-selah",
+      "name": "Selah.my 安静小憩",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "离线自然声景、环境白噪音与温和休息计时，零推送打扰",
+      "downloadUrl": "https://joshlabs.app/selah-my/"
+    },
+    {
+      "id": "jl-goodpro",
+      "name": "好师傅 GoodPro",
+      "category": "JoshLabs 自研全家桶",
+      "summary": "多伦多本地维修安装师傅对接平台：发布需求、透明比价选定",
+      "downloadUrl": "https://goodpro-alpha.vercel.app"
+    },
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "category": "AI 专栏",
+      "summary": "OpenAI 官方桌面客户端，支持快捷键随时唤起对话与语音",
+      "wingetId": "OpenAI.ChatGPT",
+      "downloadUrl": "https://openai.com/chatgpt/download/"
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "category": "AI 专栏",
+      "summary": "Anthropic 官方桌面端，擅长深度写作、编程与 MCP 工具扩展",
+      "wingetId": "Anthropic.Claude",
+      "downloadUrl": "https://claude.ai/download"
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "category": "AI 专栏",
+      "summary": "主流 AI 代码编辑器，深度融合代码补全与多文件 Agent 协作",
+      "wingetId": "Anysphere.Cursor",
+      "downloadUrl": "https://www.cursor.com/downloads"
+    },
+    {
+      "id": "cherry-studio",
+      "name": "Cherry Studio",
+      "category": "AI 专栏",
+      "summary": "开源全能多模型 AI 桌面客户端，聚合 OpenAI/Claude/Gemini/DeepSeek",
+      "wingetId": "Kangfenmao.CherryStudio",
+      "downloadUrl": "https://cherry-ai.com/download"
+    },
+    {
+      "id": "ollama",
+      "name": "Ollama",
+      "category": "AI 专栏",
+      "summary": "一键在本地运行 DeepSeek / Qwen / Llama 等开源大模型",
+      "wingetId": "Ollama.Ollama",
+      "downloadUrl": "https://ollama.com/download/windows"
+    },
+    {
+      "id": "lm-studio",
+      "name": "LM Studio",
+      "category": "AI 专栏",
+      "summary": "可视化本地大模型运行与管理桌面端，零命令行门槛",
+      "wingetId": "ElementLabs.LMStudio",
+      "downloadUrl": "https://lmstudio.ai/"
+    },
+    {
+      "id": "doubao",
+      "name": "豆包",
+      "category": "AI 专栏",
+      "summary": "字节跳动官方 AI 助手桌面端，支持划词、文档总结与语音对话",
+      "wingetId": "ByteDance.Doubao",
+      "downloadUrl": "https://www.doubao.com/download/desktop"
+    },
+    {
+      "id": "sogou-wubi",
+      "name": "搜狗五笔输入法",
+      "category": "输入法与效率",
+      "summary": "经典好用的五笔输入法，支持五笔拼音混输与个人词库同步",
+      "wingetId": "Sogou.SogouWubi",
+      "downloadUrl": "https://wubi.sogou.com/"
+    },
+    {
+      "id": "everything",
+      "name": "Everything",
+      "category": "输入法与效率",
+      "summary": "Windows 必装全盘文件毫秒级秒搜神器，极低内存占用",
+      "wingetId": "voidtools.Everything",
+      "downloadUrl": "https://www.voidtools.com/"
+    },
+    {
+      "id": "snipaste",
+      "name": "Snipaste",
+      "category": "输入法与效率",
+      "summary": "最好用的免费截图 + 屏幕贴图工具，F1 截图 F3 贴图",
+      "wingetId": "liule.Snipaste",
+      "downloadUrl": "https://www.snipaste.com/"
+    },
+    {
+      "id": "powertoys",
+      "name": "Microsoft PowerToys",
+      "category": "输入法与效率",
+      "summary": "微软官方效率套件：快捷启动、窗口分屏、屏幕取色、文字 OCR",
+      "wingetId": "Microsoft.PowerToys",
+      "downloadUrl": "https://learn.microsoft.com/windows/powertoys/"
+    },
+    {
+      "id": "7zip",
+      "name": "7-Zip",
+      "category": "输入法与效率",
+      "summary": "开源极速压缩/解压工具，零广告彻底替代收费解压软件",
+      "wingetId": "7zip.7zip",
+      "downloadUrl": "https://www.7-zip.org/"
+    },
+    {
+      "id": "localsend",
+      "name": "LocalSend",
+      "category": "输入法与效率",
+      "summary": "开源局域网免登录高速互传大文件，支持 Win / Mac / iOS / Android",
+      "wingetId": "LocalSend.LocalSend",
+      "downloadUrl": "https://localsend.org/download"
+    },
+    {
+      "id": "notepadpp",
+      "name": "Notepad++",
+      "category": "输入法与效率",
+      "summary": "轻量秒开超大文本、代码与日志文件的经典编辑器",
+      "wingetId": "Notepad++.Notepad++",
+      "downloadUrl": "https://notepad-plus-plus.org/downloads/"
+    },
+    {
+      "id": "geek-uninstaller",
+      "name": "Geek Uninstaller",
+      "category": "输入法与效率",
+      "summary": "极轻免安装的深度卸载工具，自动清理注册表与残留文件",
+      "wingetId": "GeekUninstaller.GeekUninstaller",
+      "downloadUrl": "https://geekuninstaller.com/download"
+    },
+    {
+      "id": "wechat",
+      "name": "微信 WeChat",
+      "category": "通讯与办公",
+      "summary": "日常沟通与文件传输必备官方桌面端",
+      "wingetId": "Tencent.WeChat",
+      "downloadUrl": "https://pc.weixin.qq.com/"
+    },
+    {
+      "id": "feishu",
+      "name": "飞书",
+      "category": "通讯与办公",
+      "summary": "一体化团队协作、云文档与多维表格办公套件",
+      "wingetId": "ByteDance.Feishu",
+      "downloadUrl": "https://www.feishu.cn/download"
+    },
+    {
+      "id": "telegram",
+      "name": "Telegram",
+      "category": "通讯与办公",
+      "summary": "极速跨平台云端即时通讯与大文件传输工具",
+      "wingetId": "Telegram.TelegramDesktop",
+      "downloadUrl": "https://desktop.telegram.org/"
+    },
+    {
+      "id": "notion",
+      "name": "Notion",
+      "category": "通讯与办公",
+      "summary": "模块化笔记、知识库与项目协作空间",
+      "wingetId": "Notion.Notion",
+      "downloadUrl": "https://www.notion.so/desktop"
+    },
+    {
+      "id": "obsidian",
+      "name": "Obsidian",
+      "category": "通讯与办公",
+      "summary": "本地优先的 Markdown 双向链接个人知识库",
+      "wingetId": "Obsidian.Obsidian",
+      "downloadUrl": "https://obsidian.md/download"
+    },
+    {
+      "id": "wps",
+      "name": "WPS Office",
+      "category": "通讯与办公",
+      "summary": "兼容 Word / Excel / PPT / PDF 的轻量办公套件",
+      "wingetId": "Kingsoft.WPSOffice.CN",
+      "downloadUrl": "https://platform.wps.cn/"
+    },
+    {
+      "id": "chrome",
+      "name": "Google Chrome",
+      "category": "浏览器与网络",
+      "summary": "生态最全、速度领先的主流网页浏览器",
+      "wingetId": "Google.Chrome",
+      "downloadUrl": "https://www.google.com/chrome/"
+    },
+    {
+      "id": "clash-verge",
+      "name": "Clash Verge Rev",
+      "category": "浏览器与网络",
+      "summary": "基于 Tauri 的开源轻量跨平台网络代理客户端",
+      "wingetId": "ClashVergeRev.ClashVergeRev",
+      "downloadUrl": "https://github.com/clash-verge-rev/clash-verge-rev/releases"
+    },
+    {
+      "id": "rustdesk",
+      "name": "RustDesk",
+      "category": "浏览器与网络",
+      "summary": "开源免费、支持自建中继的流畅远程桌面控制工具",
+      "wingetId": "RustDesk.RustDesk",
+      "downloadUrl": "https://rustdesk.com/"
+    },
+    {
+      "id": "vscode",
+      "name": "Visual Studio Code",
+      "category": "开发工具",
+      "summary": "微软开源全能代码编辑器，插件生态极其丰富",
+      "wingetId": "Microsoft.VisualStudioCode",
+      "downloadUrl": "https://code.visualstudio.com/"
+    },
+    {
+      "id": "git",
+      "name": "Git",
+      "category": "开发工具",
+      "summary": "版本控制与 Git Bash 命令行必备环境",
+      "wingetId": "Git.Git",
+      "downloadUrl": "https://git-scm.com/download/win"
+    },
+    {
+      "id": "nodejs",
+      "name": "Node.js (LTS)",
+      "category": "开发工具",
+      "summary": "长期支持版 JavaScript / TypeScript 运行环境与 npm",
+      "wingetId": "OpenJS.NodeJS.LTS",
+      "downloadUrl": "https://nodejs.org/"
+    },
+    {
+      "id": "python3",
+      "name": "Python 3.12",
+      "category": "开发工具",
+      "summary": "自动化脚本、AI 工具与数据处理必备语言环境",
+      "wingetId": "Python.Python.3.12",
+      "downloadUrl": "https://www.python.org/downloads/windows/"
+    },
+    {
+      "id": "windows-terminal",
+      "name": "Windows Terminal",
+      "category": "开发工具",
+      "summary": "微软现代多标签终端，支持 PowerShell / WSL / SSH",
+      "wingetId": "Microsoft.WindowsTerminal",
+      "downloadUrl": "https://aka.ms/terminal"
+    },
+    {
+      "id": "docker",
+      "name": "Docker Desktop",
+      "category": "开发工具",
+      "summary": "容器化开发与本地服务编排标准工具",
+      "wingetId": "Docker.DockerDesktop",
+      "downloadUrl": "https://www.docker.com/products/docker-desktop/"
+    },
+    {
+      "id": "potplayer",
+      "name": "PotPlayer",
+      "category": "影音与设计",
+      "summary": "Windows 口碑第一的万能本地高清播放器，解码流畅",
+      "wingetId": "Daum.PotPlayer",
+      "downloadUrl": "https://potplayer.daum.net/"
+    },
+    {
+      "id": "jianying",
+      "name": "剪映专业版",
+      "category": "影音与设计",
+      "summary": "上手极快的全能视频剪辑与智能字幕工具",
+      "wingetId": "ByteDance.JianyingPro",
+      "downloadUrl": "https://www.capcut.cn/"
+    },
+    {
+      "id": "figma",
+      "name": "Figma",
+      "category": "影音与设计",
+      "summary": "主流 UI/UX 界面设计与团队实时协作工具",
+      "wingetId": "Figma.Figma",
+      "downloadUrl": "https://www.figma.com/downloads/"
+    },
+    {
+      "id": "obs",
+      "name": "OBS Studio",
+      "category": "影音与设计",
+      "summary": "开源专业录屏与直播推流软件",
+      "wingetId": "OBSProject.OBSStudio",
+      "downloadUrl": "https://obsproject.com/"
+    }
+  ]
+}

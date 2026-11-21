@@ -36,7 +36,7 @@
 - **决定了什么**：
   1. 首页新增「榴莲英语 Durian English」磁贴（链官网 `https://durianenglish.joshlabs.app/`）和说明条目（官网 + App Store id6809924643），
      图标 `assets/icons/durian-english.png` 取自 App Store 现行图标。
-  2. 好师傅 GoodPro：磁贴状态点 review → live，说明里去掉「内部测试版 / Internal test build」，加「网页版」链接。
+  2. ~~好师傅 GoodPro：磁贴状态点 review → live，说明里去掉「内部测试版 / Internal test build」，加「网页版」链接。~~（已作废 2026-11-20，见 D-6）
      链接仍是 `https://goodpro-alpha.vercel.app`（GoodPro 项目里只找到这一个地址；App Store / Google Play 上都没查到 `app.joshlabs.goodpro`）。
   3. `assets/icons/cabinet-x.png` 换成 App Store 上的现行图标（和原来那张像素差很大，是旧版）；
      截图译、Selah 的站内图标和商店一致，好师傅的和线上网页版一致，没动。
@@ -51,6 +51,11 @@
 - **为什么**：仓库比线上旧一大截，原来任何一次不带 `[skip ci]` 的 push 都会用旧内容覆盖线上。Josh「你决定」。
   注意手动触发那个 workflow 仍是 `pages deploy .`（发整个仓库，不走 publish.mjs 的排除清单），平时别点。
 - **日期**：2026-10-01
+
+### D-6 暂时下架「好师傅 GoodPro」门户入口并关停其 Vercel 线上网页（2026-11-20）
+- **决定了什么**：从 `00JoshLabs` 首页移除「好师傅 GoodPro」磁贴与说明卡片并重新发布 `joshlabs.app`；备份 Vercel `joshlabs/goodpro` 环境变量到 `GoodPro好师傅/web/.env.vercel-backup.local` 后，删除 Vercel `joshlabs` 团队下的 `goodpro` 项目（使 `https://goodpro-alpha.vercel.app` 下线）。本地源码目录 `GoodPro好师傅/` 保留。
+- **为什么**：Josh「好师傅目前我想让它先下掉，包括网页，因为这个没有开发好，然后 Vercel 关停掉」。注：Vercel 另一团队 `joshlabsapp` 下的 `askbibleme` 因仍在承接 `askbible.joshlabs.app` 及刚刚合并的提交（且 `askbible.me` Worker 当前报 500/1101），暂未删除，待 Josh 确认。
+- **日期**：2026-11-20（已上线）
 
 ## 已作废
 

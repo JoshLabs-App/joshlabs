@@ -1,7 +1,7 @@
 {
-  "name": "JoshLabs",
+  "name": "JoshLabs — JoshBox & Practical Apps",
   "short_name": "JoshLabs",
-  "description": "Independent app studio — AskBible.me, JoshMoney, Cabinet X.",
+  "description": "JoshBox all-in-one modular launcher and practical apps — JOSH System Load, PhotoPorter, JoshMoney, Cabinet X, and more.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f7f6f3",

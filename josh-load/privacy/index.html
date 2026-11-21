@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JOSH本机资源负载 隐私政策 Privacy Policy · JoshLabs</title>
+    <meta name="description" content="JOSH本机资源负载（JOSH System Load）隐私政策 — JoshLabs." />
+    <meta name="theme-color" content="#121110" />
+    <link rel="icon" href="/assets/icons/joshlabs.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../../assets/styles.css" />
+    <link rel="canonical" href="https://joshlabs.app/josh-load/privacy/" />
+  </head>
+  <body>
+    <header class="topbar" id="topbar">
+      <div class="shell topbar__inner">
+        <a class="brand" href="/">
+          <span class="brand__mark" aria-hidden="true">JL</span>
+          <span class="brand__name">Josh<span class="wordmark__labs">Labs</span></span>
+        </a>
+        <a class="topbar__contact" href="mailto:josh.zeng.ca@gmail.com">Contact</a>
+      </div>
+    </header>
+
+    <main class="legal shell">
+      <header class="legal__header">
+        <a class="page-hero__back" href="/josh-load/">← JOSH本机资源负载</a>
+        <p class="hero__eyebrow">Privacy Policy · 隐私政策</p>
+        <h1>JOSH本机资源负载 · JOSH System Load</h1>
+        <p class="legal__meta">Effective November 14, 2026 · 生效日期：2026年11月14日</p>
+        <nav class="legal__nav" aria-label="Language">
+          <a href="#zh">中文</a>
+          <a href="#en">English</a>
+          <a href="mailto:josh.zeng.ca@gmail.com">Support</a>
+        </nav>
+      </header>
+
+      <div class="legal__body">
+        <section id="zh" lang="zh-Hans">
+          <h2>概述</h2>
+          <p>JOSH本机资源负载（JOSH System Load）由 Joshua Zeng（JoshLabs，加拿大，官网 <a href="https://joshlabs.app">https://joshlabs.app</a>）开发。本软件是一款运行于 macOS 本机的硬件负载可视化与全球网络连接管控工具，无需注册账号，无广告、无行为追踪。</p>
+
+          <h2>本机硬件与进程数据</h2>
+          <p>CPU、GPU、统一内存、Swap、磁盘吞吐及进程列表均通过 macOS Darwin / Mach / IOKit 系统接口在您的设备本机实时读取并展示。<strong>您的进程清单、命令行参数、内存占用与使用习惯绝不会上传至 JoshLabs 服务器或任何第三方。</strong></p>
+
+          <h2>全球网络地图与归属地解析</h2>
+          <p>当您查看「全球网络与禁访问」页面时，应用通过 macOS 系统自带工具读取本机当前活跃公网套接字的目标 IP 与实时字节吞吐。为在世界地图上绘制航线坐标与国家城市，应用仅将公网远端目标 IP 发送至公共 GeoIP 地理定位接口查询经纬度与自治系统机构名称，并将解析结果缓存在本机应用支持目录（<code>~/Library/Application Support/app.joshlabs.macpulse/</code>），不包含任何应用名称、进程信息或个人身份信息。</p>
+
+          <h2>进程清理与系统级禁访问权限</h2>
+          <p>终止进程（释放内存）仅对您主动点击确认的目标生效；执行「深度清缓存（purge）」或「禁访问（写入受管 <code>/etc/hosts</code> 段落与 <code>/etc/pf.anchors/com.joshlabs.macpulse</code> 防火墙锚点）」时，macOS 会弹出系统标准管理员授权框，仅在您本人授权后在本机执行，且随时可一键恢复全部访问限制。</p>
+
+          <h2>静默前端更新检查</h2>
+          <p>应用启动时会向 <code>https://joshlabs.app/josh-load/ui-manifest.json</code> 检查是否有经过 SHA-256 校验的前端界面增量更新包，该请求不携带任何用户标识或设备遥测数据。</p>
+
+          <h2>联系我们</h2>
+          <p>如有任何隐私或技术问题，请发邮件至 <a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a>。</p>
+        </section>
+
+        <section id="en" lang="en">
+          <h2>Overview</h2>
+          <p>JOSH System Load (JOSH本机资源负载) is developed by Joshua Zeng (JoshLabs, Canada · <a href="https://joshlabs.app">https://joshlabs.app</a>). It is a native macOS system load cockpit and outbound network firewall utility. No account is required, and there are no ads or analytics trackers.</p>
+
+          <h2>Local Hardware &amp; Process Telemetry</h2>
+          <p>CPU, GPU, unified memory, swap, disk I/O, and process metrics are read directly on your Mac via Darwin, Mach, and IOKit APIs. <strong>Your process list, memory usage, and command-line metadata never leave your Mac.</strong></p>
+
+          <h2>World Map &amp; GeoIP Lookup</h2>
+          <p>To render live flight arcs on the World Map tab, public destination IP addresses of active sockets are resolved against public GeoIP lookup endpoints to obtain city/country coordinates and ASN organization names, then cached locally on your Mac. Neither app names nor personal identifiers are transmitted.</p>
+
+          <h2>Process Termination &amp; Firewall Controls</h2>
+          <p>Memory reclamation and firewall blocking (managed entries in <code>/etc/hosts</code> and <code>/etc/pf.anchors/com.joshlabs.macpulse</code>) run strictly locally on your Mac when triggered by you, using standard macOS administrator authorization prompts when system-level changes are requested.</p>
+
+          <h2>Contact</h2>
+          <p><a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a></p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="shell site-footer">
+      <p><a href="mailto:josh.zeng.ca@gmail.com">josh.zeng.ca@gmail.com</a></p>
+      <p>© <span id="year"></span> Joshua Zeng · <a href="/">Josh<span class="wordmark__labs">Labs</span></a></p>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+      const topbar = document.getElementById("topbar");
+      const toggleTopbar = () => topbar.classList.toggle("is-scrolled", window.scrollY > 8);
+      toggleTopbar();
+      window.addEventListener("scroll", toggleTopbar, { passive: true });
+    </script>
+  </body>
+</html>
